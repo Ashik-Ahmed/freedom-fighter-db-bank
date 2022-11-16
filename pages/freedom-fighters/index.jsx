@@ -21,7 +21,7 @@ const Home = ({ freedomFighters }) => {
             <div className="overflow-x-auto m-8">
                 <div className='max-w-7xl mx-auto'>
                     <div className='bg-primary p-2 rounded-md inline-block mb-2'>
-                        <Link href='/freedom-fighters/add-new' className='flex items-center gap-x-2'><SiAddthis /> Add Freedom Fighter</Link>
+                        <Link href={`${router.asPath}/add-new`} className='flex items-center gap-x-2'><SiAddthis /> Add Freedom Fighter</Link>
                     </div>
                     <table className="table-auto container w-full mx-auto shadow-md mb-8">
                         <thead className='bg-primary '>
