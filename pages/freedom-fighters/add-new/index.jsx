@@ -78,6 +78,9 @@ const index = () => {
             body: JSON.stringify(fighter),
         }).then(res => res.json()).then(data => {
             console.log(data)
+            if (data.status == 'success') {
+                e.target.reset();
+            }
         })
     }
 

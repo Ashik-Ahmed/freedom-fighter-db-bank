@@ -9,7 +9,7 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
 
     const [deleteModal, setDeleteModal] = useState()
 
-    const { _id, name, mobile, officialRank, freedomFighterRank, invited } = freedomFighter;
+    const { _id, name, status, force, officialRank, freedomFighterRank, invited } = freedomFighter;
 
     const router = useRouter()
 
@@ -31,9 +31,10 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
     return (
         <tr className='border-b text-gray-500'>
             <td className='p-2'>{name}</td>
-            <td>{mobile}</td>
+            <td>{force}</td>
             <td>{officialRank.rank}</td>
             <td>{freedomFighterRank.rank}</td>
+            <td className={status == 'Dead' ? 'text-red-600' : ''}>{status}</td>
             <td>{invited.length} Times</td>
             <td className='flex gap-x-3 p-2'>
                 <BsInfoSquareFill size='24' color='#070225' className='cursor-pointer' onClick={() => router.push(`/freedom-fighters/${_id}`)} />
