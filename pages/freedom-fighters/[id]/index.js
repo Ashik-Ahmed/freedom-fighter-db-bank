@@ -2,14 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { getSingleFreedomFighter } from '../../controllers/freedomFighter.controller';
-import photo from '../../Images/photo.png'
+import { getSingleFreedomFighter } from '../../../controllers/freedomFighter.controller';
+import photo from '../../../Images/photo.png'
 
-const Details = ({ children }) => {
+const FreedomFighter = ({ query, children }) => {
 
     const router = useRouter();
     const { id } = router.query;
     const [freedomFighter, setFreedomFighter] = useState()
+
+    console.log(query);
 
     useEffect(() => {
         getSingleFreedomFighter(id)
@@ -53,9 +55,9 @@ const Details = ({ children }) => {
                         <p>Invited Year: {freedomFighter?.invited?.map((year, index) => <span key={index}>{year}, </span>)}</p> */}
 
                         <div className='flex flex-col gap-y-2'>
-                            <Link href={`/freedom-fighters/${freedomFighter?._id}`} className='bg-primary bg-opacity-80 p-2 text-white'> <span >Details</span></Link>
-                            <Link href={`/freedom-fighters/successor`} className='bg-primary bg-opacity-80 p-2 text-white'><span >Successor Info</span></Link>
-                            <Link href={`/freedom-fighters/successor`} className='bg-primary bg-opacity-80 p-2 text-white'><span >Complaint History</span></Link>
+                            <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'> <span >Details</span></Link>
+                            <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Successor Info</span></Link>
+                            <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Complaint History</span></Link>
                         </div>
                     </div>
                     <div className='w-3/4'>
@@ -67,4 +69,15 @@ const Details = ({ children }) => {
     );
 };
 
-export default Details;
+export default FreedomFighter;
+
+// export const getStaticProps = async (context) => {
+//     const { query } = context
+//     console.log(query);
+
+//     return {
+//         props: {
+//             query
+//         }
+//     }
+// }

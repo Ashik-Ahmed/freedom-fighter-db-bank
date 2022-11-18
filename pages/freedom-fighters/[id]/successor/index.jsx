@@ -1,10 +1,15 @@
+import { useRouter } from 'next/router';
 import React from 'react';
-import Details from '../[id]';
+import FreedomFighter from '..';
 
-const successor = () => {
+const Successor = () => {
+    const router = useRouter();
+    const { id } = router.query;
+    console.log(id)
+
     // console.log(pageProps);
     return (
-        <Details>
+        <FreedomFighter>
             <div className='w-full'>
                 <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
                     <h3>Successor Information</h3>
@@ -23,8 +28,8 @@ const successor = () => {
                     </div>
                 </div>
             </div>
-        </Details>
+        </FreedomFighter>
     );
 };
 
-export default successor;
+export default Successor;

@@ -26,7 +26,6 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
         if (filter) {
             url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}&force=${filter || {}}`
         }
-        console.log(url)
 
         fetch(url)
             .then(res => res.json())
@@ -133,7 +132,6 @@ export default Home;
 
 export const getStaticProps = async (context) => {
     const { totalFreedomFighterCount, freedomFighters } = await getFreedomFighters();
-    console.log(freedomFighters)
     const result = JSON.parse(JSON.stringify(freedomFighters))
 
     return {
