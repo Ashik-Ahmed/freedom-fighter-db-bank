@@ -32,18 +32,24 @@ const FreedomFighter = ({ query, children }) => {
         <div className='text-primary'>
             <div className='max-w-7xl mx-auto m-12 bg-white rounded-md'>
                 <div className='flex p-4 gap-x-12'>
-                    <div className='bg-secondary bg-opacity-40 p-4 w-1/4'>
-                        <div className="avatar w-full">
-                            <div className="relative mx-auto w-24 md:w-36 rounded-full">
-                                <Image
-                                    priority
-                                    src={photo} alt='freedomFighterPhoto'
-                                    layout='fill'
-                                    objectFit='contain'
-                                    className='rounded-full border border-red-500' />
+                    <div className='flex flex-col justify-between bg-secondary bg-opacity-40 p-4 w-1/3'>
+                        <div className="flex justify-between items-center w-full mb-8">
+                            <div className=''>
+                                <p> <span className='text-xl font-bold'>{freedomFighter?.name}</span> <span className='italic'>({freedomFighter?.force})</span></p>
+                                <p> <span className='font-semibold'>Freedom Fighter #</span> {freedomFighter?.id || 'N/A'} </p>
+                                <p><span className='font-semibold'>Designation:</span> {freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
+                            </div>
+                            <div className="avatar">
+                                <div className="w-28">
+                                    <Image
+                                        priority
+                                        src={photo} alt='freedomFighterPhoto'
+                                        layout='fill'
+                                        objectFit='contain'
+                                        className='border border-primary p-1' />
+                                </div>
                             </div>
                         </div>
-                        <p>Name: {freedomFighter?.name}</p>
                         {/* <p>Contact: {freedomFighter?.mobile}</p>
                         <p>Email: {freedomFighter?.email}</p>
                         <p>Address: {freedomFighter?.address}</p>
@@ -54,13 +60,13 @@ const FreedomFighter = ({ query, children }) => {
                         <p>Freedom Fighter Rank: {freedomFighter?.freedomFighterRank.rank}</p>
                         <p>Invited Year: {freedomFighter?.invited?.map((year, index) => <span key={index}>{year}, </span>)}</p> */}
 
-                        <div className='flex flex-col gap-y-2'>
+                        <div className='flex flex-col gap-y-2 mb-0'>
                             <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'> <span >Details</span></Link>
                             <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Successor Info</span></Link>
                             <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Complaint History</span></Link>
                         </div>
                     </div>
-                    <div className='w-3/4'>
+                    <div className='w-2/3'>
                         {children}
                     </div>
                 </div>

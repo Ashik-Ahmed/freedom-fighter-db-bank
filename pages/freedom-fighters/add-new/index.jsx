@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const index = () => {
+const AddNew = () => {
+
+    const [ranks, setRanks] = useState([]);
+
+    const armyRank = ['Army 1', 'Army 2', 'Army 3']
+    const navyRank = ['Navy 1', 'Navy 2', 'Navy 3']
+    const airForceRank = ['Air Force 1', 'Air Force 2', 'Air Force 3']
+
+    const handleSelectForce = (e) => {
+        const force = e.target.value;
+        if (force == 'Army') {
+            setRanks(armyRank);
+        }
+        if (force == 'Navy') {
+            setRanks(navyRank)
+        }
+        if (force == 'Air Force') {
+            setRanks(airForceRank);
+        }
+    }
 
 
     const handleFileInput = (e) => {
@@ -117,37 +136,38 @@ const index = () => {
                             </div>
                             <div className='relative w-1/2 flex items-center bg-white p-1 rounded-md text-gray-400'>
                                 <label className='mr-8 ml-2'>*Status: </label>
-                                <div className="form-control">
-                                    <label className="label cursor-pointer space-x-2">
-                                        <span className="label-text text-gray-400">Alive</span>
-                                        <input name='status' value='Alive' type="radio" className="radio checked:bg-blue-500 border border-primary" checked />
-                                    </label>
-                                </div>
-                                <div className="form-control">
-                                    <label className="label cursor-pointer space-x-2">
-                                        <span className="label-text text-gray-400">Dead</span>
-                                        <input name='status' value='Dead' type="radio" className="radio checked:bg-red-500 border border-primary" />
-                                    </label>
+                                <div className='flex gap-x-4'>
+                                    <div className="form-control">
+                                        <label className="label cursor-pointer space-x-2">
+                                            <span className="label-text text-gray-400">Alive</span>
+                                            <input name='status' value='Alive' type="radio" className="radio checked:bg-blue-500 border border-primary" checked />
+                                        </label>
+                                    </div>
+                                    <div className="form-control">
+                                        <label className="label cursor-pointer space-x-2">
+                                            <span className="label-text text-gray-400">Dead</span>
+                                            <input name='status' value='Dead' type="radio" className="radio checked:bg-red-500 border border-primary" />
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className='flex w-full gap-x-12'>
                             <div className="relative w-1/3">
-                                <select name='force' className="p-3 rounded-md text-gray-400 w-full" required>
+                                <select onChange={handleSelectForce} name='force' className="p-3 rounded-md text-gray-400 w-full" required>
                                     <option value='' disabled selected>*Select Force</option>
-                                    <option value='Army'>Army</option>
-                                    <option value='Navy'>Navy</option>
-                                    <option value='Air Force'>Air Force</option>
+                                    <option value="Army">Army</option>
+                                    <option value="Navy">Navy</option>
+                                    <option value="Air Force">Air Force</option>
+
                                 </select>
                             </div>
                             <div className="relative w-1/3">
                                 <select name='officialRank' className="p-3 rounded-md text-gray-400 w-full" required>
                                     <option value='' disabled selected>*Official Rank</option>
-                                    <option value='Brigadier General'>Brigadier General</option>
-                                    <option value='Colonel'>Colonel</option>
-                                    <option value='Lt. Colonel'>Lt. Colonel</option>
-                                    <option value='Major'>Major</option>
-                                    <option value='Major General'>Major General</option>
+                                    {
+                                        ranks?.map((rank, index) => <option key={index} value='Army'>{rank}</option>)
+                                    }
                                 </select>
                             </div>
                             <div className="relative w-1/3">
@@ -181,7 +201,7 @@ const index = () => {
                     </form>
 
                     <form encType='multipart/form-data' className='relative -mt-36 mx-4'>
-                        <label className='text-gray-400 ml-1'>Photo</label>
+                        <label className='text-gray-400 ml-1'>Photo <span className='text-xs italic'>( Max. size 1MB )</span></label>
                         <div className='flex gap-x-8'>
                             <input onChange={handleFileInput} name='photo' type="file" className="w-1/3 file-input file-input-primary input-bordered file-input-sm bg-white text-gray-400" />
                             <input type="submit" value='Upload' className='bg-primary p-1 cursor-pointer rounded-md px-6' />
@@ -197,4 +217,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default AddNew;
