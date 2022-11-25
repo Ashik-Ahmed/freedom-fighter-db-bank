@@ -139,6 +139,7 @@ export const getStaticProps = async (context) => {
             freedomFighters: result,
             totalFreedomFighterCount
             // getStaticProps: JSON.parse(JSON.stringify(getStaticProps))
-        }
+        },
+        revalidate: 10,
     }
 }

@@ -4,9 +4,72 @@ const AddNew = () => {
 
     const [ranks, setRanks] = useState([]);
 
-    const armyRank = ['Army 1', 'Army 2', 'Army 3']
-    const navyRank = ['Navy 1', 'Navy 2', 'Navy 3']
-    const airForceRank = ['Air Force 1', 'Air Force 2', 'Air Force 3']
+    const armyRank = [
+        'General',
+        'Lieutenant general',
+        'Major general',
+        'Brigadier general',
+        'Colonel',
+        'Lieutenant colonel',
+        'Major',
+        'Captain',
+        'Lieutenant',
+        'Second lieutenant',
+        'Officer cadet',
+        'Master warrant officer',
+        'Senior warrant officer',
+        'Warrant officer',
+        'Regiment Sergeant Major',
+        'Quarter Master Sergeant',
+        'Sergeant Major',
+        'Master Sergeant',
+        'Sergeant',
+        'Corporal',
+        'Lance corporal',
+        'Sainik'
+    ]
+    const navyRank = [
+        'Admiral',
+        'Vice admiral',
+        'Rear admiral',
+        'Commodore',
+        'Captain',
+        'Commander',
+        'Lieutenant commander',
+        'Lieutenant',
+        'Sub-lieutenant',
+        'Acting sub-lieutenant',
+        'Midshipman',
+        'Officer cadet',
+        'Master chief petty officer',
+        'Senior chief petty officer',
+        'Chief petty officer',
+        'Leading seaman',
+        'Able seaman',
+        'Ordinary seaman'
+    ]
+    const airForceRank = [
+        'Air Chief Marshal',
+        'Air Marshal',
+        'Air Vice-Marshal',
+        'Air Commodore',
+        'Group Captain',
+        'Wing Commander',
+        'Squadron Leader',
+        'Flight Lieutenant',
+        'Flight Sergeant',
+        'Flying Officer',
+        'Pilot Officer',
+        'Officer cadet',
+        'Master warrant officer',
+        'Senior warrant officer',
+        'Warrant officer',
+        'Sergeant',
+        'Corporal',
+        'Leading aircraftman',
+        'Aircraftman 1',
+        'Aircraftman 2'
+    ]
 
     const handleSelectForce = (e) => {
         const force = e.target.value;
@@ -55,6 +118,10 @@ const AddNew = () => {
         const freedomFighterRank = data.get('freedomFighterRank');
         const address = data.get('address');
         const description = data.get('description');
+
+
+
+
 
         // console.log(photo);
 

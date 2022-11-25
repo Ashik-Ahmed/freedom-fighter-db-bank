@@ -11,12 +11,13 @@ const FreedomFighter = ({ query, children }) => {
     const { id } = router.query;
     const [freedomFighter, setFreedomFighter] = useState()
 
-    console.log(query);
 
     useEffect(() => {
         getSingleFreedomFighter(id)
             .then(data => setFreedomFighter(data))
     }, [id])
+
+    // console.log(freedomFighter);
 
     // if (id) {
     //     fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`)
@@ -27,6 +28,13 @@ const FreedomFighter = ({ query, children }) => {
     // }
 
     // const { name, mobile, email, description, status, address, force, officialRank, freedomFighterRank, invited } = freedomFighter;
+
+
+    if (!freedomFighter) {
+        return <div className='w-full h-screen flex justify-center items-center'>
+            <p className='text-3xl text-primary'>Loading....</p>
+        </div>
+    }
 
     return (
         <div className='text-primary'>
@@ -62,8 +70,13 @@ const FreedomFighter = ({ query, children }) => {
 
                         <div className='flex flex-col gap-y-2 mb-0'>
                             <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'> <span >Details</span></Link>
-                            <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Successor Info</span></Link>
-                            <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Complaint History</span></Link>
+                            {
+                                freedomFighter?.successor.length > 0 ?
+                                    <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Successor Info</span></Link>
+                                    :
+                                    <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Add Successor</span></Link>
+                            }
+                            <p className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Complaint History</span></p>
                         </div>
                     </div>
                     <div className='w-2/3'>

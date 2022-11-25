@@ -22,7 +22,7 @@ const Navbar = () => {
                                     <li><a>Submenu 2</a></li>
                                 </ul>
                             </li>
-                            <li><a>Item 3</a></li>
+                            <li><Link href='/selection'>Selection</Link></li>
                         </ul>
                     </div>
                     <Link href='/' className="btn btn-ghost normal-case text-xl">Freedom Fighter DB</Link>
@@ -40,7 +40,7 @@ const Navbar = () => {
                                 <li><a>Submenu 2</a></li>
                             </ul>
                         </li>
-                        <li><a>Item 3</a></li>
+                        <li><Link href='/selection'>Selection</Link></li>
                     </ul>
                 </div>
                 <div className="dropdown dropdown-end ml-auto lg:ml-10">
