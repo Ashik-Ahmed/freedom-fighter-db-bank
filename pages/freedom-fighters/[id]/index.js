@@ -40,7 +40,7 @@ const FreedomFighter = ({ query, children }) => {
         <div className='text-primary'>
             <div className='max-w-7xl mx-auto m-12 bg-white rounded-md'>
                 <div className='flex p-4 gap-x-12'>
-                    <div className='flex flex-col justify-between bg-secondary bg-opacity-40 p-4 w-1/3'>
+                    <div className='flex flex-col justify-between bg-secondary bg-opacity-40 p-4 w-1/3 min-h-96'>
                         <div className="flex justify-between items-center w-full mb-8">
                             <div className=''>
                                 <p> <span className='text-xl font-bold'>{freedomFighter?.name}</span> <span className='italic'>({freedomFighter?.force})</span></p>
@@ -52,7 +52,7 @@ const FreedomFighter = ({ query, children }) => {
                                     <Image
                                         priority
                                         src={photo} alt='freedomFighterPhoto'
-                                        layout='fill'
+                                        layout='responsive'
                                         objectFit='contain'
                                         className='border border-primary p-1' />
                                 </div>

@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { SiAddthis, SiMetafilter } from 'react-icons/si';
 import ReactPaginate from 'react-paginate';
 import FreedomFighterRow from '../../components/FreedomFighterRow/FreedomFighterRow';
-import { getFreedomFighters } from '../../controllers/freedomFighter.controller'
+import { getFreedomFighters } from '../../controllers/freedomFighter.controller';
+import useFreedomFighters from '../../hooks/useFreedomFighters';
+
 
 const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
 
@@ -19,12 +21,16 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
     //     router.replace(router.asPath);
     // }
 
+    // const getFreedomFighters = () => {
+    //     const data = useFreedomFighters(currentPage, filter)
+    // }
+
     useEffect(() => {
 
-        var url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}`
+        var url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}&country=Bangladesh`
 
         if (filter) {
-            url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}&force=${filter || {}}`
+            url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}&force=${filter || {}}&country=Bangladesh`
         }
 
         fetch(url)
