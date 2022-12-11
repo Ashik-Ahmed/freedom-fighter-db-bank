@@ -16,7 +16,6 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
 
     //delete a freedom fighter
     const deleteFreedomFighter = (id) => {
-        console.log(id)
         fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`, {
             method: 'DELETE',
         })

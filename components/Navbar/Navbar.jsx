@@ -25,29 +25,29 @@ const Navbar = ({ user, setUser }) => {
                         <ul tabIndex={0} className="menu menu-compact dropdown-content p-2 shadow bg-primary  w-52">
                             <li tabIndex={0}>
                                 <a className="justify-between">
-                                    Freedom Fighters
+                                    Member Mgt.
                                     <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
                                 </a>
                                 <ul className="p-2 bg-primary">
-                                    <li><Link href='/freedom-fighters'>Armed Forces</Link></li>
-                                    <li><Link href='/foreign-freedom-fighters'>Foreign</Link></li>
+                                    <li><Link href='/freedom-fighters'>Permanent Member</Link></li>
+                                    <li><Link href='/foreign-freedom-fighters'>Others</Link></li>
                                 </ul>
                             </li>
                             <li><Link href='/selection'>Selection</Link></li>
                         </ul>
                     </div>
-                    <Link href='/' className="btn btn-ghost normal-case text-xl">Freedom Fighter DB</Link>
+                    <Link href='/' className="btn btn-ghost normal-case text-xl">Invitation Management</Link>
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
                         <li tabIndex={0}>
                             <a>
-                                Freedom Fighters
+                                Member Mgt.
                                 <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
                             </a>
                             <ul className="p-2 bg-primary">
-                                <li><Link href='/freedom-fighters'>Armed Forces</Link></li>
-                                <li><Link href='/foreign-freedom-fighters'>Foreign</Link></li>
+                                <li><Link href='/freedom-fighters'>Permanent Member</Link></li>
+                                <li><Link href='/foreign-freedom-fighters'>Others</Link></li>
                             </ul>
                         </li>
                         <li><Link href='/selection'>Selection</Link></li>

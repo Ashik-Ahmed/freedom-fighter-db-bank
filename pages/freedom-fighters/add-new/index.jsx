@@ -101,7 +101,7 @@ const AddNew = () => {
         // console.log(e.target.files[0])
         // const originalFileName = e.target.files[0].name;
         // const fileName = originalFileName.toLowerCase().replace(/\s+/g, '');
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
 
         fetch('http://localhost:5000/api/v1/freedomFighters/profilePhotoUpload', {
             method: 'POST',
@@ -121,6 +121,7 @@ const AddNew = () => {
         const email = data.get('email');
         const contact = data.get('contact');
         // const photo = data.files[0];
+        const photo = e.target.photo.value;
         const status = data.get('status');
         const country = data.get('country');
         const force = data.get('force');
@@ -128,12 +129,6 @@ const AddNew = () => {
         const freedomFighterRank = data.get('freedomFighterRank');
         const address = data.get('address');
         const description = data.get('description');
-
-
-
-
-
-        // console.log(photo);
 
         // console.log(photo.toLowerCase().replace(/\s+/g, ''));
 
@@ -149,6 +144,7 @@ const AddNew = () => {
         const fighter = {
             name: fullName,
             email,
+            photo,
             mobile: contact,
             country,
             status,
@@ -194,8 +190,8 @@ const AddNew = () => {
                         <input type="submit" value='Upload' className='bg-primary p-1' />
                     </form> */}
 
-
-                    <form onSubmit={handleInsertFreedomFighter} className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
+                    {/* action='http://localhost:5000/api/v1/freedomFighters' */}
+                    <form onSubmit={handleInsertFreedomFighter} method='POST' encType='multipart/form-data' className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
                         <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
                         <div className='flex w-full gap-x-12'>
                             <div className="relative w-1/2">
@@ -277,23 +273,23 @@ const AddNew = () => {
                                 <label for="floating_outlined" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/3 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Description</label>
                             </div>
                         </div>
-                        {/* <div className='relative'>
+                        <div className='relative'>
                             <label className='text-gray-400 ml-1'>Photo</label>
-                            <input name='profilePhoto' type="file" className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
-                        </div> */}
+                            <input name='photo' type="file" className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
+                        </div>
 
                         <div className='text-center pt-20'>
                             <input type="submit" value='Submit' className='btn btn-primary hover:bg-secondary border-0 w-1/4' />
                         </div>
                     </form>
 
-                    <form encType='multipart/form-data' className='relative -mt-36 mx-4'>
+                    {/* <form encType='multipart/form-data' className='relative -mt-36 mx-4'>
                         <label className='text-gray-400 ml-1'>Photo <span className='text-xs italic'>( Max. size 1MB )</span></label>
                         <div className='flex gap-x-8'>
                             <input onChange={handleFileInput} name='photo' type="file" className="w-1/3 file-input file-input-primary input-bordered file-input-sm bg-white text-gray-400" />
                             <input type="submit" value='Upload' className='bg-primary p-1 cursor-pointer rounded-md px-6' />
                         </div>
-                    </form>
+                    </form> */}
                     {/* <form action='http://localhost:5000/api/v1/freedomFighters/profilePhotoUpload' method='POST' encType='multipart/form-data'>
                         <input name='profilePhoto' type="file" className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
                         <input type="submit" value='Submit' className='bg-primary p-1' />

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ForeignFreedomFighters = () => {
-    const [freedomFightersData, setFreedomFightersData] = useState(freedomFighters);
-    const [totalData, setTotalData] = useState(totalFreedomFighterCount);
+    const [freedomFightersData, setFreedomFightersData] = useState([]);
+    const [totalData, setTotalData] = useState(0);
     const [currentPage, setCurrentPage] = useState(0)
+    const [filter, setFilter] = useState('')
 
     useEffect(() => {
 
@@ -25,7 +26,7 @@ const ForeignFreedomFighters = () => {
 
     return (
         <div>
-            Foreign Fighter List
+            <p className='text-primary text-2xl font-bold flex justify-center items-center'> Foreign Fighter List</p>
         </div>
     );
 };

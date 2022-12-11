@@ -61,7 +61,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
     const handleFilter = (e) => {
         e.preventDefault()
 
-        const filter = e.target.force.value;
+        const filter = e.target.filter.value;
         setFilter(filter)
 
         // console.log(e.target.force.value);
@@ -78,17 +78,25 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                 <div className='max-w-7xl mx-auto'>
                     <div className="flex justify-between">
                         <div className='bg-primary p-2 rounded-md inline-block mb-2'>
-                            <Link href={`/freedom-fighters/add-new`} className='flex items-center gap-x-2'><SiAddthis /> Add Freedom Fighter</Link>
+                            <Link href={`/freedom-fighters/add-new`} className='flex items-center gap-x-2'><SiAddthis /> Add New Member</Link>
                         </div>
-                        <form onSubmit={handleFilter} className='flex gap-x-2 mb-2'>
-                            <select name='force' className="p-2 rounded-md text-gray-400 w-full" required>
-                                <option value='' disabled selected>Filter by force</option>
+
+                        <select name='filter' onChange={(e) => { setFilter(e.target.value); }} className="p-2 rounded-md text-gray-400 mb-2" required>
+                            <option value='' disabled selected>Filter</option>
+                            <option key='force' value='Army'>Army</option>
+                            <option value='Navy'>Navy</option>
+                            <option value='Air Force'>Air Force</option>
+                        </select>
+
+                        {/* <form onSubmit={handleFilter} className='flex gap-x-2 mb-2'>
+                            <select name='filter' onChange={(e) => setFilter(e.target.selected)} className="p-2 rounded-md text-gray-400 w-full" required>
+                                <option value='' disabled selected>Filter</option>
                                 <option value='Army'>Army</option>
                                 <option value='Navy'>Navy</option>
                                 <option value='Air Force'>Air Force</option>
                             </select>
                             <input type="submit" value='Go' className='bg-primary p-1 px-4 rounded-md cursor-pointer' />
-                        </form>
+                        </form> */}
                     </div>
                     <table className="table-auto container w-full mx-auto shadow-md">
                         <thead className='bg-primary '>
@@ -129,7 +137,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

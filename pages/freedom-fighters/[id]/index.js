@@ -10,14 +10,20 @@ const FreedomFighter = ({ query, children }) => {
     const router = useRouter();
     const { id } = router.query;
     const [freedomFighter, setFreedomFighter] = useState()
+    const [profileImg, setProfileImg] = useState()
 
 
     useEffect(() => {
         getSingleFreedomFighter(id)
-            .then(data => setFreedomFighter(data))
+            .then(data => {
+                setFreedomFighter(data);
+                // convert image binary/Buffer data to base64 string
+                setProfileImg(btoa(
+                    String.fromCharCode(...new Uint8Array(data?.profilePhoto?.data))
+                ))
+            })
     }, [id])
 
-    // console.log(freedomFighter);
 
     // if (id) {
     //     fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`)
@@ -51,10 +57,11 @@ const FreedomFighter = ({ query, children }) => {
                                 <div className="w-28">
                                     <Image
                                         priority
-                                        src={photo} alt='freedomFighterPhoto'
-                                        layout='responsive'
-                                        objectFit='contain'
-                                        className='border border-primary p-1' />
+                                        // src={freedomFighter.photo ? `/profilePhotos/${freedomFighter.photo}` : photo} alt='freedomFighterPhoto'
+                                        src={freedomFighter.profilePhoto ? `data:image/png;base64, ${profileImg}` : photo} alt='freedomFighterPhoto'
+                                        width='112'
+                                        height='112'
+                                        className='border border-primary' />
                                 </div>
                             </div>
                         </div>
