@@ -16,11 +16,23 @@ const FreedomFighter = ({ query, children }) => {
     useEffect(() => {
         getSingleFreedomFighter(id)
             .then(data => {
+
                 setFreedomFighter(data);
+
                 // convert image binary/Buffer data to base64 string
-                setProfileImg(btoa(
-                    String.fromCharCode(...new Uint8Array(data?.profilePhoto?.data))
-                ))
+                // setProfileImg(btoa(
+                //     String.fromCharCode(...new Uint8Array(data?.profilePhoto?.data))
+                // ))
+
+                // convert image binary/Buffer data to base64 string
+                const base64 = btoa(new Uint8Array(data?.profilePhoto?.data).reduce(
+                    function (data, byte) {
+                        return data + String.fromCharCode(byte);
+                    },
+                    ''
+                ));
+
+                setProfileImg(base64);
             })
     }, [id])
 
@@ -50,7 +62,7 @@ const FreedomFighter = ({ query, children }) => {
                         <div className="flex justify-between items-center w-full mb-8">
                             <div className=''>
                                 <p> <span className='text-xl font-bold'>{freedomFighter?.name}</span> <span className='italic'>({freedomFighter?.force})</span></p>
-                                <p> <span className='font-semibold'>Freedom Fighter #</span> {freedomFighter?.id || 'N/A'} </p>
+                                <p> <span className='font-semibold'>ID No.</span> {freedomFighter?.id || 'N/A'} </p>
                                 <p><span className='font-semibold'>Designation:</span> {freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
                             </div>
                             <div className="avatar">
@@ -60,7 +72,7 @@ const FreedomFighter = ({ query, children }) => {
                                         // src={freedomFighter.photo ? `/profilePhotos/${freedomFighter.photo}` : photo} alt='freedomFighterPhoto'
                                         src={freedomFighter.profilePhoto ? `data:image/png;base64, ${profileImg}` : photo} alt='freedomFighterPhoto'
                                         width='112'
-                                        height='112'
+                                        height='100'
                                         className='border border-primary' />
                                 </div>
                             </div>

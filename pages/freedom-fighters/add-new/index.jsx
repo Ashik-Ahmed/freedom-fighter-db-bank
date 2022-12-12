@@ -121,7 +121,7 @@ const AddNew = () => {
         const email = data.get('email');
         const contact = data.get('contact');
         // const photo = data.files[0];
-        const photo = e.target.photo.value;
+        const photo = e.target.file;
         const status = data.get('status');
         const country = data.get('country');
         const force = data.get('force');
@@ -169,12 +169,13 @@ const AddNew = () => {
                 'content-type': 'application/json',
             },
             body: JSON.stringify(fighter),
-        }).then(res => res.json()).then(data => {
-            console.log(data)
-            if (data.status == 'success') {
-                e.target.reset();
-            }
         })
+        // .then(res => res.json()).then(data => {
+        //     console.log(data)
+        //     if (data.status == 'success') {
+        //         e.target.reset();
+        //     }
+        // })
     }
 
     return (
@@ -190,8 +191,8 @@ const AddNew = () => {
                         <input type="submit" value='Upload' className='bg-primary p-1' />
                     </form> */}
 
-                    {/* action='http://localhost:5000/api/v1/freedomFighters' */}
-                    <form onSubmit={handleInsertFreedomFighter} method='POST' encType='multipart/form-data' className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
+                    {/* onSubmit={handleInsertFreedomFighter} */}
+                    <form action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data' className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
                         <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
                         <div className='flex w-full gap-x-12'>
                             <div className="relative w-1/2">
