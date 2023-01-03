@@ -60,13 +60,13 @@ const Navbar = ({ user, setUser }) => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-primary rounded-box w-52">
-                        <li><a className='flex gap-x-1'>Profile<span className='text-xs italic'>( {user.name} )</span></a></li>
+                        <li><Link href={`/profile/${user._id}`} className='flex gap-x-1'>Profile<span className='text-xs italic'>( {user.name} )</span></Link></li>
                         {user.role == 'admin' && <li><Link href='/manage-users'>User Management</Link></li>}
                         <li onClick={handlLogout}><a>Logout</a></li>
                     </ul>
                 </div>
             </div>
-        </div>
+        </div >
 
     )
 }

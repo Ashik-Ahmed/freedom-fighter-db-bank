@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }) {
     return (
       <div className='bg-gray-300 min-h-screen'>
         <Navbar user={user} setUser={setUser} />
-        <div className='h-fit'>
+        <div className='h-fit pb-12'>
           <Component {...pageProps} />
         </div>
       </div>

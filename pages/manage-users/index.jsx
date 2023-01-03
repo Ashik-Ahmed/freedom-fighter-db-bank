@@ -13,7 +13,7 @@ const ManageUsers = () => {
 
     const cookie = new Cookies();
 
-    useEffect(() => {
+    const fetchUsers = () => {
         fetch('http://localhost:5000/api/v1/users', {
             headers: {
                 authorization: `Bearer ${cookie.get('TOKEN')}`
@@ -21,6 +21,10 @@ const ManageUsers = () => {
         })
             .then(res => res.json())
             .then(data => { setUsers(data.data) })
+    }
+
+    useEffect(() => {
+        fetchUsers()
     }, [])
 
 
@@ -46,7 +50,7 @@ const ManageUsers = () => {
                 </thead>
                 <tbody className='border bg-white'>
                     {
-                        users && users?.map(user => <UserRow key={user._id} user={user}></UserRow>)
+                        users && users?.map(user => <UserRow key={user._id} user={user} fetchUsers={fetchUsers}></UserRow>)
                     }
                 </tbody>
             </table>

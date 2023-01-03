@@ -182,7 +182,7 @@ const AddNew = () => {
         <div>
             <div>
                 <div className='text-center my-4'>
-                    <p className='text-3xl font-extrabold text-primary'>Add Freedom Fighter</p>
+                    <p className='text-3xl font-extrabold text-primary'>Add Member</p>
                 </div>
                 <div className='mx-auto max-w-7xl  pb-4'>
 
