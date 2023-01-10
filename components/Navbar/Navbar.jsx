@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import photo from '../../Images/photo.png'
 import Cookies from 'universal-cookie';
 

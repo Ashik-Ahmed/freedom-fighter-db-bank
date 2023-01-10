@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
-import profilePic from '../../../Images/photo.png'
+import userPhoto from '../../../Images/photo.png'
+import { HiEye, HiEyeOff } from 'react-icons/hi'
 
 const MyProfile = () => {
 
@@ -10,127 +11,198 @@ const MyProfile = () => {
     const cookie = new Cookies();
 
     const [edit, setEdit] = useState(false);
-    const [user, setUser] = useState()
+    const [user, setUser] = useState();
+    const [updateForm, setUpdateForm] = useState(false);
+    const [changePassword, setChangePassword] = useState(false);
+    const [currentPassView, setCurrentPassView] = useState(false)
+    const [newPassView, setNewPassView] = useState(false)
+    const [confirmPassView, setConfirmPassView] = useState(false)
 
     const { id } = router.query;
 
-    fetch('http://localhost:5000/api/v1/users/getLoggedInUser', {
-        method: 'POST',
-        headers: {
-            authorization: `Bearer ${cookie.get('TOKEN')}`
+
+    //get the logged in user
+    const getLoggedInUser = () => {
+        fetch('http://localhost:5000/api/v1/users/getLoggedInUser', {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${cookie.get('TOKEN')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => setUser(data.user))
+    }
+
+    useEffect(() => {
+        getLoggedInUser();
+    }, [])
+
+    const handleProfileUpdate = (e) => {
+        e.preventDefault();
+
+        const name = e.target.name.value || user?.name;
+        const birthday = e.target.birthday.value || user?.birthday;
+        const mobile = e.target.phone.value || user?.mobile;
+        const sex = e.target.sex.value || user?.sex;
+        const bio = e.target.bio.value || user?.bio;
+        const photo = e.target.photo.value || user?.photo;
+
+        console.log(name, birthday, mobile, sex, bio, photo);
+
+        const updatedProfile = {
+            name,
+            birthday,
+            mobile,
+            sex,
+            bio,
+            photo
         }
-    })
-        .then(res => res.json())
-        .then(data => console.log(data))
 
-    // const handleProfileUpdate = (e) => {
-    //     e.preventDefault();
+        fetch(`http://localhost:5000/api/v1/users/updateUserProfile/${user._id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookie.get('TOKEN')}`
+            },
+            body: JSON.stringify(updatedProfile)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data?.data?.modifiedCount) {
+                    // toast.success('Profile Successfully Updated');
+                    e.target.reset();
+                    setUpdateForm(false)
+                    getLoggedInUser();
+                }
+                else {
+                    console.log(data.error)
+                }
+            })
+    }
 
-    //     const name = e.target.name.value || dbUser.name;
-    //     const birthday = e.target.birthday.value || dbUser.birthday;
-    //     const phone = e.target.phone.value || dbUser.phone;
-    //     const sex = e.target.sex.value || dbUser.sex;
-    //     const bio = e.target.bio.value || dbUser.bio;
-    //     const photo = e.target.photo.value || dbUser.photo;
 
-    //     console.log(name, birthday, phone, sex, bio, photo);
 
-    //     const updatedProfile = {
-    //         name,
-    //         birthday,
-    //         phone,
-    //         sex,
-    //         bio,
-    //         photo
-    //     }
+    //password change
+    const handlePasswordChange = (e) => {
+        e.preventDefault();
 
-    //     fetch(`https://gear-up-ecommerce-server.onrender.com/create-user/${dbUser.email}`, {
-    //         method: 'PUT',
-    //         headers: {
-    //             'content-type': 'application/json',
-    //             authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    //         },
-    //         body: JSON.stringify(updatedProfile)
-    //     }).then(res => res.json()).then(data => {
-    //         toast.success('Profile Successfully Updated');
-    //         e.target.reset();
-    //         setEdit(false)
-    //         refetch();
-    //     })
-    // }
+        const currentPassword = e.target.currentPassword.value;
+        const newPassword = e.target.newPassword.value;
+        const confirmPassword = e.target.confirmPassword.value;
+
+        console.log(currentPassword, newPassword, confirmPassword);
+    }
 
 
     return (
-        <div className='w-full md:flex'>
-            {/* <div class="indicator bg-white rounded mt-28 m-4 w-1/3 h-fit">
+        <div className='w-full md:flex text-gray-700'>
+            <div class="indicator bg-white rounded mt-28 m-4 w-1/3 h-fit">
                 <div>
-                    <Image class="mask mask-hexagon indicator-item indicator-center bg-cyan-500 -mt-6 w-40" width='160' height='160' src={profilePic} alt='' />
+                    <Image class="mask mask-hexagon indicator-item indicator-center bg-cyan-500 -mt-6 w-40" width='160' height='160' src={user?.photo || userPhoto} alt='' />
                 </div>
                 <div className='mt-16 pl-4 w-full'>
                     <div className='text-left py-8'>
                         <div className='flex items-baseline justify-between'>
                             <p className='font-bold w-1/3'>Name</p>
-                            <span className='w-2/3'>: Ashik Ahmed</span>
+                            <span className='w-2/3'>: {user?.name}</span>
                         </div>
                         <div className='flex items-baseline justify-between mt-1'>
                             <p className='font-bold w-1/3'>Email</p>
-                            <span className='w-2/3'>: ashik@dummymail.com</span>
+                            <span className='w-2/3'>: {user?.email || 'N/A'}</span>
+                        </div>
+                        <div className='flex items-baseline justify-between mt-1'>
+                            <p className='font-bold w-1/3'>Role</p>
+                            <span className='w-2/3'>: {user?.role || 'N/A'}</span>
                         </div>
                         <div className='flex items-baseline justify-between mt-1'>
                             <p className='font-bold w-1/3'>Birthday</p>
-                            <span className='w-2/3'>: {dbUser.birthday}</span>
+                            <span className='w-2/3'>: {user?.birthday || 'N/A'}</span>
                         </div>
                         <div className='flex items-baseline justify-between mt-1'>
                             <p className='font-bold w-1/3'>Phone</p>
-                            <span className='w-2/3'>: {dbUser.phone}</span>
+                            <span className='w-2/3'>: {user?.mobile || 'N/A'}</span>
                         </div>
                         <div className='flex items-baseline justify-between mt-1'>
                             <p className='font-bold w-1/3'>Sex</p>
-                            <span className='w-2/3'>: {dbUser.sex}</span>
+                            <span className='w-2/3'>: {user?.sex || 'N/A'}</span>
                         </div>
                         <div className='flex items-baseline justify-between mt-1'>
                             <p className='font-bold w-1/3'>Bio</p>
-                            <span className='w-2/3'>: {dbUser.bio}</span>
+                            <span className='w-2/3'>: {user?.bio || 'N/A'}</span>
                         </div>
                     </div>
-                    <button onClick={() => setEdit(true)} className='btn bg-cyan-500 hover:bg-cyan-600 border-0 w-2/3 my-6'>Edit Profile</button>
+                    <div>
+                        <p onClick={(e) => setChangePassword(true)} className='link inline text-red-500'>Change Password</p>
+                    </div>
+                    <div className='text-center'>
+                        <button onClick={() => setUpdateForm(true)} className='btn bg-primary hover:bg-secondary border-0 w-2/3 my-6'>Edit Profile</button>
+                    </div>
                 </div>
             </div>
 
             {
-                edit &&
+                changePassword &&
+
+                // Add Member Modal
+                <div class="bg-slate-600 bg-opacity-40 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+                    <div class="bg-white px-2 py-2 rounded-md text-center">
+                        <button onClick={() => setChangePassword(false)} className='text-black font-bold float-right bg-gray-300 px-3 py-1 rounded-full relative'>X</button>
+                        <div className='m-10'>
+                            <h1 class="text-2xl mb-4 font-bold text-primary underline">Change Password</h1>
+                            <form onSubmit={handlePasswordChange} className='flex flex-col gap-4'>
+                                <div className='bg-gray-200 rounded-md'>
+                                    <input type={currentPassView ? "text" : "password"} name='currentPassword' placeholder='Current Password' className='input  bg-gray-200 text-gray-700' required />
+                                    <button onClick={() => setCurrentPassView(!currentPassView)} className='px-2'>{currentPassView ? <HiEyeOff /> : <HiEye />}</button>
+                                </div>
+                                <div className='bg-gray-200 rounded-md'>
+                                    <input type={newPassView ? "text" : "password"} name='newPassword' placeholder='New Password' className='input  bg-gray-200 text-gray-700' required />
+                                    <button onClick={() => setNewPassView(!newPassView)} className='px-2'>{newPassView ? <HiEyeOff /> : <HiEye />}</button>
+                                </div>
+                                <div className='bg-gray-200 rounded-md'>
+                                    <input type={confirmPassView ? "text" : "password"} name='confirmPassword' placeholder='Confirm New Password' className='input  bg-gray-200 text-gray-700' required />
+                                    <button onClick={() => setConfirmPassView(!confirmPassView)} className='px-2'>{confirmPassView ? <HiEyeOff /> : <HiEye />}</button>
+                                </div>
+                                <button type='submit' class="bg-primary hover:bg-secondary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold cursor-pointer" >Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            {
+                updateForm &&
                 <div className='w-2/3 bg-white rounded m-4 p-4 h-fit'>
-                    <p className='text-2xl font-bold text-cyan-600 border-b-2 inline p-1'>Update Your Profile</p>
+                    <p className='text-2xl font-bold text-primary border-primary border-b-2 inline p-1'>Update Your Profile</p>
 
                     <form onSubmit={handleProfileUpdate}>
                         <div className='mt-8'>
                             <div className='flex gap-4 justify-between'>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
-                                        <span class="label-text">Full Name</span>
+                                        <span class="label-text text-gray-700">Full Name</span>
                                     </label>
-                                    <input name='name' type="text" placeholder="Type here" class="input input-sm input-bordered w-full max-w-xs" />
+                                    <input name='name' type="text" placeholder={user?.name || "Type here"} class="input input-sm input-bordered w-full max-w-xs bg-gray-200 text-gray-700" />
                                 </div>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
-                                        <span class="label-text">Date of Birth</span>
+                                        <span class="label-text text-gray-700">Date of Birth</span>
                                     </label>
-                                    <input name='birthday' type="date" placeholder="Type here" class="input input-sm input-bordered w-full max-w-xs" />
+                                    <input name='birthday' type="date" placeholder="Type here" class="input input-sm input-bordered w-full max-w-xs bg-gray-200 text-gray-700" />
                                 </div>
                             </div>
                             <div className='flex gap-4 justify-between mt-4'>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
-                                        <span class="label-text">Contact</span>
+                                        <span class="label-text text-gray-700">Contact</span>
                                     </label>
-                                    <input name='phone' type="text" placeholder="Type here" class="input input-sm input-bordered w-full max-w-xs" />
+                                    <input name='phone' type="text" placeholder={user?.mobile || "Type here"} class="input input-sm input-bordered w-full max-w-xs bg-gray-200 text-gray-700" />
                                 </div>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
-                                        <span class="label-text">Sex</span>
+                                        <span class="label-text text-gray-700">Sex</span>
                                     </label>
-                                    <select name='sex' class="select select-sm select-bordered w-full max-w-xs">
-                                        <option disabled selected>{dbUser.sex}</option>
+                                    <select name='sex' class="select select-sm select-bordered w-full max-w-xs bg-gray-200 text-gray-700">
+                                        <option disabled selected>{user?.sex || 'N/A'}</option>
                                         <option>Male</option>
                                         <option>Female</option>
                                         <option>Common</option>
@@ -140,24 +212,24 @@ const MyProfile = () => {
                             <div className='flex gap-4 justify-between mt-4'>
                                 <div class="form-control w-full">
                                     <label class="label">
-                                        <span class="label-text">Bio</span>
+                                        <span class="label-text text-gray-700">Bio</span>
                                     </label>
-                                    <textarea name='bio' type="text" placeholder="Type here" class="textarea textarea-bordered w-full" />
+                                    <textarea name='bio' type="text" placeholder={user?.bio || "Type here"} class="textarea textarea-bordered w-full bg-gray-200 text-gray-700" />
                                 </div>
                             </div>
                             <div class="form-control w-full">
                                 <label class="label">
-                                    <span class="label-text">Profile Picture Link</span>
+                                    <span class="label-text text-gray-700">Profile Picture Link</span>
                                 </label>
-                                <input name='photo' type="text" placeholder="Type here" class="input input-sm input-bordered w-full" />
+                                <input name='photo' type="text" placeholder="Type here" class="input input-sm input-bordered w-full bg-gray-200 text-gray-700" />
                             </div>
                         </div>
                         <div className='flex justify-end'>
-                            <button type='submit' className='btn bg-cyan-500 hover:bg-cyan-600 border-0 my-4'>Update</button>
+                            <button type='submit' className='btn bg-primary hover:bg-secondary border-0 my-4'>Update</button>
                         </div>
                     </form>
                 </div>
-            } */}
+            }
         </div>
     );
 };

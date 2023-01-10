@@ -41,17 +41,26 @@ const UserRow = ({ user, fetchUsers }) => {
     const toggleUserRole = (id, role) => {
         // console.log(role)
 
-        fetch(`http://localhost:5000/api/v1/users/updateRole?id=${id}&role=${role}`, {
+        const info = {
+            role
+        }
+
+        fetch(`http://localhost:5000/api/v1/users/updateRole/${id}`, {
             method: 'PATCH',
             headers: {
+                'content-type': 'application/json',
                 authorization: `Bearer ${cookie.get('TOKEN')}`
-            }
+            },
+            body: JSON.stringify(info)
         })
             .then(res => res.json())
             .then(data => {
-                if (data.data.modifiedCount) {
+                if (data?.data?.modifiedCount) {
                     console.log('Successfully Updated');
                     fetchUsers();
+                }
+                else {
+                    console.log(data.error)
                 }
             })
 
@@ -100,16 +109,16 @@ const UserRow = ({ user, fetchUsers }) => {
                         </div>
                     </div>
                 }
-                <BsPersonCheckFill onClick={() => setUserRoleModal(user)} size='24' color='#00AA88' className={`cursor-pointer ${role == 'User' && 'grayscale'}`} />
+                <BsPersonCheckFill onClick={() => setUserRoleModal(user)} size='24' color='#00AA88' className={`cursor-pointer ${role == 'user' && 'grayscale'}`} />
                 {
                     userRoleModal &&
 
                     //delete modal
                     <div class="bg-slate-600 bg-opacity-40 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
                         <div class="bg-white px-16 py-14 rounded-md text-center">
-                            <h1 class="text-xl mb-4 font-bold text-slate-500">Change role to {role == 'Admin' ? 'User' : 'Admin'}</h1>
+                            <h1 class="text-xl mb-4 font-bold text-slate-500">Change role to {role == 'admin' ? 'User' : 'Admin'}</h1>
                             <button onClick={() => setUserRoleModal(null)} class="bg-red-500 px-4 py-2 rounded-md text-md text-white">Cancle</button>
-                            <button onClick={() => toggleUserRole(_id, role == 'Admin' ? 'User' : 'Admin')} class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">Ok</button>
+                            <button onClick={() => toggleUserRole(_id, role == 'admin' ? 'user' : 'admin')} class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">Ok</button>
                         </div>
                     </div>
                 }
