@@ -60,7 +60,6 @@ const ManageUsers = () => {
                 }
             })
 
-
         setAddMemberModal(null)
     }
 

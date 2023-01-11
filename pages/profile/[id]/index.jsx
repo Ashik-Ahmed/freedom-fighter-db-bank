@@ -14,9 +14,13 @@ const MyProfile = () => {
     const [user, setUser] = useState();
     const [updateForm, setUpdateForm] = useState(false);
     const [changePassword, setChangePassword] = useState(false);
+
     const [currentPassView, setCurrentPassView] = useState(false)
     const [newPassView, setNewPassView] = useState(false)
     const [confirmPassView, setConfirmPassView] = useState(false)
+
+    const [currentPassError, setCurrentPassError] = useState('')
+    const [newPassError, setNewPassError] = useState('')
 
     const { id } = router.query;
 
@@ -86,11 +90,49 @@ const MyProfile = () => {
     const handlePasswordChange = (e) => {
         e.preventDefault();
 
+        setCurrentPassError('');
+        setNewPassError('');
+
         const currentPassword = e.target.currentPassword.value;
         const newPassword = e.target.newPassword.value;
         const confirmPassword = e.target.confirmPassword.value;
 
-        console.log(currentPassword, newPassword, confirmPassword);
+        const passwords = {
+            currentPassword,
+            newPassword,
+            confirmPassword
+        }
+
+        fetch(`http://localhost:5000/api/v1/users/updateUserPassword/${user?.email}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookie.get('TOKEN')}`
+            },
+            body: JSON.stringify(passwords)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data?.data?.modifiedCount) {
+                    // toast.success('Password Successfully Updated');
+                    e.target.reset();
+                    getLoggedInUser();
+                    setChangePassword(false);
+                    setCurrentPassView(false);
+                    setNewPassView(false);
+                    setConfirmPassView(false)
+                }
+                else {
+                    console.log(data.message)
+
+                    if (data.message == 'Current password is wrong') {
+                        setCurrentPassError(data.message);
+                    }
+                    if (data.message == "New password didn't match") {
+                        setNewPassError(data.message)
+                    }
+                }
+            })
     }
 
 
@@ -130,9 +172,9 @@ const MyProfile = () => {
                             <p className='font-bold w-1/3'>Bio</p>
                             <span className='w-2/3'>: {user?.bio || 'N/A'}</span>
                         </div>
-                    </div>
-                    <div>
-                        <p onClick={(e) => setChangePassword(true)} className='link inline text-red-500'>Change Password</p>
+                        <div>
+                            <p onClick={(e) => setChangePassword(true)} className='link inline text-red-500'>Change Password</p>
+                        </div>
                     </div>
                     <div className='text-center'>
                         <button onClick={() => setUpdateForm(true)} className='btn bg-primary hover:bg-secondary border-0 w-2/3 my-6'>Edit Profile</button>
@@ -146,33 +188,50 @@ const MyProfile = () => {
                 // Add Member Modal
                 <div class="bg-slate-600 bg-opacity-40 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
                     <div class="bg-white px-2 py-2 rounded-md text-center">
-                        <button onClick={() => setChangePassword(false)} className='text-black font-bold float-right bg-gray-300 px-3 py-1 rounded-full relative'>X</button>
+                        <button onClick={() => { setChangePassword(false); setCurrentPassView(false); setNewPassView(false); setConfirmPassView(false) }} className='text-black font-bold float-right bg-gray-300 px-3 py-1 rounded-full relative'>X</button>
                         <div className='m-10'>
-                            <h1 class="text-2xl mb-4 font-bold text-primary underline">Change Password</h1>
-                            <form onSubmit={handlePasswordChange} className='flex flex-col gap-4'>
-                                <div className='bg-gray-200 rounded-md'>
-                                    <input type={currentPassView ? "text" : "password"} name='currentPassword' placeholder='Current Password' className='input  bg-gray-200 text-gray-700' required />
-                                    <button onClick={() => setCurrentPassView(!currentPassView)} className='px-2'>{currentPassView ? <HiEyeOff /> : <HiEye />}</button>
+                            <h1 class="text-lg mb-6 font-bold text-secondary border-secondary border-b-2 pb-1 inline-block">Change Password</h1>
+                            <form onSubmit={(e) => handlePasswordChange(e)} className='flex flex-col gap-4'>
+                                <div>
+                                    <div className='bg-gray-200 rounded-md'>
+                                        <input type={currentPassView ? "text" : "password"} name='currentPassword' placeholder='Current Password' className='input  bg-gray-200 text-gray-700' required />
+                                        <label onClick={() => setCurrentPassView(!currentPassView)} className='px-2 inline-block'>{currentPassView ? <HiEye /> : <HiEyeOff />}</label>
+                                    </div>
+                                    {
+                                        currentPassError &&
+                                        <div>
+                                            <p className='text-xs text-red-500 text-left'>Current password is wrong</p>
+                                        </div>
+                                    }
                                 </div>
                                 <div className='bg-gray-200 rounded-md'>
                                     <input type={newPassView ? "text" : "password"} name='newPassword' placeholder='New Password' className='input  bg-gray-200 text-gray-700' required />
-                                    <button onClick={() => setNewPassView(!newPassView)} className='px-2'>{newPassView ? <HiEyeOff /> : <HiEye />}</button>
+                                    <label onClick={() => setNewPassView(!newPassView)} className='px-2 inline-block'>{newPassView ? <HiEye /> : <HiEyeOff />}</label>
                                 </div>
-                                <div className='bg-gray-200 rounded-md'>
-                                    <input type={confirmPassView ? "text" : "password"} name='confirmPassword' placeholder='Confirm New Password' className='input  bg-gray-200 text-gray-700' required />
-                                    <button onClick={() => setConfirmPassView(!confirmPassView)} className='px-2'>{confirmPassView ? <HiEyeOff /> : <HiEye />}</button>
+                                <div>
+                                    <div className='bg-gray-200 rounded-md'>
+                                        <input type={confirmPassView ? "text" : "password"} name='confirmPassword' placeholder='Confirm New Password' className='input  bg-gray-200 text-gray-700' required />
+                                        {/* <button onClick={() => setConfirmPassView(!confirmPassView)} className='px-2'>{confirmPassView ? <HiEye /> : <HiEyeOff />}</button> */}
+                                        <label onClick={() => setConfirmPassView(!confirmPassView)} className='px-2 inline-block'>{confirmPassView ? <HiEye /> : <HiEyeOff />}</label>
+                                    </div>
+                                    {
+                                        newPassError &&
+                                        <div>
+                                            <p className='text-xs text-red-500 text-left'>New password didn't match</p>
+                                        </div>
+                                    }
                                 </div>
                                 <button type='submit' class="bg-primary hover:bg-secondary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold cursor-pointer" >Submit</button>
                             </form>
                         </div>
                     </div>
-                </div>
+                </div >
             }
 
             {
                 updateForm &&
                 <div className='w-2/3 bg-white rounded m-4 p-4 h-fit'>
-                    <p className='text-2xl font-bold text-primary border-primary border-b-2 inline p-1'>Update Your Profile</p>
+                    <p className='text-lg font-bold text-secondary border-secondary border-b-2 inline p-1'>Update Your Profile</p>
 
                     <form onSubmit={handleProfileUpdate}>
                         <div className='mt-8'>
@@ -230,7 +289,7 @@ const MyProfile = () => {
                     </form>
                 </div>
             }
-        </div>
+        </div >
     );
 };
 
