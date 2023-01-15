@@ -35,7 +35,7 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
             <td className={status == 'Dead' ? 'text-red-600' : ''}>{status}</td>
             <td>{invited.length} Times</td>
             <td className='flex gap-x-3 p-2'>
-                <BsInfoSquareFill size='24' color='#070225' className='cursor-pointer' onClick={() => router.push(`/freedom-fighters/${_id}/details`)} />
+                <BsInfoSquareFill size='24' color='#3B82F6' className='cursor-pointer' onClick={() => router.push(`/freedom-fighters/${_id}/details`)} />
                 <FaEdit size='24' color='#00AA88' className='cursor-pointer' />
                 <label onClick={() => setDeleteModal(freedomFighter)} for="delete-modal">
                     <RiDeleteBin6Fill size='24' color='#DF5353' className='cursor-pointer' />

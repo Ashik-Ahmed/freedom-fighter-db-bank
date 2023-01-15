@@ -3,6 +3,10 @@ import Navbar from '../components/Navbar/Navbar'
 import '../styles/globals.css'
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+
 
 function MyApp({ Component, pageProps }) {
 
@@ -52,7 +56,7 @@ function MyApp({ Component, pageProps }) {
 
   if (user) {
     return (
-      <div className='bg-gray-300 min-h-screen'>
+      <div className='bg-[#EFF3F8] min-h-screen'>
         <Navbar user={user} setUser={setUser} />
         <div className='h-fit pb-12'>
           <Component {...pageProps} />
@@ -63,7 +67,7 @@ function MyApp({ Component, pageProps }) {
 
   else {
     return (
-      <div className="hero min-h-screen bg-gray-300">
+      <div className="hero min-h-screen bg-[#EFF3F8]">
         <div className="hero-content flex-col">
           <p className='text-primary underline text-2xl font-bold'>Please Login</p>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">

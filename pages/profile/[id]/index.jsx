@@ -4,16 +4,27 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 import userPhoto from '../../../Images/photo.png'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
+import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
+import { Button } from 'primereact/button';
+import { Dropdown } from 'primereact/dropdown';
+import { Dialog } from 'primereact/dialog';
+import { Password } from 'primereact/password';
+import { Calendar } from 'primereact/calendar';
+
 
 const MyProfile = () => {
 
     const router = useRouter();
     const cookie = new Cookies();
 
-    const [edit, setEdit] = useState(false);
     const [user, setUser] = useState();
     const [updateForm, setUpdateForm] = useState(false);
     const [changePassword, setChangePassword] = useState(false);
+
+    const [currentPassword, setCurrentPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const [currentPassView, setCurrentPassView] = useState(false)
     const [newPassView, setNewPassView] = useState(false)
@@ -21,6 +32,8 @@ const MyProfile = () => {
 
     const [currentPassError, setCurrentPassError] = useState('')
     const [newPassError, setNewPassError] = useState('')
+
+    const [sex, setSex] = useState(false);
 
     const { id } = router.query;
 
@@ -61,6 +74,7 @@ const MyProfile = () => {
             bio,
             photo
         }
+        console.log(updatedProfile);
 
         fetch(`http://localhost:5000/api/v1/users/updateUserProfile/${user._id}`, {
             method: 'PATCH',
@@ -93,15 +107,17 @@ const MyProfile = () => {
         setCurrentPassError('');
         setNewPassError('');
 
-        const currentPassword = e.target.currentPassword.value;
-        const newPassword = e.target.newPassword.value;
-        const confirmPassword = e.target.confirmPassword.value;
+        // const currentPassword = e.target.currentPassword.value;
+        // const newPassword = e.target.newPassword.value;
+        // const confirmPassword = e.target.confirmPassword.value;
 
         const passwords = {
             currentPassword,
             newPassword,
             confirmPassword
         }
+
+        // console.log(passwords)
 
         fetch(`http://localhost:5000/api/v1/users/updateUserPassword/${user?.email}`, {
             method: 'PATCH',
@@ -137,10 +153,10 @@ const MyProfile = () => {
 
 
     return (
-        <div className='w-full md:flex text-gray-700'>
+        <div className='max-w-7xl mx-auto md:flex text-gray-700'>
             <div class="indicator bg-white rounded mt-28 m-4 w-1/3 h-fit">
                 <div>
-                    <Image class="mask mask-hexagon indicator-item indicator-center bg-cyan-500 -mt-6 w-40" width='160' height='160' src={user?.photo || userPhoto} alt='' />
+                    <Image class="mask mask-hexagon indicator-item indicator-center bg-cyan-500 -mt-6 w-40" width='160' height='160' src={user?.photo || userPhoto} alt='User Photo' />
                 </div>
                 <div className='mt-16 pl-4 w-full'>
                     <div className='text-left py-8'>
@@ -172,119 +188,191 @@ const MyProfile = () => {
                             <p className='font-bold w-1/3'>Bio</p>
                             <span className='w-2/3'>: {user?.bio || 'N/A'}</span>
                         </div>
-                        <div>
+                        <div className='mt-2'>
                             <p onClick={(e) => setChangePassword(true)} className='link inline text-red-500'>Change Password</p>
                         </div>
                     </div>
-                    <div className='text-center'>
-                        <button onClick={() => setUpdateForm(true)} className='btn bg-primary hover:bg-secondary border-0 w-2/3 my-6'>Edit Profile</button>
+                    <div className='text-center my-4'>
+                        <Button label='Edit Profile' icon='pi pi-user-edit' onClick={() => setUpdateForm(true)} className='p-button-info btn normal-case' />
                     </div>
                 </div>
             </div>
 
-            {
-                changePassword &&
+            <Dialog header="Change Password" visible={changePassword} onHide={() => {
+                setCurrentPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
+                setChangePassword(false);
+                setCurrentPassError('');
+                setNewPassError('');
+            }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+                <form onSubmit={(e) => handlePasswordChange(e)} className='flex flex-col gap-4 my-4 justify-center items-center'>
+                    <div className=''>
+                        <div className='rounded-md mt-2 '>
+                            <div className='p-float-label '>
+                                <Password onChange={(e) => setCurrentPassword(e.target.value)} toggleMask feedback={false} required className={`${currentPassError}&& 'p-invalid'`} />
+                                <label htmlFor="currentPassword">Current Password</label>
+                            </div>
 
-                // Add Member Modal
-                <div class="bg-slate-600 bg-opacity-40 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
-                    <div class="bg-white px-2 py-2 rounded-md text-center">
-                        <button onClick={() => { setChangePassword(false); setCurrentPassView(false); setNewPassView(false); setConfirmPassView(false) }} className='text-black font-bold float-right bg-gray-300 px-3 py-1 rounded-full relative'>X</button>
-                        <div className='m-10'>
-                            <h1 class="text-lg mb-6 font-bold text-secondary border-secondary border-b-2 pb-1 inline-block">Change Password</h1>
-                            <form onSubmit={(e) => handlePasswordChange(e)} className='flex flex-col gap-4'>
-                                <div>
-                                    <div className='bg-gray-200 rounded-md'>
-                                        <input type={currentPassView ? "text" : "password"} name='currentPassword' placeholder='Current Password' className='input  bg-gray-200 text-gray-700' required />
-                                        <label onClick={() => setCurrentPassView(!currentPassView)} className='px-2 inline-block'>{currentPassView ? <HiEye /> : <HiEyeOff />}</label>
-                                    </div>
-                                    {
-                                        currentPassError &&
-                                        <div>
-                                            <p className='text-xs text-red-500 text-left'>Current password is wrong</p>
-                                        </div>
-                                    }
-                                </div>
-                                <div className='bg-gray-200 rounded-md'>
-                                    <input type={newPassView ? "text" : "password"} name='newPassword' placeholder='New Password' className='input  bg-gray-200 text-gray-700' required />
-                                    <label onClick={() => setNewPassView(!newPassView)} className='px-2 inline-block'>{newPassView ? <HiEye /> : <HiEyeOff />}</label>
-                                </div>
-                                <div>
-                                    <div className='bg-gray-200 rounded-md'>
-                                        <input type={confirmPassView ? "text" : "password"} name='confirmPassword' placeholder='Confirm New Password' className='input  bg-gray-200 text-gray-700' required />
-                                        {/* <button onClick={() => setConfirmPassView(!confirmPassView)} className='px-2'>{confirmPassView ? <HiEye /> : <HiEyeOff />}</button> */}
-                                        <label onClick={() => setConfirmPassView(!confirmPassView)} className='px-2 inline-block'>{confirmPassView ? <HiEye /> : <HiEyeOff />}</label>
-                                    </div>
-                                    {
-                                        newPassError &&
-                                        <div>
-                                            <p className='text-xs text-red-500 text-left'>New password didn't match</p>
-                                        </div>
-                                    }
-                                </div>
-                                <button type='submit' class="bg-primary hover:bg-secondary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold cursor-pointer" >Submit</button>
-                            </form>
+                            {/* <InputText type={currentPassView ? "text" : "password"} name='currentPassword' placeholder='Current Password' className='input  bg-gray-200 text-gray-700 w-full' required />
+                                <label onClick={() => setCurrentPassView(!currentPassView)} className='px-2 inline-block'>{currentPassView ? <HiEye /> : <HiEyeOff />}</label> */}
                         </div>
+                        {
+                            currentPassError &&
+                            <div>
+                                <p className='text-xs text-red-500 text-left'>Current password is wrong</p>
+                            </div>
+                        }
                     </div>
-                </div >
+                    <div className='rounded-md mt-2'>
+                        <div className='p-float-label'>
+                            <Password onChange={(e) => setNewPassword(e.target.value)} toggleMask required />
+                            <label htmlFor="newPassword">New Password</label>
+                        </div>
+                        {/* <InputText type={newPassView ? "text" : "password"} name='newPassword' placeholder='New Password' className='input  bg-gray-200 text-gray-700 w-full' required />
+                        <label onClick={() => setNewPassView(!newPassView)} className='px-2 inline-block'>{newPassView ? <HiEye /> : <HiEyeOff />}</label> */}
+                    </div>
+                    <div>
+                        <div className='rounded-md mt-2'>
+                            <div className='p-float-label'>
+                                <Password onChange={(e) => setConfirmPassword(e.target.value)} toggleMask required />
+                                <label htmlFor="confirmPassword">Confirm New Password</label>
+                            </div>
+                            {/* <InputText type={confirmPassView ? "text" : "password"} name='confirmPassword' placeholder='Confirm New Password' className='input  bg-gray-200 text-gray-700 w-full' required />
+                            <label onClick={() => setConfirmPassView(!confirmPassView)} className='px-2 inline-block'>{confirmPassView ? <HiEye /> : <HiEyeOff />}</label> */}
+                        </div>
+                        {
+                            newPassError &&
+                            <div>
+                                <p className='text-xs text-red-500 text-left'>New password didn't match</p>
+                            </div>
+                        }
+                    </div>
+                    <div className='mt-4'>
+                        <Button type='submit' label='Submit' icon="pi pi-check" className="p-button-info normal-case" />
+                    </div>
+                </form>
+            </Dialog>
+
+            {
+                // changePassword &&
+
+                // // Add Member Modal
+                // <div class="bg-slate-600 bg-opacity-40 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+                //     <div class="bg-white px-2 py-2 rounded-md text-center">
+                //         <button onClick={() => { setChangePassword(false); setCurrentPassView(false); setNewPassView(false); setConfirmPassView(false) }} className='text-black font-bold float-right bg-gray-300 px-3 py-1 rounded-full relative'>X</button>
+                //         <div className='m-10'>
+                //             <h1 class="text-xl mb-6 font-bold border-b-2 pb-1 inline-block">Change Password</h1>
+                // <form onSubmit={(e) => handlePasswordChange(e)} className='flex flex-col gap-4'>
+                //     <div>
+                //         <div className='bg-gray-200 rounded-md'>
+                //             <input type={currentPassView ? "text" : "password"} name='currentPassword' placeholder='Current Password' className='input  bg-gray-200 text-gray-700' required />
+                //             <label onClick={() => setCurrentPassView(!currentPassView)} className='px-2 inline-block'>{currentPassView ? <HiEye /> : <HiEyeOff />}</label>
+                //         </div>
+                //         {
+                //             currentPassError &&
+                //             <div>
+                //                 <p className='text-xs text-red-500 text-left'>Current password is wrong</p>
+                //             </div>
+                //         }
+                //     </div>
+                //     <div className='bg-gray-200 rounded-md'>
+                //         <input type={newPassView ? "text" : "password"} name='newPassword' placeholder='New Password' className='input  bg-gray-200 text-gray-700' required />
+                //         <label onClick={() => setNewPassView(!newPassView)} className='px-2 inline-block'>{newPassView ? <HiEye /> : <HiEyeOff />}</label>
+                //     </div>
+                //     <div>
+                //         <div className='bg-gray-200 rounded-md'>
+                //             <input type={confirmPassView ? "text" : "password"} name='confirmPassword' placeholder='Confirm New Password' className='input  bg-gray-200 text-gray-700' required />
+                //             {/* <button onClick={() => setConfirmPassView(!confirmPassView)} className='px-2'>{confirmPassView ? <HiEye /> : <HiEyeOff />}</button> */}
+                //             <label onClick={() => setConfirmPassView(!confirmPassView)} className='px-2 inline-block'>{confirmPassView ? <HiEye /> : <HiEyeOff />}</label>
+                //         </div>
+                //         {
+                //             newPassError &&
+                //             <div>
+                //                 <p className='text-xs text-red-500 text-left'>New password didn't match</p>
+                //             </div>
+                //         }
+                //     </div>
+                //     <button type='submit' class="bg-primary hover:bg-secondary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold cursor-pointer" >Submit</button>
+                // </form>
+                //         </div>
+                //     </div>
+                // </div >
             }
 
             {
                 updateForm &&
                 <div className='w-2/3 bg-white rounded m-4 p-4 h-fit'>
-                    <p className='text-lg font-bold text-secondary border-secondary border-b-2 inline p-1'>Update Your Profile</p>
+                    <p className='text-xl font-bold text-gray-600 inline p-1'>Update Profile</p>
 
                     <form onSubmit={handleProfileUpdate}>
-                        <div className='mt-8'>
+                        <div className='mt-4'>
                             <div className='flex gap-4 justify-between'>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
                                         <span class="label-text text-gray-700">Full Name</span>
                                     </label>
-                                    <input name='name' type="text" placeholder={user?.name || "Type here"} class="input input-sm input-bordered w-full max-w-xs bg-gray-200 text-gray-700" />
+                                    <InputText name='name' type="text" placeholder={user?.name || "Type here"} className="w-full max-w-xs bg-gray-200 text-gray-700" />
                                 </div>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
                                         <span class="label-text text-gray-700">Date of Birth</span>
                                     </label>
-                                    <input name='birthday' type="date" placeholder="Type here" class="input input-sm input-bordered w-full max-w-xs bg-gray-200 text-gray-700" />
+                                    {/* <InputText name='birthday' type="date" placeholder="Type here" className="w-full max-w-xs bg-gray-200 text-gray-700" /> */}
+
+                                    <Calendar dateFormat="dd-mm-yy" name='birthday' placeholder={user?.birthday} maxDate={new Date()}></Calendar>
+
                                 </div>
                             </div>
-                            <div className='flex gap-4 justify-between mt-4'>
+                            <div className='flex gap-4 justify-between'>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
                                         <span class="label-text text-gray-700">Contact</span>
                                     </label>
-                                    <input name='phone' type="text" placeholder={user?.mobile || "Type here"} class="input input-sm input-bordered w-full max-w-xs bg-gray-200 text-gray-700" />
+                                    <InputText name='phone' type="text" placeholder={user?.mobile || "Type here"} classname="w-full max-w-xs bg-gray-200 text-gray-700" />
                                 </div>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
                                         <span class="label-text text-gray-700">Sex</span>
                                     </label>
-                                    <select name='sex' class="select select-sm select-bordered w-full max-w-xs bg-gray-200 text-gray-700">
+                                    <Dropdown name='sex' value={sex || user?.sex}
+                                        options={
+
+                                            [{ label: 'Male', value: 'Male' },
+                                            { label: 'Female', value: 'Female' }]
+
+                                        }
+                                        onChange={(e) => setSex(e.value)} placeholder="Select Sex" />
+                                    {/* <select name='sex' class="select select-sm select-bordered w-full max-w-xs bg-gray-200 text-gray-700">
                                         <option disabled selected>{user?.sex || 'N/A'}</option>
                                         <option>Male</option>
                                         <option>Female</option>
                                         <option>Common</option>
-                                    </select>
+                                    </select> */}
                                 </div>
                             </div>
-                            <div className='flex gap-4 justify-between mt-4'>
+                            <div className='flex gap-4 justify-between'>
                                 <div class="form-control w-full">
                                     <label class="label">
                                         <span class="label-text text-gray-700">Bio</span>
                                     </label>
-                                    <textarea name='bio' type="text" placeholder={user?.bio || "Type here"} class="textarea textarea-bordered w-full bg-gray-200 text-gray-700" />
+                                    <InputTextarea name='bio' type="text" placeholder={user?.bio || "Type here"} class="textarea textarea-bordered w-full bg-gray-200 text-gray-700" />
                                 </div>
                             </div>
                             <div class="form-control w-full">
                                 <label class="label">
                                     <span class="label-text text-gray-700">Profile Picture Link</span>
                                 </label>
-                                <input name='photo' type="text" placeholder="Type here" class="input input-sm input-bordered w-full bg-gray-200 text-gray-700" />
+                                <InputText name='photo' type="text" placeholder="Place here" className="w-full bg-gray-200 text-gray-700" />
                             </div>
                         </div>
-                        <div className='flex justify-end'>
-                            <button type='submit' className='btn bg-primary hover:bg-secondary border-0 my-4'>Update</button>
+                        <div className='flex justify-end mt-8 gap-x-2'>
+                            {/* <button type='submit' className='btn btn-sm bg-primary hover:bg-secondary border-0 my-4'>Update</button> */}
+                            <Button label="Cancel" icon="pi pi-times" onClick={() => {
+                                setUpdateForm(false);
+                                setSex(false)
+                            }} className="p-button-danger normal-case" />
+                            <Button type='submit' label="Submit" icon="pi pi-check" className=' p-button-info btn btn-primary normal-case' />
                         </div>
                     </form>
                 </div>

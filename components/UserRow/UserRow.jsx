@@ -4,6 +4,9 @@ import { BsInfoSquareFill, BsPersonCheckFill } from 'react-icons/bs';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { useRouter } from 'next/router';
 import Cookies from 'universal-cookie';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { InputText } from 'primereact/inputtext';
 
 const UserRow = ({ user, fetchUsers }) => {
 
@@ -74,8 +77,25 @@ const UserRow = ({ user, fetchUsers }) => {
             <td>{email}</td>
             <td>{role}</td>
             <td className='flex gap-x-3 p-2'>
-                <BsInfoSquareFill size='24' color='#070225' className='cursor-pointer' onClick={() => setDetailsModal(user)} />
-                {
+                <BsInfoSquareFill size='24' color='#3B82F6' className='cursor-pointer' onClick={() => setDetailsModal(user)} />
+
+                {/* user details view dialog box  */}
+                <Dialog header="Delete User" visible={detailsModal} onHide={() => { setDetailsModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className='text-center'>
+                        <i className='pi pi-user text-primary' style={{ 'fontSize': '2em' }}></i>
+                        <div className='my-6 text-left'>
+                            <p className='text-lg text-slate-500'>Name: {name}</p>
+                            <p className='text-lg text-slate-500'>Email: {email}</p>
+                            <p className='text-lg text-slate-500'>Role: {role}</p>
+                        </div>
+                    </div>
+
+                    <div className='flex justify-end mt-12 gap-x-2'>
+                        <Button label="Close" icon="pi pi-times" onClick={() => { setDetailsModal(false) }} className="p-button-danger p-button-sm btn normal-case" />
+                    </div>
+                </Dialog>
+                {/* {
                     detailsModal &&
 
                     //delete modal
@@ -88,15 +108,29 @@ const UserRow = ({ user, fetchUsers }) => {
                                 <p className='text-lg text-slate-500'>Role: {role}</p>
                             </div>
                             <button onClick={() => setDetailsModal(null)} class="bg-red-500 px-4 py-2 rounded-md text-md text-white float-right">Close</button>
-                            {/* <button onClick={() => console.log(name)} class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">Ok</button> */}
                         </div>
                     </div>
-                }
+                } */}
 
                 <label onClick={() => setDeleteModal(user)} for="delete-modal">
                     <RiDeleteBin6Fill size='24' color='#DF5353' className='cursor-pointer' />
                 </label>
-                {
+
+                {/* user delete dialog box  */}
+                <Dialog header="Delete User" visible={deleteModal} onHide={() => { setDeleteModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className='text-center mt-2'>
+                        <i className='pi pi-trash text-red-500' style={{ 'fontSize': '2em' }}></i>
+                        <p className='text-xl font-bold my-4'>Delete {name} ?</p>
+                    </div>
+
+                    <div className='flex justify-center mt-12 gap-x-2'>
+                        <Button label="Cancel" icon="pi pi-times" onClick={() => { setDeleteModal(false) }} className="p-button-danger p-button-sm btn normal-case" />
+                        <Button label="Delete" icon="pi pi-trash" onClick={() => deleteUser(_id)} className='p-button-sm p-button-info btn normal-case' />
+                    </div>
+                </Dialog>
+
+                {/* {
                     deleteModal &&
 
                     //delete modal
@@ -104,13 +138,31 @@ const UserRow = ({ user, fetchUsers }) => {
                         <div class="bg-white px-16 py-14 rounded-md text-center">
                             <h1 class="text-xl mb-4 font-bold text-slate-500">Do you Want to Delete?</h1>
                             <p className='text-xl font-semibold my-4 text-slate-500'>{name}</p>
+
                             <button onClick={() => setDeleteModal(null)} class="bg-red-500 px-4 py-2 rounded-md text-md text-white">Cancle</button>
                             <button onClick={() => deleteUser(_id)} class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">Ok</button>
                         </div>
                     </div>
-                }
+                } */}
+
+
                 <BsPersonCheckFill onClick={() => setUserRoleModal(user)} size='24' color='#00AA88' className={`cursor-pointer ${role == 'user' && 'grayscale'}`} />
-                {
+
+                {/* Change role dialog box */}
+                <Dialog header="Change Role" visible={userRoleModal} onHide={() => { setUserRoleModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className='text-center mt-2'>
+                        <i className='pi pi-arrow-right-arrow-left'></i>
+                        <h1 class="text-xl mb-4 font-bold text-slate-500">Change role to {role == 'admin' ? 'User' : 'Admin'}</h1>
+                    </div>
+
+                    <div className='flex justify-center mt-12 gap-x-2'>
+                        <Button label="No" icon="pi pi-times" onClick={() => setUserRoleModal(null)} className="p-button-danger p-button-sm btn normal-case" />
+                        <Button label="Yes" icon="pi pi-check" onClick={() => toggleUserRole(_id, role == 'admin' ? 'user' : 'admin')} className='p-button-sm p-button-info btn normal-case' />
+                    </div>
+                </Dialog>
+
+                {/* {
                     userRoleModal &&
 
                     //delete modal
@@ -121,7 +173,7 @@ const UserRow = ({ user, fetchUsers }) => {
                             <button onClick={() => toggleUserRole(_id, role == 'admin' ? 'user' : 'admin')} class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">Ok</button>
                         </div>
                     </div>
-                }
+                } */}
             </td>
         </tr >
     );
