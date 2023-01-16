@@ -13,7 +13,7 @@ import { Dropdown } from 'primereact/dropdown';
 const ManageUsers = () => {
 
 
-    const [addMemberModal, setAddMemberModal] = useState(null)
+    const [addUserModal, setAddUserModal] = useState(null)
     const [users, setUsers] = useState();
     const [totalData, setTotalData] = useState(10);
     const [currentPage, setCurrentPage] = useState(0)
@@ -61,7 +61,7 @@ const ManageUsers = () => {
             .then(data => {
                 if (data.status == 'success') {
                     fetchUsers();
-                    setAddMemberModal(null)
+                    setAddUserModal(null)
                 }
                 else if (data.status == 'failed') {
                     console.log(data)
@@ -78,9 +78,9 @@ const ManageUsers = () => {
 
             <div className='flex justify-between mb-2'>
 
-                <Button label="Add User" icon="pi pi-user-plus" onClick={() => setAddMemberModal(true)} className='p-button-info' />
-                <Dialog header="Add New User" visible={addMemberModal} onHide={() => {
-                    setAddMemberModal(false);
+                <Button label="Add User" icon="pi pi-user-plus" onClick={() => setAddUserModal(true)} className='p-button-info' />
+                <Dialog header="Add New User" visible={addUserModal} onHide={() => {
+                    setAddUserModal(false);
                     setUserRole(null);
                 }} breakpoints={{ '960px': '75vw' }} style={{ width: '30vw' }} >
                     <form onSubmit={addUser} className='flex flex-col gap-4 p-6'>
@@ -111,7 +111,7 @@ const ManageUsers = () => {
                         {/* <button type='submit' class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold cursor-pointer" >Submit</button> */}
                         <div className='flex justify-end gap-2 mt-8'>
                             <Button label="No" icon="pi pi-times" onClick={() => {
-                                setAddMemberModal(false);
+                                setAddUserModal(false);
                                 setUserRole(null)
                             }} className="p-button-danger p-button-sm" />
                             <Button type='submit' label="Yes" icon="pi pi-check" className='p-button-info p-button-sm' />

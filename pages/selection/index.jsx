@@ -41,13 +41,13 @@ const Selection = () => {
     // console.log(selectedFreedomFighters);
 
     return (
-        <div>
+        <div className='max-h-[90vh]'>
             {/* <div className='text-center mt-8'>
                 <h2 className='text-4xl text-secondary font-bold'>Primary Selection</h2>
             </div> */}
 
             <div className='flex gap-x-6'>
-                <form onSubmit={handleSelection} className='container px-10 min-h-screen w-1/4 bg-white'>
+                <form onSubmit={handleSelection} className='container px-10 min-h-[93vh] w-1/4 bg-white'>
                     <div>
                         <p className='text-primary text-xl font-bold text-center underline my-6'>Selection criteria</p>
                     </div>
@@ -142,12 +142,12 @@ const Selection = () => {
                 <button onClick={handleSelection} className='btn btn-primary'>Click to select</button>
             </div> */}
 
-                <div className='w-3/4 p-4 m-4 rounded-md shadow-lg bg-white'>
+                <div className='w-3/4 p-4 mt-4 rounded-md shadow-lg bg-white max-h-[90vh] overflow-y-scroll'>
 
                     <div className=''>
                         {
                             selectedFreedomFighters ?
-                                <div>
+                                <div className='max-w-7xl mx-auto'>
                                     <div className="flex justify-between items-center mb-2 p-1 rounded-md">
                                         <div className='text-gray-600 text-xl font-bold'>
                                             <p>Selected Members</p>
@@ -156,7 +156,7 @@ const Selection = () => {
                                             <Button label='Export' icon='pi pi-file-export' className='p-button-info btn normal-case' />
                                         </div>
                                     </div>
-                                    <table className="table-auto container max-w-7xl mx-auto shadow-md">
+                                    <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
                                                 <th className='p-2 rounded-tl-md'>Name</th>

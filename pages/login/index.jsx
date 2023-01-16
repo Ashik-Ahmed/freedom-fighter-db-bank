@@ -1,8 +1,8 @@
-import React from 'react';
+import { Password } from 'primereact/password';
+import React, { useState } from 'react';
 import Cookies from 'universal-cookie';
 
 const Login = () => {
-
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -10,7 +10,7 @@ const Login = () => {
         const cookie = new Cookies();
 
         const email = e.target.email.value;
-        const password = e.target.password.value;
+
 
         await fetch('http://localhost:5000/api/v1/users/login', {
             method: 'POST',
@@ -22,7 +22,7 @@ const Login = () => {
             .then(res => res.json())
             .then(async data => {
                 console.log(data)
-                await cookie.set('TOKEN', data.data.token)
+                cookie.set('TOKEN', data.data.token)
             })
 
     }
