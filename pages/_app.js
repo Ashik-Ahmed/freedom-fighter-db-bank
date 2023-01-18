@@ -83,12 +83,13 @@ function MyApp({ Component, pageProps }) {
           <p className='text-primary underline text-2xl font-bold'>Please Login</p>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <form onSubmit={handleLogin} className="card-body">
-              <div className="p-float-label mt-4">
+              <div className="p-float-label p-input-icon-right mt-4">
                 {/* <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label> */}
                 {/* <input name='email' type="email" placeholder="email" className="input input-bordered" /> */}
+                <i className="pi pi-envelope" />
                 <InputText type="email" name='email' id='email' className=' bg-gray-200 text-gray-700 w-full' required />
                 <label htmlFor="email">*Email</label>
               </div>

@@ -36,7 +36,7 @@ const Navbar = ({ user, setUser }) => {
                             <li><Link href='/selection'>Selection</Link></li>
                         </ul>
                     </div>
-                    <Link href='/' className="btn btn-ghost normal-case text-xl">Invitation Management</Link>
+                    <Link href='/' className="btn btn-ghost normal-case text-xl">Invite</Link>
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">

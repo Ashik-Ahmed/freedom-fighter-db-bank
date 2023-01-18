@@ -320,7 +320,7 @@ const MyProfile = () => {
                                     </label>
                                     {/* <InputText name='birthday' type="date" placeholder="Type here" className="w-full max-w-xs bg-gray-200 text-gray-700" /> */}
 
-                                    <Calendar dateFormat="dd-mm-yy" name='birthday' placeholder={user?.birthday} maxDate={new Date()}></Calendar>
+                                    <Calendar dateFormat="dd-mm-yy" name='birthday' placeholder={user?.birthday} maxDate={new Date()} showIcon></Calendar>
 
                                 </div>
                             </div>

@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import { Card } from 'primereact/card';
+
 
 export default function Home() {
   return (
@@ -10,8 +12,42 @@ export default function Home() {
       </Head>
 
       <div>
-        <h2 className='text-9xl font-bold'>This is Homepage</h2>
+        <div className='flex gap-x-8 max-w-7xl mx-auto p-4'>
+          <div className='w-full'>
+            <div className="card shadow-xl bg-green-400 rounded-md">
+              <div className="card-body">
+                <p className='text-2xl font-bold'>Total Member</p>
+                <p className='text-xl'>680</p>
+              </div>
+            </div>
+          </div>
+          <div className='w-full'>
+            <div className="card shadow-xl bg-red-400 rounded-md">
+              <div className="card-body">
+                <p className='text-2xl font-bold'>General Member</p>
+                <p className='text-xl'>200</p>
+              </div>
+            </div>
+          </div>
+          <div className='w-full'>
+            <div className="card shadow-xl bg-yellow-400 rounded-md">
+              <div className="card-body">
+                <p className='text-2xl font-bold'>Freedom Fighter</p>
+                <p className='text-xl'>180</p>
+              </div>
+            </div>
+          </div>
+          <div className='w-full'>
+            <div className="card shadow-xl bg-violet-400 rounded-md">
+              <div className="card-body">
+                <p className='text-2xl font-bold'>Retired Member</p>
+                <p className='text-xl'>300</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
+    </div >
   )
 }

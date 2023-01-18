@@ -12,6 +12,8 @@ import { Dialog } from 'primereact/dialog';
 import { RadioButton } from 'primereact/radiobutton';
 import countryList from 'react-select-country-list'
 import { InputTextarea } from 'primereact/inputtextarea';
+import { useFormik } from 'formik';
+import { classNames } from 'primereact/utils';
 
 
 const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
@@ -22,6 +24,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
     const [filter, setFilter] = useState('')
     const [searchValue, setSearchValue] = useState('');
     const [addMemberDialog, setAddMemberDialog] = useState(false);
+    const [memberType, setMemberType] = useState('')
 
     const [ranks, setRanks] = useState([]);
     const [countries, setCountries] = useState([]);
@@ -35,6 +38,14 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
     }, [])
 
     // countries?.map(country => console.log(country?.name?.common))
+
+
+    const memberTypes = [
+        'Freedom Fighter',
+        'General Invitees',
+        'Retired',
+        'Retired ORs/Other'
+    ]
 
     const forces = [
         'Army',
@@ -122,7 +133,87 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
         setForce('');
         setRanks('');
         setFighterRank('');
+        setMemberType('');
     }
+
+
+    // use of formik 
+    // const formik = useFormik({
+    //     initialValues: {
+    //         type: '',
+    //         fullName: '',
+    //         email: '',
+    //         contact: '',
+    //         country: '',
+    //         status: '',
+    //         force: '',
+    //         officialRank: '',
+    //         freedomFighterRank: '',
+    //         address: '',
+    //     },
+    //     validate: (data) => {
+    //         let errors = {};
+    //         if (!data.type) {
+    //             errors.type = 'Member type is required.';
+    //         }
+    //         if (!data.fullName) {
+    //             errors.name = 'Name is required.';
+    //         }
+
+    //         if (!data.email) {
+    //             errors.email = 'Email is required.';
+    //         }
+    //         else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
+    //             errors.email = 'Invalid email address. E.g. example@email.com';
+    //         }
+
+    //         if (!data.contact) {
+    //             errors.contact = 'Contact Number is required.';
+    //         }
+
+    //         if (!data.country) {
+    //             errors.country = 'Country name is required.';
+    //         }
+
+    //         if (!data.status) {
+    //             errors.status = 'Status  is required.';
+    //         }
+
+    //         if (!data.force) {
+    //             errors.force = 'Force  is required.';
+    //         }
+
+    //         if (!data.officialRank) {
+    //             errors.officialRank = 'Official rank  is required.';
+    //         }
+
+    //         if (!data.freedomFighterRank) {
+    //             errors.freedomFighterRank = 'Freedom fighter rank  is required.';
+    //         }
+
+    //         if (!data.address) {
+    //             errors.address = 'Address is required.';
+    //         }
+
+    //         return errors;
+    //     },
+    //     onSubmit: (data) => {
+    //         setFormData(data);
+    //         setShowMessage(true);
+
+    //         formik.resetForm();
+    //     }
+    // });
+
+    // const isFormFieldValid = (name) => !!(formik.touched[name] && formik.errors[name]);
+    // const getFormErrorMessage = (name) => {
+    //     return isFormFieldValid(name) && <small className="p-error">{formik.errors[name]}</small>;
+    // };
+
+
+
+
+
 
     // const handleSelectForce = (e) => {
     //     // const force = e.target.value;
@@ -295,6 +386,9 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                             {/* onSubmit={handleInsertFreedomFighter} */}
                             <form action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data' className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
                                 <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
+                                <div>
+                                    <Dropdown name='type' options={memberTypes} value={memberType} onChange={(e) => setMemberType(e.value)} placeholder="*Select Member Type" className='text-black w-full' required />
+                                </div>
                                 <div className='flex w-full gap-x-12'>
                                     {/* <div className="relative w-1/2">
                                         <input name='fullName' type="text" id="floating_outlined" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
@@ -303,7 +397,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
 
                                     <div className="p-float-label w-1/2">
                                         <InputText name='fullName' id='fullName' className='w-full' required />
-                                        <label htmlFor="fullName">*Full Name</label>
+                                        <label htmlFor="fullName" >*Full Name</label>
                                     </div>
                                     {/* <div className="relative w-1/2">
                                         <input name='email' type="email" id="floating_outlined" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
@@ -351,7 +445,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                                         <label htmlFor="contact">*Contact</label>
                                     </div>
                                     <div className='w-1/3'>
-                                        <Dropdown name='country' options={countries} value={country} onChange={(e) => setCountry(e.value)} placeholder="Select a Country" className='text-black w-full' required />
+                                        <Dropdown name='country' options={countries} value={country} onChange={(e) => setCountry(e.value)} placeholder="*Select a Country" className='text-black w-full' required />
                                     </div>
                                     {/* <div className='w-1/3 flex gap-x-2'>
                                         <div>
@@ -413,13 +507,13 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                                     </div> */}
 
                                     <div className='w-1/3'>
-                                        <Dropdown name='force' options={forces} value={force} onChange={(e) => setForce(e.value)} placeholder="Select a Force" className='text-black w-full' required />
+                                        <Dropdown name='force' options={forces} value={force} onChange={(e) => setForce(e.value)} placeholder="*Select a Force" className='text-black w-full' required />
                                     </div>
                                     <div className='w-1/3'>
-                                        <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => setRank(e.value)} placeholder="Official Rank" className='text-black w-full' required />
+                                        <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => setRank(e.value)} placeholder="*Official Rank" className='text-black w-full' required />
                                     </div>
                                     <div className='w-1/3'>
-                                        <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank} onChange={(e) => setFighterRank(e.value)} placeholder="Freedom Fighter Rank" className='text-black w-full' required />
+                                        <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank} onChange={(e) => setFighterRank(e.value)} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
                                     </div>
                                 </div>
                                 <div className='flex gap-x-12'>
