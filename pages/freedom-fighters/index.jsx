@@ -1,7 +1,4 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { SiAddthis, SiMetafilter } from 'react-icons/si';
 import ReactPaginate from 'react-paginate';
 import FreedomFighterRow from '../../components/FreedomFighterRow/FreedomFighterRow';
 import { getFreedomFighters } from '../../controllers/freedomFighter.controller';
@@ -9,11 +6,8 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
-import { RadioButton } from 'primereact/radiobutton';
 import countryList from 'react-select-country-list'
 import { InputTextarea } from 'primereact/inputtextarea';
-import { useFormik } from 'formik';
-import { classNames } from 'primereact/utils';
 
 
 const Home = ({ totalFreedomFighterCount, freedomFighters }) => {

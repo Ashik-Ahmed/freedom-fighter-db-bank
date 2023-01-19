@@ -1,8 +1,175 @@
 import Head from 'next/head'
-import { Card } from 'primereact/card';
+import { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { Dropdown } from 'primereact/dropdown';
+import { Dialog } from 'primereact/dialog';
+import countryList from 'react-select-country-list'
+import { InputTextarea } from 'primereact/inputtextarea';
+import FreedomFighterRow from '../components/FreedomFighterRow/FreedomFighterRow';
+import { getFreedomFighters } from '../controllers/freedomFighter.controller';
 
 
-export default function Home() {
+export default function Home({ totalFreedomFighterCount, freedomFighters }) {
+
+  const [freedomFightersData, setFreedomFightersData] = useState(freedomFighters);
+  const [totalData, setTotalData] = useState(totalFreedomFighterCount);
+  const [currentPage, setCurrentPage] = useState(0)
+  const [filter, setFilter] = useState('')
+  const [searchValue, setSearchValue] = useState('');
+  const [addMemberDialog, setAddMemberDialog] = useState(false);
+  const [memberType, setMemberType] = useState('')
+
+  const [ranks, setRanks] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState();
+  const [force, setForce] = useState('');
+  const [rank, setRank] = useState('');
+  const [fighterRank, setFighterRank] = useState('');
+
+
+
+  useEffect(() => {
+    // fetch countries 
+    setCountries(countryList().getLabels())
+
+    // fetch freedom fighters 
+    // fetch('http://localhost:5000/api/v1/freedomFighters', {
+    //   next: {
+    //     revalidate: 10
+    //   }
+    // }).then(res => res.json())
+    //   .then(data => {
+    //     setFreedomFightersData(data)
+    //     console.log(data);
+    //   })
+  }, [])
+
+
+
+  const memberTypes = [
+    'Freedom Fighter',
+    'General Invitees',
+    'Retired',
+    'Retired ORs/Other'
+  ]
+
+  const forces = [
+    'Army',
+    'Navy',
+    'Air Force'
+  ]
+
+  const armyRank = [
+    'General',
+    'Lieutenant general',
+    'Major general',
+    'Brigadier general',
+    'Colonel',
+    'Lieutenant colonel',
+    'Major',
+    'Captain',
+    'Lieutenant',
+    'Second lieutenant',
+    'Officer cadet',
+    'Master warrant officer',
+    'Senior warrant officer',
+    'Warrant officer',
+    'Regiment Sergeant Major',
+    'Quarter Master Sergeant',
+    'Sergeant Major',
+    'Master Sergeant',
+    'Sergeant',
+    'Corporal',
+    'Lance corporal',
+    'Sainik'
+  ]
+  const navyRank = [
+    'Admiral',
+    'Vice admiral',
+    'Rear admiral',
+    'Commodore',
+    'Captain',
+    'Commander',
+    'Lieutenant commander',
+    'Lieutenant',
+    'Sub-lieutenant',
+    'Acting sub-lieutenant',
+    'Midshipman',
+    'Officer cadet',
+    'Master chief petty officer',
+    'Senior chief petty officer',
+    'Chief petty officer',
+    'Leading seaman',
+    'Able seaman',
+    'Ordinary seaman'
+  ]
+  const airForceRank = [
+    'Air Chief Marshal',
+    'Air Marshal',
+    'Air Vice-Marshal',
+    'Air Commodore',
+    'Group Captain',
+    'Wing Commander',
+    'Squadron Leader',
+    'Flight Lieutenant',
+    'Flight Sergeant',
+    'Flying Officer',
+    'Pilot Officer',
+    'Officer cadet',
+    'Master warrant officer',
+    'Senior warrant officer',
+    'Warrant officer',
+    'Sergeant',
+    'Corporal',
+    'Leading aircraftman',
+    'Aircraftman 1',
+    'Aircraftman 2'
+  ]
+
+  const fighterRanks = [
+    'Bir Shreshtho',
+    'Bir Bikrom',
+    'Bir Uttam',
+    'Bir Muktijoddha'
+  ]
+
+  const clearAllState = () => {
+    setAddMemberDialog(false);
+    setCountry('');
+    setForce('');
+    setRanks('');
+    setFighterRank('');
+    setMemberType('');
+  }
+
+
+
+  //face members from DB
+  useEffect(() => {
+    console.log(filter)
+
+    var url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}`
+
+    if (filter) {
+      url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}&force=${filter || {}}`
+    }
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.freedomFighters);
+        setFreedomFightersData(data.freedomFighters);
+        setTotalData(data.totalFreedomFighterCount)
+      })
+  }, [currentPage, filter])
+
+  const handlePageClick = (e) => {
+    setCurrentPage(parseInt(e?.selected) + 1)
+  }
+  const pageCount = Math.ceil(totalData / 10);
+
   return (
     <div>
       <Head>
@@ -12,7 +179,7 @@ export default function Home() {
       </Head>
 
       <div>
-        <div className='flex gap-x-8 max-w-7xl mx-auto p-4'>
+        <div className='flex flex-wrap md:flex-nowrap justify-center gap-8 max-w-7xl mx-auto p-4'>
           <div className='w-full'>
             <div className="card shadow-xl bg-green-400 rounded-md">
               <div className="card-body">
@@ -48,6 +215,179 @@ export default function Home() {
 
         </div>
       </div>
+
+      <div className="overflow-x-auto m-8">
+        <div className='max-w-6xl mx-auto'>
+          <div className='rounded-md inline-block mb-2'>
+
+            <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-user-plus' className='p-button-info btn normal-case' />
+          </div>
+
+          {/* add new member dialog box  */}
+          <Dialog header="Add New Member" visible={addMemberDialog} onHide={() => clearAllState()} breakpoints={{ '960px': '75vw' }} style={{ width: '80vw' }} >
+            <div className='mx-auto max-w-7xl  pb-4'>
+
+
+              {/* onSubmit={handleInsertFreedomFighter} */}
+              <form action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data' className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
+                <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
+                <div>
+                  <Dropdown name='type' options={memberTypes} value={memberType} onChange={(e) => setMemberType(e.value)} placeholder="*Select Member Type" className='text-black w-full' required />
+                </div>
+                <div className='flex w-full gap-x-12'>
+                  <div className="p-float-label w-1/2">
+                    <InputText name='fullName' id='fullName' className='w-full' required />
+                    <label htmlFor="fullName" >*Full Name</label>
+                  </div>
+                  <div className='p-float-label w-1/2'>
+                    <InputText name='email' id='email' className='w-full' required />
+                    <label htmlFor="email">*Email</label>
+                  </div>
+                </div>
+                <div className='flex w-full gap-x-12 items-center'>
+                  <div className='p-float-label w-1/3'>
+                    <InputText name='contact' id='contact' className='w-full' required />
+                    <label htmlFor="contact">*Contact</label>
+                  </div>
+                  <div className='w-1/3'>
+                    <Dropdown name='country' options={countries} value={country} onChange={(e) => setCountry(e.value)} placeholder="*Select a Country" className='text-black w-full' required />
+                  </div>
+                  <div className='relative w-1/3 flex items-center bg-white p-1 rounded-md border-2'>
+                    <label className='mr-8 ml-2'>*Status: </label>
+                    <div className='flex gap-x-4'>
+                      <div className="form-control">
+                        <label className="label cursor-pointer space-x-2">
+                          <input name='status' value='Alive' type="radio" className="radio checked:bg-blue-500 border border-primary" required />
+                          <span className="label-text text-gray-500">Alive</span>
+                        </label>
+                      </div>
+                      <div className="form-control">
+                        <label className="label cursor-pointer space-x-2">
+                          <input name='status' value='Dead' type="radio" className="radio checked:bg-red-500 border border-primary" required />
+                          <span className="label-text text-gray-500">Dead</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='flex w-full gap-x-12'>
+
+                  <div className='w-1/3'>
+                    <Dropdown name='force' options={forces} value={force} onChange={(e) => setForce(e.value)} placeholder="*Select a Force" className='text-black w-full' required />
+                  </div>
+                  <div className='w-1/3'>
+                    <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => setRank(e.value)} placeholder="*Official Rank" className='text-black w-full' required />
+                  </div>
+                  <div className='w-1/3'>
+                    <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank} onChange={(e) => setFighterRank(e.value)} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
+                  </div>
+                </div>
+                <div className='flex gap-x-12'>
+                  <div className="relative w-1/2">
+                    <div className="p-float-label w-full">
+                      <InputTextarea name='address' id='address' className=" w-full" required />
+                      <label htmlFor="address">*Address</label>
+                    </div>
+                  </div>
+                  <div className="relative w-1/2">
+                    <div className="p-float-label w-full">
+                      <InputTextarea name='description' id='description' className=" w-full" />
+                      <label htmlFor="description">Description</label>
+                    </div>
+                  </div>
+                </div>
+                <div className='relative'>
+                  <label className='text-gray-400 ml-1'>Photo</label>
+                  <input name='photo' type="file" className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
+                </div>
+
+                <div className='text-center pt-20'>
+                  <Button type='submit' label="Submit" icon="pi pi-check" className='p-button-info p-button-sm' />
+                </div>
+              </form>
+            </div>
+          </Dialog>
+          <div className='p-4 border-2 shadow-md bg-white rounded-md'>
+            <div className='flex justify-between items-center mb-2'>
+              <div className='text-gray-600 text-xl font-bold'>
+                <p>Member List</p>
+              </div>
+              <div className='space-x-4'>
+                <Dropdown name='filter' value={filter}
+                  options={
+                    [
+                      { label: 'Army', value: 'Army' },
+                      { label: 'Navy', value: 'Navy' },
+                      { label: 'Air Force', value: 'Air Force' }
+                    ]
+                  }
+                  onChange={(e) => setFilter(e.value)} placeholder="Filter" />
+                <span className="p-input-icon-left w-full md:w-auto">
+                  <i className="pi pi-search" />
+                  <InputText type="search" onInput={(e) => setSearchValue(e.target.value)} placeholder="Search..." className="w-full lg:w-auto" />
+                </span>
+              </div>
+            </div>
+            <table className="table-auto container w-full mx-auto shadow-md">
+              <thead className='bg-slate-200 text-gray-500'>
+                <tr className='w-full text-left rounded-t-md'>
+                  <th className='p-2 rounded-tl-md'>Name</th>
+                  <th>Force</th>
+                  <th>Official Rank</th>
+                  <th>Upadhi</th>
+                  <th>Status</th>
+                  <th>Attended</th>
+                  <th className='rounded-tr-md'>Action</th>
+                </tr>
+              </thead>
+              <tbody className='border bg-white'>
+                {
+                  freedomFightersData && freedomFightersData?.filter(fighter => {
+                    if (searchValue == '') {
+                      return fighter;
+                    }
+                    else if (fighter.name.toLowerCase().includes(searchValue.toLowerCase())) {
+                      return fighter;
+                    }
+                  }).splice(currentPage * 10, 10)?.map(fighter =>
+                    <FreedomFighterRow key={fighter._id} freedomFighter={fighter} refreshData={handlePageClick}></FreedomFighterRow>
+                  )
+                }
+              </tbody>
+            </table>
+
+            <div className='w-full text-primary p-2 bg-white rounded-b-md'>
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel="next >"
+                // onPageChange={handlePageClick}
+                onPageChange={(e) => setCurrentPage(e.selected)}
+                pageRangeDisplayed={3}
+                pageCount={pageCount}
+                previousLabel="< prev"
+                renderOnZeroPageCount={null}
+                className='flex gap-x-4 justify-end px-1'
+                activeClassName='bg-primary text-white px-2 rounded-full font-semibold'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div >
   )
+}
+
+
+export const getStaticProps = async (context) => {
+  const { totalFreedomFighterCount, freedomFighters } = await getFreedomFighters();
+  const result = JSON.parse(JSON.stringify(freedomFighters))
+
+  return {
+    props: {
+      freedomFighters: result,
+      totalFreedomFighterCount
+      // getStaticProps: JSON.parse(JSON.stringify(getStaticProps))
+    },
+    revalidate: 10,
+  }
 }
