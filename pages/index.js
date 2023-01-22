@@ -9,12 +9,15 @@ import countryList from 'react-select-country-list'
 import { InputTextarea } from 'primereact/inputtextarea';
 import FreedomFighterRow from '../components/FreedomFighterRow/FreedomFighterRow';
 import { getFreedomFighters } from '../controllers/freedomFighter.controller';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Skeleton } from 'primereact/skeleton';
 
 
-export default function Home({ totalFreedomFighterCount, freedomFighters }) {
+export default function Home() {
 
-  const [freedomFightersData, setFreedomFightersData] = useState(freedomFighters);
-  const [totalData, setTotalData] = useState(totalFreedomFighterCount);
+  const [freedomFightersData, setFreedomFightersData] = useState([]);
+  const [totalData, setTotalData] = useState(0);
   const [currentPage, setCurrentPage] = useState(0)
   const [filter, setFilter] = useState('')
   const [searchValue, setSearchValue] = useState('');
@@ -28,6 +31,69 @@ export default function Home({ totalFreedomFighterCount, freedomFighters }) {
   const [rank, setRank] = useState('');
   const [fighterRank, setFighterRank] = useState('');
 
+
+
+  // let loadLazyTimeout = null;
+
+  // const [globalFilter, setGlobalFilter] = useState(null);
+  // const [loading, setLoading] = useState(false)
+  // const [filters, setFilters] = useState({
+  //   force: '',
+  //   search: ''
+  //   // 'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
+  //   // 'name': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   // 'country.name': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   // 'representative': { value: null, matchMode: FilterMatchMode.IN },
+  //   // 'status': { value: null, matchMode: FilterMatchMode.EQUALS },
+  //   // 'verified': { value: null, matchMode: FilterMatchMode.EQUALS }
+  // });
+  // const [lazyParams, setLazyParams] = useState({
+  //   page: 0,
+  //   limit: 10
+  // });
+
+  // useEffect(() => {
+  //   loadLazyData()
+  //   // console.log(filters2)
+  // }, [filters]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // // useEffect(() => {
+
+  // //   setFreedomFightersData(freedomFightersData.filter(member => member.name.toLowerCase().includes(searchValue.toLowerCase())))
+  // //   console.log(freedomFightersData)
+  // // }, [lazyParams, searchValue]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // const loadLazyData = () => {
+  //   setLoading(true);
+  //   // console.log(filters);
+
+  //   if (loadLazyTimeout) {
+  //     clearTimeout(loadLazyTimeout);
+  //   }
+
+  //   const url = `http://localhost:5000/api/v1/freedomFighters?data=${JSON.stringify(lazyParams)}&filter=${JSON.stringify(filters)}`
+  //   console.log(url)
+  //   fetch(url, {
+  //     next: {
+  //       revalidate: 10
+  //     }
+  //   }).then(res => res.json())
+  //     .then(data => {
+  //       setFreedomFightersData(data.freedomFighters)
+  //       setTotalData(data.totalFreedomFighterCount)
+  //       setLoading(false)
+  //       // console.log(data.freedomFighters);
+  //     })
+  //   setLoading(false)
+  // }
+
+  // const onPage = (event) => {
+  //   setLazyParams(event);
+  // }
+
+  // const onSort = (event) => {
+  //   setLazyParams(event);
+  // }
 
 
   useEffect(() => {
@@ -217,7 +283,7 @@ export default function Home({ totalFreedomFighterCount, freedomFighters }) {
       </div>
 
       <div className="overflow-x-auto m-8">
-        <div className='max-w-6xl mx-auto'>
+        <div className='max-w-7xl mx-auto'>
           <div className='rounded-md inline-block mb-2'>
 
             <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-user-plus' className='p-button-info btn normal-case' />
@@ -321,10 +387,10 @@ export default function Home({ totalFreedomFighterCount, freedomFighters }) {
                       { label: 'Air Force', value: 'Air Force' }
                     ]
                   }
-                  onChange={(e) => setFilter(e.value)} placeholder="Filter" />
+                  onChange={(e) => { setFilter(e.value) }} placeholder="Filter" />
                 <span className="p-input-icon-left w-full md:w-auto">
                   <i className="pi pi-search" />
-                  <InputText type="search" onInput={(e) => setSearchValue(e.target.value)} placeholder="Search..." className="w-full lg:w-auto" />
+                  <InputText type="search" onInput={(e) => { setSearchValue(e.target.value); console.log(e.target.value) }} placeholder="Search..." className="w-full lg:w-auto" />
                 </span>
               </div>
             </div>
@@ -356,6 +422,22 @@ export default function Home({ totalFreedomFighterCount, freedomFighters }) {
               </tbody>
             </table>
 
+
+            {/* <div className="card">
+              <DataTable value={freedomFightersData} lazy stripedRows removableSort responsiveLayout="scroll" dataKey="name"
+                paginator first={lazyParams.first} rows={10} totalRecords={totalData} onPage={onPage} filters={filters}
+                loading={loading} globalFilter={globalFilter}>
+                <Column sortable field="name" header="Name"></Column>
+                <Column field="force" header="Force" ></Column>
+                <Column field="officialRank.rank" header="Official Rank"></Column>
+                <Column field="freedomFighterRank.rank" header="Freedom Fighter Rank"></Column>
+                <Column field="status" header="Status" ></Column>
+                <Column field="invited" header="Attended"></Column>
+                <Column field="color" header="Action"></Column>
+              </DataTable>
+            </div> */}
+
+
             <div className='w-full text-primary p-2 bg-white rounded-b-md'>
               <ReactPaginate
                 breakLabel="..."
@@ -378,16 +460,16 @@ export default function Home({ totalFreedomFighterCount, freedomFighters }) {
 }
 
 
-export const getStaticProps = async (context) => {
-  const { totalFreedomFighterCount, freedomFighters } = await getFreedomFighters();
-  const result = JSON.parse(JSON.stringify(freedomFighters))
+// export const getStaticProps = async (context) => {
+//   const { totalFreedomFighterCount, freedomFighters } = await getFreedomFighters();
+//   const result = JSON.parse(JSON.stringify(freedomFighters))
 
-  return {
-    props: {
-      freedomFighters: result,
-      totalFreedomFighterCount
-      // getStaticProps: JSON.parse(JSON.stringify(getStaticProps))
-    },
-    revalidate: 10,
-  }
-}
+//   return {
+//     props: {
+//       freedomFighters: result,
+//       totalFreedomFighterCount
+//       // getStaticProps: JSON.parse(JSON.stringify(getStaticProps))
+//     },
+//     revalidate: 10,
+//   }
+// }

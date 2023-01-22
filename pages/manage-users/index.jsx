@@ -168,7 +168,7 @@ const ManageUsers = () => {
                     </thead>
                     <tbody className='border bg-white'>
                         {
-                            users && users.filter(user => {
+                            users && users?.filter(user => {
                                 if (searchValue == '') {
                                     return user;
                                 }

@@ -652,6 +652,7 @@ export default Home;
 
 export const getStaticProps = async (context) => {
     const { totalFreedomFighterCount, freedomFighters } = await getFreedomFighters();
+    // const result = JSON.parse(JSON.stringify(freedomFighters))
     const result = JSON.parse(JSON.stringify(freedomFighters))
 
     return {
