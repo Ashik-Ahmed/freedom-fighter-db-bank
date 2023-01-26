@@ -365,7 +365,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                         {/* <Link href={`/freedom-fighters/add-new`} className='p-button-info btn btn-primary flex items-center gap-x-2 normal-case font-bold text-lg'><i className='pi pi-user-plus
 '></i> Add Member</Link> */}
 
-                        <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-user-plus' className='p-button-info btn normal-case' />
+                        <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-plus' className='p-button-info btn normal-case' />
                     </div>
 
                     {/* add new member dialog box  */}
@@ -636,8 +636,8 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                                 pageCount={pageCount}
                                 previousLabel="< prev"
                                 renderOnZeroPageCount={null}
-                                className='flex gap-x-4 justify-end px-1'
-                                activeClassName='bg-primary text-white px-2 rounded-full font-semibold'
+                                className='flex gap-x-4 justify-center items-center'
+                                activeClassName='bg-primary/30 text-gray-900 px-4 py-2 rounded-full font-semibold btn btn-circle btn-ghost'
                             />
                         </div>
                     </div>

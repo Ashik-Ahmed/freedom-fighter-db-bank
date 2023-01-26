@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
+
 import { Password } from 'primereact/password';
 import { InputText } from 'primereact/inputtext';
 

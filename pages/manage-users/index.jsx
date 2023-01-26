@@ -78,7 +78,7 @@ const ManageUsers = () => {
 
             <div className='flex justify-between mb-2'>
 
-                <Button label="Add User" icon="pi pi-user-plus" onClick={() => setAddUserModal(true)} className='p-button-info' />
+                <Button label="Add User" icon="pi pi-plus" onClick={() => setAddUserModal(true)} className='p-button-info' />
                 <Dialog header="Add New User" visible={addUserModal} onHide={() => {
                     setAddUserModal(false);
                     setUserRole(null);
@@ -175,7 +175,8 @@ const ManageUsers = () => {
                                 else if (user.name.toLowerCase().includes(searchValue.toLowerCase())) {
                                     return user;
                                 }
-                            }).splice(currentPage * 10, 10)?.map(user => <UserRow key={user._id} user={user} fetchUsers={fetchUsers}></UserRow>)
+                            }).splice(currentPage * 10, 10)?.map(user =>
+                                <UserRow key={user._id} user={user} fetchUsers={fetchUsers}></UserRow>)
                         }
                     </tbody>
                 </table>
@@ -192,7 +193,7 @@ const ManageUsers = () => {
                         pageCount={pageCount}
                         previousLabel="< prev"
                         renderOnZeroPageCount={null}
-                        className='flex gap-x-4 justify-end p-1'
+                        className='flex gap-x-4 justify-center p-1'
                         activeClassName='bg-primary text-white px-2 rounded-full font-semibold'
                     />
                 </div>

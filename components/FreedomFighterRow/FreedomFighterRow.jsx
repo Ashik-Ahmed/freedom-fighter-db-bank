@@ -27,7 +27,7 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
     }
 
     return (
-        <tr className='border-b text-gray-500'>
+        <tr className='border-b text-gray-700'>
             <td className='p-2'>{name}</td>
             <td>{force}</td>
             <td>{officialRank.rank}</td>

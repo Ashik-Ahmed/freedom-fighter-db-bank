@@ -245,7 +245,7 @@ export default function Home() {
       </Head>
 
       <div>
-        <div className='flex flex-wrap md:flex-nowrap justify-center gap-8 max-w-7xl mx-auto p-4'>
+        <div className='flex flex-wrap md:flex-nowrap justify-center max-w-7xl mx-auto py-4 gap-4'>
           <div className='w-full'>
             <div className="card shadow-xl bg-green-400 rounded-md">
               <div className="card-body">
@@ -282,11 +282,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="overflow-x-auto m-8">
+      <div className="overflow-x-auto">
         <div className='max-w-7xl mx-auto'>
           <div className='rounded-md inline-block mb-2'>
-
-            <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-user-plus' className='p-button-info btn normal-case' />
+            <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-plus' className='p-button-info btn normal-case' />
           </div>
 
           {/* add new member dialog box  */}
@@ -375,7 +374,7 @@ export default function Home() {
           </Dialog>
           <div className='p-4 border-2 shadow-md bg-white rounded-md'>
             <div className='flex justify-between items-center mb-2'>
-              <div className='text-gray-600 text-xl font-bold'>
+              <div className='text-gray-800 text-xl font-bold'>
                 <p>Member List</p>
               </div>
               <div className='space-x-4'>
@@ -395,7 +394,7 @@ export default function Home() {
               </div>
             </div>
             <table className="table-auto container w-full mx-auto shadow-md">
-              <thead className='bg-slate-200 text-gray-500'>
+              <thead className='bg-slate-200 text-gray-800'>
                 <tr className='w-full text-left rounded-t-md'>
                   <th className='p-2 rounded-tl-md'>Name</th>
                   <th>Force</th>
@@ -406,7 +405,7 @@ export default function Home() {
                   <th className='rounded-tr-md'>Action</th>
                 </tr>
               </thead>
-              <tbody className='border bg-white'>
+              <tbody className=' bg-white'>
                 {
                   freedomFightersData && freedomFightersData?.filter(fighter => {
                     if (searchValue == '') {
@@ -438,7 +437,7 @@ export default function Home() {
             </div> */}
 
 
-            <div className='w-full text-primary p-2 bg-white rounded-b-md'>
+            <div className='w-full text-gray-600 p-2 bg-white rounded-b-md'>
               <ReactPaginate
                 breakLabel="..."
                 nextLabel="next >"
@@ -448,8 +447,8 @@ export default function Home() {
                 pageCount={pageCount}
                 previousLabel="< prev"
                 renderOnZeroPageCount={null}
-                className='flex gap-x-4 justify-end px-1'
-                activeClassName='bg-primary text-white px-2 rounded-full font-semibold'
+                className='flex gap-x-4 justify-center items-center'
+                activeClassName='bg-primary/30 text-gray-900 px-4 py-2 rounded-full font-semibold btn btn-circle btn-ghost'
               />
             </div>
           </div>
