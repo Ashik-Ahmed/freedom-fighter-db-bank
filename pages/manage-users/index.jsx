@@ -74,22 +74,22 @@ const ManageUsers = () => {
     const pageCount = Math.ceil(users?.length / 10);
 
     return (
-        <div className='max-w-6xl mx-auto my-8'>
+        <div className='max-w-7xl mx-auto py-4'>
 
             <div className='flex justify-between mb-2'>
 
-                <Button label="Add User" icon="pi pi-plus" onClick={() => setAddUserModal(true)} className='p-button-info' />
+                <Button label="Add User" icon="pi pi-plus" onClick={() => setAddUserModal(true)} className='p-button-info btn normal-case' />
                 <Dialog header="Add New User" visible={addUserModal} onHide={() => {
                     setAddUserModal(false);
                     setUserRole(null);
                 }} breakpoints={{ '960px': '75vw' }} style={{ width: '30vw' }} >
-                    <form onSubmit={addUser} className='flex flex-col gap-4 p-6'>
+                    <form onSubmit={addUser} className='flex flex-col p-2'>
                         <div className='p-float-label'>
-                            <InputText type="text" name='fullName' id='fullName' className='input bg-gray-200 text-gray-700 border-4 border-primary w-full' required />
+                            <InputText type="text" name='fullName' id='fullName' className='input text-gray-700 w-full' required />
                             <label htmlFor="fullName">*Full Name</label>
                         </div>
                         <div className="p-float-label mt-4">
-                            <InputText type="email" name='email' id='email' className='input bg-gray-200 text-gray-700 w-full' required />
+                            <InputText type="email" name='email' id='email' className='input text-gray-700 w-full' required />
                             {/* <select name='role' className="p-2 rounded-md bg-gray-200 mb-2 text-gray-400" required> */}
                             <label htmlFor="email">*Email</label>
                         </div>
@@ -110,11 +110,11 @@ const ManageUsers = () => {
                         </select> */}
                         {/* <button type='submit' class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold cursor-pointer" >Submit</button> */}
                         <div className='flex justify-end gap-2 mt-8'>
-                            <Button label="No" icon="pi pi-times" onClick={() => {
+                            <Button label="Cancel" icon="pi pi-times" onClick={() => {
                                 setAddUserModal(false);
                                 setUserRole(null)
                             }} className="p-button-danger p-button-sm" />
-                            <Button type='submit' label="Yes" icon="pi pi-check" className='p-button-info p-button-sm' />
+                            <Button type='submit' label="Submit" icon="pi pi-check" className='p-button-info p-button-sm' />
                         </div>
                     </form>
                 </Dialog>
@@ -147,18 +147,18 @@ const ManageUsers = () => {
             </div>
             <div className='p-4 bg-white border-2 shadow-md rounded-md'>
                 <div className='flex justify-between items-center mb-2'>
-                    <div className='text-gray-600 text-xl font-bold'>
+                    <div className='text-gray-800 text-xl font-bold'>
                         <p>Manage Users</p>
                     </div>
                     <div className='rlative '>
                         <span className="p-input-icon-left relative">
                             <i className="pi pi-search" />
-                            <InputText type="search" onInput={(e) => setSearchValue(e.target.value)} placeholder="Search..." className='p-input-sm' />
+                            <InputText type="search" onInput={(e) => setSearchValue(e.target.value)} placeholder="Search..." className='p-input-sm input' />
                         </span>
                     </div>
                 </div>
                 <table className="table-auto container w-full mx-auto shadow-md">
-                    <thead className='bg-slate-200 text-gray-500'>
+                    <thead className='bg-slate-200 text-gray-700'>
                         <tr className='w-full text-left rounded-t-md'>
                             <th className='p-2 rounded-tl-md'>Name</th>
                             <th>Email</th>
@@ -181,7 +181,7 @@ const ManageUsers = () => {
                     </tbody>
                 </table>
                 {/* <div className='flex w-full justify-between text-primary p-2 bg-gray-100 rounded-b-md'> */}
-                <div className='w-full text-primary p-2 bg-white rounded-b-md'>
+                <div className='w-full text-gray-600 p-2 bg-white rounded-b-md'>
                     {/* <div>
                     <p>Showing {users?.length > 10 ? '10' : users?.length} of {users?.length} data</p>
                 </div> */}
@@ -193,8 +193,8 @@ const ManageUsers = () => {
                         pageCount={pageCount}
                         previousLabel="< prev"
                         renderOnZeroPageCount={null}
-                        className='flex gap-x-4 justify-center p-1'
-                        activeClassName='bg-primary text-white px-2 rounded-full font-semibold'
+                        className='flex gap-x-4 justify-center items-center'
+                        activeClassName='bg-primary/30 text-gray-900 px-4 py-2 rounded-full font-semibold btn btn-circle btn-info'
                     />
                 </div>
             </div>

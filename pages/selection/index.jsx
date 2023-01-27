@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Dialog } from 'primereact/dialog';
+import { render } from 'react-dom';
 
 
 const Selection = () => {
@@ -13,7 +15,9 @@ const Selection = () => {
     const [firstCriteria, setFirstCriteria] = useState('')
     const [secondCriteria, setSecondCriteria] = useState('')
     const [thirdCriteria, setThirdCriteria] = useState('')
-    const [checked, setChecked] = useState(false)
+    const [checked, setChecked] = useState(false);
+    const [reportModal, setReportModal] = useState(null);
+    const [report, setReport] = useState(null);
 
     const handleSelection = (e) => {
 
@@ -42,16 +46,29 @@ const Selection = () => {
 
     console.log(selectedFreedomFighters);
 
+    const generateReport = () => {
+        setReportModal(true)
+        console.log('generating report');
+        const armyCount = selectedFreedomFighters.filter(fighter => fighter.force == 'Army').length;
+        const navyCount = selectedFreedomFighters.filter(member => member.force == 'Navy').length;
+        const airforceCount = selectedFreedomFighters.filter(fighter => fighter.force == 'Air Force').length;
+
+        const counts = { total: selectedFreedomFighters.length, armyCount, navyCount, airforceCount }
+        setReport(counts)
+        console.log(armyCount, navyCount, airforceCount)
+
+
+    }
+
     const invitedYear = (rowData) => {
         return <span>{rowData.length} times</span>
     }
 
     const cols = [
         { field: 'name', header: 'Name' },
-        { field: 'officialRank.point', header: 'Official Rank' },
-        { field: 'freedomFighterRank.point', header: 'Fighter Rank' },
-        { field: 'invited.length', header: 'Invite Count', body: { invitedYear } },
-        { field: 'invited', header: 'Invited' }
+        { field: 'officialRank.rank', header: 'Official Rank' },
+        { field: 'freedomFighterRank.rank', header: 'Fighter Rank' },
+        { field: 'invited.length', header: 'Invite Count', body: { invitedYear } }
     ];
 
     const exportColumns = cols.map(col => ({ title: col.header, dataKey: col.field }));
@@ -91,32 +108,64 @@ const Selection = () => {
 
     const header = (
         <div className='flex justify-between items-center'>
-            <div className='text-gray-800 text-xl font-bold'>
+            <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
                 <p>Selected Members</p>
+                <i onClick={() => generateReport()} className='pi pi-info-circle text-xl text-primary cursor-pointer'></i>
             </div>
             <div className="flex align-items-center export-buttons gap-x-1">
                 {/* <Button type="button" icon="pi pi-file" onClick={() => exportCSV(false)} className="mr-2" data-pr-tooltip="CSV" /> */}
-                <Button type="button" icon="pi pi-file-excel" onClick={exportExcel} className="p-button-success mr-2" data-pr-tooltip="XLS" />
-                <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning mr-2" data-pr-tooltip="PDF" />
+                <Button type="button" icon="pi pi-file-excel" onClick={exportExcel} className="p-button-success p-2 mr-2" data-pr-tooltip="XLS" />
+                <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning p-2 mr-2" data-pr-tooltip="PDF" />
             </div>
         </div>
     );
 
     return (
-        <div className='max-h-[90vh]'>
+        <div className=''>
             {/* <div className='text-center mt-8'>
                 <h2 className='text-4xl text-secondary font-bold'>Primary Selection</h2>
             </div> */}
 
-            <div className='flex gap-x-6'>
-                <form onSubmit={handleSelection} className='container px-10 min-h-[93vh] w-1/4 bg-white'>
-                    <div>
-                        <p className='text-primary text-xl font-bold text-center underline my-6'>Selection criteria</p>
+            {/* shortlisted member report  */}
+            < Dialog header="Shortlist Report" visible={reportModal} onHide={() => { setReportModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                <div className='text-center'>
+                    <i className='pi pi-book text-primary' style={{ 'fontSize': '2em' }}></i>
+                    <div className='my-4 text-left'>
+                        <div className='flex justify-between items-center'>
+                            <p className='text-lg text-slate-500'>Army: </p>
+                            <p>{report?.armyCount}</p>
+                        </div>
+                        <div className='flex justify-between items-center'>
+                            <p className='text-lg text-slate-500'>Navy: </p>
+                            <p>{report?.navyCount}</p>
+                        </div>
+                        <div className='flex justify-between items-center'>
+                            <p className='text-lg text-slate-500'>Air Force: </p>
+                            <p>{report?.airforceCount}</p>
+                        </div>
+                        <hr />
+                        <div className='flex justify-between items-center'>
+                            <p className='text-lg text-slate-500'>Total: </p>
+                            <p>{report?.total}</p>
+                        </div>
                     </div>
-                    <div className='flex flex-col gap-4 mx-auto justify-center my-4'>
+                </div>
+
+                <div className='flex justify-end mt-12 gap-x-2'>
+                    <Button label="Close" icon="pi pi-times" onClick={() => { setReportModal(false) }} className="p-button-danger p-button-sm btn normal-case" />
+                </div>
+            </Dialog >
+
+            <div className='flex gap-x-6'>
+                <form onSubmit={handleSelection} className='container px-10 w-1/4 bg-white min-h-[88vh]'>
+                    <div>
+                        <p className='text-primary text-xl font-bold text-center underline my-4'>Selection criteria</p>
+                    </div>
+                    <div className='flex flex-col gap-2 mx-auto justify-center my-4'>
                         <div className="relative">
                             <span className='p-float-label'>
-                                <InputText name='total' type="number" id="total" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                <InputText name='total' type="number" id="total" className="block px-2.5 pb-2.5 pt-2.5 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 hover:border-blue-600 peer" placeholder=" " required />
                                 <label htmlFor="total">*Total</label>
                             </span>
                         </div>
@@ -204,7 +253,7 @@ const Selection = () => {
                 <button onClick={handleSelection} className='btn btn-primary'>Click to select</button>
             </div> */}
 
-                <div className='w-3/4 p-4 mt-4 rounded-md shadow-lg bg-white max-h-[90vh] overflow-y-scroll'>
+                <div className='w-3/4 p-4 rounded-md shadow-lg bg-white max-h-[90vh] overflow-y-scroll'>
 
                     <div className=''>
                         {
@@ -238,7 +287,7 @@ const Selection = () => {
                                         </tbody>
                                     </table> */}
 
-                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" responsiveLayout="scroll">
+                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" stripedRows >
                                         {
                                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                                         }

@@ -448,7 +448,7 @@ export default function Home() {
                 previousLabel="< prev"
                 renderOnZeroPageCount={null}
                 className='flex gap-x-4 justify-center items-center'
-                activeClassName='bg-primary/30 text-gray-900 px-4 py-2 rounded-full font-semibold btn btn-circle btn-ghost'
+                activeClassName='bg-primary/30 text-gray-900 px-4 py-2 rounded-full font-semibold btn btn-circle btn-info'
               />
             </div>
           </div>

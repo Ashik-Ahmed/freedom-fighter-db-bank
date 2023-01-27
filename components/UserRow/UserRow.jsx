@@ -72,15 +72,33 @@ const UserRow = ({ user, fetchUsers }) => {
     }
 
     return (
-        <tr className='border-b text-gray-500'>
+        <tr className='border-b text-gray-700'>
             <td className='p-2'>{name}</td>
             <td>{email}</td>
             <td>{role}</td>
-            <td className='flex gap-x-3 p-2'>
-                <BsInfoSquareFill size='24' color='#3B82F6' className='cursor-pointer' onClick={() => setDetailsModal(user)} />
+            <td className='flex gap-x-3 p-2 items-center'>
+                {/* <BsInfoSquareFill size='24' color='#3B82F6' className='cursor-pointer' onClick={() => setDetailsModal(user)} /> */}
+
+                <div className='flex items-center gap-x-3'>
+                    <div className='cursor-pointer ' onClick={() => setDetailsModal(user)}>
+                        <i className='pi pi-info-circle text-xl text-primary'></i>
+                    </div>
+                    <div className='cursor-pointer ' onClick={() => setDeleteModal(user)}>
+                        <i className='pi pi-trash text-xl text-red-400'></i>
+                    </div>
+                    <div className='cursor-pointer pb-1' onClick={() => setUserRoleModal(user)}>
+                        <BsPersonCheckFill size='22' color='#00AA88' className={`${role == 'user' && 'grayscale'}`} />
+                        {/* <i className='pi pi-user text-xl text-[#00AA88]'></i> */}
+                    </div>
+                </div>
+
+                {/* <label for="delete-modal">
+                    <RiDeleteBin6Fill size='24' color='#DF5353' className='cursor-pointer' />
+                </label> */}
+
 
                 {/* user details view dialog box  */}
-                <Dialog header="Delete User" visible={detailsModal} onHide={() => { setDetailsModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+                <Dialog header="User Details" visible={detailsModal} onHide={() => { setDetailsModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
 
                     <div className='text-center'>
                         <i className='pi pi-user text-primary' style={{ 'fontSize': '2em' }}></i>
@@ -112,10 +130,6 @@ const UserRow = ({ user, fetchUsers }) => {
                     </div>
                 } */}
 
-                <label onClick={() => setDeleteModal(user)} for="delete-modal">
-                    <RiDeleteBin6Fill size='24' color='#DF5353' className='cursor-pointer' />
-                </label>
-
                 {/* user delete dialog box  */}
                 <Dialog header="Delete User" visible={deleteModal} onHide={() => { setDeleteModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
 
@@ -146,7 +160,6 @@ const UserRow = ({ user, fetchUsers }) => {
                 } */}
 
 
-                <BsPersonCheckFill onClick={() => setUserRoleModal(user)} size='24' color='#00AA88' className={`cursor-pointer ${role == 'user' && 'grayscale'}`} />
 
                 {/* Change role dialog box */}
                 <Dialog header="Change Role" visible={userRoleModal} onHide={() => { setUserRoleModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >

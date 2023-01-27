@@ -3,6 +3,8 @@ import { FaEdit } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { useRouter } from 'next/router';
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
 
@@ -35,12 +37,25 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
             <td className={status == 'Dead' ? 'text-red-600' : ''}>{status}</td>
             <td>{invited.length} Times</td>
             <td className='flex gap-x-3 p-2'>
-                <BsInfoSquareFill size='24' color='#3B82F6' className='cursor-pointer' onClick={() => router.push(`/freedom-fighters/${_id}/details`)} />
+                {/* <BsInfoSquareFill size='24' color='#3B82F6' className='cursor-pointer' onClick={() => router.push(`/freedom-fighters/${_id}/details`)} />
                 <FaEdit size='24' color='#00AA88' className='cursor-pointer' />
                 <label onClick={() => setDeleteModal(freedomFighter)} for="delete-modal">
                     <RiDeleteBin6Fill size='24' color='#DF5353' className='cursor-pointer' />
-                </label>
-                {
+                </label> */}
+
+                <div className='flex items-center gap-x-3'>
+                    <div className='cursor-pointer ' onClick={() => router.push(`/freedom-fighters/${_id}/details`)}>
+                        <i className='pi pi-info-circle text-xl text-primary font-bold'></i>
+                    </div>
+                    <div className='cursor-pointer pb-1' onClick={console.log('User Editing')}>
+                        <i className='pi pi-pencil text-[#00AA88] font-bold'></i>
+                    </div>
+                    <div className='cursor-pointer ' onClick={() => setDeleteModal(freedomFighter)}>
+                        <i className='pi pi-trash text-xl text-red-400 font-bold'></i>
+                    </div>
+                </div>
+
+                {/* {
                     deleteModal &&
 
                     //delete modal
@@ -52,7 +67,21 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
                             <button onClick={() => deleteFreedomFighter(_id)} class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">Ok</button>
                         </div>
                     </div>
-                }
+                } */}
+
+                {/* user delete dialog box  */}
+                <Dialog header="Delete Member" visible={deleteModal} onHide={() => { setDeleteModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className='text-center mt-2'>
+                        <i className='pi pi-trash text-red-500' style={{ 'fontSize': '2em' }}></i>
+                        <p className='text-xl font-bold my-4'>Delete {name} ?</p>
+                    </div>
+
+                    <div className='flex justify-center mt-12 gap-x-2'>
+                        <Button label="Cancel" icon="pi pi-times" onClick={() => { setDeleteModal(false) }} className="p-button-danger p-button-sm btn normal-case" />
+                        <Button label="Delete" icon="pi pi-trash" onClick={() => deleteFreedomFighter(_id)} className='p-button-sm p-button-info btn normal-case' />
+                    </div>
+                </Dialog>
             </td>
         </tr>
     );

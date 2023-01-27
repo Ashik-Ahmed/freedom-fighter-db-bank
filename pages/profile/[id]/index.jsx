@@ -154,12 +154,12 @@ const MyProfile = () => {
 
     return (
         <div className='max-w-7xl mx-auto md:flex text-gray-700'>
-            <div class="indicator bg-white rounded mt-28 m-4 w-1/3 h-fit">
-                <div>
-                    <Image class="mask mask-hexagon indicator-item indicator-center bg-cyan-500 -mt-6 w-40" width='160' height='160' src={user?.photo || userPhoto} alt='User Photo' />
+            <div class="indicator bg-white rounded  mt-32 w-1/3">
+                <div className='mx-auto border-4 text-center'>
+                    <Image class="mask mask-hexagon indicator-item indicator-center bg-cyan-500 -mt-6 w-40 mx-auto" width='160' height='160' src={user?.photo || userPhoto} alt='User Photo' />
                 </div>
-                <div className='mt-16 pl-4 w-full'>
-                    <div className='text-left py-8'>
+                <div className='mt-0 pl-4 w-full'>
+                    <div className='text-left py-4 mt-4'>
                         <div className='flex items-baseline justify-between'>
                             <p className='font-bold w-1/3'>Name</p>
                             <span className='w-2/3'>: {user?.name}</span>
@@ -192,7 +192,7 @@ const MyProfile = () => {
                             <p onClick={(e) => setChangePassword(true)} className='link inline text-red-500'>Change Password</p>
                         </div>
                     </div>
-                    <div className='text-center my-4'>
+                    <div className='text-center my-2'>
                         <Button label='Edit Profile' icon='pi pi-user-edit' onClick={() => setUpdateForm(true)} className='p-button-info btn normal-case' />
                     </div>
                 </div>
@@ -206,7 +206,7 @@ const MyProfile = () => {
                 setCurrentPassError('');
                 setNewPassError('');
             }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
-                <form onSubmit={(e) => handlePasswordChange(e)} className='flex flex-col gap-4 my-4 justify-center items-center'>
+                <form onSubmit={(e) => handlePasswordChange(e)} className='flex flex-col gap-3 my-4 justify-center items-center'>
                     <div className=''>
                         <div className='rounded-md mt-2 '>
                             <div className='p-float-label '>
@@ -303,7 +303,7 @@ const MyProfile = () => {
             {
                 updateForm &&
                 <div className='w-2/3 bg-white rounded m-4 p-4 h-fit'>
-                    <p className='text-xl font-bold text-gray-600 inline p-1'>Update Profile</p>
+                    <p className='text-xl font-bold text-gray-800 inline p-1'>Update Profile</p>
 
                     <form onSubmit={handleProfileUpdate}>
                         <div className='mt-4'>
@@ -312,7 +312,7 @@ const MyProfile = () => {
                                     <label class="label">
                                         <span class="label-text text-gray-700">Full Name</span>
                                     </label>
-                                    <InputText name='name' type="text" placeholder={user?.name || "Type here"} className="w-full max-w-xs bg-gray-200 text-gray-700" />
+                                    <InputText name='name' type="text" placeholder={user?.name || "Type here"} className="w-full max-w-xs  text-gray-700" />
                                 </div>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
@@ -363,10 +363,10 @@ const MyProfile = () => {
                                 <label class="label">
                                     <span class="label-text text-gray-700">Profile Picture Link</span>
                                 </label>
-                                <InputText name='photo' type="text" placeholder="Place here" className="w-full bg-gray-200 text-gray-700" />
+                                <InputText name='photo' type="text" placeholder="Place here" className="w-full text-gray-700" />
                             </div>
                         </div>
-                        <div className='flex justify-end mt-8 gap-x-2'>
+                        <div className='flex justify-end mt-4 gap-x-2'>
                             {/* <button type='submit' className='btn btn-sm bg-primary hover:bg-secondary border-0 my-4'>Update</button> */}
                             <Button label="Cancel" icon="pi pi-times" onClick={() => {
                                 setUpdateForm(false);
