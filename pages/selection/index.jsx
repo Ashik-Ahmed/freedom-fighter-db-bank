@@ -23,7 +23,7 @@ const Selection = () => {
 
         e.preventDefault();
 
-        console.log(firstCriteria, secondCriteria, checked);
+        // console.log(firstCriteria, secondCriteria, checked);
 
         const total = e.target.total.value
         // const alive = e.target.alive.value
@@ -42,9 +42,10 @@ const Selection = () => {
                 setSelectedFreedomFighters(data.data)
                 console.log(data.data);
             })
+        console.log(url);
     }
 
-    console.log(selectedFreedomFighters);
+    // console.log(selectedFreedomFighters);
 
     const generateReport = () => {
         setReportModal(true)
@@ -66,9 +67,9 @@ const Selection = () => {
 
     const cols = [
         { field: 'name', header: 'Name' },
-        { field: 'officialRank.rank', header: 'Official Rank' },
-        { field: 'freedomFighterRank.rank', header: 'Fighter Rank' },
-        { field: 'invited.length', header: 'Invite Count', body: { invitedYear } }
+        { field: 'officialRank', header: 'Official Rank' },
+        { field: 'freedomFighterRank', header: 'Fighter Rank' },
+        { field: 'invited_count', header: 'Invite Count', body: { invitedYear } }
     ];
 
     const exportColumns = cols.map(col => ({ title: col.header, dataKey: col.field }));
@@ -76,9 +77,31 @@ const Selection = () => {
     const exportPdf = () => {
         import('jspdf').then(jsPDF => {
             import('jspdf-autotable').then(() => {
-                const doc = new jsPDF.default(0, 0);
-                doc.autoTable(exportColumns, selectedFreedomFighters);
-                doc.save('products.pdf');
+                const doc = new jsPDF.default(0, 2);
+                doc.autoTable(exportColumns, selectedFreedomFighters, {
+                    startY: doc.autoTable() + 70,
+
+                    didDrawPage: function (data) {
+
+                        // Header
+                        doc.setFontSize(20);
+                        doc.setTextColor(10);
+                        doc.text("Proposed Member List", 100, 22);
+
+                        // Footer
+                        var str = "Page " + doc.internal.getNumberOfPages();
+
+                        doc.setFontSize(10);
+
+                        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+                        var pageSize = doc.internal.pageSize;
+                        var pageHeight = pageSize.height
+                            ? pageSize.height
+                            : pageSize.getHeight();
+                        doc.text(str, data.settings.margin.left, pageHeight - 10);
+                    }
+                });
+                doc.save('shortlist.pdf');
             })
         })
     }
@@ -86,9 +109,9 @@ const Selection = () => {
     const exportExcel = () => {
         import('xlsx').then(xlsx => {
             const worksheet = xlsx.utils.json_to_sheet(selectedFreedomFighters);
-            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['Shortlisted Members'] };
             const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-            saveAsExcelFile(excelBuffer, 'selectedFreedomFighters');
+            saveAsExcelFile(excelBuffer, 'Shortlist');
         });
     }
     const saveAsExcelFile = (buffer, fileName) => {
@@ -134,15 +157,15 @@ const Selection = () => {
                     <div className='my-4 text-left'>
                         <div className='flex justify-between items-center'>
                             <p className='text-lg text-slate-500'>Army: </p>
-                            <p>{report?.armyCount}</p>
+                            <p>{report?.armyCount} <span className='text-xs italic'>({Math.ceil((report?.armyCount / report?.total) * 100)}%)</span></p>
                         </div>
                         <div className='flex justify-between items-center'>
                             <p className='text-lg text-slate-500'>Navy: </p>
-                            <p>{report?.navyCount}</p>
+                            <p>{report?.navyCount} <span className='text-xs italic'>({Math.ceil((report?.navyCount / report?.total) * 100)}%)</span></p>
                         </div>
                         <div className='flex justify-between items-center'>
                             <p className='text-lg text-slate-500'>Air Force: </p>
-                            <p>{report?.airforceCount}</p>
+                            <p>{report?.airforceCount} <span className='text-xs italic'>({Math.ceil((report?.airforceCount / report?.total) * 100)}%)</span></p>
                         </div>
                         <hr />
                         <div className='flex justify-between items-center'>

@@ -247,7 +247,7 @@ export default function Home() {
       <div>
         <div className='flex flex-wrap md:flex-nowrap justify-center max-w-7xl mx-auto py-4 gap-4'>
           <div className='w-full'>
-            <div className="card shadow-xl bg-green-400 rounded-md">
+            <div className="card shadow-xl bg-white/70 text-gray-800 rounded-md">
               <div className="card-body">
                 <p className='text-2xl font-bold'>Total Member</p>
                 <p className='text-xl'>680</p>
@@ -255,7 +255,7 @@ export default function Home() {
             </div>
           </div>
           <div className='w-full'>
-            <div className="card shadow-xl bg-red-400 rounded-md">
+            <div className="card shadow-xl bg-white/70 text-gray-800 rounded-md">
               <div className="card-body">
                 <p className='text-2xl font-bold'>General Member</p>
                 <p className='text-xl'>200</p>
@@ -263,7 +263,7 @@ export default function Home() {
             </div>
           </div>
           <div className='w-full'>
-            <div className="card shadow-xl bg-yellow-400 rounded-md">
+            <div className="card shadow-xl bg-white/70 text-gray-800 rounded-md">
               <div className="card-body">
                 <p className='text-2xl font-bold'>Freedom Fighter</p>
                 <p className='text-xl'>180</p>
@@ -271,7 +271,7 @@ export default function Home() {
             </div>
           </div>
           <div className='w-full'>
-            <div className="card shadow-xl bg-violet-400 rounded-md">
+            <div className="card shadow-xl bg-white/70 text-gray-800 rounded-md">
               <div className="card-body">
                 <p className='text-2xl font-bold'>Retired Member</p>
                 <p className='text-xl'>300</p>
@@ -372,7 +372,7 @@ export default function Home() {
               </form>
             </div>
           </Dialog>
-          <div className='p-4 border-2 shadow-md bg-white rounded-md'>
+          <div className='p-4 border-2 shadow-md bg-white rounded-md mb-4'>
             <div className='flex justify-between items-center mb-2'>
               <div className='text-gray-800 text-xl font-bold'>
                 <p>Member List</p>
