@@ -195,10 +195,11 @@ export default function Home() {
   ]
 
   const fighterRanks = [
-    'Bir Shreshtho',
-    'Bir Bikrom',
-    'Bir Uttam',
-    'Bir Muktijoddha'
+    { rank: 'Bir Shreshtho', point: 70 },
+    { rank: 'Bir Uttam', point: 71 },
+    { rank: 'Bir Bikrom', point: 72 },
+    { rank: 'Bir Protik', point: 73 },
+    { rank: 'Bir Muktijoddha', point: 74 }
   ]
 
   const clearAllState = () => {
@@ -235,6 +236,72 @@ export default function Home() {
     setCurrentPage(parseInt(e?.selected) + 1)
   }
   const pageCount = Math.ceil(totalData / 10);
+
+
+  // insert member into database 
+  // const handleInsertFreedomFighter = async (e) => {
+  //   e.preventDefault();
+  //   const data = new FormData(e.target);
+  //   const fullName = data.get('fullName');
+  //   const email = data.get('email');
+  //   const contact = data.get('contact');
+  //   // const photo = data.files[0];
+  //   const photo = e.target.file;
+  //   const status = data.get('status');
+  //   const country = data.get('country');
+  //   const force = data.get('force');
+  //   const officialRank = data.get('officialRank');
+  //   const freedomFighterRank = data.get('freedomFighterRank');
+  //   const address = data.get('address');
+  //   const description = data.get('description');
+
+  //   // console.log(photo.toLowerCase().replace(/\s+/g, ''));
+
+  //   // await fetch('http://localhost:5000/api/v1/freedomFighters/profilePhotoUpload', {
+  //   //     method: 'POST',
+  //   //     headers: {
+  //   //         'encType': 'multipart/form-data'
+  //   //     }
+  //   // })
+  //   //     .then(res => res.json())
+  //   //     .then(data => { console.log(data) })
+
+  //   const fighter = {
+  //     name: fullName,
+  //     email,
+  //     photo,
+  //     mobile: contact,
+  //     country,
+  //     status,
+  //     force,
+  //     officialRank: {
+  //       rank: officialRank,
+  //       point: 20
+  //     },
+  //     freedomFighterRank: {
+  //       rank: freedomFighterRank,
+  //       point: 15
+  //     },
+  //     address,
+  //     description
+  //   }
+  //   // console.log(fighter)
+
+
+  //   fetch('http://localhost:5000/api/v1/freedomFighters', {
+  //     method: 'POST',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //     },
+  //     body: JSON.stringify(fighter),
+  //   })
+  //   // .then(res => res.json()).then(data => {
+  //   //     console.log(data)
+  //   //     if (data.status == 'success') {
+  //   //         e.target.reset();
+  //   //     }
+  //   // })
+  // }
 
   return (
     <div>
@@ -317,7 +384,7 @@ export default function Home() {
                   <div className='w-1/3'>
                     <Dropdown name='country' options={countries} value={country} onChange={(e) => setCountry(e.value)} placeholder="*Select a Country" className='text-black w-full' required />
                   </div>
-                  <div className='relative w-1/3 flex items-center bg-white p-1 rounded-md border-2'>
+                  <div className='w-1/3 flex items-center py-1 bg-white rounded-md border-2'>
                     <label className='mr-8 ml-2'>*Status: </label>
                     <div className='flex gap-x-4'>
                       <div className="form-control">
@@ -344,7 +411,10 @@ export default function Home() {
                     <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => setRank(e.value)} placeholder="*Official Rank" className='text-black w-full' required />
                   </div>
                   <div className='w-1/3'>
-                    <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank} onChange={(e) => setFighterRank(e.value)} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
+                    <Dropdown name='freedomFighterRank' options={fighterRanks.map(fighterRank => fighterRank.rank)} value={fighterRank} onChange={(e) => {
+                      setFighterRank(e.value)
+                      // console.log(fighterRanks.find(fighterRank => fighterRank.rank == e.value));
+                    }} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
                   </div>
                 </div>
                 <div className='flex gap-x-12'>
