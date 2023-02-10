@@ -23,7 +23,7 @@ const Selection = () => {
 
         e.preventDefault();
 
-        // console.log(firstCriteria, secondCriteria, checked);
+        console.log(firstCriteria, secondCriteria, checked);
 
         const total = e.target.total.value
         // const alive = e.target.alive.value
@@ -67,8 +67,9 @@ const Selection = () => {
 
     const cols = [
         { field: 'name', header: 'Name' },
-        { field: 'officialRank', header: 'Official Rank' },
-        { field: 'freedomFighterRank', header: 'Fighter Rank' },
+        { field: 'forceRank', header: 'Official Rank' },
+        { field: `fighterRank`, header: 'Fighter Rank' },
+        { field: 'fighterPoint', header: 'Fighter Value' },
         { field: 'invited_count', header: 'Invite Count', body: { invitedYear } }
     ];
 

@@ -47,7 +47,7 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
                     <div className='cursor-pointer ' onClick={() => router.push(`/freedom-fighters/${_id}/details`)}>
                         <i className='pi pi-info-circle text-xl text-primary font-bold'></i>
                     </div>
-                    <div className='cursor-pointer pb-1' onClick={console.log('User Editing')}>
+                    <div className='cursor-pointer pb-1' onClick={() => console.log('User Editing')}>
                         <i className='pi pi-pencil text-[#00AA88] font-bold'></i>
                     </div>
                     <div className='cursor-pointer ' onClick={() => setDeleteModal(freedomFighter)}>

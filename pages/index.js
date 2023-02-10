@@ -22,10 +22,11 @@ export default function Home() {
   const [filter, setFilter] = useState('')
   const [searchValue, setSearchValue] = useState('');
   const [addMemberDialog, setAddMemberDialog] = useState(false);
-  const [memberType, setMemberType] = useState('')
 
   const [ranks, setRanks] = useState([]);
   const [countries, setCountries] = useState([]);
+
+  const [memberType, setMemberType] = useState('')
   const [country, setCountry] = useState();
   const [force, setForce] = useState('');
   const [rank, setRank] = useState('');
@@ -303,6 +304,65 @@ export default function Home() {
   //   // })
   // }
 
+
+  // member insert new way 
+
+  const [file, setFile] = useState(null);
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    // convert object value to string as object is not accessible from formData
+    if (type == 'object') {
+      setFormData({
+        ...formData, [name]: JSON.stringify(value)
+      });
+    }
+
+    else {
+      setFormData({
+        ...formData, [name]: value
+      });
+    }
+  };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleInsertFreedomFighter = async (event) => {
+    event.preventDefault();
+
+    const userDataWithPhoto = new FormData();
+    Object.keys(formData).forEach((key) => {
+      userDataWithPhoto.append(key, formData[key]);
+    });
+    userDataWithPhoto.append("photo", file);
+    userDataWithPhoto.append("fighterRank", JSON.stringify(fighterRank));
+
+    // console.log(userDataWithPhoto.get("freedomFighterRank"));
+    console.log(userDataWithPhoto.get("fighterRank"))
+
+    const userData = {
+      name: userDataWithPhoto.get("name"),
+      email: userDataWithPhoto.get("email"),
+      file: userDataWithPhoto.get("photo"),
+    }
+
+
+    fetch("http://localhost:5000/api/v1/freedomFighters", {
+      method: "POST",
+      headers: {
+        'encType': 'multipart/form-data'
+      },
+      body: userDataWithPhoto
+    });
+    console.log(userDataWithPhoto)
+    // console.log(await response.json());
+
+  };
+
   return (
     <div>
       <Head>
@@ -360,29 +420,43 @@ export default function Home() {
             <div className='mx-auto max-w-7xl  pb-4'>
 
 
-              {/* onSubmit={handleInsertFreedomFighter} */}
-              <form action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data' className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
+              {/* action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data'*/}
+              <form onSubmit={handleInsertFreedomFighter} className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
                 <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
                 <div>
-                  <Dropdown name='type' options={memberTypes} value={memberType} onChange={(e) => setMemberType(e.value)} placeholder="*Select Member Type" className='text-black w-full' required />
+                  <Dropdown name='type' options={memberTypes} value={memberType}
+                    onChange={(e) => {
+                      // handleChange(e)
+                      setMemberType(e.value)
+                    }} placeholder="*Select Member Type" className='text-black w-full' required />
                 </div>
                 <div className='flex w-full gap-x-12'>
                   <div className="p-float-label w-1/2">
-                    <InputText name='fullName' id='fullName' className='w-full' required />
+                    <InputText name='fullName' id='fullName'
+                      onChange={handleChange}
+                      className='w-full' required />
                     <label htmlFor="fullName" >*Full Name</label>
                   </div>
                   <div className='p-float-label w-1/2'>
-                    <InputText name='email' id='email' className='w-full' required />
+                    <InputText name='email' id='email'
+                      onChange={handleChange}
+                      className='w-full' required />
                     <label htmlFor="email">*Email</label>
                   </div>
                 </div>
                 <div className='flex w-full gap-x-12 items-center'>
                   <div className='p-float-label w-1/3'>
-                    <InputText name='contact' id='contact' className='w-full' required />
+                    <InputText name='contact' id='contact'
+                      onChange={handleChange}
+                      className='w-full' required />
                     <label htmlFor="contact">*Contact</label>
                   </div>
                   <div className='w-1/3'>
-                    <Dropdown name='country' options={countries} value={country} onChange={(e) => setCountry(e.value)} placeholder="*Select a Country" className='text-black w-full' required />
+                    <Dropdown name='country' options={countries} value={country}
+                      onChange={(e) => {
+                        handleChange(e)
+                        setCountry(e.value)
+                      }} placeholder="*Select a Country" className='text-black w-full' required />
                   </div>
                   <div className='w-1/3 flex items-center py-1 bg-white rounded-md border-2'>
                     <label className='mr-8 ml-2'>*Status: </label>
@@ -405,35 +479,56 @@ export default function Home() {
                 <div className='flex w-full gap-x-12'>
 
                   <div className='w-1/3'>
-                    <Dropdown name='force' options={forces} value={force} onChange={(e) => setForce(e.value)} placeholder="*Select a Force" className='text-black w-full' required />
+                    <Dropdown name='force' options={forces} value={force}
+                      onChange={(e) => {
+                        handleChange(e)
+                        setForce(e.value)
+                      }} placeholder="*Select a Force" className='text-black w-full' required />
                   </div>
                   <div className='w-1/3'>
-                    <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => setRank(e.value)} placeholder="*Official Rank" className='text-black w-full' required />
+                    <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
+                      handleChange(e)
+                      setRank(e.value)
+                    }} placeholder="*Official Rank" className='text-black w-full' required />
                   </div>
                   <div className='w-1/3'>
-                    <Dropdown name='freedomFighterRank' options={fighterRanks.map(fighterRank => fighterRank.rank)} value={fighterRank} onChange={(e) => {
-                      setFighterRank(e.value)
-                      // console.log(fighterRanks.find(fighterRank => fighterRank.rank == e.value));
-                    }} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
+                    <Dropdown name='freedomFighterRank' options={fighterRanks} optionLabel='rank' value={fighterRank}
+                      onChange={(e) => {
+                        handleChange(e)
+                        setFighterRank(e.value)
+                      }} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
+
+                    {/* <select name='freedomFighterRank' onChange={(e) => console.log(e.value)} className="p-2.5 border-1 hover:border-primary rounded-md bg-white w-full" required>
+                      <option value='' disabled selected>*Freedom Fighter Rank</option>
+                      {
+                        fighterRanks.map((fighter, index) => <option key={index} value={JSON.stringify(fighter)} className='p-2 hover:bg-gray-500'>{fighter.rank}</option>)
+                      }
+                    </select> */}
                   </div>
                 </div>
                 <div className='flex gap-x-12'>
                   <div className="relative w-1/2">
                     <div className="p-float-label w-full">
-                      <InputTextarea name='address' id='address' className=" w-full" required />
+                      <InputTextarea name='address' id='address'
+                        onChange={handleChange}
+                        className=" w-full" required />
                       <label htmlFor="address">*Address</label>
                     </div>
                   </div>
                   <div className="relative w-1/2">
                     <div className="p-float-label w-full">
-                      <InputTextarea name='description' id='description' className=" w-full" />
+                      <InputTextarea name='description' id='description'
+                        onChange={handleChange}
+                        className=" w-full" />
                       <label htmlFor="description">Description</label>
                     </div>
                   </div>
                 </div>
                 <div className='relative'>
                   <label className='text-gray-400 ml-1'>Photo</label>
-                  <input name='photo' type="file" className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
+                  <input name='photo' type="file"
+                    onChange={handleFileChange}
+                    className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
                 </div>
 
                 <div className='text-center pt-20'>
@@ -441,7 +536,7 @@ export default function Home() {
                 </div>
               </form>
             </div>
-          </Dialog>
+          </Dialog >
           <div className='p-4 border-2 shadow-md bg-white rounded-md mb-4'>
             <div className='flex justify-between items-center mb-2'>
               <div className='text-gray-800 text-xl font-bold'>
@@ -522,8 +617,8 @@ export default function Home() {
               />
             </div>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
     </div >
   )
 }
