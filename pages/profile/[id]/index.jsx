@@ -35,6 +35,8 @@ const MyProfile = () => {
 
     const [sex, setSex] = useState(false);
 
+    const [formData, setFormData] = useState('')
+
     const { id } = router.query;
 
 
@@ -54,35 +56,53 @@ const MyProfile = () => {
         getLoggedInUser();
     }, [])
 
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        console.log(name, value)
+        setFormData({
+            ...formData, [name]: value
+        });
+    };
+
+
     const handleProfileUpdate = (e) => {
         e.preventDefault();
 
-        const name = e.target.name.value || user?.name;
-        const birthday = e.target.birthday.value || user?.birthday;
-        const mobile = e.target.phone.value || user?.mobile;
-        const sex = e.target.sex.value || user?.sex;
-        const bio = e.target.bio.value || user?.bio;
-        const photo = e.target.photo.value || user?.photo;
+        // const name = e.target.name.value || user?.name;
+        // const birthday = e.target.birthday.value || user?.birthday;
+        // const mobile = e.target.phone.value || user?.mobile;
+        // const sex = e.target.sex.value || user?.sex;
+        // const bio = e.target.bio.value || user?.bio;
+        // const photo = e.target.photo.value || user?.photo;
 
-        console.log(name, birthday, mobile, sex, bio, photo);
+        // console.log(name, birthday, mobile, sex, bio, photo);
 
-        const updatedProfile = {
-            name,
-            birthday,
-            mobile,
-            sex,
-            bio,
-            photo
-        }
-        console.log(updatedProfile);
+        // const updatedProfile = {
+        //     name,
+        //     birthday,
+        //     mobile,
+        //     sex,
+        //     bio,
+        //     photo
+        // }
+        // console.log(updatedProfile);
+
+        const updatedInfo = new FormData();
+        Object.keys(formData).forEach((key) => {
+            updatedInfo.append(key, formData[key]);
+        });
+
+        console.log(formData);
 
         fetch(`http://localhost:5000/api/v1/users/updateUserProfile/${user._id}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json',
+                'encType': 'multipart/form-data',
                 authorization: `Bearer ${cookie.get('TOKEN')}`
             },
-            body: JSON.stringify(updatedProfile)
+            // body: JSON.stringify(updatedProfile)
+            body: JSON.stringify(updatedInfo)
         })
             .then(res => res.json())
             .then(data => {
@@ -312,7 +332,7 @@ const MyProfile = () => {
                                     <label class="label">
                                         <span class="label-text text-gray-700">Full Name</span>
                                     </label>
-                                    <InputText name='name' type="text" placeholder={user?.name || "Type here"} className="w-full max-w-xs  text-gray-700" />
+                                    <InputText name='name' type="text" placeholder={user?.name || "Type here"} onChange={handleChange} className="w-full max-w-xs  text-gray-700" />
                                 </div>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
@@ -320,7 +340,7 @@ const MyProfile = () => {
                                     </label>
                                     {/* <InputText name='birthday' type="date" placeholder="Type here" className="w-full max-w-xs bg-gray-200 text-gray-700" /> */}
 
-                                    <Calendar dateFormat="dd-mm-yy" name='birthday' placeholder={user?.birthday} maxDate={new Date()} showIcon></Calendar>
+                                    <Calendar dateFormat="dd-mm-yy" name='birthday' placeholder={user?.birthday} onChange={handleChange} maxDate={new Date()} showIcon></Calendar>
 
                                 </div>
                             </div>
@@ -329,7 +349,7 @@ const MyProfile = () => {
                                     <label class="label">
                                         <span class="label-text text-gray-700">Contact</span>
                                     </label>
-                                    <InputText name='phone' type="text" placeholder={user?.mobile || "Type here"} classname="w-full max-w-xs bg-gray-200 text-gray-700" />
+                                    <InputText name='phone' type="text" placeholder={user?.mobile || "Type here"} onChange={handleChange} classname="w-full max-w-xs bg-gray-200 text-gray-700" />
                                 </div>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
@@ -342,7 +362,7 @@ const MyProfile = () => {
                                             { label: 'Female', value: 'Female' }]
 
                                         }
-                                        onChange={(e) => setSex(e.value)} placeholder="Select Sex" />
+                                        onChange={(e) => { setSex(e.value); handleChange(e) }} placeholder="Select Sex" />
                                     {/* <select name='sex' class="select select-sm select-bordered w-full max-w-xs bg-gray-200 text-gray-700">
                                         <option disabled selected>{user?.sex || 'N/A'}</option>
                                         <option>Male</option>
@@ -356,14 +376,14 @@ const MyProfile = () => {
                                     <label class="label">
                                         <span class="label-text text-gray-700">Bio</span>
                                     </label>
-                                    <InputTextarea name='bio' type="text" placeholder={user?.bio || "Type here"} class="textarea textarea-bordered w-full bg-gray-200 text-gray-700" />
+                                    <InputTextarea name='bio' type="text" placeholder={user?.bio || "Type here"} onChange={handleChange} class="textarea textarea-bordered w-full bg-gray-200 text-gray-700" />
                                 </div>
                             </div>
                             <div class="form-control w-full">
                                 <label class="label">
                                     <span class="label-text text-gray-700">Profile Picture Link</span>
                                 </label>
-                                <InputText name='photo' type="text" placeholder="Place here" className="w-full text-gray-700" />
+                                <InputText name='photo' type="text" placeholder="Place here" onChange={handleChange} className="w-full text-gray-700" />
                             </div>
                         </div>
                         <div className='flex justify-end mt-4 gap-x-2'>

@@ -312,19 +312,21 @@ export default function Home() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    setFormData({
+      ...formData, [name]: value
+    });
     // convert object value to string as object is not accessible from formData
-    if (type == 'object') {
-      setFormData({
-        ...formData, [name]: JSON.stringify(value)
-      });
-    }
+    // if (typeof value == 'object') {
+    //   setFormData({
+    //     ...formData, [name]: JSON.stringify(value)
+    //   });
+    // }
 
-    else {
-      setFormData({
-        ...formData, [name]: value
-      });
-    }
+    // else {
+    //   setFormData({
+    //     ...formData, [name]: value
+    //   });
+    // }
   };
 
   const handleFileChange = (event) => {
@@ -339,10 +341,9 @@ export default function Home() {
       userDataWithPhoto.append(key, formData[key]);
     });
     userDataWithPhoto.append("photo", file);
-    userDataWithPhoto.append("fighterRank", JSON.stringify(fighterRank));
+    // userDataWithPhoto.append("fighterRank", JSON.stringify(fighterRank));
 
     // console.log(userDataWithPhoto.get("freedomFighterRank"));
-    console.log(userDataWithPhoto.get("fighterRank"))
 
     const userData = {
       name: userDataWithPhoto.get("name"),
@@ -356,7 +357,7 @@ export default function Home() {
       headers: {
         'encType': 'multipart/form-data'
       },
-      body: userDataWithPhoto
+      body: JSON.stringify(userDataWithPhoto)
     });
     console.log(userDataWithPhoto)
     // console.log(await response.json());
@@ -424,9 +425,9 @@ export default function Home() {
               <form onSubmit={handleInsertFreedomFighter} className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
                 <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
                 <div>
-                  <Dropdown name='type' options={memberTypes} value={memberType}
+                  <Dropdown name='memberType' options={memberTypes} value={memberType}
                     onChange={(e) => {
-                      // handleChange(e)
+                      handleChange(e)
                       setMemberType(e.value)
                     }} placeholder="*Select Member Type" className='text-black w-full' required />
                 </div>
@@ -446,10 +447,10 @@ export default function Home() {
                 </div>
                 <div className='flex w-full gap-x-12 items-center'>
                   <div className='p-float-label w-1/3'>
-                    <InputText name='contact' id='contact'
+                    <InputText name='mobile' id='mobile'
                       onChange={handleChange}
                       className='w-full' required />
-                    <label htmlFor="contact">*Contact</label>
+                    <label htmlFor="mobile">*Contact</label>
                   </div>
                   <div className='w-1/3'>
                     <Dropdown name='country' options={countries} value={country}
