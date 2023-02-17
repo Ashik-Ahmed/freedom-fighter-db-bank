@@ -312,21 +312,22 @@ export default function Home() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData, [name]: value
-    });
+    // setFormData({
+    //   ...formData, [name]: value
+    // });
     // convert object value to string as object is not accessible from formData
-    // if (typeof value == 'object') {
-    //   setFormData({
-    //     ...formData, [name]: JSON.stringify(value)
-    //   });
-    // }
+    if (typeof value == 'object') {
+      console.log(JSON.parse(JSON.stringify(value)));
+      setFormData({
+        ...formData, [name]: JSON.parse(JSON.stringify(value))
+      });
+    }
 
-    // else {
-    //   setFormData({
-    //     ...formData, [name]: value
-    //   });
-    // }
+    else {
+      setFormData({
+        ...formData, [name]: value
+      });
+    }
   };
 
   const handleFileChange = (event) => {
@@ -340,16 +341,11 @@ export default function Home() {
     Object.keys(formData).forEach((key) => {
       userDataWithPhoto.append(key, formData[key]);
     });
-    userDataWithPhoto.append("photo", file);
-    // userDataWithPhoto.append("fighterRank", JSON.stringify(fighterRank));
+    // console.log(fighterRank);
+    userDataWithPhoto.append("file", file);
+    // userDataWithPhoto.append("freedomFighterRank", JSON.stringify(fighterRank));
 
-    // console.log(userDataWithPhoto.get("freedomFighterRank"));
-
-    const userData = {
-      name: userDataWithPhoto.get("name"),
-      email: userDataWithPhoto.get("email"),
-      file: userDataWithPhoto.get("photo"),
-    }
+    console.log(userDataWithPhoto.get("freedomFighterRank"));
 
 
     fetch("http://localhost:5000/api/v1/freedomFighters", {
@@ -357,9 +353,10 @@ export default function Home() {
       headers: {
         'encType': 'multipart/form-data'
       },
-      body: JSON.stringify(userDataWithPhoto)
+      // do not stringify. if you do, backend will not get the data
+      body: userDataWithPhoto
     });
-    console.log(userDataWithPhoto)
+    console.log(userDataWithPhoto.get('freedomFighterRank'))
     // console.log(await response.json());
 
   };
@@ -527,7 +524,7 @@ export default function Home() {
                 </div>
                 <div className='relative'>
                   <label className='text-gray-400 ml-1'>Photo</label>
-                  <input name='photo' type="file"
+                  <input name='file' type="file"
                     onChange={handleFileChange}
                     className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
                 </div>

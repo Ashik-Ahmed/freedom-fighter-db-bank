@@ -59,7 +59,7 @@ const MyProfile = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        console.log(name, value)
+        // console.log(name, value)
         setFormData({
             ...formData, [name]: value
         });
@@ -93,7 +93,7 @@ const MyProfile = () => {
             updatedInfo.append(key, formData[key]);
         });
 
-        console.log(formData);
+        console.log(updatedInfo);
 
         fetch(`http://localhost:5000/api/v1/users/updateUserProfile/${user._id}`, {
             method: 'PATCH',
@@ -102,7 +102,7 @@ const MyProfile = () => {
                 authorization: `Bearer ${cookie.get('TOKEN')}`
             },
             // body: JSON.stringify(updatedProfile)
-            body: JSON.stringify(updatedInfo)
+            body: updatedInfo
         })
             .then(res => res.json())
             .then(data => {
