@@ -319,7 +319,7 @@ export default function Home() {
     if (typeof value == 'object') {
       console.log(JSON.parse(JSON.stringify(value)));
       setFormData({
-        ...formData, [name]: JSON.parse(JSON.stringify(value))
+        ...formData, [name]: value
       });
     }
 
@@ -339,7 +339,15 @@ export default function Home() {
 
     const userDataWithPhoto = new FormData();
     Object.keys(formData).forEach((key) => {
-      userDataWithPhoto.append(key, formData[key]);
+      // console.log(typeof formData[key]);
+      if (typeof formData[key] == 'object') {
+        userDataWithPhoto.append(key, JSON.parse(JSON.stringify(formData[key])));
+        console.log(userDataWithPhoto.get(key));
+      }
+
+      else {
+        userDataWithPhoto.append(key, formData[key]);
+      }
     });
     // console.log(fighterRank);
     userDataWithPhoto.append("file", file);
@@ -356,7 +364,7 @@ export default function Home() {
       // do not stringify. if you do, backend will not get the data
       body: userDataWithPhoto
     });
-    console.log(userDataWithPhoto.get('freedomFighterRank'))
+    // console.log(userDataWithPhoto.get('freedomFighterRank'))
     // console.log(await response.json());
 
   };

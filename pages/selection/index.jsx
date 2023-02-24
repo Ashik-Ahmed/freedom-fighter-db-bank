@@ -12,6 +12,7 @@ import { render } from 'react-dom';
 const Selection = () => {
 
     const [selectedFreedomFighters, setSelectedFreedomFighters] = useState()
+    const [memberType, setMemberType] = useState('')
     const [firstCriteria, setFirstCriteria] = useState('')
     const [secondCriteria, setSecondCriteria] = useState('')
     const [thirdCriteria, setThirdCriteria] = useState('')
@@ -19,11 +20,19 @@ const Selection = () => {
     const [reportModal, setReportModal] = useState(null);
     const [report, setReport] = useState(null);
 
+
+    const memberTypes = [
+        { label: 'Freedom Fighter', value: 'freedomfighter' },
+        { label: 'General Invitees', value: 'general' },
+        { label: 'Retired', value: 'retired' },
+        { label: 'Retired ORs/Other', value: 'retiredOrs' }
+    ]
+
     const handleSelection = (e) => {
 
         e.preventDefault();
 
-        console.log(firstCriteria, secondCriteria, checked);
+        console.log(memberType, firstCriteria, secondCriteria, checked);
 
         const total = e.target.total.value
         // const alive = e.target.alive.value
@@ -35,7 +44,7 @@ const Selection = () => {
         // }
 
 
-        const url = `http://localhost:5000/api/v1/selection?total=${total}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
+        const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -187,12 +196,23 @@ const Selection = () => {
                         <p className='text-primary text-xl font-bold text-center underline my-4'>Selection criteria</p>
                     </div>
                     <div className='flex flex-col gap-2 mx-auto justify-center my-4'>
-                        <div className="relative">
-                            <span className='p-float-label'>
-                                <InputText name='total' type="number" id="total" className="block px-2.5 pb-2.5 pt-2.5 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 hover:border-blue-600 peer" placeholder=" " required />
-                                <label htmlFor="total">*Total</label>
-                            </span>
+                        <div className='flex flex-col gap-2 mb-4'>
+                            <div className="relative">
+                                <span className='p-float-label'>
+                                    <InputText name='total' type="number" id="total" className="block px-2.5 pb-2.5 pt-2.5 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 hover:border-blue-600 peer" placeholder=" " required />
+                                    <label htmlFor="total">*Total</label>
+                                </span>
+                            </div>
+
+                            <div>
+                                <Dropdown name='memberType' options={memberTypes} value={memberType}
+                                    onChange={(e) => {
+                                        setMemberType(e.value)
+                                    }} placeholder="*Select Member Type" className='text-black w-full' required />
+                            </div>
                         </div>
+
+                        <hr className='mb-4' />
 
                         <Dropdown name='firstCriteria' value={firstCriteria}
                             options={
