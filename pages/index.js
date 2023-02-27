@@ -196,11 +196,11 @@ export default function Home() {
   ]
 
   const fighterRanks = [
-    { rank: 'Bir Shreshtho', point: 70 },
-    { rank: 'Bir Uttam', point: 71 },
-    { rank: 'Bir Bikrom', point: 72 },
-    { rank: 'Bir Protik', point: 73 },
-    { rank: 'Bir Muktijoddha', point: 74 }
+    { label: 'Bir Shreshtho', value: { rank: 'Bir Shreshtho', point: 70 } },
+    { label: 'Bir Uttam', value: { rank: 'Bir Uttam', point: 71 } },
+    { label: 'Bir Bikrom', value: { rank: 'Bir Bikrom', point: 72 } },
+    { label: 'Bir Protik', value: { rank: 'Bir Protik', point: 73 } },
+    { label: 'Bir Muktijoddha', value: { rank: 'Bir Muktijoddha', point: 74 } }
   ]
 
   const clearAllState = () => {
@@ -214,7 +214,7 @@ export default function Home() {
 
 
 
-  //face members from DB
+  //fetch members from DB
   useEffect(() => {
     console.log(filter)
 
@@ -319,7 +319,7 @@ export default function Home() {
     if (typeof value == 'object') {
       console.log(JSON.parse(JSON.stringify(value)));
       setFormData({
-        ...formData, [name]: value
+        ...formData, [name]: JSON.stringify(value)
       });
     }
 
@@ -498,9 +498,10 @@ export default function Home() {
                     }} placeholder="*Official Rank" className='text-black w-full' required />
                   </div>
                   <div className='w-1/3'>
-                    <Dropdown name='freedomFighterRank' options={fighterRanks} optionLabel='rank' value={fighterRank}
+                    <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
                       onChange={(e) => {
                         handleChange(e)
+                        console.log(e.value);
                         setFighterRank(e.value)
                       }} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
 

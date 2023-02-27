@@ -20,12 +20,11 @@ const Selection = () => {
     const [reportModal, setReportModal] = useState(null);
     const [report, setReport] = useState(null);
 
-
     const memberTypes = [
-        { label: 'Freedom Fighter', value: 'freedomfighter' },
-        { label: 'General Invitees', value: 'general' },
-        { label: 'Retired', value: 'retired' },
-        { label: 'Retired ORs/Other', value: 'retiredOrs' }
+        'Freedom Fighter',
+        'General Invitees',
+        'Retired',
+        'Retired ORs/Others'
     ]
 
     const handleSelection = (e) => {
@@ -76,6 +75,7 @@ const Selection = () => {
 
     const cols = [
         { field: 'name', header: 'Name' },
+        { field: 'category', header: 'Member Type' },
         { field: 'forceRank', header: 'Official Rank' },
         { field: `fighterRank`, header: 'Fighter Rank' },
         { field: 'fighterPoint', header: 'Fighter Value' },
@@ -139,6 +139,24 @@ const Selection = () => {
         });
     }
 
+
+    const handleTemporarySelect = () => {
+        console.log('Selected as temporary');
+
+        const url = `http://localhost:5000/api/v1/selection`
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(selectedFreedomFighters)
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+    }
+
     const header = (
         <div className='flex justify-between items-center'>
             <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
@@ -154,7 +172,7 @@ const Selection = () => {
     );
 
     return (
-        <div className=''>
+        <div className='min-h-[89vh]'>
             {/* <div className='text-center mt-8'>
                 <h2 className='text-4xl text-secondary font-bold'>Primary Selection</h2>
             </div> */}
@@ -190,8 +208,8 @@ const Selection = () => {
                 </div>
             </Dialog >
 
-            <div className='flex gap-x-6'>
-                <form onSubmit={handleSelection} className='container px-10 w-1/4 bg-white min-h-[88vh]'>
+            <div className='flex gap-x-2 min-h-[100%]'>
+                <form onSubmit={handleSelection} className='container px-2 w-1/4 bg-white'>
                     <div>
                         <p className='text-primary text-xl font-bold text-center underline my-4'>Selection criteria</p>
                     </div>
@@ -284,12 +302,12 @@ const Selection = () => {
                             // </div>
                         }
 
-                        <div>
+                        <div className='flex items-center gap-2'>
                             <Checkbox inputId='excludePreviousYear' checked={checked} onChange={e => setChecked(e.checked)}></Checkbox>
-                            <label htmlFor="excludePreviousYear" className='ml-2 text-gray-500'>Exclude previous year invitee</label>
+                            <label htmlFor="excludePreviousYear" className='text-gray-500'>Exclude previous year invitee</label>
                         </div>
                         <div>
-                            <Button label='Submit' className='p-button-info btn w-full normal-case' type="submit" />
+                            <Button label='Submit' className='p-button-info p-button-sm w-full normal-case' type="submit" />
                         </div>
                     </div>
                 </form >
@@ -297,15 +315,12 @@ const Selection = () => {
                 <button onClick={handleSelection} className='btn btn-primary'>Click to select</button>
             </div> */}
 
-                <div className='w-3/4 p-4 rounded-md shadow-lg bg-white max-h-[90vh] overflow-y-scroll'>
+                <div className='w-full  m-2'>
 
-                    <div className=''>
+                    <div className='p-2'>
                         {
                             selectedFreedomFighters ?
-                                <div className='max-w-7xl mx-auto'>
-                                    <div className="flex justify-between items-center mb-2 p-1 rounded-md">
-
-                                    </div>
+                                <div className='w-full shadow-lg bg-white p-2 rounded-xl'>
                                     {/* <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
@@ -331,11 +346,14 @@ const Selection = () => {
                                         </tbody>
                                     </table> */}
 
-                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" stripedRows >
+                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="390px" stripedRows >
                                         {
                                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                                         }
                                     </DataTable>
+                                    <div className='text-right m-2'>
+                                        <Button onClick={handleTemporarySelect} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
+                                    </div>
 
                                 </div>
 
