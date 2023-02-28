@@ -19,6 +19,7 @@ const Selection = () => {
     const [checked, setChecked] = useState(false);
     const [reportModal, setReportModal] = useState(null);
     const [report, setReport] = useState(null);
+    const [loading, setLoading] = useState(false)
 
     const memberTypes = [
         'Freedom Fighter',
@@ -29,6 +30,7 @@ const Selection = () => {
 
     const handleSelection = (e) => {
 
+        setLoading(true)
         e.preventDefault();
 
         console.log(memberType, firstCriteria, secondCriteria, checked);
@@ -49,6 +51,7 @@ const Selection = () => {
             .then(data => {
                 setSelectedFreedomFighters(data.data)
                 console.log(data.data);
+                setLoading(false)
             })
         console.log(url);
     }
@@ -140,17 +143,22 @@ const Selection = () => {
     }
 
 
+    // set temporary selection flag to members 
     const handleTemporarySelect = () => {
         console.log('Selected as temporary');
 
-        const url = `http://localhost:5000/api/v1/selection`
+        const memberIds = selectedFreedomFighters.map(member => member._id);
+
+        console.log(memberIds);
+
+        const url = `http://localhost:5000/api/v1/selection/temporary-selection`
 
         fetch(url, {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(selectedFreedomFighters)
+            body: JSON.stringify(memberIds)
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -172,7 +180,7 @@ const Selection = () => {
     );
 
     return (
-        <div className='min-h-[89vh]'>
+        <div className='min-h-[93vh]'>
             {/* <div className='text-center mt-8'>
                 <h2 className='text-4xl text-secondary font-bold'>Primary Selection</h2>
             </div> */}
@@ -208,7 +216,7 @@ const Selection = () => {
                 </div>
             </Dialog >
 
-            <div className='flex gap-x-2 min-h-[100%]'>
+            <div className='flex gap-x-2 min-h-[93vh]'>
                 <form onSubmit={handleSelection} className='container px-2 w-1/4 bg-white'>
                     <div>
                         <p className='text-primary text-xl font-bold text-center underline my-4'>Selection criteria</p>
@@ -315,12 +323,12 @@ const Selection = () => {
                 <button onClick={handleSelection} className='btn btn-primary'>Click to select</button>
             </div> */}
 
-                <div className='w-full  m-2'>
+                <div className='w-full min-h-[100%] m-2'>
 
                     <div className='p-2'>
                         {
                             selectedFreedomFighters ?
-                                <div className='w-full shadow-lg bg-white p-2 rounded-xl'>
+                                <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[88vh]'>
                                     {/* <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
@@ -346,7 +354,7 @@ const Selection = () => {
                                         </tbody>
                                     </table> */}
 
-                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="390px" stripedRows >
+                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows >
                                         {
                                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                                         }

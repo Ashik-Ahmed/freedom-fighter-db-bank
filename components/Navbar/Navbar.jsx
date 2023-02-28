@@ -166,7 +166,7 @@ const Navbar = ({ user, setUser }) => {
 
         // previous menubar 
 
-        <div className="bg-primary">
+        <div className="bg-primary max-h-[10vh]">
             <div className="navbar text-gray-200 max-w-7xl mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
