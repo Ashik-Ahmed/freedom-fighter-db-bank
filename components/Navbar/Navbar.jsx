@@ -241,8 +241,8 @@ const Navbar = ({ user, setUser }) => {
                         <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-primary rounded-md w-52">
 
                             <li><Link href='/selection'>Primary Selection</Link></li>
-                            <li><Link href='/primary-selected'>Primary Selected</Link></li>
-                            <li><Link href='/final-selected'>Final Selected</Link></li>
+                            <li><Link href='/selection/primary-selected'>Primary Selected</Link></li>
+                            <li><Link href='/selection/final-selected'>Final Selected</Link></li>
 
                         </ul>
                     </div>
