@@ -20,6 +20,32 @@ const Selection = () => {
     const [reportModal, setReportModal] = useState(null);
     const [report, setReport] = useState(null);
     const [loading, setLoading] = useState(false)
+    const [event, setEvent] = useState('')
+    const [year, setYear] = useState('')
+
+    const events = [
+        '21 February',
+        '26 March',
+        '14 April',
+        '16 December'
+    ]
+
+    const years = [
+        '2010',
+        '2011',
+        '2012',
+        '2013',
+        '2014',
+        '2015',
+        '2016',
+        '2017',
+        '2018',
+        '2019',
+        '2020',
+        '2021',
+        '2022',
+        '2023',
+    ]
 
     const memberTypes = [
         'Freedom Fighter',
@@ -149,16 +175,16 @@ const Selection = () => {
 
         const memberIds = selectedFreedomFighters.map(member => member._id);
 
-        console.log(memberIds);
+        console.log(memberIds, event, year);
 
-        const url = `http://localhost:5000/api/v1/selection/temporary-selection`
+        const url = `http://localhost:5000/api/v1/selection/primary-selection`
 
         fetch(url, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(memberIds)
+            body: JSON.stringify({ memberIds, event, year })
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -229,12 +255,23 @@ const Selection = () => {
                                     <label htmlFor="total">*Total</label>
                                 </span>
                             </div>
-
                             <div>
                                 <Dropdown name='memberType' options={memberTypes} value={memberType}
                                     onChange={(e) => {
                                         setMemberType(e.value)
                                     }} placeholder="*Select Member Type" className='text-black w-full' required />
+                            </div>
+                            <div>
+                                <Dropdown name='program' options={events} value={event}
+                                    onChange={(e) => {
+                                        setEvent(e.value)
+                                    }} placeholder="*Select Program" className='text-black w-full' required />
+                            </div>
+                            <div>
+                                <Dropdown name='year' options={years} value={year}
+                                    onChange={(e) => {
+                                        setYear(e.value)
+                                    }} placeholder="*Year" className='text-black w-full' required />
                             </div>
                         </div>
 
@@ -319,9 +356,6 @@ const Selection = () => {
                         </div>
                     </div>
                 </form >
-                {/* <div className='text-center mb-6'>
-                <button onClick={handleSelection} className='btn btn-primary'>Click to select</button>
-            </div> */}
 
                 <div className='w-full flex items-center'>
                     {
