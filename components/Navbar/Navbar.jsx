@@ -196,6 +196,7 @@ const Navbar = ({ user, setUser }) => {
                                 </ul>
                             </li>
                             {/* <li><Link href='/selection'>Selection</Link></li> */}
+                            <li><Link href='/events'>Events</Link></li>
                         </ul>
                     </div>
                     <Link href='/' className="btn btn-ghost normal-case text-2xl">Invite</Link>
@@ -247,6 +248,7 @@ const Navbar = ({ user, setUser }) => {
                         </ul>
                     </div>
                     {/* <div className='btn btn-ghost normal-case'><Link href='/selection'>Selection</Link></div> */}
+                    <div className='btn btn-ghost normal-case'><Link href='/events'>Events</Link></div>
                 </div>
 
                 <div className="dropdown dropdown-end ml-auto lg:ml-10">

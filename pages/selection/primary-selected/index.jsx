@@ -54,7 +54,7 @@ const PrimarySelected = () => {
     const header = (
         <div className='flex justify-between items-center'>
             <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
-                <p>Primary Selected</p>
+                <p>Primary Selected for <span className='text-secondary'>`{event}`</span></p>
             </div>
         </div>
     );
@@ -69,7 +69,7 @@ const PrimarySelected = () => {
 
     return (
         <div>
-            <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-xl shadow-lg'>
+            <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg'>
                 <form onSubmit={getPrimarySelectedMembers} className='flex gap-x-4'>
                     <div>
                         <Dropdown name='program' options={programs} value={event}
