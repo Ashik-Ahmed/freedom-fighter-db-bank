@@ -171,12 +171,8 @@ const Selection = () => {
 
     // set temporary selection flag to members 
     const handleTemporarySelect = () => {
-        console.log('Selected as temporary');
 
         const memberIds = selectedFreedomFighters.map(member => member._id);
-
-        console.log(memberIds, event, year);
-
         const url = `http://localhost:5000/api/v1/selection/primary-selection`
 
         fetch(url, {
@@ -188,6 +184,7 @@ const Selection = () => {
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
+
             })
     }
 
