@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -20,15 +20,19 @@ const Selection = () => {
     const [reportModal, setReportModal] = useState(null);
     const [report, setReport] = useState(null);
     const [loading, setLoading] = useState(false)
+    const [events, setEvents] = useState([])
     const [event, setEvent] = useState('')
     const [year, setYear] = useState('')
 
-    const events = [
-        '21 February',
-        '26 March',
-        '14 April',
-        '16 December'
-    ]
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/v1/event')
+            .then(res => res.json())
+            .then(data => {
+                setEvents(data.data)
+                console.log(data.data);
+            })
+    }, [])
 
     const years = [
         '2010',
@@ -59,7 +63,7 @@ const Selection = () => {
         setLoading(true)
         e.preventDefault();
 
-        console.log(memberType, firstCriteria, secondCriteria, checked);
+        // console.log(memberType, firstCriteria, secondCriteria, checked, event.name);
 
         const total = e.target.total.value
         // const alive = e.target.alive.value
@@ -71,7 +75,7 @@ const Selection = () => {
         // }
 
 
-        const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
+        const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&event=${event.name}&year=${year}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -259,7 +263,7 @@ const Selection = () => {
                                     }} placeholder="*Select Member Type" className='text-black w-full' required />
                             </div>
                             <div>
-                                <Dropdown name='program' options={events} value={event}
+                                <Dropdown name='program' options={events} optionLabel='name' value={event}
                                     onChange={(e) => {
                                         setEvent(e.value)
                                     }} placeholder="*Select Program" className='text-black w-full' required />

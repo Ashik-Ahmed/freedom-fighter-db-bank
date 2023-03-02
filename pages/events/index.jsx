@@ -4,8 +4,11 @@ import { DataTable } from 'primereact/datatable';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import React, { useEffect, useState } from 'react';
+import Cookies from 'universal-cookie';
 
 const Events = () => {
+
+    const cookie = new Cookies();
 
     const [loading, setLoading] = useState(false)
     const [events, setEvents] = useState([]);
@@ -52,13 +55,18 @@ const Events = () => {
         fetch('http://localhost:5000/api/v1/event', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookie.get('TOKEN')}`
             },
             body: JSON.stringify(eventData)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                if (data.status = 'success') {
+                    setAddEventModal(false)
+                    getAllEvents();
+                }
             })
     }
 
@@ -70,7 +78,7 @@ const Events = () => {
                 <Dialog header="Add New User" visible={addEventModal} onHide={() => {
                     setAddEventModal(false);
                 }} breakpoints={{ '960px': '75vw' }} style={{ width: '30vw' }} >
-                    <form onSubmit={handleAddEvent} className='flex flex-col p-2'>
+                    <form onSubmit={handleAddEvent} className='flex flex-col mt-4'>
                         <div className='p-float-label'>
                             <InputText type="text" name='name' id='name' className='input text-gray-700 w-full' required />
                             <label htmlFor="name">*Event Name</label>
