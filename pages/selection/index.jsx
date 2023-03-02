@@ -75,7 +75,7 @@ const Selection = () => {
         // }
 
 
-        const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&event=${event.name}&year=${year}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
+        const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -184,7 +184,7 @@ const Selection = () => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ memberIds, event, year })
+            body: JSON.stringify({ memberIds, event: event.name, year })
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
