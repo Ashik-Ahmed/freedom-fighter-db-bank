@@ -544,7 +544,7 @@ export default function Home() {
               </form>
             </div>
           </Dialog >
-          <div className='p-4 border-2 shadow-md bg-white rounded-md mb-4'>
+          <div className='p-2 border-2 shadow-md bg-white rounded-md mb-4'>
             <div className='flex justify-between items-center mb-2'>
               <div className='text-gray-800 text-xl font-bold'>
                 <p>Member List</p>

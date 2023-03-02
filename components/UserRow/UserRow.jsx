@@ -76,7 +76,7 @@ const UserRow = ({ user, fetchUsers }) => {
             <td className='p-2'>{name}</td>
             <td>{email}</td>
             <td>{role}</td>
-            <td className='flex gap-x-3 p-2 items-center'>
+            <td className=''>
                 {/* <BsInfoSquareFill size='24' color='#3B82F6' className='cursor-pointer' onClick={() => setDetailsModal(user)} /> */}
 
                 <div className='flex items-center gap-x-3'>

@@ -145,7 +145,7 @@ const ManageUsers = () => {
                 } */}
 
             </div>
-            <div className='p-4 bg-white border-2 shadow-md rounded-md'>
+            <div className='p-2 bg-white border-2 shadow-md rounded-md'>
                 <div className='flex justify-between items-center mb-2'>
                     <div className='text-gray-800 text-xl font-bold'>
                         <p>Manage Users</p>

@@ -69,7 +69,7 @@ function MyApp({ Component, pageProps }) {
 
   if (user) {
     return (
-      <div className='bg-[#EFF3F8]'>
+      <div className='bg-[#EFF3F8] min-h-[100vh]'>
         <Navbar user={user} setUser={setUser} />
         <div className=''>
           <Component {...pageProps} />
@@ -80,7 +80,7 @@ function MyApp({ Component, pageProps }) {
 
   else {
     return (
-      <div className="hero bg-[#EFF3F8]">
+      <div className="hero bg-[#EFF3F8] min-h-[100vh]">
         <div className="hero-content flex-col">
           <p className='text-primary underline text-2xl font-bold'>Please Login</p>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">

@@ -166,7 +166,7 @@ const Navbar = ({ user, setUser }) => {
 
         // previous menubar 
 
-        <div className="bg-primary max-h-[10vh]">
+        <div className="bg-primary max-h-[10vh]  flex items-center my-auto">
             <div className="navbar text-gray-200 max-w-7xl mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -184,7 +184,18 @@ const Navbar = ({ user, setUser }) => {
                                     <li><Link href='/foreign-freedom-fighters'>Others</Link></li>
                                 </ul>
                             </li>
-                            <li><Link href='/selection'>Selection</Link></li>
+                            <li tabIndex={0}>
+                                <a className="justify-between">
+                                    Selection
+                                    <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+                                </a>
+                                <ul className="p-2 bg-primary">
+                                    <li><Link href='/selection'>Primary Selection</Link></li>
+                                    <li><Link href='/primary-selected'>Primary Selected</Link></li>
+                                    <li><Link href='/final-selected'>Final Selected</Link></li>
+                                </ul>
+                            </li>
+                            {/* <li><Link href='/selection'>Selection</Link></li> */}
                         </ul>
                     </div>
                     <Link href='/' className="btn btn-ghost normal-case text-2xl">Invite</Link>
@@ -206,7 +217,7 @@ const Navbar = ({ user, setUser }) => {
                 </div> */}
 
                 <div className="navbar-end ml-auto lg:ml-10 hidden lg:flex gap-2">
-                    <div className='dropdown dropdown-end '>
+                    <div className='dropdown dropdown-end'>
                         <label tabIndex={0} className="btn btn-ghost normal-case">
                             <div className='flex gap-x-1 items-center'>
                                 Member Mgt.
@@ -220,7 +231,22 @@ const Navbar = ({ user, setUser }) => {
 
                         </ul>
                     </div>
-                    <div className='btn btn-ghost normal-case'><Link href='/selection'>Selection</Link></div>
+                    <div className='dropdown dropdown-end'>
+                        <label tabIndex={0} className="btn btn-ghost normal-case">
+                            <div className='flex gap-x-1 items-center'>
+                                Selection
+                                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-primary rounded-md w-52">
+
+                            <li><Link href='/selection'>Primary Selection</Link></li>
+                            <li><Link href='/primary-selected'>Primary Selected</Link></li>
+                            <li><Link href='/final-selected'>Final Selected</Link></li>
+
+                        </ul>
+                    </div>
+                    {/* <div className='btn btn-ghost normal-case'><Link href='/selection'>Selection</Link></div> */}
                 </div>
 
                 <div className="dropdown dropdown-end ml-auto lg:ml-10">

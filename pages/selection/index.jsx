@@ -180,7 +180,7 @@ const Selection = () => {
     );
 
     return (
-        <div className='min-h-[93vh]'>
+        <div className='min-h-[90vh]'>
             {/* <div className='text-center mt-8'>
                 <h2 className='text-4xl text-secondary font-bold'>Primary Selection</h2>
             </div> */}
@@ -216,7 +216,7 @@ const Selection = () => {
                 </div>
             </Dialog >
 
-            <div className='flex gap-x-2 min-h-[93vh]'>
+            <div className='flex gap-x-2 min-h-[90vh]'>
                 <form onSubmit={handleSelection} className='container px-2 w-1/4 bg-white'>
                     <div>
                         <p className='text-primary text-xl font-bold text-center underline my-4'>Selection criteria</p>
@@ -323,13 +323,11 @@ const Selection = () => {
                 <button onClick={handleSelection} className='btn btn-primary'>Click to select</button>
             </div> */}
 
-                <div className='w-full min-h-[100%] m-2'>
-
-                    <div className='p-2'>
-                        {
-                            selectedFreedomFighters ?
-                                <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[88vh]'>
-                                    {/* <table className="table-auto container shadow-md">
+                <div className='w-full flex items-center'>
+                    {
+                        selectedFreedomFighters ?
+                            <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[88vh]'>
+                                {/* <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
                                                 <th className='p-2 rounded-tl-md'>Name</th>
@@ -354,25 +352,24 @@ const Selection = () => {
                                         </tbody>
                                     </table> */}
 
-                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows >
-                                        {
-                                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
-                                        }
-                                    </DataTable>
-                                    <div className='text-right m-2'>
-                                        <Button onClick={handleTemporarySelect} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
-                                    </div>
-
+                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
+                                    {
+                                        cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
+                                    }
+                                </DataTable>
+                                <div className='text-right my-3'>
+                                    <Button onClick={handleTemporarySelect} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
                                 </div>
 
+                            </div>
 
-                                :
 
-                                <div className=' w-full'>
-                                    <p className='text-2xl font-bold text-primary text-center'>Nothing to show here..</p>
-                                </div>
-                        }
-                    </div>
+                            :
+
+                            <div className='w-full'>
+                                <p className='text-2xl font-bold text-primary text-center'>Nothing to show here..</p>
+                            </div>
+                    }
                 </div>
             </div >
         </div >
