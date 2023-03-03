@@ -15,10 +15,10 @@ const PrimarySelected = () => {
     const [event, setEvent] = useState('')
     const [year, setYear] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [primarySelected, setPrimarySelected] = useState([])
+    const [primarySelected, setPrimarySelected] = useState()
     const [member, setMember] = useState('')
     const [verifyStatus, setVerifyStatus] = useState('')
-    const [verifyRejectDialogue, setVerifyRejectDialogue] = useState(false)
+    const [verificationUpdateDialogue, setVerificationUpdateDialogue] = useState(false)
 
     // fetch available events from db 
     useEffect(() => {
@@ -44,13 +44,28 @@ const PrimarySelected = () => {
 
     const verifyStatusUpdate = (e) => {
         e.preventDefault()
-        console.log(e.target.rejectionReason.value, verifyStatus);
+
+        var verificationStatus = {}
+        if (verifyStatus == 'Failed') {
+            verificationStatus = {
+                status: verifyStatus,
+                reason: e.target.rejectionReason.value
+            }
+            console.log(verificationStatus);
+        }
+        else {
+            verificationStatus = {
+                status: verifyStatus
+            }
+            console.log(verificationStatus);
+        }
+        // console.log(e.target.rejectionReason.value, verifyStatus);
     }
 
     const header = (
         <div className='flex justify-between items-center'>
             <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
-                {(event && year) && <p>Primary Selected for <span className='text-secondary'>`{event.name} - {year.toString().slice(11, 15)}`</span></p>}
+                {primarySelected && <p>Primary Selected for <span className='text-secondary'>`{event.name} - {year?.toString().slice(11, 15)}`</span></p>}
             </div>
         </div>
     );
@@ -58,11 +73,15 @@ const PrimarySelected = () => {
     const actionBodyTemplate = (rowData) => {
         return (
             <div>
-                <Button onClick={() => editProduct(rowData)} icon="pi pi-pencil" rounded outlined className="mr-2 p-button-sm" />
+                <Button onClick={() => {
+                    setMember(rowData)
+                    setVerifyStatus('Success')
+                    setVerificationUpdateDialogue(true);
+                }} icon="pi pi-check" rounded outlined className="mr-2 p-button-sm" />
                 <Button onClick={() => {
                     setMember(rowData);
                     setVerifyStatus('Failed')
-                    setVerifyRejectDialogue(true);
+                    setVerificationUpdateDialogue(true);
                 }} icon="pi pi-times" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
             </div>
         );
@@ -81,10 +100,10 @@ const PrimarySelected = () => {
             <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg'>
                 <form onSubmit={getPrimarySelectedMembers} className='flex gap-x-4'>
                     <div>
-                        <Dropdown name='program' options={events} optionLabel='name' value={event}
+                        <Dropdown name='event' options={events} optionLabel='name' value={event}
                             onChange={(e) => {
                                 setEvent(e.value)
-                            }} placeholder="*Select Program" className='text-black w-full' required />
+                            }} placeholder="*Select Event" required />
                     </div>
                     <div>
                         <Calendar value={year} onChange={(e) => {
@@ -105,14 +124,20 @@ const PrimarySelected = () => {
                 </DataTable>
             </div>
 
-            <Dialog visible={verifyRejectDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Confirm" modal onHide={() => setVerifyRejectDialogue(false)}>
+            <Dialog visible={verificationUpdateDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => setVerificationUpdateDialogue(false)}>
                 <form onSubmit={verifyStatusUpdate} className="confirmation-content">
-                    <div className="relative mt-4">
-                        <span className='p-float-label'>
-                            <InputText name='rejectionReason' type="text" id="rejectionReason" className="block px-2.5 pb-2.5 pt-2.5 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 hover:border-blue-600 peer" placeholder=" " required />
-                            <label htmlFor="rejectionReason">Specify the Reason</label>
-                        </span>
+                    <div>
+                        <p className='font-semibold'>Status: <span className={(verifyStatus == 'Failed') ? 'text-white bg-red-500 p-1' : 'bg-primary p-1'}>{verifyStatus}</span></p>
                     </div>
+                    {
+                        verifyStatus == 'Failed' &&
+                        <div className="relative mt-4">
+                            <span className='p-float-label'>
+                                <InputText name='rejectionReason' type="text" id="rejectionReason" className="block px-2.5 pb-2.5 pt-2.5 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 hover:border-blue-600 peer" placeholder=" " required />
+                                <label htmlFor="rejectionReason">Specify the Reason</label>
+                            </span>
+                        </div>
+                    }
                     {/* <i className="pi pi-exclamation-triangle mr-3 text-red-600" style={{ fontSize: '2rem' }} />
                     {member && (
                         <span>
@@ -120,12 +145,12 @@ const PrimarySelected = () => {
                         </span>
                     )} */}
                     <div className='text-right mt-4'>
-                        <Button label="No" icon="pi pi-times" outlined onClick={() => setVerifyRejectDialogue(false)} className='mr-2' />
-                        <Button type='submit' label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                        {/* <Button label="No" icon="pi pi-times" outlined onClick={() => setVerificationUpdateDialogue(false)} className='mr-2' /> */}
+                        <Button type='submit' label="Submit" />
                     </div>
                 </form>
             </Dialog>
-        </div>
+        </div >
     );
 };
 
