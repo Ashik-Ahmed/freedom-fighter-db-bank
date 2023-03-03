@@ -24,13 +24,12 @@ const Selection = () => {
     const [event, setEvent] = useState('')
     const [year, setYear] = useState('')
 
-
+    // fetch available events from db 
     useEffect(() => {
         fetch('http://localhost:5000/api/v1/event')
             .then(res => res.json())
             .then(data => {
                 setEvents(data.data)
-                console.log(data.data);
             })
     }, [])
 
@@ -266,6 +265,7 @@ const Selection = () => {
                                 <Dropdown name='program' options={events} optionLabel='name' value={event}
                                     onChange={(e) => {
                                         setEvent(e.value)
+                                        console.log(e.value);
                                     }} placeholder="*Select Program" className='text-black w-full' required />
                             </div>
                             <div>
@@ -358,7 +358,7 @@ const Selection = () => {
                     </div>
                 </form >
 
-                <div className='w-full flex items-center'>
+                <div className='w-full'>
                     {
                         selectedFreedomFighters ?
                             <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[88vh]'>
