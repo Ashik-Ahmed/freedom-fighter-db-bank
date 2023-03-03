@@ -52,6 +52,7 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
                     </div>
                     <div className='cursor-pointer ' onClick={() => setDeleteModal(freedomFighter)}>
                         <i className='pi pi-trash text-xl text-red-400 font-bold'></i>
+                        {/* <Button icon="pi pi-trash" rounded outlined severity="danger" className='p-button-danger' /> */}
                     </div>
                 </div>
 

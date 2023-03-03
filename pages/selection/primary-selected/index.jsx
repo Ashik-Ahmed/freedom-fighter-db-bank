@@ -6,6 +6,7 @@ import { Calendar } from 'primereact/calendar';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Dialog } from 'primereact/dialog';
 
 const PrimarySelected = () => {
 
@@ -14,6 +15,8 @@ const PrimarySelected = () => {
     const [year, setYear] = useState(null)
     const [loading, setLoading] = useState(false)
     const [primarySelected, setPrimarySelected] = useState([])
+    const [member, setMember] = useState('')
+    const [verifyRejectDialogue, setVerifyRejectDialogue] = useState(false)
 
     // fetch available events from db 
     useEffect(() => {
@@ -37,6 +40,10 @@ const PrimarySelected = () => {
             })
     }
 
+    const deleteMember = () => {
+        console.log('delete product');
+    }
+
     const header = (
         <div className='flex justify-between items-center'>
             <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
@@ -45,12 +52,31 @@ const PrimarySelected = () => {
         </div>
     );
 
+    const deleteProductDialogFooter = (
+        <React.Fragment>
+            <Button label="No" icon="pi pi-times" outlined onClick={() => setVerifyRejectDialogue(false)} />
+            <Button label="Yes" icon="pi pi-check" severity="danger" onClick={deleteMember} className='p-button-danger' />
+        </React.Fragment>
+    );
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <div>
+                <Button onClick={() => editProduct(rowData)} icon="pi pi-pencil" rounded outlined className="mr-2 p-button-sm" />
+                <Button onClick={() => {
+                    setMember(rowData);
+                    setVerifyRejectDialogue(true);
+                }} icon="pi pi-times" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
+            </div>
+        );
+    };
+
     const cols = [
         { field: 'name', header: 'Name' },
         { field: 'category', header: 'Member Type' },
         { field: `mobile`, header: 'Contact no.' },
         { field: 'email', header: 'Email' },
-        { field: 'address', header: 'Address' }
+        { field: 'address', header: 'Address' },
     ];
 
     return (
@@ -77,8 +103,20 @@ const PrimarySelected = () => {
                     {
                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                     }
+                    <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column>
                 </DataTable>
             </div>
+
+            <Dialog visible={verifyRejectDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Confirm" modal footer={deleteProductDialogFooter} onHide={() => setVerifyRejectDialogue(false)}>
+                <div className="confirmation-content">
+                    <i className="pi pi-exclamation-triangle mr-3 text-red-600" style={{ fontSize: '2rem' }} />
+                    {member && (
+                        <span>
+                            Are you sure you want to delete <b>{member.name}</b>?
+                        </span>
+                    )}
+                </div>
+            </Dialog>
         </div>
     );
 };
