@@ -23,6 +23,7 @@ const Selection = () => {
     const [events, setEvents] = useState([])
     const [event, setEvent] = useState('')
     const [year, setYear] = useState('')
+    const [confirmSelectionDialogue, setConfirmSelectionDialogue] = useState(false)
 
     // fetch available events from db 
     useEffect(() => {
@@ -187,7 +188,8 @@ const Selection = () => {
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
-
+                setSelectedFreedomFighters([])
+                setConfirmSelectionDialogue(false)
             })
     }
 
@@ -393,7 +395,9 @@ const Selection = () => {
                                     }
                                 </DataTable>
                                 <div className='text-right my-3'>
-                                    <Button onClick={handleTemporarySelect} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
+                                    <Button onClick={() => {
+                                        setConfirmSelectionDialogue(true)
+                                    }} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
                                 </div>
 
                             </div>
@@ -405,6 +409,17 @@ const Selection = () => {
                                 <p className='text-2xl font-bold text-primary text-center'>Nothing to show here..</p>
                             </div>
                     }
+
+                    <Dialog visible={confirmSelectionDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => setConfirmSelectionDialogue(false)}>
+                        <div className="confirmation-content">
+                            <div>
+                                <p className='font-semibold'>Are you sure?</p>
+                            </div>
+                            <div className='text-right mt-4'>
+                                <Button onClick={handleTemporarySelect} type='submit' label="Submit" />
+                            </div>
+                        </div>
+                    </Dialog>
                 </div>
             </div >
         </div >
