@@ -19,6 +19,7 @@ const PrimarySelected = () => {
     const [member, setMember] = useState('')
     const [verifyStatus, setVerifyStatus] = useState('')
     const [verificationUpdateDialogue, setVerificationUpdateDialogue] = useState(false)
+    const [showTooltip, setShowTooltip] = useState(false)
 
     // fetch available events from db 
     useEffect(() => {
@@ -29,8 +30,7 @@ const PrimarySelected = () => {
             })
     }, [])
 
-    const getPrimarySelectedMembers = (e) => {
-        e.preventDefault();
+    const getPrimarySelectedMembers = () => {
         setLoading(true)
         const url = `http://localhost:5000/api/v1/selection/primary-selection?event=${event.name}&year=${year.getFullYear()}`
 
@@ -43,7 +43,7 @@ const PrimarySelected = () => {
     }
 
     const verifyStatusUpdate = (e) => {
-        e.preventDefault()
+        e?.preventDefault()
 
         var verificationStatus = {}
         if (verifyStatus == 'Failed') {
@@ -51,15 +51,31 @@ const PrimarySelected = () => {
                 status: verifyStatus,
                 reason: e.target.rejectionReason.value
             }
-            console.log(verificationStatus);
         }
         else {
             verificationStatus = {
                 status: verifyStatus
             }
-            console.log(verificationStatus);
+
         }
-        // console.log(e.target.rejectionReason.value, verifyStatus);
+
+        console.log(member._id, verificationStatus);
+
+        fetch('http://localhost:5000/api/v1/selection/verification-update', {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ memberId: member._id, verificationStatus })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                getPrimarySelectedMembers()
+                setMember('');
+                setVerifyStatus('')
+                setVerificationUpdateDialogue(false);
+            })
     }
 
     const header = (
@@ -71,19 +87,79 @@ const PrimarySelected = () => {
     );
 
     const actionBodyTemplate = (rowData) => {
+        console.log(rowData);
+        // const { status, reason } = rowData.primarySelection.verificationStatus
+        // console.log(status);
         return (
+            //             {
+            //                 status?
+
+            //                     <div>
+            //                         < Button onClick = {() => {
+            //     setMember(rowData)
+            //     setVerifyStatus('Success')
+            //     setVerificationUpdateDialogue(true);
+            // }} icon = "pi pi-check" rounded outlined className = "mr-2 p-button-sm" />
+            //     <Button onClick={() => {
+            //         setMember(rowData);
+            //         setVerifyStatus('Failed')
+            //         setVerificationUpdateDialogue(true);
+            //     }} icon="pi pi-times" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
+            //                     </div >
+            //                     :
+            // <div>
+            //     <span>{rowData.primarySelection.verificationStatus.status}</span>
+            // </div>
+            //             }
             <div>
-                <Button onClick={() => {
-                    setMember(rowData)
-                    setVerifyStatus('Success')
-                    setVerificationUpdateDialogue(true);
-                }} icon="pi pi-check" rounded outlined className="mr-2 p-button-sm" />
-                <Button onClick={() => {
-                    setMember(rowData);
-                    setVerifyStatus('Failed')
-                    setVerificationUpdateDialogue(true);
-                }} icon="pi pi-times" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
-            </div>
+                {/* <span className={status == 'Failed' ? 'bg-red-600 text-white py-1 px-2 rounded-md shadow-md' : 'bg-primary p-1 rounded-md shadow-md'}>{status}</span> */}
+                {
+                    rowData?.primarySelection?.verificationStatus?.status ?
+                        <div>
+                            {
+                                rowData?.primarySelection?.verificationStatus?.status == 'Failed' ?
+                                    < div className="relative">
+                                        <span
+                                            className="inline-block bg-red-600 text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"                                >
+                                            {rowData.primarySelection.verificationStatus.status}
+                                        </span>
+                                        <span
+                                            onMouseEnter={() => setShowTooltip(true)}
+                                            onMouseLeave={() => setShowTooltip(false)}
+                                            className='pi pi-question-circle ml-2'></span>
+                                        <div
+                                            className={`${showTooltip ? 'opacity-100' : 'opacity-0'
+                                                } absolute bottom-5 left-1/2 transform -translate-x-1/2 mb-2 bg-red-500/90 text-white text-xs rounded-md py-1 px-2 pointer-events-none transition-opacity duration-300`}>
+                                            {rowData.primarySelection.verificationStatus.reason}
+                                        </div>
+                                    </div>
+                                    :
+                                    <div>
+                                        <span
+                                            className="inline-block bg-primary text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"                                >
+                                            {rowData.primarySelection.verificationStatus.status}
+                                        </span>
+                                    </div>
+                            }
+                            {/* <span className='bg-red-600 text-white py-1 px-2 rounded-md shadow-md'>{status}</span>
+                            <span className='pi pi-question-circle'></span> */}
+                        </div>
+                        :
+                        // <span className='bg-primary text-white p-1 rounded-md shadow-md'>{rowData.primarySelection.verificationStatus?.status || 'N/A'}</span>
+                        <div>
+                            < Button onClick={() => {
+                                setMember(rowData)
+                                setVerifyStatus('Success')
+                                setVerificationUpdateDialogue(true);
+                            }} icon="pi pi-check" rounded outlined className="mr-2 p-button-sm" />
+                            <Button onClick={() => {
+                                setMember(rowData);
+                                setVerifyStatus('Failed')
+                                setVerificationUpdateDialogue(true);
+                            }} icon="pi pi-times" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
+                        </div >
+                }
+            </div >
         );
     };
 
@@ -98,7 +174,7 @@ const PrimarySelected = () => {
     return (
         <div>
             <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg'>
-                <form onSubmit={getPrimarySelectedMembers} className='flex gap-x-4'>
+                <div className='flex gap-x-4'>
                     <div>
                         <Dropdown name='event' options={events} optionLabel='name' value={event}
                             onChange={(e) => {
@@ -111,8 +187,8 @@ const PrimarySelected = () => {
                             console.log(typeof e.value);
                         }} view="year" dateFormat="yy" placeholder='Year' />
                     </div>
-                    <Button type='submit' label='Submit' className='p-button-info p-button-sm normal-case'></Button>
-                </form>
+                    <Button onClick={getPrimarySelectedMembers} label='Submit' className='p-button-info p-button-sm normal-case'></Button>
+                </div>
             </div>
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-4 min-h-[60vh]'>
@@ -138,14 +214,7 @@ const PrimarySelected = () => {
                             </span>
                         </div>
                     }
-                    {/* <i className="pi pi-exclamation-triangle mr-3 text-red-600" style={{ fontSize: '2rem' }} />
-                    {member && (
-                        <span>
-                            Are you sure you want to delete <b>{member.name}</b>?
-                        </span>
-                    )} */}
                     <div className='text-right mt-4'>
-                        {/* <Button label="No" icon="pi pi-times" outlined onClick={() => setVerificationUpdateDialogue(false)} className='mr-2' /> */}
                         <Button type='submit' label="Submit" />
                     </div>
                 </form>
