@@ -13,6 +13,7 @@ const PrimarySelected = () => {
 
     const [events, setEvents] = useState([])
     const [event, setEvent] = useState('')
+    const [eventFromDB, setEventFromDB] = useState('')
     const [year, setYear] = useState(null)
     const [loading, setLoading] = useState(false)
     const [primarySelected, setPrimarySelected] = useState()
@@ -59,18 +60,34 @@ const PrimarySelected = () => {
 
         }
 
-        console.log(member._id, verificationStatus);
+        //getting specific event details from DB
+        const eventToBeUpdate = member?.primarySelection.find(memberEvent => {
+            if (memberEvent.event == event.name) {
+                setEventFromDB(memberEvent);
+                return memberEvent._id
+            }
+        })
+
+        // console.log(member._id, verificationStatus);
+        console.log(eventToBeUpdate);
+
+        //this info will be sent to DB
+        const verificationInfo = {
+            memberId: member._id,
+            eventToBeUpdate,
+            verificationStatus
+        }
 
         fetch('http://localhost:5000/api/v1/selection/verification-update', {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ memberId: member._id, verificationStatus })
+            body: JSON.stringify(verificationInfo)
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 getPrimarySelectedMembers()
                 setMember('');
                 setVerifyStatus('')
@@ -86,42 +103,38 @@ const PrimarySelected = () => {
         </div>
     );
 
-    const actionBodyTemplate = (rowData) => {
-        console.log(rowData);
-        // const { status, reason } = rowData.primarySelection.verificationStatus
-        // console.log(status);
-        return (
-            //             {
-            //                 status?
+    const eventToBeUpdate = (rowData) => {
+        // console.log(rowData);
+        rowData.primarySelection.map(eventDetails => {
+            if (eventDetails.event == event.name && eventDetails.year == year.getFullYear()) {
+                console.log(eventDetails?.verificationStatus?.status)
+                return eventDetails?.verificationStatus?.status
+            }
+        })
+    }
 
-            //                     <div>
-            //                         < Button onClick = {() => {
-            //     setMember(rowData)
-            //     setVerifyStatus('Success')
-            //     setVerificationUpdateDialogue(true);
-            // }} icon = "pi pi-check" rounded outlined className = "mr-2 p-button-sm" />
-            //     <Button onClick={() => {
-            //         setMember(rowData);
-            //         setVerifyStatus('Failed')
-            //         setVerificationUpdateDialogue(true);
-            //     }} icon="pi pi-times" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
-            //                     </div >
-            //                     :
-            // <div>
-            //     <span>{rowData.primarySelection.verificationStatus.status}</span>
-            // </div>
-            //             }
-            <div>
-                {/* <span className={status == 'Failed' ? 'bg-red-600 text-white py-1 px-2 rounded-md shadow-md' : 'bg-primary p-1 rounded-md shadow-md'}>{status}</span> */}
+    const actionBodyTemplate = (rowData) => {
+        const eventDetails = rowData.primarySelection.find(eventDetails => {
+            if (eventDetails.event == event.name && eventDetails.year == year.getFullYear()) {
+                console.log(eventDetails?.verificationStatus)
+                return eventDetails
+            }
+        })
+
+        return (
+            < div >
                 {
-                    rowData?.primarySelection?.verificationStatus?.status ?
+                    eventDetails?.verificationStatus ?
+
                         <div>
                             {
-                                rowData?.primarySelection?.verificationStatus?.status == 'Failed' ?
-                                    < div className="relative">
+                                eventDetails?.verificationStatus?.status == 'Failed' ?
+                                    <div className='relative'>
                                         <span
                                             className="inline-block bg-red-600 text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"                                >
-                                            {rowData.primarySelection.verificationStatus.status}
+                                            {
+                                                eventDetails.verificationStatus?.status
+                                            }
                                         </span>
                                         <span
                                             onMouseEnter={() => setShowTooltip(true)}
@@ -130,19 +143,17 @@ const PrimarySelected = () => {
                                         <div
                                             className={`${showTooltip ? 'opacity-100' : 'opacity-0'
                                                 } absolute bottom-5 left-1/2 transform -translate-x-1/2 mb-2 bg-red-500/90 text-white text-xs rounded-md py-1 px-2 pointer-events-none transition-opacity duration-300`}>
-                                            {rowData.primarySelection.verificationStatus.reason}
+                                            {eventDetails.verificationStatus.reason}
                                         </div>
-                                    </div>
+                                    </div >
                                     :
                                     <div>
                                         <span
-                                            className="inline-block bg-primary text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"                                >
-                                            {rowData.primarySelection.verificationStatus.status}
+                                            className="inline-block bg-primary text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                            {eventDetails.verificationStatus.status}
                                         </span>
                                     </div>
                             }
-                            {/* <span className='bg-red-600 text-white py-1 px-2 rounded-md shadow-md'>{status}</span>
-                            <span className='pi pi-question-circle'></span> */}
                         </div>
                         :
                         // <span className='bg-primary text-white p-1 rounded-md shadow-md'>{rowData.primarySelection.verificationStatus?.status || 'N/A'}</span>
@@ -184,7 +195,6 @@ const PrimarySelected = () => {
                     <div>
                         <Calendar value={year} onChange={(e) => {
                             setYear(e.value)
-                            console.log(typeof e.value);
                         }} view="year" dateFormat="yy" placeholder='Year' />
                     </div>
                     <Button onClick={getPrimarySelectedMembers} label='Submit' className='p-button-info p-button-sm normal-case'></Button>

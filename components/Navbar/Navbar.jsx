@@ -166,7 +166,7 @@ const Navbar = ({ user, setUser }) => {
 
         // previous menubar 
 
-        <div className="bg-primary min-h-[10vh] max-h-[10vh]  flex items-center my-auto">
+        <div className="bg-primary min-h-[8vh] max-h-[8vh]  flex items-center my-auto">
             <div className="navbar text-gray-200 max-w-7xl mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
