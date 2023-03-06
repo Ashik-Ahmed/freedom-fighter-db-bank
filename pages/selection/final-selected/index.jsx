@@ -32,6 +32,7 @@ const FinalSelected = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                setFinalSelected(data.data)
             })
     }
 
