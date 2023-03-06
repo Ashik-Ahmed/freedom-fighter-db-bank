@@ -21,6 +21,7 @@ const PrimarySelected = () => {
     const [verifyStatus, setVerifyStatus] = useState('')
     const [verificationUpdateDialogue, setVerificationUpdateDialogue] = useState(false)
     const [showTooltip, setShowTooltip] = useState(false)
+    const [deleteMemberDialogue, setDeleteMemberDialogue] = useState(false)
 
     // fetch available events from db 
     useEffect(() => {
@@ -62,7 +63,7 @@ const PrimarySelected = () => {
 
         //getting specific event details from DB
         const eventToBeUpdate = member?.primarySelection.find(memberEvent => {
-            if (memberEvent.event == event.name) {
+            if (memberEvent.event == event.name && memberEvent.year == year.getFullYear()) {
                 setEventFromDB(memberEvent);
                 return memberEvent._id
             }
@@ -95,6 +96,45 @@ const PrimarySelected = () => {
             })
     }
 
+    const handleDeleteMember = () => {
+        console.log('Member Delete function');
+
+        //getting specific event details from DB
+        const eventToBeUpdate = member?.primarySelection.find(memberEvent => {
+            if (memberEvent.event == event.name && memberEvent.year == year.getFullYear()) {
+                setEventFromDB(memberEvent);
+                return memberEvent._id
+            }
+        })
+
+        const data = {
+            memberId: member._id,
+            eventToBeUpdate
+        }
+
+        const url = 'http://localhost:5000/api/v1/selection/delete-primary-selected';
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.data.acknowledged) {
+                    getPrimarySelectedMembers()
+                    setDeleteMemberDialogue(false)
+                    setMember(false)
+                }
+                else {
+                    console.log(data);
+                }
+            })
+    }
+
     const header = (
         <div className='flex justify-between items-center'>
             <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
@@ -102,16 +142,6 @@ const PrimarySelected = () => {
             </div>
         </div>
     );
-
-    const eventToBeUpdate = (rowData) => {
-        // console.log(rowData);
-        rowData.primarySelection.map(eventDetails => {
-            if (eventDetails.event == event.name && eventDetails.year == year.getFullYear()) {
-                console.log(eventDetails?.verificationStatus?.status)
-                return eventDetails?.verificationStatus?.status
-            }
-        })
-    }
 
     const actionBodyTemplate = (rowData) => {
         const eventDetails = rowData.primarySelection.find(eventDetails => {
@@ -131,7 +161,7 @@ const PrimarySelected = () => {
                                 eventDetails?.verificationStatus?.status == 'Failed' ?
                                     <div className='relative'>
                                         <span
-                                            className="inline-block bg-red-600 text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"                                >
+                                            className="inline-block bg-yellow-500 text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"                                >
                                             {
                                                 eventDetails.verificationStatus?.status
                                             }
@@ -139,7 +169,7 @@ const PrimarySelected = () => {
                                         <span
                                             onMouseEnter={() => setShowTooltip(true)}
                                             onMouseLeave={() => setShowTooltip(false)}
-                                            className='pi pi-question-circle ml-2'></span>
+                                            className='pi pi-question-circle ml-2 text-red-500'></span>
                                         <div
                                             className={`${showTooltip ? 'opacity-100' : 'opacity-0'
                                                 } absolute bottom-5 left-1/2 transform -translate-x-1/2 mb-2 bg-red-500/90 text-white text-xs rounded-md py-1 px-2 pointer-events-none transition-opacity duration-300`}>
@@ -167,7 +197,12 @@ const PrimarySelected = () => {
                                 setMember(rowData);
                                 setVerifyStatus('Failed')
                                 setVerificationUpdateDialogue(true);
-                            }} icon="pi pi-times" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
+                            }} icon="pi pi-times" rounded outlined className='p-button-sm p-button-warning mr-2' />
+                            <Button onClick={() => {
+                                setMember(rowData);
+                                setVerifyStatus('')
+                                setDeleteMemberDialogue(true);
+                            }} icon="pi pi-trash" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
                         </div >
                 }
             </div >
@@ -195,7 +230,7 @@ const PrimarySelected = () => {
                     <div>
                         <Calendar value={year} onChange={(e) => {
                             setYear(e.value)
-                        }} view="year" dateFormat="yy" placeholder='Year' />
+                        }} view="year" dateFormat="yy" placeholder='Year' required />
                     </div>
                     <Button onClick={getPrimarySelectedMembers} label='Submit' className='p-button-info p-button-sm normal-case'></Button>
                 </div>
@@ -210,6 +245,7 @@ const PrimarySelected = () => {
                 </DataTable>
             </div>
 
+            {/* dialogue for updating verification info  */}
             <Dialog visible={verificationUpdateDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => setVerificationUpdateDialogue(false)}>
                 <form onSubmit={verifyStatusUpdate} className="confirmation-content">
                     <div>
@@ -228,6 +264,23 @@ const PrimarySelected = () => {
                         <Button type='submit' label="Submit" />
                     </div>
                 </form>
+            </Dialog>
+
+            {/* dialogue delete member from primary selected  */}
+            <Dialog visible={deleteMemberDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Confirm" modal onHide={() => setDeleteMemberDialogue(false)}>
+                <div className="confirmation-content">
+                    <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
+                    {member && (
+                        <span>
+                            Are you sure you want to delete <b>{member.name}</b>?
+                        </span>
+                    )}
+
+                    <div className='flex gap-x-2 mt-4 justify-end'>
+                        <Button label="No" icon="pi pi-times" outlined onClick={() => setDeleteMemberDialogue(false)} />
+                        <Button label="Yes" icon="pi pi-check" severity="danger" onClick={handleDeleteMember} className='p-button-danger' />
+                    </div>
+                </div>
             </Dialog>
         </div >
     );

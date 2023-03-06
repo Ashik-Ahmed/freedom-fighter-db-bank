@@ -59,7 +59,7 @@ const FinalSelected = () => {
                         <Calendar value={year} onChange={(e) => {
                             setYear(e.value)
                             console.log(typeof e.value);
-                        }} view="year" dateFormat="yy" placeholder='Year' />
+                        }} view="year" dateFormat="yy" placeholder='Year' required />
                     </div>
                     <Button onClick={getFinalSelectedMembers} label='Submit' className='p-button-info p-button-sm normal-case'></Button>
                 </div>

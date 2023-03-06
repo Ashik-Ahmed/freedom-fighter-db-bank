@@ -37,9 +37,12 @@ const Events = () => {
         </div>
     );
 
+
+
     const cols = [
         { field: 'name', header: 'Event' },
-        { field: 'description', header: 'Description' }
+        { field: 'description', header: 'Description' },
+        { header: 'Action', body: {} },
     ];
 
     const handleAddEvent = (e) => {

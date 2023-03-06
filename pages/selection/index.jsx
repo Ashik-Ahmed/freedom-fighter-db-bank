@@ -7,6 +7,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import { render } from 'react-dom';
+import { Calendar } from 'primereact/calendar';
 
 
 const Selection = () => {
@@ -184,7 +185,7 @@ const Selection = () => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ memberIds, event: event.name, year })
+            body: JSON.stringify({ memberIds, event: event.name, year: year.getFullYear() })
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -261,21 +262,26 @@ const Selection = () => {
                                 <Dropdown name='memberType' options={memberTypes} value={memberType}
                                     onChange={(e) => {
                                         setMemberType(e.value)
-                                    }} placeholder="*Select Member Type" className='text-black w-full' required />
+                                    }} placeholder="*Select Member Type" className=' w-full' required />
                             </div>
                             <div>
                                 <Dropdown name='program' options={events} optionLabel='name' value={event}
                                     onChange={(e) => {
                                         setEvent(e.value)
                                         console.log(e.value);
-                                    }} placeholder="*Select Program" className='text-black w-full' required />
+                                    }} placeholder="*Select Program" className=' w-full' required />
                             </div>
                             <div>
+                                <Calendar value={year} onChange={(e) => {
+                                    setYear(e.value)
+                                }} view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
+                            </div>
+                            {/* <div>
                                 <Dropdown name='year' options={years} value={year}
                                     onChange={(e) => {
                                         setYear(e.value)
-                                    }} placeholder="*Year" className='text-black w-full' required />
-                            </div>
+                                    }} placeholder="*Year" className=' w-full' />
+                            </div> */}
                         </div>
 
                         <hr className='mb-4' />
