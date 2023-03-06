@@ -26,6 +26,13 @@ const FinalSelected = () => {
 
     const getFinalSelectedMembers = () => {
         console.log('final List');
+
+        const url = `http://localhost:5000/api/v1/selection/final-selection?event=${event.name}&year=${year.getFullYear()}`
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     }
 
 
