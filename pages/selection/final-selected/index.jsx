@@ -45,12 +45,21 @@ const FinalSelected = () => {
         </div>
     );
 
+    const invitationStatusBodyTemplate = (rowData) => {
+        return (
+            <div>
+                < Button onClick={() => { }} icon="pi pi-check" rounded outlined className="mr-2 p-button-sm" />
+            </div>
+        )
+    }
+
     const cols = [
         { field: 'name', header: 'Name' },
         { field: 'category', header: 'Member Type' },
         { field: `mobile`, header: 'Contact no.' },
         { field: 'email', header: 'Email' },
         { field: 'address', header: 'Address' },
+        { header: 'Invitaion Status', body: { invitationStatusBodyTemplate } },
     ];
 
     return (
