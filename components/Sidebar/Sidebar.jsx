@@ -101,7 +101,7 @@ const Sidebar = ({ user, setUser }) => {
                                 className={`${open && "hidden"
                                     } absolute left-48 bg-primary font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}
                             >
-                                {menu?.name}
+                                <p className='px-2 py-2'>{menu?.name}</p>
                             </h2>
                         </Link>
                     ))}
