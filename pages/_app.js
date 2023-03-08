@@ -10,6 +10,7 @@ import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import { Password } from 'primereact/password';
 import { InputText } from 'primereact/inputtext';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 
 function MyApp({ Component, pageProps }) {
@@ -71,8 +72,11 @@ function MyApp({ Component, pageProps }) {
     return (
       <div className='bg-[#EFF3F8] min-h-[100vh]'>
         <Navbar user={user} setUser={setUser} />
-        <div className=''>
-          <Component {...pageProps} />
+        <div className='h-[92vh] flex flex-row justify-start'>
+          <Sidebar user={user} setUser={setUser} />
+          <div className='w-full mx-2'>
+            <Component {...pageProps} />
+          </div>
         </div>
       </div>
     )
