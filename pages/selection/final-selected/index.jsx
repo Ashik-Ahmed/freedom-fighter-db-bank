@@ -14,6 +14,8 @@ const FinalSelected = () => {
     const [year, setYear] = useState(null)
     const [loading, setLoading] = useState(false)
     const [finalSelected, setFinalSelected] = useState()
+    const [selectedProducts, setSelectedProducts] = useState(null);
+    const [rowClick, setRowClick] = useState(true);
 
     // fetch available events from db 
     useEffect(() => {
@@ -48,7 +50,7 @@ const FinalSelected = () => {
     const invitationStatusBodyTemplate = (rowData) => {
         return (
             <div>
-                < Button onClick={() => { }} icon="pi pi-check" rounded outlined className="mr-2 p-button-sm" />
+                <Button onClick={() => { }} icon="pi pi-send" rounded outlined className="mr-2 p-button-sm" />
             </div>
         )
     }
@@ -59,7 +61,7 @@ const FinalSelected = () => {
         { field: `mobile`, header: 'Contact no.' },
         { field: 'email', header: 'Email' },
         { field: 'address', header: 'Address' },
-        { header: 'Invitaion Status', body: { invitationStatusBodyTemplate } },
+        // { header: 'Invitaion Status', body: { invitationStatusBodyTemplate } },
     ];
 
     return (
@@ -83,13 +85,15 @@ const FinalSelected = () => {
             </div>
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-4 min-h-[60vh]'>
-                <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
+                <DataTable value={finalSelected} header={header} selectionMode={rowClick ? null : 'checkbox'} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
+                    <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
                     {
                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                     }
+                    <Column header='Invitaion Status' body={invitationStatusBodyTemplate} exportable={false}></Column>
                 </DataTable>
             </div>
-        </div>
+        </div >
     );
 };
 
