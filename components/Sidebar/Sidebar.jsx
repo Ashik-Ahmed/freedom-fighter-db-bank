@@ -9,6 +9,7 @@ import { RiSettings4Line, RiMailSettingsLine, RiFilterLine } from "react-icons/r
 import { TbReportAnalytics, TbList, TbListCheck } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
+import { CgUserList } from "react-icons/cg"
 
 
 const Sidebar = ({ user, setUser }) => {
@@ -28,10 +29,10 @@ const Sidebar = ({ user, setUser }) => {
                 { name: "Final List", link: "/selection/final-selected", icon: TbListCheck }
             ]
         },
-        { name: "Manage Events", link: "/", icon: MdInsertInvitation, margin: true },
+        { name: "Manage Events", link: "/events", icon: MdInsertInvitation, margin: true },
         { name: "Analytics", link: "/", icon: TbReportAnalytics },
         { name: "File Manager", link: "/", icon: FiFolder },
-        { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
+        { name: "Manage Users", link: "/manage-users", icon: CgUserList, margin: true },
         { name: "Setting", link: "/", icon: RiSettings4Line },
     ];
 
@@ -119,7 +120,7 @@ const Sidebar = ({ user, setUser }) => {
                                                     <h2>
                                                         {menuItem?.name}
                                                     </h2>
-                                                    <h2 className={`${open && "hidden"} absolute left-48 bg-primary font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}>
+                                                    <h2 className={`${open && "hidden"} absolute z-2 left-48 bg-primary font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}>
                                                         <p className='px-2 py-2'>{menuItem?.name}</p>
                                                     </h2>
                                                 </Link>
@@ -144,7 +145,7 @@ const Sidebar = ({ user, setUser }) => {
                                 </h2>
                                 <h2
                                     className={`${open && "hidden"
-                                        } absolute left-48 bg-primary font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}>
+                                        } absolute z-2 left-48 bg-primary font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}>
                                     <p className='px-2 py-2'>{menu?.name}</p>
                                 </h2>
                             </Link>
