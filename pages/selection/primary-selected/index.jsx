@@ -32,7 +32,8 @@ const PrimarySelected = () => {
             })
     }, [])
 
-    const getPrimarySelectedMembers = () => {
+    const getPrimarySelectedMembers = (e) => {
+        e.preventDefault()
         setLoading(true)
         const url = `http://localhost:5000/api/v1/selection/primary-selection?event=${event.name}&year=${year.getFullYear()}`
 
@@ -220,7 +221,7 @@ const PrimarySelected = () => {
     return (
         <div>
             <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg'>
-                <div className='flex gap-x-4'>
+                <form onSubmit={getPrimarySelectedMembers} className='flex gap-x-4'>
                     <div>
                         <Dropdown name='event' options={events} optionLabel='name' value={event}
                             onChange={(e) => {
@@ -232,8 +233,8 @@ const PrimarySelected = () => {
                             setYear(e.value)
                         }} view="year" dateFormat="yy" placeholder='Year' required />
                     </div>
-                    <Button onClick={getPrimarySelectedMembers} label='Submit' className='p-button-info p-button-sm normal-case'></Button>
-                </div>
+                    <Button type='submit' label='Submit' className='p-button-info p-button-sm normal-case'></Button>
+                </form>
             </div>
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-4 min-h-[60vh]'>
