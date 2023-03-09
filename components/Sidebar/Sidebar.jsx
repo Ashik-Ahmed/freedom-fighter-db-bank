@@ -94,7 +94,7 @@ const Sidebar = ({ user, setUser }) => {
                     {menus?.map((menu, i) => (
                         menu?.items ?
                             <div className='font-medium'>
-                                <div onClick={() => setAccordionOpen(!accordionOpen)} className='flex gap-3.5 text-sm items-center px-2 py-2  hover:bg-primary rounded-md cursor-pointer'>
+                                <div onClick={() => setAccordionOpen(!accordionOpen)} className={`${open && 'py-2'} flex gap-3.5 text-sm items-center px-2 hover:bg-primary rounded-md cursor-pointer`}>
                                     <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                                     <h2
                                         style={{
@@ -115,8 +115,8 @@ const Sidebar = ({ user, setUser }) => {
                                                 <Link
                                                     href={menuItem?.link}
                                                     key={i}
-                                                    className={` ${menuItem?.margin && "mt-5"} group flex items-center text-sm  gap-3.5 font-medium py-2 px-2 hover:bg-primary rounded-md`}>
-                                                    <div>{React.createElement(menuItem?.icon, { size: "20" })}</div>
+                                                    className={` ${menuItem?.margin && "mt-3"} ${open && 'py-2'} group flex items-center text-sm  gap-3 font-medium  px-2 hover:bg-primary rounded-md`}>
+                                                    <div className=''>{React.createElement(menuItem?.icon, { size: "20" })}</div>
                                                     <h2>
                                                         {menuItem?.name}
                                                     </h2>
@@ -133,7 +133,7 @@ const Sidebar = ({ user, setUser }) => {
                             <Link
                                 href={menu?.link}
                                 key={i}
-                                className={` ${menu?.margin && "mt-4"
+                                className={` ${menu?.margin && "mt-3"
                                     } group flex items-center text-sm  gap-3.5 font-medium py-2 px-2 hover:bg-primary rounded-md`}>
                                 <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                                 <h2
