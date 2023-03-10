@@ -132,6 +132,17 @@ const Events = () => {
 
     const handleDeleteEvent = (id) => {
         console.log(id);
+        fetch(`http://localhost:5000/api/v1/event/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookie.get('TOKEN')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     }
 
     const emailBodyTemplate = (rowData) => {
