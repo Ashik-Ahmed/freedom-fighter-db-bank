@@ -143,8 +143,8 @@ const ManageUsers = () => {
                 } */}
 
             </div>
-            <div className='p-2 bg-white border-2 shadow-md rounded-md'>
-                <div className='flex justify-between items-center mb-2'>
+            <div className='p-1 bg-white border-2 shadow-md rounded-md'>
+                <div className='flex justify-between items-center mb-1'>
                     <div className='text-gray-800 text-xl font-bold'>
                         <p>Manage Users</p>
                     </div>
@@ -179,7 +179,7 @@ const ManageUsers = () => {
                     </tbody>
                 </table>
                 {/* <div className='flex w-full justify-between text-primary p-2 bg-gray-100 rounded-b-md'> */}
-                <div className='w-full text-gray-600 p-2 bg-white rounded-b-md'>
+                <div className='w-full text-gray-600 p-1 bg-white rounded-b-md'>
                     {/* <div>
                     <p>Showing {users?.length > 10 ? '10' : users?.length} of {users?.length} data</p>
                 </div> */}
@@ -192,7 +192,7 @@ const ManageUsers = () => {
                         previousLabel="< prev"
                         renderOnZeroPageCount={null}
                         className='flex gap-x-4 justify-center items-center'
-                        activeClassName='bg-primary/30 text-gray-900 px-4 py-2 rounded-full font-semibold btn btn-circle btn-info'
+                        activeClassName='bg-primary/30 text-gray-900 px-2 py-1 rounded-full font-semibold btn btn-circle btn-info'
                     />
                 </div>
             </div>

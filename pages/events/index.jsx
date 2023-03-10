@@ -6,6 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
+import { RiMailAddLine } from 'react-icons/ri'
 
 const Events = () => {
 
@@ -153,14 +154,14 @@ const Events = () => {
 
     const emailBodyTemplate = (rowData) => {
         if (rowData.emailBody) {
-            return <p>Email Available</p>
+            return <p>Mail Body Added</p>
         }
         else {
             return (
                 <Button onClick={() => {
                     setEvent(rowData)
                     setAddEmailModal(true)
-                }} icon='pi pi-plus' className='p-button-sm'>Add Email</Button>
+                }} className='p-button-sm flex items-center gap-2' ><RiMailAddLine size={20} />Add Mail</Button>
             )
         }
     }
@@ -186,19 +187,19 @@ const Events = () => {
     return (
         <div>
             <div className=' max-w-7xl mx-auto mt-4'>
-                <Button label='Add Event' onClick={() => setAddEventModal(true)} />
+                <Button icon='pi pi-plus' label='Add Event' onClick={() => setAddEventModal(true)} />
 
                 {/* add event dialogue  */}
-                <Dialog header="Add New User" visible={addEventModal} onHide={() => {
+                <Dialog header="Add New Event" visible={addEventModal} onHide={() => {
                     setAddEventModal(false);
-                }} breakpoints={{ '960px': '75vw' }} style={{ width: '30vw' }} >
+                }} breakpoints={{ '960px': '75vw' }} style={{ width: '70vw' }} >
                     <form onSubmit={handleAddEvent} className='flex flex-col mt-4'>
                         <div className='p-float-label'>
                             <InputText type="text" name='name' id='name' className='input text-gray-700 w-full' required />
                             <label htmlFor="name">*Event Name</label>
                         </div>
                         <div className="p-float-label mt-4">
-                            <InputText type="text" name='description' id='description' className='input text-gray-700 w-full' required />
+                            <InputTextarea type="text" name='description' id='description' className='w-full' rows={5} required />
                             <label htmlFor="description">*Details</label>
                         </div>
                         <div className='flex justify-end gap-2 mt-8'>

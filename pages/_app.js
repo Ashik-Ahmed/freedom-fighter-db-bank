@@ -71,8 +71,8 @@ function MyApp({ Component, pageProps }) {
   if (user) {
     return (
       <div className='bg-[#EFF3F8] min-h-[100vh]'>
-        <Navbar user={user} setUser={setUser} />
-        <div className='h-[92vh] flex flex-row justify-start'>
+        {/* <Navbar user={user} setUser={setUser} /> */}
+        <div className='h-[100vh] flex flex-row justify-start'>
           <Sidebar user={user} setUser={setUser} />
           <div className='w-full mx-2'>
             <Component {...pageProps} />

@@ -167,7 +167,23 @@ const Navbar = ({ user, setUser }) => {
         // previous menubar 
 
         <div className="bg-primary min-h-[8vh] max-h-[8vh]  flex items-center my-auto">
-            <div className="navbar text-gray-200 max-w-7xl mx-auto">
+            <div className='flex justify-between max-w-7xl  mx-auto xl w-full'>
+                <div>
+                    <Link href='/' className="btn btn-ghost normal-case text-2xl">Invite</Link>
+                </div>
+                <div className='flex justify-end items-center gap-2'>
+                    <Image src={photo} alt='Profile Photo' width='5' height='5' layout='responsive' className='w-1 h-1 rounded-full' />
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0}>
+                            <p className='cursor-pointer'>{user.name}</p>
+                        </label>
+                        <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-primary rounded-md w-52">
+                            <li onClick={handlLogout}><a>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {/* <div className="navbar text-gray-200 max-w-7xl mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -195,27 +211,11 @@ const Navbar = ({ user, setUser }) => {
                                     <li><Link href='/final-selected'>Final Selected</Link></li>
                                 </ul>
                             </li>
-                            {/* <li><Link href='/selection'>Selection</Link></li> */}
                             <li><Link href='/events'>Events</Link></li>
                         </ul>
                     </div>
                     <Link href='/' className="btn btn-ghost normal-case text-2xl">Invite</Link>
                 </div>
-                {/* <div className="navbar-end hidden lg:flex">
-                    <ul className="menu menu-horizontal p-0">
-                        <li tabIndex={0}>
-                            <a>
-                                Member Mgt.
-                                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
-                            </a>
-                            <ul className="p-2 bg-primary">
-                                <li><Link href='/freedom-fighters'>Permanent Member</Link></li>
-                                <li><Link href='/foreign-freedom-fighters'>Others</Link></li>
-                            </ul>
-                        </li>
-                        <li><Link href='/selection'>Selection</Link></li>
-                    </ul>
-                </div> */}
 
                 <div className="navbar-end ml-auto lg:ml-10 hidden lg:flex gap-2">
                     <div className='dropdown dropdown-end'>
@@ -247,7 +247,7 @@ const Navbar = ({ user, setUser }) => {
 
                         </ul>
                     </div>
-                    {/* <div className='btn btn-ghost normal-case'><Link href='/selection'>Selection</Link></div> */}
+
                     <div className='btn btn-ghost normal-case'><Link href='/events'>Events</Link></div>
                 </div>
 
@@ -263,7 +263,7 @@ const Navbar = ({ user, setUser }) => {
                         <li onClick={handlLogout}><a>Logout</a></li>
                     </ul>
                 </div>
-            </div>
+            </div > */}
         </div >
 
     )

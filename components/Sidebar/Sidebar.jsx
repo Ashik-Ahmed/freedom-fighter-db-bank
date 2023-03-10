@@ -21,7 +21,7 @@ const Sidebar = ({ user, setUser }) => {
 
     const menus = [
         { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
-        { name: "Profile", link: `/profile/${user._id}`, icon: AiOutlineUser },
+        { name: "Manage Events", link: "/events", icon: MdInsertInvitation, },
         {
             name: "Invitation Mgt.", link: "/", icon: RiMailSettingsLine, items: [
                 { name: "Filter Members", link: "/selection", icon: RiFilterLine },
@@ -29,10 +29,10 @@ const Sidebar = ({ user, setUser }) => {
                 { name: "Final List", link: "/selection/final-selected", icon: TbListCheck }
             ]
         },
-        { name: "Manage Events", link: "/events", icon: MdInsertInvitation, margin: true },
+        { name: "Manage Users", link: "/manage-users", icon: CgUserList, margin: true },
         { name: "Analytics", link: "/", icon: TbReportAnalytics },
         { name: "File Manager", link: "/", icon: FiFolder },
-        { name: "Manage Users", link: "/manage-users", icon: CgUserList, margin: true },
+        { name: "Profile", link: `/profile/${user._id}`, icon: AiOutlineUser, margin: true },
         { name: "Setting", link: "/", icon: RiSettings4Line },
     ];
 
