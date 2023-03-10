@@ -378,7 +378,7 @@ export default function Home() {
       </Head>
 
       <div>
-        <div className='flex flex-wrap md:flex-nowrap justify-center max-w-7xl mx-auto py-4 gap-4'>
+        <div className='flex flex-wrap md:flex-nowrap justify-center max-w-7xl mx-auto py-2 gap-4'>
           <div className='w-full'>
             <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md">
               <div className="card-body">

@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { PanelMenu } from 'primereact/panelmenu';
 import Link from 'next/link';
 
-import { HiMenuAlt3 } from "react-icons/hi";
+import { HiMenuAlt3, HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineDashboard, MdFilterListAlt, MdInsertInvitation } from "react-icons/md";
-import { RiSettings4Line, RiMailSettingsLine, RiFilterLine } from "react-icons/ri";
+import { RiSettings4Line, RiMailSettingsLine, RiFilterLine, RiUserSettingsLine } from "react-icons/ri";
 import { TbReportAnalytics, TbList, TbListCheck } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
-import { CgUserList } from "react-icons/cg"
+import { CgUserList, CgBrowse } from "react-icons/cg"
+import { FaUsersCog } from "react-icons/fa"
 
 
 const Sidebar = ({ user, setUser }) => {
@@ -21,18 +22,25 @@ const Sidebar = ({ user, setUser }) => {
 
     const menus = [
         { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
+        {
+            name: "Manage Members", icon: HiOutlineUserGroup, items: [
+                { name: "Browse Members", link: "/freedom-fighters", icon: CgUserList },
+                { name: "Add Member", link: "/selection/primary-selected", icon: TbList },
+                { name: "Final List", link: "/selection/final-selected", icon: TbListCheck }
+            ]
+        },
         { name: "Manage Events", link: "/events", icon: MdInsertInvitation, },
         {
-            name: "Invitation Mgt.", link: "/", icon: RiMailSettingsLine, items: [
+            name: "Invitation Mgt.", icon: RiMailSettingsLine, items: [
                 { name: "Filter Members", link: "/selection", icon: RiFilterLine },
                 { name: "Primary List", link: "/selection/primary-selected", icon: TbList },
                 { name: "Final List", link: "/selection/final-selected", icon: TbListCheck }
             ]
         },
-        { name: "Manage Users", link: "/manage-users", icon: CgUserList, margin: true },
+        { name: "Manage Users", link: "/manage-users", icon: FaUsersCog, margin: true },
         { name: "Analytics", link: "/", icon: TbReportAnalytics },
         { name: "File Manager", link: "/", icon: FiFolder },
-        { name: "Profile", link: `/profile/${user._id}`, icon: AiOutlineUser, margin: true },
+        { name: `Profile (${user.name})`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },
         { name: "Setting", link: "/", icon: RiSettings4Line },
     ];
 
@@ -80,7 +88,11 @@ const Sidebar = ({ user, setUser }) => {
                 className={` ${open ? "w-[20vw]" : "w-16"
                     } duration-700 text-gray-100 px-2`}
             >
-                <div className="py-3 flex justify-end">
+                <div className="py-3 flex justify-between items-center">
+                    <div className='flex gap-1 items-center'>
+                        <span className='pi pi-telegram text-xl'></span>
+                        {open && <p className='text-xl font-bold'>Invite.</p>}
+                    </div>
                     <HiMenuAlt3
                         size={26}
                         className="cursor-pointer"
