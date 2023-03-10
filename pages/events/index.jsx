@@ -141,7 +141,13 @@ const Events = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data.data.deletedCount) {
+                    getAllEvents()
+                    setDeleteEventModal(false)
+                }
+                else {
+                    console.log(data);
+                }
             })
     }
 
