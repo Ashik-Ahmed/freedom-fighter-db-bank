@@ -17,6 +17,7 @@ const Events = () => {
     const [addEventModal, setAddEventModal] = useState(false)
     const [addEmailModal, setAddEmailModal] = useState(false)
     const [editEventModal, setEditEventModal] = useState(false)
+    const [deleteEventModal, setDeleteEventModal] = useState(false)
     const [mailBody, setMailBody] = useState(false)
     const [eventDescription, seteventDescription] = useState(false)
 
@@ -129,6 +130,10 @@ const Events = () => {
         updateEventFunction(updateEventData)
     }
 
+    const handleDeleteEvent = (id) => {
+        console.log(id);
+    }
+
     const emailBodyTemplate = (rowData) => {
         if (rowData.emailBody) {
             return <p>Email Available</p>
@@ -152,7 +157,10 @@ const Events = () => {
                     setMailBody(rowData?.emailBody)
                     setEditEventModal(true);
                 }}></Button>
-                <Button icon='pi pi-trash' className='p-button-danger'></Button>
+                <Button icon='pi pi-trash' className='p-button-danger' onClick={() => {
+                    setEvent(rowData)
+                    setDeleteEventModal(true)
+                }}></Button>
             </div>
         )
     }
@@ -237,6 +245,24 @@ const Events = () => {
                             <Button type='submit' label="Submit" className='p-button-info p-button-sm' />
                         </div>
                     </form>
+                </Dialog>
+
+                {/* event delete dialog box  */}
+                <Dialog header="Delete Event" visible={deleteEventModal} onHide={() => { setDeleteEventModal(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className="confirmation-content">
+                        <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
+                        {event && (
+                            <span>
+                                Are you sure you want to delete <b>{event?.name}</b>?
+                            </span>
+                        )}
+
+                        <div className='flex gap-x-2 mt-4 justify-end'>
+                            <Button onClick={() => { setDeleteEventModal(false) }} label="No" icon="pi pi-times" outlined />
+                            <Button onClick={() => handleDeleteEvent(event?._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                        </div>
+                    </div>
                 </Dialog>
             </div>
         </div>

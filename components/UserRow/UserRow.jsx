@@ -142,19 +142,9 @@ const UserRow = ({ user, fetchUsers }) => {
                         )}
 
                         <div className='flex gap-x-2 mt-4 justify-end'>
-                            <Button label="No" icon="pi pi-times" outlined />
-                            <Button label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                            <Button onClick={() => { setDeleteModal(false) }} label="No" icon="pi pi-times" outlined />
+                            <Button onClick={() => deleteUser(_id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
                         </div>
-                    </div>
-
-                    {/* <div className='text-center mt-2'>
-                        <i className='pi pi-trash text-red-500' style={{ 'fontSize': '2em' }}></i>
-                        <p className='text-xl font-bold my-4'>Delete {name} ?</p>
-                    </div> */}
-
-                    <div className='flex justify-center mt-12 gap-x-2'>
-                        <Button label="Cancel" icon="pi pi-times" onClick={() => { setDeleteModal(false) }} className="p-button-danger" />
-                        <Button label="Delete" icon="pi pi-trash" onClick={() => deleteUser(_id)} />
                     </div>
                 </Dialog>
 
