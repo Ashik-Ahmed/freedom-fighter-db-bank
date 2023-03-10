@@ -3,6 +3,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 
@@ -12,6 +13,7 @@ const Events = () => {
 
     const [loading, setLoading] = useState(false)
     const [events, setEvents] = useState([]);
+    const [event, setEvent] = useState(null);
     const [addEventModal, setAddEventModal] = useState(false)
     const [addEmailModal, setAddEmailModal] = useState(false)
     const [editEventModal, setEditEventModal] = useState(false)
@@ -77,7 +79,25 @@ const Events = () => {
 
     const handleAddEmail = (e) => {
         e.preventDefault()
-        console.log('Adding Email');
+        console.log(e.target.emailBody.value);
+
+        const updateEventData = {
+            email: e.target.emailBody.value
+        }
+
+        const url = 'http://localhost:5000/api/v1/event'
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookie.get('TOKEN')}`
+            },
+            body: JSON.stringify(updateEventData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     }
 
     const emailBodyTemplate = (rowData) => {
@@ -86,7 +106,10 @@ const Events = () => {
         }
         else {
             return (
-                <Button icon='pi pi-plus' className='p-button-sm'>Add Email</Button>
+                <Button onClick={() => {
+                    setEvent(rowData.name)
+                    setAddEmailModal(true)
+                }} icon='pi pi-plus' className='p-button-sm'>Add Email</Button>
             )
         }
     }
@@ -141,21 +164,19 @@ const Events = () => {
                 </div>
 
                 {/* add email dialogue  */}
-                <Dialog header="Add New User" visible={addEmailModal} onHide={() => {
+                <Dialog header={`Add Email for "${event}"`} visible={addEmailModal} onHide={() => {
                     setAddEmailModal(false);
-                }} breakpoints={{ '960px': '75vw' }} style={{ width: '30vw' }} >
+                    setEvent(null)
+                }} breakpoints={{ '960px': '75vw' }} style={{ width: '80vw' }} >
                     <form onSubmit={handleAddEmail} className='flex flex-col mt-4'>
-                        <div className='p-float-label'>
-                            <InputText type="text" name='name' id='name' className='input text-gray-700 w-full' required />
-                            <label htmlFor="name">*Event Name</label>
-                        </div>
-                        <div className="p-float-label mt-4">
-                            <InputText type="text" name='description' id='description' className='input text-gray-700 w-full' required />
-                            <label htmlFor="description">*Details</label>
-                        </div>
+                        <span className="p-float-label">
+                            <InputTextarea id="email" name='emailBody' className='w-full' rows={5} />
+                            <label htmlFor="email">Email Body</label>
+                        </span>
                         <div className='flex justify-end gap-2 mt-8'>
                             <Button label="Cancel" icon="pi pi-times" onClick={() => {
                                 setAddEmailModal(false);
+                                setEvent(null)
                             }} className="p-button-danger p-button-sm" />
                             <Button type='submit' label="Submit" icon="pi pi-check" className='p-button-info p-button-sm' />
                         </div>
