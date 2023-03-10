@@ -245,18 +245,16 @@ const Selection = () => {
                 </div>
             </Dialog >
 
-            <div className='flex gap-x-2 min-h-[90vh]'>
-                <form onSubmit={handleSelection} className='container px-2 w-1/4 bg-white'>
-                    <div>
-                        <p className='text-primary text-xl font-bold text-center underline my-4'>Selection criteria</p>
-                    </div>
-                    <div className='flex flex-col gap-2 mx-auto justify-center my-4'>
-                        <div className='flex flex-col gap-2 mb-4'>
+            <div>
+                <form onSubmit={handleSelection} className='px-2 bg-white mt-2 w-full max-w-9xl rounded-md shadow-lg'>
+                    <div className='flex flex-col gap-2 mx-auto justify-center my-2'>
+                        <div>
+                            <p className='text-gray-700 font-bold'>Selection Criteria</p>
+                        </div>
+                        <div className='flex gap-2 mb-1'>
                             <div className="relative">
-                                <span className='p-float-label'>
-                                    <InputText name='total' type="number" id="total" className="block px-2.5 pb-2.5 pt-2.5 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 hover:border-blue-600 peer" placeholder=" " required />
-                                    <label htmlFor="total">*Total</label>
-                                </span>
+                                <InputText keyfilter="int" placeholder="*Total" name='total' className='w-full' required />
+                                {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div>
                                 <Dropdown name='memberType' options={memberTypes} value={memberType}
@@ -282,95 +280,66 @@ const Selection = () => {
                                         setYear(e.value)
                                     }} placeholder="*Year" className=' w-full' />
                             </div> */}
-                        </div>
+                            {/* </div>
 
-                        <hr className='mb-4' />
+                        <hr className='mb-1' />
 
-                        <Dropdown name='firstCriteria' value={firstCriteria}
-                            options={
-                                [
-                                    { label: 'Name', value: 'name' },
-                                    { label: 'Invited Count', value: 'invited_count' },
-                                    { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
-                                    { label: 'Official Rank', value: 'officialRank.point' }
-                                ]
+                        <div className='flex gap-2'> */}
+                            <Dropdown name='firstCriteria' value={firstCriteria}
+                                options={
+                                    [
+                                        { label: 'Name', value: 'name' },
+                                        { label: 'Invited Count', value: 'invited_count' },
+                                        { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
+                                        { label: 'Official Rank', value: 'officialRank.point' }
+                                    ]
+                                }
+                                onChange={(e) => setFirstCriteria(e.value)} placeholder="*First Criteria" className='w-fit' />
+
+                            {
+                                firstCriteria &&
+                                <Dropdown name='secondCriteria' value={secondCriteria}
+                                    options={
+                                        [
+                                            { label: 'Name', value: 'name' },
+                                            { label: 'Invited Count', value: 'invited_count' },
+                                            { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
+                                            { label: 'Official Rank', value: 'officialRank.point' }
+                                        ]
+                                    }
+                                    onChange={(e) => setSecondCriteria(e.value)} placeholder="Second Criteria" className='w-fit' />
                             }
-                            onChange={(e) => setFirstCriteria(e.value)} placeholder="*First Criteria" />
+                            {
+                                secondCriteria &&
 
-                        {/* <div className="relative">
-                            <select onChange={(e) => setFirstCriteria(e.target.value)} name='force' className="p-3 rounded-md text-gray-400 w-full" required>
-                                <option value='' disabled selected>*First Criteria</option>
-                                <option value="name">Name</option>
-                                <option value="invited_count">Invited Count</option>
-                                <option value="freedomFighterRank.point">Freedom Fighter Rank</option>
-                                <option value="officialRank.point">Official Rank</option>
-                            </select>
-                        </div> */}
-                        {
-                            firstCriteria &&
-                            <Dropdown name='secondCriteria' value={secondCriteria}
-                                options={
-                                    [
-                                        { label: 'Name', value: 'name' },
-                                        { label: 'Invited Count', value: 'invited_count' },
-                                        { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
-                                        { label: 'Official Rank', value: 'officialRank.point' }
-                                    ]
-                                }
-                                onChange={(e) => setSecondCriteria(e.value)} placeholder="Second Criteria" />
-
-                            // <div className="relative">
-                            //     <select onChange={(e) => setSecondCriteria(e.target.value)} name='force' className="p-3 rounded-md text-gray-400 w-full" >
-                            //         <option value='' disabled selected>Second Criteria</option>
-                            //         <option value="name">Name</option>
-                            //         <option value="invited_count">Invited Count</option>
-                            //         <option value="freedomFighterRank.point">Freedom Fighter Rank</option>
-                            //         <option value="officialRank.point">Official Rank</option>
-
-                            //     </select>
-                            // </div>
-                        }
-                        {
-                            secondCriteria &&
-
-                            <Dropdown name='thirdCriteria' value={thirdCriteria}
-                                options={
-                                    [
-                                        { label: 'Name', value: 'name' },
-                                        { label: 'Invited Count', value: 'invited_count' },
-                                        { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
-                                        { label: 'Official Rank', value: 'officialRank.point' }
-                                    ]
-                                }
-                                onChange={(e) => setThirdCriteria(e.value)} placeholder="Third Criteria" />
-
-                            // <div className="relative">
-                            //     <select onChange={(e) => setThirdCriteria(e.target.value)} name='force' className="p-3 rounded-md text-gray-400 w-full" >
-                            //         <option value='' disabled selected>Third Criteria</option>
-                            //         <option value="name">Name</option>
-                            //         <option value="invited_count">Invited Count</option>
-                            //         <option value="freedomFighterRank.point">Freedom Fighter Rank</option>
-                            //         <option value="officialRank.point">Official Rank</option>
-
-                            //     </select>
-                            // </div>
-                        }
-
-                        <div className='flex items-center gap-2'>
-                            <Checkbox inputId='excludePreviousYear' checked={checked} onChange={e => setChecked(e.checked)}></Checkbox>
-                            <label htmlFor="excludePreviousYear" className='text-gray-500'>Exclude previous year invitee</label>
+                                <Dropdown name='thirdCriteria' value={thirdCriteria}
+                                    options={
+                                        [
+                                            { label: 'Name', value: 'name' },
+                                            { label: 'Invited Count', value: 'invited_count' },
+                                            { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
+                                            { label: 'Official Rank', value: 'officialRank.point' }
+                                        ]
+                                    }
+                                    onChange={(e) => setThirdCriteria(e.value)} placeholder="Third Criteria" className='w-fit' />
+                            }
                         </div>
-                        <div>
-                            <Button label='Submit' className='p-button-info p-button-sm w-full normal-case' type="submit" />
+
+                        <div className='flex justify-between'>
+                            <div className='flex items-center gap-2'>
+                                <Checkbox inputId='excludePreviousYear' checked={checked} onChange={e => setChecked(e.checked)}></Checkbox>
+                                <label htmlFor="excludePreviousYear" className='text-gray-500'>Exclude previous year invitee</label>
+                            </div>
+                            <div className='relative bottom-2'>
+                                <Button label='Submit' className='p-button-info p-button-sm w-full normal-case' type="submit" />
+                            </div>
                         </div>
                     </div>
                 </form >
 
                 <div className='w-full'>
-                    {
-                        selectedFreedomFighters ?
-                            <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[88vh]'>
-                                {/* <table className="table-auto container shadow-md">
+                    <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[69vh]'>
+                        {/* <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
                                                 <th className='p-2 rounded-tl-md'>Name</th>
@@ -395,26 +364,30 @@ const Selection = () => {
                                         </tbody>
                                     </table> */}
 
-                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
-                                    {
-                                        cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
-                                    }
-                                </DataTable>
-                                <div className='text-right my-3'>
-                                    <Button onClick={() => {
-                                        setConfirmSelectionDialogue(true)
-                                    }} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
+                        {
+                            selectedFreedomFighters ?
+                                <div>
+                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="48vh" loading={loading} stripedRows>
+                                        {
+                                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
+                                        }
+                                    </DataTable>
+                                    <div className='text-right my-3'>
+                                        <Button onClick={() => {
+                                            setConfirmSelectionDialogue(true)
+                                        }} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
+                                    </div>
                                 </div>
 
-                            </div>
 
+                                :
 
-                            :
+                                <div className='w-full'>
+                                    <p className='text-2xl font-bold text-primary text-center'>Nothing to show here..</p>
+                                </div>
+                        }
+                    </div>
 
-                            <div className='w-full'>
-                                <p className='text-2xl font-bold text-primary text-center'>Nothing to show here..</p>
-                            </div>
-                    }
 
                     <Dialog visible={confirmSelectionDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => setConfirmSelectionDialogue(false)}>
                         <div className="confirmation-content">

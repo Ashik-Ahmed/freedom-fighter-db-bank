@@ -25,6 +25,7 @@
     "react-icons": "^4.6.0",
     "react-paginate": "^8.1.4",
     "react-select-country-list": "^2.2.3",
+    "tailwind-scrollbar": "^2.1.0",
     "universal-cookie": "^4.0.4",
     "xlsx": "^0.18.5"
   },

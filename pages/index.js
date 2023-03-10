@@ -561,7 +561,7 @@ export default function Home() {
                   onChange={(e) => { setFilter(e.value) }} placeholder="Filter" />
                 <span className="p-input-icon-left w-full md:w-auto">
                   <i className="pi pi-search" />
-                  <InputText type="search" onInput={(e) => { setSearchValue(e.target.value); console.log(e.target.value) }} placeholder="Search..." className="w-full lg:w-auto" />
+                  <InputText type="search" onInput={(e) => { setSearchValue(e.target.value) }} placeholder="Search..." className="w-full lg:w-auto" />
                 </span>
               </div>
             </div>
