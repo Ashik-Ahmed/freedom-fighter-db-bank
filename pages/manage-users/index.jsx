@@ -74,11 +74,9 @@ const ManageUsers = () => {
     const pageCount = Math.ceil(users?.length / 10);
 
     return (
-        <div className='max-w-7xl mx-auto py-4'>
-
-            <div className='flex justify-between mb-2'>
-
-                <Button label="Add User" icon="pi pi-plus" onClick={() => setAddUserModal(true)} className='p-button-info btn normal-case' />
+        <div className='mx-auto'>
+            <div className='flex justify-between my-2'>
+                <Button label="Add User" icon="pi pi-plus" onClick={() => setAddUserModal(true)} />
                 <Dialog header="Add New User" visible={addUserModal} onHide={() => {
                     setAddUserModal(false);
                     setUserRole(null);
@@ -113,8 +111,8 @@ const ManageUsers = () => {
                             <Button label="Cancel" icon="pi pi-times" onClick={() => {
                                 setAddUserModal(false);
                                 setUserRole(null)
-                            }} className="p-button-danger p-button-sm" />
-                            <Button type='submit' label="Submit" icon="pi pi-check" className='p-button-info p-button-sm' />
+                            }} />
+                            <Button type='submit' label="Submit" icon="pi pi-check" />
                         </div>
                     </form>
                 </Dialog>
@@ -157,7 +155,7 @@ const ManageUsers = () => {
                         </span>
                     </div>
                 </div>
-                <table className="table-auto container w-full mx-auto shadow-md">
+                <table className="table-auto container w-full mx-auto shadow-md ">
                     <thead className='bg-slate-200 text-gray-700'>
                         <tr className='w-full text-left rounded-t-md'>
                             <th className='p-2 rounded-tl-md'>Name</th>

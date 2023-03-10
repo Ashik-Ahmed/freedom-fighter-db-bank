@@ -80,7 +80,7 @@ const FinalSelected = () => {
                             console.log(typeof e.value);
                         }} view="year" dateFormat="yy" placeholder='Year' required />
                     </div>
-                    <Button onClick={getFinalSelectedMembers} label='Submit' className='p-button-info p-button-sm normal-case'></Button>
+                    <Button onClick={getFinalSelectedMembers} label='Submit'></Button>
                 </div>
             </div>
 

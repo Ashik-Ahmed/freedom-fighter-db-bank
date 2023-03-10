@@ -220,7 +220,7 @@ const PrimarySelected = () => {
 
     return (
         <div>
-            <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg'>
+            <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg '>
                 <form onSubmit={getPrimarySelectedMembers} className='flex gap-x-4'>
                     <div>
                         <Dropdown name='event' options={events} optionLabel='name' value={event}
@@ -233,14 +233,14 @@ const PrimarySelected = () => {
                             setYear(e.value)
                         }} view="year" dateFormat="yy" placeholder='Year' required />
                     </div>
-                    <Button type='submit' label='Submit' className='p-button-info p-button-sm normal-case'></Button>
+                    <Button type='submit' label='Submit'></Button>
                 </form>
             </div>
 
-            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-4 min-h-[60vh]'>
-                <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
+            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
+                <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows removableSort >
                     {
-                        cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
+                        cols.map((col, index) => <Column key={index} field={col.field} header={col.header} sortable />)
                     }
                     <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column>
                 </DataTable>

@@ -418,7 +418,7 @@ export default function Home() {
       <div className="overflow-x-auto">
         <div className='max-w-7xl mx-auto'>
           <div className='rounded-md inline-block mb-2'>
-            <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-plus' className='p-button-info btn normal-case' />
+            <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-plus' />
           </div>
 
           {/* add new member dialog box  */}
