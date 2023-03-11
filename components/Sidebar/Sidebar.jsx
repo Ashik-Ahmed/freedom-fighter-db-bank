@@ -4,29 +4,34 @@ import { PanelMenu } from 'primereact/panelmenu';
 import Link from 'next/link';
 
 import { HiMenuAlt3, HiOutlineUserGroup } from "react-icons/hi";
-import { MdOutlineDashboard, MdFilterListAlt, MdInsertInvitation } from "react-icons/md";
-import { RiSettings4Line, RiMailSettingsLine, RiFilterLine, RiUserSettingsLine } from "react-icons/ri";
+import { MdOutlineDashboard, MdFilterListAlt, MdInsertInvitation, } from "react-icons/md";
+import { RiSettings4Line, RiMailSettingsLine, RiFilterLine, RiUserSettingsLine, RiLogoutCircleRLine } from "react-icons/ri";
 import { TbReportAnalytics, TbList, TbListCheck } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
-import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
+import { FiMessageSquare, FiFolder, FiShoppingCart, FiUserPlus } from "react-icons/fi";
 import { CgUserList, CgBrowse } from "react-icons/cg"
 import { FaUsersCog } from "react-icons/fa"
+import Cookies from 'universal-cookie';
 
 
 const Sidebar = ({ user, setUser }) => {
 
-    const [toggleCollapse, setToggleCollapse] = useState(false)
-
     const [open, setOpen] = useState(true);
     const [accordionOpen, setAccordionOpen] = useState(false);
+
+    const cookie = new Cookies()
+
+    const handleLogout = () => {
+        cookie.remove('TOKEN')
+        setUser(false)
+    }
 
     const menus = [
         { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
         {
             name: "Manage Members", icon: HiOutlineUserGroup, items: [
                 { name: "Browse Members", link: "/freedom-fighters", icon: CgUserList },
-                { name: "Add Member", link: "/selection/primary-selected", icon: TbList },
-                { name: "Final List", link: "/selection/final-selected", icon: TbListCheck }
+                { name: "Add Member", link: "/selection/primary-selected", icon: FiUserPlus }
             ]
         },
         { name: "Manage Events", link: "/events", icon: MdInsertInvitation, },
@@ -41,37 +46,8 @@ const Sidebar = ({ user, setUser }) => {
         { name: "Analytics", link: "/", icon: TbReportAnalytics },
         { name: "File Manager", link: "/", icon: FiFolder },
         { name: `Profile (${user.name})`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },
-        { name: "Setting", link: "/", icon: RiSettings4Line },
     ];
 
-    // const menuItems = [
-    //     {
-    //         label: 'Profile',
-    //         icon: 'pi pi-fw pi-user',
-    //     },
-    //     {
-    //         label: 'Edit',
-    //         icon: 'pi pi-fw pi-pencil',
-    //         items: [
-    //             {
-    //                 label: 'Left',
-    //                 icon: 'pi pi-fw pi-align-left'
-    //             },
-    //             {
-    //                 label: 'Right',
-    //                 icon: 'pi pi-fw pi-align-right'
-    //             },
-    //             {
-    //                 label: 'Center',
-    //                 icon: 'pi pi-fw pi-align-center'
-    //             },
-    //             {
-    //                 label: 'Justify',
-    //                 icon: 'pi pi-fw pi-align-justify'
-    //             }
-    //         ]
-    //     }
-    // ]
 
     return (
         // <div className={`flex flex-row justify-between pl-4 bg-primary ${toggleCollapse ? 'w-20' : 'w-80'}`} style={{ transition: "width 300ms cubic-bezier(0.2,0,0,1) 0s" }}>
@@ -106,7 +82,7 @@ const Sidebar = ({ user, setUser }) => {
                     {menus?.map((menu, i) => (
                         menu?.items ?
                             <div className='font-medium'>
-                                <div onClick={() => setAccordionOpen(!accordionOpen)} className={`${open && 'py-2'} flex gap-3.5 text-md items-center px-2 hover:bg-primary rounded-md cursor-pointer`}>
+                                <div onClick={() => setAccordionOpen(!accordionOpen)} className={`${open && 'py-2'} flex gap-3.5 text-md items-center px-2 hover:bg-primary rounded-md cursor-pointer border-b`}>
                                     <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                                     <h2
                                         style={{
@@ -146,7 +122,7 @@ const Sidebar = ({ user, setUser }) => {
                                 href={menu?.link}
                                 key={i}
                                 className={` ${menu?.margin && "mt-4"
-                                    } group flex items-center text-md  gap-3.5 font-medium py-2 px-2 hover:bg-primary rounded-md`}>
+                                    } group flex items-center text-md  gap-3.5 font-medium py-2 px-2 hover:bg-primary rounded-md border-b`}>
                                 <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                                 <h2
                                     style={{
@@ -162,6 +138,9 @@ const Sidebar = ({ user, setUser }) => {
                                 </h2>
                             </Link>
                     ))}
+                    <div className='mt-4'>
+                        <Button onClick={handleLogout} icon='pi pi-sign-out' label='Logout' className='p-button-danger p-button-sm'></Button>
+                    </div>
                 </div>
             </div>
         </section>
