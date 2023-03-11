@@ -27,14 +27,36 @@ const FinalSelected = () => {
     }, [])
 
     const getFinalSelectedMembers = () => {
-        console.log('final List');
 
         const url = `http://localhost:5000/api/v1/selection/final-selection?event=${event.name}&year=${year.getFullYear()}`
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setFinalSelected(data.data)
+            })
+    }
+
+    const sendInvitationMail = (member) => {
+
+        const mailData = {
+            to: member.email,
+            subject: `Invitation for ${event.name}-${year.getFullYear()}`,
+            text: event.emailBody
+        }
+        console.log(mailData);
+
+        const url = 'http://localhost:5000/api/v1/selection//send-invitation-mail';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(mailData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
             })
     }
 
@@ -50,7 +72,7 @@ const FinalSelected = () => {
     const invitationStatusBodyTemplate = (rowData) => {
         return (
             <div>
-                <Button onClick={() => { }} icon="pi pi-send" rounded outlined className="mr-2 p-button-sm" />
+                <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" rounded outlined className="mr-2 p-button-sm" />
             </div>
         )
     }
