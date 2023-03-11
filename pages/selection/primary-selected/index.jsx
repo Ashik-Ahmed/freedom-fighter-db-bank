@@ -19,6 +19,7 @@ const PrimarySelected = () => {
     const [primarySelected, setPrimarySelected] = useState()
     const [member, setMember] = useState('')
     const [verifyStatus, setVerifyStatus] = useState('')
+    const [rejectionReason, setRejectionReason] = useState('')
     const [verificationUpdateDialogue, setVerificationUpdateDialogue] = useState(false)
     const [showTooltip, setShowTooltip] = useState(false)
     const [deleteMemberDialogue, setDeleteMemberDialogue] = useState(false)
@@ -33,7 +34,7 @@ const PrimarySelected = () => {
     }, [])
 
     const getPrimarySelectedMembers = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         setLoading(true)
         const url = `http://localhost:5000/api/v1/selection/primary-selection?event=${event.name}&year=${year.getFullYear()}`
 
@@ -45,14 +46,13 @@ const PrimarySelected = () => {
             })
     }
 
-    const verifyStatusUpdate = (e) => {
-        e?.preventDefault()
+    const verifyStatusUpdate = () => {
 
         var verificationStatus = {}
         if (verifyStatus == 'Failed') {
             verificationStatus = {
                 status: verifyStatus,
-                reason: e.target.rejectionReason.value
+                reason: rejectionReason
             }
         }
         else {
@@ -93,6 +93,7 @@ const PrimarySelected = () => {
                 getPrimarySelectedMembers()
                 setMember('');
                 setVerifyStatus('')
+                setRejectionReason('')
                 setVerificationUpdateDialogue(false);
             })
     }
@@ -221,7 +222,7 @@ const PrimarySelected = () => {
     return (
         <div>
             <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg '>
-                <form onSubmit={getPrimarySelectedMembers} className='flex gap-x-4'>
+                <div className='flex gap-x-4'>
                     <div>
                         <Dropdown name='event' options={events} optionLabel='name' value={event}
                             onChange={(e) => {
@@ -233,8 +234,8 @@ const PrimarySelected = () => {
                             setYear(e.value)
                         }} view="year" dateFormat="yy" placeholder='Year' required />
                     </div>
-                    <Button type='submit' label='Submit'></Button>
-                </form>
+                    <Button onClick={getPrimarySelectedMembers} label='Submit'></Button>
+                </div>
             </div>
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
@@ -247,8 +248,11 @@ const PrimarySelected = () => {
             </div>
 
             {/* dialogue for updating verification info  */}
-            <Dialog visible={verificationUpdateDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => setVerificationUpdateDialogue(false)}>
-                <form onSubmit={verifyStatusUpdate} className="confirmation-content">
+            <Dialog visible={verificationUpdateDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => {
+                setVerificationUpdateDialogue(false);
+                setRejectionReason('')
+            }}>
+                <div className="confirmation-content">
                     <div>
                         <p className='font-semibold'>Status: <span className={(verifyStatus == 'Failed') ? 'text-white bg-red-500 p-1' : 'bg-primary p-1'}>{verifyStatus}</span></p>
                     </div>
@@ -256,15 +260,15 @@ const PrimarySelected = () => {
                         verifyStatus == 'Failed' &&
                         <div className="relative mt-4">
                             <span className='p-float-label'>
-                                <InputText name='rejectionReason' type="text" id="rejectionReason" className="block px-2.5 pb-2.5 pt-2.5 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 hover:border-blue-600 peer" placeholder=" " required />
+                                <InputText onChange={(e) => setRejectionReason(e.target.value)} name='rejectionReason' type="text" id="rejectionReason" className="block px-2.5 pb-2.5 pt-2.5 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 hover:border-blue-600 peer" placeholder=" " required />
                                 <label htmlFor="rejectionReason">Specify the Reason</label>
                             </span>
                         </div>
                     }
                     <div className='text-right mt-4'>
-                        <Button type='submit' label="Submit" />
+                        <Button onClick={verifyStatusUpdate} label="Submit" />
                     </div>
-                </form>
+                </div>
             </Dialog>
 
             {/* dialogue delete member from primary selected  */}
