@@ -39,20 +39,24 @@ const FinalSelected = () => {
 
     const sendInvitationMail = (member) => {
 
-        const mailData = {
-            to: member.email,
-            subject: `Invitation for ${event.name}-${year.getFullYear()}`,
-            text: event.emailBody
+        const data = {
+            memberId: member._id,
+            eventToBeUpdate: event,
+            mailData: {
+                to: member.email,
+                subject: `Invitation for ${event.name}-${year.getFullYear()}`,
+                text: event.emailBody
+            }
         }
-        console.log(mailData);
+        console.log(data);
 
-        const url = 'http://localhost:5000/api/v1/selection//send-invitation-mail';
+        const url = 'http://localhost:5000/api/v1/selection/send-invitation-mail';
         fetch(url, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(mailData)
+            body: JSON.stringify(data)
         })
             .then(res => res.json())
             .then(data => {

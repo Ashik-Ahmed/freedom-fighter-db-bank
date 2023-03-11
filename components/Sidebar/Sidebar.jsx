@@ -31,7 +31,7 @@ const Sidebar = ({ user, setUser }) => {
         {
             name: "Manage Members", icon: HiOutlineUserGroup, items: [
                 { name: "Browse Members", link: "/freedom-fighters", icon: CgUserList },
-                { name: "Add Member", link: "/selection/primary-selected", icon: FiUserPlus }
+                { name: "Add Member", link: "/freedom-fighters/add-new", icon: FiUserPlus }
             ]
         },
         { name: "Manage Events", link: "/events", icon: MdInsertInvitation, },
@@ -59,7 +59,7 @@ const Sidebar = ({ user, setUser }) => {
         //     </span>
         // </div >
 
-        <section className="flex gap-6 bg-primary/70 scrollbar-none">
+        <section className={`flex gap-6 bg-primary/70 scrollbar-thin ${open && 'px-4'}`}>
             <div
                 className={` ${open ? "w-[20vw]" : "w-16"
                     } duration-700 text-gray-100 px-2`}
@@ -67,7 +67,7 @@ const Sidebar = ({ user, setUser }) => {
                 <div className="py-3 flex justify-between items-center">
                     <div className='flex gap-1 items-center'>
                         <span className='pi pi-telegram text-xl'></span>
-                        {open && <p className='text-xl font-bold'>Invite.</p>}
+                        {open && <Link href='/' className='text-xl font-bold '>Invite.</Link>}
                     </div>
                     <HiMenuAlt3
                         size={26}
@@ -103,7 +103,7 @@ const Sidebar = ({ user, setUser }) => {
                                                 <Link
                                                     href={menuItem?.link}
                                                     key={i}
-                                                    className={` ${menuItem?.margin && "mt-4"} ${open && 'py-2'} group flex items-center text-md  gap-3 font-medium  px-2 hover:bg-primary rounded-md`}>
+                                                    className={` ${menuItem?.margin && "mt-4"} ${open && 'py-2'} group flex items-center text-sm  gap-3 font-medium  px-2 hover:bg-primary rounded-md ml-3`}>
                                                     <div className=''>{React.createElement(menuItem?.icon, { size: "20" })}</div>
                                                     <h2>
                                                         {menuItem?.name}
@@ -138,7 +138,7 @@ const Sidebar = ({ user, setUser }) => {
                                 </h2>
                             </Link>
                     ))}
-                    <div className='mt-4'>
+                    <div className='my-4 text-center'>
                         <Button onClick={handleLogout} icon='pi pi-sign-out' label='Logout' className='p-button-danger p-button-sm'></Button>
                     </div>
                 </div>
