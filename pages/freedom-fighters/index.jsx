@@ -35,6 +35,13 @@ const Home = () => {
 
 
 
+    const [globalFilterValue, setGlobalFilterValue] = useState('');
+    const [filters, setFilters] = useState({
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        category: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        contact: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] }
+    });
 
     useEffect(() => {
         setCountries(countryList().getLabels())
@@ -152,7 +159,7 @@ const Home = () => {
         <div>
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
-                <DataTable value={members} paginator rows={10} rowsPerPageOptions={[10, 25, 50]} header={header}
+                <DataTable value={members} header={header}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'type', 'contact', 'address']} emptyMessage="No Members found."
                     dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="87vh" loading={loading} stripedRows removableSort >
                     <Column header='Name' field='name'></Column>
