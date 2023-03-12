@@ -19,6 +19,7 @@ const Home = () => {
 
     const [loading, setLoading] = useState(false)
     const [members, setMembers] = useState([]);
+    const [member, setMember] = useState([]);
     const [totalData, setTotalData] = useState(0);
     const [currentPage, setCurrentPage] = useState(0)
     const [filter, setFilter] = useState('')
@@ -112,7 +113,7 @@ const Home = () => {
 
     const header = (
         <div className="flex flex-wrap gap-2 justify-content-between align-items-center">
-            <h4 className="m-0">Member List</h4>
+            <h4 className="m-0 text-lg">Member List</h4>
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
@@ -155,6 +156,22 @@ const Home = () => {
         )
     }
 
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <div>
+                < Button onClick={() => {
+                    setMember(rowData)
+                }} icon="pi pi-info" rounded outlined className="mr-2 p-button-sm p-button-info" />
+                <Button onClick={() => {
+                    setMember(rowData);
+                }} icon="pi pi-user-edit" rounded outlined className='p-button-sm p-button-success mr-2' />
+                <Button onClick={() => {
+                    setMember(rowData);
+                }} icon="pi pi-trash" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
+            </div >
+        )
+    }
+
     return (
         <div>
 
@@ -162,14 +179,16 @@ const Home = () => {
                 <DataTable value={members} header={header} paginator rows={10} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'force', 'officialRank.rank', 'mobile', 'address']} emptyMessage="No Members found."
                     dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="87vh" loading={loading} stripedRows removableSort >
-                    <Column header='Name' field='name'></Column>
+                    <Column header='Name' field='name' sortable></Column>
                     <Column header='Category' field='category'></Column>
                     <Column header='Type' body={typeBodyTemplate}></Column>
                     <Column header='Contact' field='mobile'></Column>
                     <Column header='Address' field='address'></Column>
-                    {/* <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column> */}
+                    <Column header='Action' body={actionBodyTemplate}></Column>
                 </DataTable>
             </div>
+
+
 
             {/* <div className="overflow-x-auto">
                 <div className='max-w-6xl mx-auto'>
