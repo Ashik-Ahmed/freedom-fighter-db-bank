@@ -40,7 +40,7 @@ const Home = () => {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
         category: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        contact: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] }
+        mobile: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] }
     });
 
     useEffect(() => {
@@ -160,7 +160,7 @@ const Home = () => {
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
                 <DataTable value={members} header={header} paginator rows={10} rowsPerPageOptions={[10, 25, 50]}
-                    filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'type', 'contact', 'address']} emptyMessage="No Members found."
+                    filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'force', 'officialRank.rank', 'mobile', 'address']} emptyMessage="No Members found."
                     dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="87vh" loading={loading} stripedRows removableSort >
                     <Column header='Name' field='name'></Column>
                     <Column header='Category' field='category'></Column>
