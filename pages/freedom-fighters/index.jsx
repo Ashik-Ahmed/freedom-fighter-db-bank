@@ -159,7 +159,7 @@ const Home = () => {
         <div>
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
-                <DataTable value={members} header={header}
+                <DataTable value={members} header={header} paginator rows={10} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'type', 'contact', 'address']} emptyMessage="No Members found."
                     dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="87vh" loading={loading} stripedRows removableSort >
                     <Column header='Name' field='name'></Column>
