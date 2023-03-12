@@ -10,7 +10,7 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
 
     const [deleteModal, setDeleteModal] = useState()
 
-    const { _id, name, status, force, officialRank, freedomFighterRank, invited } = freedomFighter;
+    const { _id, name, category, status, force, officialRank, freedomFighterRank, invited } = freedomFighter;
 
     const router = useRouter()
 
@@ -31,6 +31,7 @@ const FreedomFighterRow = ({ freedomFighter, refreshData }) => {
     return (
         <tr className='border-b text-gray-700'>
             <td className='p-2'>{name}</td>
+            <td>{category}</td>
             <td>{force}</td>
             <td>{officialRank?.rank}</td>
             <td>{freedomFighterRank?.rank}</td>

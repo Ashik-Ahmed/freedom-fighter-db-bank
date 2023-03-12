@@ -221,7 +221,7 @@ export default function Home() {
     var url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}`
 
     if (filter) {
-      url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}&force=${filter || {}}`
+      url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}&category=${filter || {}}`
     }
 
     fetch(url)
@@ -417,9 +417,9 @@ export default function Home() {
 
       <div className="overflow-x-auto">
         <div className='max-w-7xl mx-auto'>
-          <div className='rounded-md inline-block mb-2'>
+          {/* <div className='rounded-md inline-block mb-2'>
             <Button label='Add Member' onClick={() => setAddMemberDialog(true)} icon='pi pi-plus' />
-          </div>
+          </div> */}
 
           {/* add new member dialog box  */}
           <Dialog header="Add New Member" visible={addMemberDialog} onHide={() => clearAllState()} breakpoints={{ '960px': '75vw' }} style={{ width: '80vw' }} >
@@ -553,9 +553,12 @@ export default function Home() {
                 <Dropdown name='filter' value={filter}
                   options={
                     [
-                      { label: 'Army', value: 'Army' },
-                      { label: 'Navy', value: 'Navy' },
-                      { label: 'Air Force', value: 'Air Force' }
+                      // { label: 'Army', value: 'Army' },
+                      // { label: 'Navy', value: 'Navy' },
+                      // { label: 'Air Force', value: 'Air Force' },
+                      { label: 'Freedom Fighter', value: 'Freedom Fighter' },
+                      { label: 'General Invitees', value: 'General Invitees' },
+                      { label: 'Retired', value: 'Retired' }
                     ]
                   }
                   onChange={(e) => { setFilter(e.value) }} placeholder="Filter" />
@@ -569,6 +572,7 @@ export default function Home() {
               <thead className='bg-slate-200 text-gray-800'>
                 <tr className='w-full text-left rounded-t-md'>
                   <th className='p-2 rounded-tl-md'>Name</th>
+                  <th>Category</th>
                   <th>Force</th>
                   <th>Official Rank</th>
                   <th>Upadhi</th>

@@ -61,7 +61,7 @@ const Sidebar = ({ user, setUser }) => {
 
         <section className={`flex gap-6 bg-primary/70 scrollbar-thin ${open && 'px-4'}`}>
             <div
-                className={` ${open ? "w-[20vw]" : "w-16"
+                className={` ${open ? "w-[20vw]" : "w-20"
                     } duration-700 text-gray-100 px-2`}
             >
                 <div className="py-3 flex justify-between items-center">
@@ -139,7 +139,7 @@ const Sidebar = ({ user, setUser }) => {
                             </Link>
                     ))}
                     <div className='my-4 text-center'>
-                        <Button onClick={handleLogout} icon='pi pi-sign-out' label='Logout' className='p-button-danger p-button-sm'></Button>
+                        <Button onClick={handleLogout} icon='pi pi-sign-out' className='p-button-danger '><span className='ml-1'>{open && 'Logout'}</span></Button>
                     </div>
                 </div>
             </div>

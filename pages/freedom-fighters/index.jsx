@@ -110,7 +110,8 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                                         [
                                             { label: 'Army', value: 'Army' },
                                             { label: 'Navy', value: 'Navy' },
-                                            { label: 'Air Force', value: 'Air Force' }
+                                            { label: 'Air Force', value: 'Air Force' },
+                                            { label: 'General Invitees', value: 'General Invitees' }
                                         ]
                                     }
                                     onChange={(e) => setFilter(e.value)} placeholder="Filter" />
@@ -134,6 +135,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                             <thead className='bg-slate-200 text-gray-500'>
                                 <tr className='w-full text-left rounded-t-md'>
                                     <th className='p-2 rounded-tl-md'>Name</th>
+                                    <th>Category</th>
                                     <th>Force</th>
                                     <th>Official Rank</th>
                                     <th>Upadhi</th>
