@@ -165,9 +165,9 @@ const Home = () => {
         <div>
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
-                <DataTable value={members} header={header} paginator rows={10} rowsPerPageOptions={[10, 25, 50]}
+                <DataTable value={members} header={header} paginator rows={8} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'force', 'officialRank.rank', 'mobile', 'address']} emptyMessage="No Members found."
-                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="87vh" loading={loading} stripedRows removableSort >
+                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="77vh" loading={loading} stripedRows removableSort >
                     <Column header='Name' field='name' sortable></Column>
                     <Column header='Category' field='category'></Column>
                     <Column header='Type' body={typeBodyTemplate}></Column>
