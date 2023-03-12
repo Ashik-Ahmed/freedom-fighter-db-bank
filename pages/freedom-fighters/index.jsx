@@ -13,13 +13,15 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import Image from 'next/image';
 import defaultUserPhoto from '../../Images/photo.png'
+import { useRouter } from 'next/router';
 
 
 const Home = () => {
 
     const [loading, setLoading] = useState(false)
     const [members, setMembers] = useState([]);
-    const [member, setMember] = useState([]);
+    const [member, setMember] = useState(null);
+    const [deleteMemberDialogue, setDeleteMemberDialogue] = useState(false);
     const [totalData, setTotalData] = useState(0);
     const [currentPage, setCurrentPage] = useState(0)
     const [filter, setFilter] = useState('')
@@ -33,9 +35,6 @@ const Home = () => {
     const [force, setForce] = useState('');
     const [rank, setRank] = useState('');
     const [fighterRank, setFighterRank] = useState('');
-
-
-
     const [globalFilterValue, setGlobalFilterValue] = useState('');
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -44,16 +43,15 @@ const Home = () => {
         mobile: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] }
     });
 
+    const router = useRouter()
+
     useEffect(() => {
         setCountries(countryList().getLabels())
     }, [])
 
     // countries?.map(country => console.log(country?.name?.common))
 
-
-
-    //face members from DB
-    useEffect(() => {
+    const getAllMembers = () => {
         setLoading(true)
 
         var url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}`
@@ -70,36 +68,26 @@ const Home = () => {
                 setTotalData(data.totalFreedomFighterCount)
                 setLoading(false)
             })
-    }, [currentPage, filter])
-
-    const handlePageClick = (e) => {
-        setCurrentPage(parseInt(e?.selected) + 1)
-        // const filter = e.target.force.value;
-        // console.log(filter)
-
-
-        // setCurrentPage(parseInt(e.selected + 1));
-        // fetch(`http://localhost:5000/api/v1/freedomFighters?page=${parseInt((e?.selected + 1) || 1)}&force=${filter}`)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         setFreedomFightersData(data.freedomFighters);
-        //         setTotalData(data.totalFreedomFighterCount)
-        //     })
     }
 
-    const handleFilter = (e, filterValue) => {
-        e.preventDefault()
+    //face members from DB
+    useEffect(() => {
+        getAllMembers()
+    }, [])
 
-        const filter = e.target.filter.value;
-        setFilter(filter)
-
-        // console.log(e.target.force.value);
-        // handlePageClick(e)
+    //delete a freedom fighter
+    const handleDeleteMember = (id) => {
+        // console.log(id);
+        fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                getAllMembers()
+            })
+        setDeleteMemberDialogue(null)
     }
-
-    // const pageCount = Math.ceil(totalData / 2);
-    const pageCount = Math.ceil(totalData / 10);
-
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
@@ -160,13 +148,14 @@ const Home = () => {
         return (
             <div>
                 < Button onClick={() => {
-                    setMember(rowData)
+                    router.push(`/freedom-fighters/${rowData._id}/details`)
                 }} icon="pi pi-info" rounded outlined className="mr-2 p-button-sm p-button-info" />
                 <Button onClick={() => {
                     setMember(rowData);
                 }} icon="pi pi-user-edit" rounded outlined className='p-button-sm p-button-success mr-2' />
                 <Button onClick={() => {
-                    setMember(rowData);
+                    setMember(rowData)
+                    setDeleteMemberDialogue(true)
                 }} icon="pi pi-trash" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
             </div >
         )
@@ -188,7 +177,22 @@ const Home = () => {
                 </DataTable>
             </div>
 
+            {/* dialogue delete member from primary selected  */}
+            <Dialog visible={deleteMemberDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Confirm" modal onHide={() => setDeleteMemberDialogue(false)}>
+                <div className="confirmation-content">
+                    <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
+                    {member && (
+                        <span>
+                            Are you sure you want to delete <b>{member.name}</b>?
+                        </span>
+                    )}
 
+                    <div className='flex gap-x-2 mt-4 justify-end'>
+                        <Button label="No" icon="pi pi-times" outlined onClick={() => setDeleteMemberDialogue(false)} />
+                        <Button label="Yes" icon="pi pi-check" severity="danger" onClick={() => handleDeleteMember(member._id)} className='p-button-danger' />
+                    </div>
+                </div>
+            </Dialog>
 
             {/* <div className="overflow-x-auto">
                 <div className='max-w-6xl mx-auto'>
