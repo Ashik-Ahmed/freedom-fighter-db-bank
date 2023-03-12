@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import ReactPaginate from 'react-paginate';
 import FreedomFighterRow from '../../components/FreedomFighterRow/FreedomFighterRow';
 import { getFreedomFighters } from '../../controllers/freedomFighter.controller';
@@ -31,6 +32,9 @@ const Home = () => {
     const [force, setForce] = useState('');
     const [rank, setRank] = useState('');
     const [fighterRank, setFighterRank] = useState('');
+
+
+
 
     useEffect(() => {
         setCountries(countryList().getLabels())
@@ -89,11 +93,23 @@ const Home = () => {
     const pageCount = Math.ceil(totalData / 10);
 
 
+    const onGlobalFilterChange = (e) => {
+        const value = e.target.value;
+        let _filters = { ...filters };
+
+        _filters['global'].value = value;
+
+        setFilters(_filters);
+        setGlobalFilterValue(value);
+    };
+
     const header = (
-        <div className='flex justify-between items-center'>
-            <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
-                {members && <p>Member List</p>}
-            </div>
+        <div className="flex flex-wrap gap-2 justify-content-between align-items-center">
+            <h4 className="m-0">Member List</h4>
+            <span className="p-input-icon-left">
+                <i className="pi pi-search" />
+                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+            </span>
         </div>
     );
 
@@ -119,13 +135,29 @@ const Home = () => {
         }
     }
 
+    const typeBodyTemplate = (rowData) => {
+        return (
+            <div>
+                {
+                    rowData?.force ?
+                        <div>{rowData.force} <span className='text-xs italic'>({rowData.officialRank.rank})</span> </div>
+                        :
+                        <div>Civilian</div>
+                }
+            </div>
+        )
+    }
+
     return (
         <div>
 
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
-                <DataTable value={members} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows removableSort >
-                    <Column header='Name' body={memberNameBodyTemplate}></Column>
-                    <Column header='Member Type' field='category'></Column>
+                <DataTable value={members} paginator rows={10} rowsPerPageOptions={[10, 25, 50]} header={header}
+                    filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'type', 'contact', 'address']} emptyMessage="No Members found."
+                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="87vh" loading={loading} stripedRows removableSort >
+                    <Column header='Name' field='name'></Column>
+                    <Column header='Category' field='category'></Column>
+                    <Column header='Type' body={typeBodyTemplate}></Column>
                     <Column header='Contact' field='mobile'></Column>
                     <Column header='Address' field='address'></Column>
                     {/* <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column> */}
