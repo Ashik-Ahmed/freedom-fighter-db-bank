@@ -16,7 +16,7 @@ const FreedomFighter = ({ query, children }) => {
     useEffect(() => {
         getSingleFreedomFighter(id)
             .then(data => {
-
+                console.log(data);
                 setFreedomFighter(data);
 
                 // convert image binary/Buffer data to base64 string

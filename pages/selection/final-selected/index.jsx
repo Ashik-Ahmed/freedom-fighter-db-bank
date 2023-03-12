@@ -110,15 +110,18 @@ const FinalSelected = () => {
                 </div>
             </div>
 
-            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-4 min-h-[60vh]'>
-                <DataTable value={finalSelected} header={header} selectionMode={rowClick ? null : 'checkbox'} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
-                    <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
-                    {
-                        cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
-                    }
-                    <Column header='Invitaion Status' body={invitationStatusBodyTemplate} exportable={false}></Column>
-                </DataTable>
-            </div>
+            {
+                finalSelected &&
+                <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-4 min-h-[60vh]'>
+                    <DataTable value={finalSelected} header={header} selectionMode={rowClick ? null : 'checkbox'} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
+                        <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
+                        {
+                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
+                        }
+                        <Column header='Invitaion Status' body={invitationStatusBodyTemplate} exportable={false}></Column>
+                    </DataTable>
+                </div>
+            }
         </div >
     );
 };

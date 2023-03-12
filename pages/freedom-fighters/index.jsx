@@ -8,12 +8,17 @@ import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
 import countryList from 'react-select-country-list'
 import { InputTextarea } from 'primereact/inputtextarea';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import Image from 'next/image';
+import defaultUserPhoto from '../../Images/photo.png'
 
 
-const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
+const Home = () => {
 
-    const [freedomFightersData, setFreedomFightersData] = useState(freedomFighters);
-    const [totalData, setTotalData] = useState(totalFreedomFighterCount);
+    const [loading, setLoading] = useState(false)
+    const [members, setMembers] = useState([]);
+    const [totalData, setTotalData] = useState(0);
     const [currentPage, setCurrentPage] = useState(0)
     const [filter, setFilter] = useState('')
     const [searchValue, setSearchValue] = useState('');
@@ -37,7 +42,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
 
     //face members from DB
     useEffect(() => {
-        console.log(filter)
+        setLoading(true)
 
         var url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}`
 
@@ -49,8 +54,9 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data.freedomFighters);
-                setFreedomFightersData(data.freedomFighters);
+                setMembers(data.freedomFighters);
                 setTotalData(data.totalFreedomFighterCount)
+                setLoading(false)
             })
     }, [currentPage, filter])
 
@@ -83,22 +89,51 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
     const pageCount = Math.ceil(totalData / 10);
 
 
+    const header = (
+        <div className='flex justify-between items-center'>
+            <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
+                {members && <p>Member List</p>}
+            </div>
+        </div>
+    );
+
+    const memberNameBodyTemplate = async (rowData) => {
+
+        if (!rowData.profilePhoto) {
+            return <p className='bg-red-500'>Image available</p>
+        }
+        else {
+            // convert image binary/Buffer data to base64 string
+            const base64 = await btoa(new Uint8Array(rowData?.profilePhoto?.data).reduce(
+                function (data, byte) {
+                    return data + String.fromCharCode(byte);
+                },
+                ''
+            ));
+            return (
+                <div className="flex align-items-center gap-2">
+                    <Image alt={rowData.name} src={base64 || defaultUserPhoto} priority='high' width="8" height="8" className='rounded-full' />
+                    <span>{rowData.name}</span>
+                </div>
+            )
+        }
+    }
+
     return (
         <div>
-            <div className="overflow-x-auto">
+
+            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
+                <DataTable value={members} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows removableSort >
+                    <Column header='Name' body={memberNameBodyTemplate}></Column>
+                    <Column header='Member Type' field='category'></Column>
+                    <Column header='Contact' field='mobile'></Column>
+                    <Column header='Address' field='address'></Column>
+                    {/* <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column> */}
+                </DataTable>
+            </div>
+
+            {/* <div className="overflow-x-auto">
                 <div className='max-w-6xl mx-auto'>
-
-
-
-                    {/* <form onSubmit={handleFilter} className='flex gap-x-2 mb-2'>
-                            <select name='filter' onChange={(e) => setFilter(e.target.selected)} className="p-2 rounded-md text-gray-400 w-full" required>
-                                <option value='' disabled selected>Filter</option>
-                                <option value='Army'>Army</option>
-                                <option value='Navy'>Navy</option>
-                                <option value='Air Force'>Air Force</option>
-                            </select>
-                            <input type="submit" value='Go' className='bg-primary p-1 px-4 rounded-md cursor-pointer' />
-                        </form> */}
                     <div className='p-2 border-2 shadow-md bg-white rounded-md'>
                         <div className='flex justify-between items-center mb-2'>
                             <div className='text-gray-600 text-xl font-bold'>
@@ -115,16 +150,6 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                                         ]
                                     }
                                     onChange={(e) => setFilter(e.value)} placeholder="Filter" />
-
-                                {/* <select name='filter' onChange={(e) => { setFilter(e.target.value); }} className="p-3 rounded-md text-gray-400 mb-2" required>
-                                    <option value='' disabled selected>Filter</option>
-                                    <option key='force' value='Army'>Army</option>
-                                    <option value='Navy'>Navy</option>
-                                    <option value='Air Force'>Air Force</option>
-                                </select> */}
-                                {/* <div className='rounded-md float-right'>
-                            <input onChange={(e) => setSearchValue(e.target.value)} className='input bg-white text-gray-700' placeholder='Search' />
-                        </div> */}
                                 <span className="p-input-icon-left w-full md:w-auto">
                                     <i className="pi pi-search" />
                                     <InputText type="search" onInput={(e) => setSearchValue(e.target.value)} placeholder="Search..." className="w-full lg:w-auto" />
@@ -161,9 +186,6 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                         </table>
 
                         <div className='w-full text-primary p-2 bg-white rounded-b-md'>
-                            {/* <div>
-                            <p>Showing {freedomFightersData?.length} of {totalData} data</p>
-                        </div> */}
                             <ReactPaginate
                                 breakLabel="..."
                                 nextLabel="next >"
@@ -179,7 +201,7 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div >
     );
 };
@@ -187,17 +209,17 @@ const Home = ({ totalFreedomFighterCount, freedomFighters }) => {
 export default Home;
 
 
-export const getStaticProps = async (context) => {
-    const { totalFreedomFighterCount, freedomFighters } = await getFreedomFighters();
-    // const result = JSON.parse(JSON.stringify(freedomFighters))
-    const result = JSON.parse(JSON.stringify(freedomFighters))
+// export const getStaticProps = async (context) => {
+//     const { totalFreedomFighterCount, freedomFighters } = await getFreedomFighters();
+//     // const result = JSON.parse(JSON.stringify(freedomFighters))
+//     // const result = JSON.parse(JSON.stringify(freedomFighters))
 
-    return {
-        props: {
-            freedomFighters: result,
-            totalFreedomFighterCount
-            // getStaticProps: JSON.parse(JSON.stringify(getStaticProps))
-        },
-        revalidate: 10,
-    }
-}
+//     return {
+//         props: {
+//             // freedomFighters: result,
+//             totalFreedomFighterCount
+//             // getStaticProps: JSON.parse(JSON.stringify(getStaticProps))
+//         },
+//         revalidate: 10,
+//     }
+// }

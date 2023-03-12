@@ -238,14 +238,17 @@ const PrimarySelected = () => {
                 </div>
             </div>
 
-            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
-                <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows removableSort >
-                    {
-                        cols.map((col, index) => <Column key={index} field={col.field} header={col.header} sortable />)
-                    }
-                    <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column>
-                </DataTable>
-            </div>
+            {
+                primarySelected &&
+                <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
+                    <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows removableSort >
+                        {
+                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} sortable />)
+                        }
+                        <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column>
+                    </DataTable>
+                </div>
+            }
 
             {/* dialogue for updating verification info  */}
             <Dialog visible={verificationUpdateDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => {
