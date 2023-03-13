@@ -3,6 +3,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useEffect, useState } from 'react';
+import { RadioButton } from "primereact/radiobutton";
 import countryList from 'react-select-country-list'
 
 const AddNew = () => {
@@ -12,17 +13,19 @@ const AddNew = () => {
     const [fighterRank, setFighterRank] = useState('');
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState();
-    const [memberType, setMemberType] = useState()
+    const [category, setCategory] = useState()
     const [force, setForce] = useState()
     const [file, setFile] = useState(null);
+    const [ingredient, setIngredient] = useState('');
     const [formData, setFormData] = useState({});
+
 
     useEffect(() => {
         setCountries(countryList().getLabels())
     }, [])
 
 
-    const memberTypes = [
+    const categories = [
         'Freedom Fighter',
         'General Invitees',
         'Retired',
@@ -36,70 +39,70 @@ const AddNew = () => {
     ]
 
     const armyRank = [
-        'General',
-        'Lieutenant general',
-        'Major general',
-        'Brigadier general',
-        'Colonel',
-        'Lieutenant colonel',
-        'Major',
-        'Captain',
-        'Lieutenant',
-        'Second lieutenant',
-        'Officer cadet',
-        'Master warrant officer',
-        'Senior warrant officer',
-        'Warrant officer',
-        'Regiment Sergeant Major',
-        'Quarter Master Sergeant',
-        'Sergeant Major',
-        'Master Sergeant',
-        'Sergeant',
-        'Corporal',
-        'Lance corporal',
-        'Sainik'
+        { label: 'General', value: { rank: 'General', point: 1 } },
+        { label: 'Lieutenant general', value: { rank: 'Lieutenant general', point: 2 } },
+        { label: 'Major general', value: { rank: 'Major general', point: 3 } },
+        { label: 'Brigadier general', value: { rank: 'Brigadier general', point: 4 } },
+        { label: 'Colonel', value: { rank: 'Colonel', point: 5 } },
+        { label: 'Lieutenant colonel', value: { rank: 'Lieutenant colonel', point: 6 } },
+        { label: 'Major', value: { rank: 'Major', point: 7 } },
+        { label: 'Captain', value: { rank: 'Captain', point: 8 } },
+        { label: 'Lieutenant', value: { rank: 'Lieutenant', point: 9 } },
+        { label: 'Second lieutenant', value: { rank: 'Second lieutenant', point: 10 } },
+        { label: 'Officer cadet', value: { rank: 'Officer cadet', point: 11 } },
+        { label: 'Master warrant officer', value: { rank: 'Master warrant officer', point: 12 } },
+        { label: 'Senior warrant officer', value: { rank: 'Senior warrant officer', point: 13 } },
+        { label: 'Warrant officer', value: { rank: 'Warrant officer', point: 14 } },
+        { label: 'Regiment Sergeant Major', value: { rank: 'Regiment Sergeant Major', point: 15 } },
+        { label: 'Quarter Master Sergeant', value: { rank: 'Quarter Master Sergeant', point: 16 } },
+        { label: 'Sergeant Major', value: { rank: 'Sergeant Major', point: 17 } },
+        { label: 'Master Sergeant', value: { rank: 'Master Sergeant', point: 18 } },
+        { label: 'Sergeant', value: { rank: 'Sergeant', point: 19 } },
+        { label: 'Corporal', value: { rank: 'Corporal', point: 20 } },
+        { label: 'Lance corporal', value: { rank: 'Lance corporal', point: 21 } },
+        { label: 'Sainik', value: { rank: 'Sainik', point: 22 } }
     ]
     const navyRank = [
-        'Admiral',
-        'Vice admiral',
-        'Rear admiral',
-        'Commodore',
-        'Captain',
-        'Commander',
-        'Lieutenant commander',
-        'Lieutenant',
-        'Sub-lieutenant',
-        'Acting sub-lieutenant',
-        'Midshipman',
-        'Officer cadet',
-        'Master chief petty officer',
-        'Senior chief petty officer',
-        'Chief petty officer',
-        'Leading seaman',
-        'Able seaman',
-        'Ordinary seaman'
+        { label: 'Admiral', value: { rank: 'Admiral', point: 1 } },
+        { label: 'Vice admiral', value: { rank: 'Vice admiral', point: 2 } },
+        { label: 'Rear admiral', value: { rank: 'Rear admiral', point: 3 } },
+        { label: 'Commodore', value: { rank: 'Commodore', point: 4 } },
+        { label: 'Captain', value: { rank: 'Captain', point: 5 } },
+        { label: 'Commander', value: { rank: 'Commander', point: 6 } },
+        { label: 'Lieutenant commander', value: { rank: 'Lieutenant commander', point: 7 } },
+        { label: 'Lieutenant', value: { rank: 'Lieutenant', point: 8 } },
+        { label: 'Sub-lieutenant', value: { rank: 'Sub-lieutenant', point: 9 } },
+        { label: 'Acting sub-lieutenant', value: { rank: 'Acting sub-lieutenant', point: 10 } },
+        { label: 'Midshipman', value: { rank: 'Midshipman', point: 11 } },
+        { label: 'Officer cadet', value: { rank: 'Officer cadet', point: 12 } },
+        { label: 'Master chief petty officer', value: { rank: 'Master chief petty officer', point: 13 } },
+        { label: 'Senior chief petty officer', value: { rank: 'Senior chief petty officer', point: 14 } },
+        { label: 'Chief petty officer', value: { rank: 'Chief petty officer', point: 15 } },
+        { label: 'Leading seaman', value: { rank: 'Leading seaman', point: 16 } },
+        { label: 'Able seaman', value: { rank: 'Able seaman', point: 17 } },
+        { label: 'Ordinary seaman', value: { rank: 'Ordinary seaman', point: 18 } },
     ]
     const airForceRank = [
-        'Air Chief Marshal',
-        'Air Marshal',
-        'Air Vice-Marshal',
-        'Air Commodore',
-        'Group Captain',
-        'Wing Commander',
-        'Squadron Leader',
-        'Flight Lieutenant',
-        'Flight Sergeant',
-        'Flying Officer',
-        'Pilot Officer',
-        'Officer cadet',
-        'Master warrant officer',
-        'Senior warrant officer',
-        'Warrant officer',
-        'Sergeant',
-        'Corporal',
-        'Leading aircraftman',
-        'Aircraftman 1',
-        'Aircraftman 2'
+        { label: 'Air Chief Marshal', value: { rank: 'Air Chief Marshal', point: 1 } },
+        { label: 'Air Marshal', value: { rank: 'Air Marshal', point: 2 } },
+        { label: 'Air Vice-Marshal', value: { rank: 'Air Vice-Marshal', point: 3 } },
+        { label: 'Air Commodore', value: { rank: 'Air Commodore', point: 4 } },
+        { label: 'Group Captain', value: { rank: 'Group Captain', point: 5 } },
+        { label: 'Wing Commander', value: { rank: 'Wing Commander', point: 6 } },
+        { label: 'Squadron Leader', value: { rank: 'Squadron Leader', point: 7 } },
+        { label: 'Flight Lieutenant', value: { rank: 'Flight Lieutenant', point: 8 } },
+        { label: 'Flight Sergeant', value: { rank: 'Flight Sergeant', point: 9 } },
+        { label: 'Flying Officer', value: { rank: 'Flying Officer', point: 10 } },
+        { label: 'Pilot Officer', value: { rank: 'Pilot Officer', point: 11 } },
+        { label: 'Officer cadet', value: { rank: 'Officer cadet', point: 12 } },
+        { label: 'Master warrant officer', value: { rank: 'Master warrant officer', point: 13 } },
+        { label: 'Senior warrant officer', value: { rank: 'Senior warrant officer', point: 14 } },
+        { label: 'Warrant officer', value: { rank: 'Warrant officer', point: 15 } },
+        { label: 'Sergeant', value: { rank: 'Sergeant', point: 16 } },
+        { label: 'Corporal', value: { rank: 'Corporal', point: 17 } },
+        { label: 'Leading aircraftman', value: { rank: 'Leading aircraftman', point: 18 } },
+        { label: 'Aircraftman 1', value: { rank: 'Aircraftman 1', point: 19 } },
+        { label: 'Aircraftman 2', value: { rank: 'Aircraftman 2', point: 20 } },
     ]
 
     const fighterRanks = [
@@ -141,9 +144,10 @@ const AddNew = () => {
 
         const userDataWithPhoto = new FormData();
         Object.keys(formData).forEach((key) => {
-            // console.log(typeof formData[key]);
+            // userDataWithPhoto.append(key, formData[key]);
+            console.log(typeof formData[key]);
             if (typeof formData[key] == 'object') {
-                userDataWithPhoto.append(key, JSON.parse(JSON.stringify(formData[key])));
+                userDataWithPhoto.append(key, JSON.parse(formData[key]));
                 console.log(userDataWithPhoto.get(key));
             }
 
@@ -158,14 +162,18 @@ const AddNew = () => {
         console.log(userDataWithPhoto.getAll('force'));
 
 
-        // fetch("http://localhost:5000/api/v1/freedomFighters", {
-        //     method: "POST",
-        //     headers: {
-        //         'encType': 'multipart/form-data'
-        //     },
-        //     // do not stringify. if you do, backend will not get the data
-        //     body: userDataWithPhoto
-        // });
+        fetch("http://localhost:5000/api/v1/freedomFighters", {
+            method: "POST",
+            headers: {
+                'encType': 'multipart/form-data'
+            },
+            // do not stringify. if you do, backend will not get the data
+            body: userDataWithPhoto
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
         // console.log(userDataWithPhoto.get('freedomFighterRank'))
         // console.log(await response.json());
 
@@ -349,18 +357,18 @@ const AddNew = () => {
                 <form onSubmit={handleInsertNewMember} className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
                     <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
                     <div>
-                        <Dropdown name='memberType' options={memberTypes} value={memberType}
+                        <Dropdown name='category' options={categories} value={category}
                             onChange={(e) => {
                                 handleChange(e)
-                                setMemberType(e.value)
+                                setCategory(e.value)
                             }} placeholder="*Select Member Type" className='text-black w-full' required />
                     </div>
                     <div className='flex w-full gap-x-12'>
                         <div className="p-float-label w-1/2">
-                            <InputText name='fullName' id='fullName'
+                            <InputText name='name' id='name'
                                 onChange={handleChange}
                                 className='w-full' required />
-                            <label htmlFor="fullName" >*Full Name</label>
+                            <label htmlFor="name" >*Full Name</label>
                         </div>
                         <div className='p-float-label w-1/2'>
                             <InputText name='email' id='email'
@@ -383,9 +391,25 @@ const AddNew = () => {
                                     setCountry(e.value)
                                 }} placeholder="*Select a Country" className='text-black w-full' required />
                         </div>
-                        <div className='w-1/3 flex items-center py-1 bg-white rounded-md border-2'>
+                        <div className='w-1/3 flex items-center py-2 bg-white text-gray-700 rounded-md border hover:border-primary'>
                             <label className='mr-8 ml-2'>*Status: </label>
-                            <div className='flex gap-x-4'>
+                            <div className="flex flex-wrap gap-3">
+                                <div className="flex align-items-center">
+                                    <RadioButton inputId="ingredient1" name="status" value="Alive" onChange={(e) => {
+                                        handleChange(e)
+                                        setIngredient(e.value)
+                                    }} checked={ingredient === 'Alive'} />
+                                    <label htmlFor="ingredient1" className="ml-2">Alive</label>
+                                </div>
+                                <div className="flex align-items-center">
+                                    <RadioButton inputId="ingredient2" name="status" value="Dead" onChange={(e) => {
+                                        handleChange(e)
+                                        setIngredient(e.value)
+                                    }} checked={ingredient === 'Dead'} />
+                                    <label htmlFor="ingredient2" className="ml-2">Dead</label>
+                                </div>
+                            </div>
+                            {/* <div className='flex gap-x-4'>
                                 <div className="form-control">
                                     <label className="label cursor-pointer space-x-2">
                                         <input name='status' value='Alive' type="radio" className="radio checked:bg-blue-500 border border-primary" required />
@@ -398,7 +422,7 @@ const AddNew = () => {
                                         <span className="label-text text-gray-500">Dead</span>
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className='flex w-full gap-x-12'>
