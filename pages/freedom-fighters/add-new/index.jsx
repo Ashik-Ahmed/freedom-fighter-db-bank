@@ -450,13 +450,13 @@ const AddNew = () => {
                                 onChange={(e) => {
                                     handleChange(e)
                                     setForce(e.value)
-                                }} placeholder="*Select a Force" className='text-black w-full' required />
+                                }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
                                 handleChange(e)
                                 setRank(e.value)
-                            }} placeholder="*Official Rank" className='text-black w-full' required />
+                            }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required />
                         </div>
                     </div>
                     <div className='flex gap-x-12'>
