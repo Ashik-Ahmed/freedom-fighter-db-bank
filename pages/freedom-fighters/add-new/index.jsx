@@ -161,6 +161,9 @@ const AddNew = () => {
         if (category == 'Freedom Fighter') {
             userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
         }
+        if (career == 'Armed Forces') {
+            userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
+        }
 
         // console.log(userDataWithPhoto.getAll('freedomFighterRank'));
         console.log(fighterRank);
@@ -454,13 +457,13 @@ const AddNew = () => {
                                 onChange={(e) => {
                                     handleChange(e)
                                     setForce(e.value)
-                                }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} />
+                                }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
                                 handleChange(e)
                                 setRank(e.value)
-                            }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} />
+                            }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
                     </div>
                     <div className='flex gap-x-12'>
