@@ -118,11 +118,11 @@ const AddNew = () => {
     const handleChange = (event) => {
         const { name, value } = event.target;
         // setFormData({
-        //   ...formData, [name]: value
+        //     ...formData, [name]: value
         // });
         // convert object value to string as object is not accessible from formData
         if (typeof value == 'object') {
-            console.log(JSON.parse(JSON.stringify(value)));
+            // console.log(JSON.parse(JSON.stringify(value)));
             setFormData({
                 ...formData, [name]: JSON.stringify(value)
             });
@@ -145,7 +145,7 @@ const AddNew = () => {
         const userDataWithPhoto = new FormData();
         Object.keys(formData).forEach((key) => {
             // userDataWithPhoto.append(key, formData[key]);
-            console.log(typeof formData[key]);
+            // console.log(typeof formData[key]);
             if (typeof formData[key] == 'object') {
                 userDataWithPhoto.append(key, JSON.parse(formData[key]));
                 console.log(userDataWithPhoto.get(key));
@@ -158,8 +158,12 @@ const AddNew = () => {
         // console.log(fighterRank);
         userDataWithPhoto.append("file", file);
         // userDataWithPhoto.append("freedomFighterRank", JSON.stringify(fighterRank));
+        if (category == 'Freedom Fighter') {
+            userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
+        }
 
-        console.log(userDataWithPhoto.getAll('force'));
+        // console.log(userDataWithPhoto.getAll('freedomFighterRank'));
+        console.log(fighterRank);
 
 
         fetch("http://localhost:5000/api/v1/freedomFighters", {
@@ -368,10 +372,10 @@ const AddNew = () => {
                         <div className='w-1/2'>
                             <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
                                 onChange={(e) => {
-                                    handleChange(e)
+                                    // handleChange(e)
                                     console.log(e.value);
                                     setFighterRank(e.value)
-                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required />
+                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
                         </div>
                     </div>
                     <div className='flex w-full gap-x-12'>
@@ -439,7 +443,7 @@ const AddNew = () => {
                     <div className='flex w-full gap-x-12'>
 
                         <div className='w-1/3'>
-                            <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={force}
+                            <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={career}
                                 onChange={(e) => {
                                     handleChange(e)
                                     setCareer(e.value)
@@ -450,13 +454,13 @@ const AddNew = () => {
                                 onChange={(e) => {
                                     handleChange(e)
                                     setForce(e.value)
-                                }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required />
+                                }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
                                 handleChange(e)
                                 setRank(e.value)
-                            }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required />
+                            }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} />
                         </div>
                     </div>
                     <div className='flex gap-x-12'>
