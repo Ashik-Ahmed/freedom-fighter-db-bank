@@ -8,7 +8,6 @@ import countryList from 'react-select-country-list'
 
 const AddNew = () => {
 
-    const [ranks, setRanks] = useState([]);
     const [rank, setRank] = useState()
     const [fighterRank, setFighterRank] = useState('');
     const [countries, setCountries] = useState([]);
@@ -17,6 +16,7 @@ const AddNew = () => {
     const [force, setForce] = useState()
     const [file, setFile] = useState(null);
     const [ingredient, setIngredient] = useState('');
+    const [career, setCareer] = useState('')
     const [formData, setFormData] = useState({});
 
 
@@ -371,7 +371,7 @@ const AddNew = () => {
                                     handleChange(e)
                                     console.log(e.value);
                                     setFighterRank(e.value)
-                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
+                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required />
                         </div>
                     </div>
                     <div className='flex w-full gap-x-12'>
@@ -439,11 +439,11 @@ const AddNew = () => {
                     <div className='flex w-full gap-x-12'>
 
                         <div className='w-1/3'>
-                            <Dropdown name='force' options={forces} value={force}
+                            <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={force}
                                 onChange={(e) => {
                                     handleChange(e)
-                                    setForce(e.value)
-                                }} placeholder="*Select a Force" className='text-black w-full' required />
+                                    setCareer(e.value)
+                                }} placeholder="*Select Career" className='text-black w-full' required />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='force' options={forces} value={force}
