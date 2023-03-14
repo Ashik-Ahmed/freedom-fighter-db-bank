@@ -28,7 +28,7 @@ const AddNew = () => {
     const categories = [
         'Freedom Fighter',
         'General Invitees',
-        'Retired',
+        'Retired Officers',
         'Retired ORs/Other'
     ]
 
@@ -350,18 +350,29 @@ const AddNew = () => {
         <div>
 
             {/* add new member form  */}
-            <div className='mx-auto max-w-7xl  pb-4'>
+            <div className='mx-auto max-w-7xl'>
 
 
                 {/* action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data'*/}
                 <form onSubmit={handleInsertNewMember} className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
                     <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
-                    <div>
-                        <Dropdown name='category' options={categories} value={category}
-                            onChange={(e) => {
-                                handleChange(e)
-                                setCategory(e.value)
-                            }} placeholder="*Select Member Type" className='text-black w-full' required />
+                    <div className='flex gap-x-12'>
+                        <div className='w-1/2'>
+                            <Dropdown name='category' options={categories} value={category}
+                                onChange={(e) => {
+                                    handleChange(e)
+                                    setCategory(e.value)
+                                }} placeholder="*Select Member Type" className='text-black w-full' required />
+                        </div>
+
+                        <div className='w-1/2'>
+                            <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
+                                onChange={(e) => {
+                                    handleChange(e)
+                                    console.log(e.value);
+                                    setFighterRank(e.value)
+                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
+                        </div>
                     </div>
                     <div className='flex w-full gap-x-12'>
                         <div className="p-float-label w-1/2">
@@ -435,25 +446,17 @@ const AddNew = () => {
                                 }} placeholder="*Select a Force" className='text-black w-full' required />
                         </div>
                         <div className='w-1/3'>
+                            <Dropdown name='force' options={forces} value={force}
+                                onChange={(e) => {
+                                    handleChange(e)
+                                    setForce(e.value)
+                                }} placeholder="*Select a Force" className='text-black w-full' required />
+                        </div>
+                        <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
                                 handleChange(e)
                                 setRank(e.value)
                             }} placeholder="*Official Rank" className='text-black w-full' required />
-                        </div>
-                        <div className='w-1/3'>
-                            <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
-                                onChange={(e) => {
-                                    handleChange(e)
-                                    console.log(e.value);
-                                    setFighterRank(e.value)
-                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
-
-                            {/* <select name='freedomFighterRank' onChange={(e) => console.log(e.value)} className="p-2.5 border-1 hover:border-primary rounded-md bg-white w-full" required>
-                      <option value='' disabled selected>*Freedom Fighter Rank</option>
-                      {
-                        fighterRanks.map((fighter, index) => <option key={index} value={JSON.stringify(fighter)} className='p-2 hover:bg-gray-500'>{fighter.rank}</option>)
-                      }
-                    </select> */}
                         </div>
                     </div>
                     <div className='flex gap-x-12'>
@@ -481,8 +484,8 @@ const AddNew = () => {
                             className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
                     </div>
 
-                    <div className='text-center pt-20'>
-                        <Button type='submit' label="Submit" icon="pi pi-check" className='p-button-info p-button-sm' />
+                    <div className='text-end'>
+                        <Button type='submit' label="Submit" className='p-button-info' />
                     </div>
                 </form>
             </div>
