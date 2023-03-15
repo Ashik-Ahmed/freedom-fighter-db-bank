@@ -380,7 +380,7 @@ export default function Home() {
       <div>
         <div className='flex flex-wrap md:flex-nowrap justify-center max-w-7xl mx-auto py-2 gap-4'>
           <div className='w-full'>
-            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md">
+            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md border-primary border-l-4">
               <div className="card-body">
                 <p className='text-xl font-bold'>Total Member</p>
                 <p className='text-xl'>680</p>
@@ -388,7 +388,7 @@ export default function Home() {
             </div>
           </div>
           <div className='w-full'>
-            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md">
+            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md border-primary border-l-4">
               <div className="card-body">
                 <p className='text-xl font-bold'>General Member</p>
                 <p className='text-xl'>200</p>
@@ -396,7 +396,7 @@ export default function Home() {
             </div>
           </div>
           <div className='w-full'>
-            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md">
+            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md border-primary border-l-4">
               <div className="card-body">
                 <p className='text-xl font-bold'>Freedom Fighter</p>
                 <p className='text-xl'>180</p>
@@ -404,7 +404,7 @@ export default function Home() {
             </div>
           </div>
           <div className='w-full'>
-            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md">
+            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md border-primary border-l-4">
               <div className="card-body">
                 <p className='text-xl font-bold'>Retired Member</p>
                 <p className='text-xl'>300</p>
