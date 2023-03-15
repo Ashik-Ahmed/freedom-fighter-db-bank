@@ -336,10 +336,11 @@ const Selection = () => {
                         </div>
                     </div>
                 </form >
-
-                <div className='w-full'>
-                    <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[69vh]'>
-                        {/* <table className="table-auto container shadow-md">
+                {
+                    selectedFreedomFighters &&
+                    <div className='w-full'>
+                        <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[69vh]'>
+                            {/* <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
                                                 <th className='p-2 rounded-tl-md'>Name</th>
@@ -364,42 +365,36 @@ const Selection = () => {
                                         </tbody>
                                     </table> */}
 
-                        {
-                            selectedFreedomFighters ?
-                                <div>
-                                    <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="48vh" loading={loading} stripedRows>
-                                        {
-                                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
-                                        }
-                                    </DataTable>
-                                    <div className='text-right my-3'>
-                                        <Button onClick={() => {
-                                            setConfirmSelectionDialogue(true)
-                                        }} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
-                                    </div>
-                                </div>
 
-
-                                :
-
-                                <div className='w-full'>
-                                    <p className='text-2xl font-bold text-primary text-center'>Nothing to show here..</p>
-                                </div>
-                        }
-                    </div>
-
-
-                    <Dialog visible={confirmSelectionDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => setConfirmSelectionDialogue(false)}>
-                        <div className="confirmation-content">
                             <div>
-                                <p className='font-semibold'>Are you sure?</p>
+                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="48vh" loading={loading} stripedRows>
+                                    {
+                                        cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
+                                    }
+                                </DataTable>
+                                <div className='text-right my-3'>
+                                    <Button onClick={() => {
+                                        setConfirmSelectionDialogue(true)
+                                    }} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
+                                </div>
                             </div>
-                            <div className='text-right mt-4'>
-                                <Button onClick={handleTemporarySelect} type='submit' label="Submit" />
-                            </div>
+
+
                         </div>
-                    </Dialog>
-                </div>
+
+                    </div>
+                }
+
+                <Dialog visible={confirmSelectionDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => setConfirmSelectionDialogue(false)}>
+                    <div className="confirmation-content">
+                        <div>
+                            <p className='font-semibold'>Are you sure?</p>
+                        </div>
+                        <div className='text-right mt-4'>
+                            <Button onClick={handleTemporarySelect} type='submit' label="Submit" />
+                        </div>
+                    </div>
+                </Dialog>
             </div >
         </div >
     );
