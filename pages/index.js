@@ -388,7 +388,7 @@ export default function Home() {
             </div>
           </div>
           <div className='w-full'>
-            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md border-primary border-l-4">
+            <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md border-secondary border-l-4">
               <div className="card-body">
                 <p className='text-xl font-bold'>General Member</p>
                 <p className='text-xl'>200</p>
