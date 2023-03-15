@@ -148,7 +148,7 @@ const AddNew = () => {
             // console.log(typeof formData[key]);
             if (typeof formData[key] == 'object') {
                 userDataWithPhoto.append(key, JSON.parse(formData[key]));
-                console.log(userDataWithPhoto.get(key));
+                // console.log(userDataWithPhoto.get(key));
             }
 
             else {
@@ -162,11 +162,13 @@ const AddNew = () => {
             userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
         }
         if (career == 'Armed Forces') {
-            userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
+            // console.log(force);
+            userDataWithPhoto.append('force', force)
+            userDataWithPhoto.append('officialRank', JSON.stringify(rank))
         }
 
         // console.log(userDataWithPhoto.getAll('freedomFighterRank'));
-        console.log(fighterRank);
+        console.log('Form Submitted');
 
 
         fetch("http://localhost:5000/api/v1/freedomFighters", {
@@ -413,18 +415,18 @@ const AddNew = () => {
                             <label className='mr-8 ml-2'>*Status: </label>
                             <div className="flex flex-wrap gap-3">
                                 <div className="flex align-items-center">
-                                    <RadioButton inputId="ingredient1" name="status" value="Alive" onChange={(e) => {
+                                    <RadioButton inputId="status1" name="status" value="Alive" onChange={(e) => {
                                         handleChange(e)
                                         setIngredient(e.value)
                                     }} checked={ingredient === 'Alive'} />
-                                    <label htmlFor="ingredient1" className="ml-2">Alive</label>
+                                    <label htmlFor="status1" className="ml-2">Alive</label>
                                 </div>
                                 <div className="flex align-items-center">
-                                    <RadioButton inputId="ingredient2" name="status" value="Dead" onChange={(e) => {
+                                    <RadioButton inputId="status2" name="status" value="Dead" onChange={(e) => {
                                         handleChange(e)
                                         setIngredient(e.value)
                                     }} checked={ingredient === 'Dead'} />
-                                    <label htmlFor="ingredient2" className="ml-2">Dead</label>
+                                    <label htmlFor="status2" className="ml-2">Dead</label>
                                 </div>
                             </div>
                             {/* <div className='flex gap-x-4'>
@@ -455,13 +457,13 @@ const AddNew = () => {
                         <div className='w-1/3'>
                             <Dropdown name='force' options={forces} value={force}
                                 onChange={(e) => {
-                                    handleChange(e)
+                                    // handleChange(e)
                                     setForce(e.value)
                                 }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
-                                handleChange(e)
+                                // handleChange(e)
                                 setRank(e.value)
                             }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
