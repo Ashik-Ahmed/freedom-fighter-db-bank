@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 
 const EditMember = ({ member }) => {
 
+    console.log(member);
+
     const [rank, setRank] = useState()
     const [fighterRank, setFighterRank] = useState('');
     const [countries, setCountries] = useState([]);
@@ -143,17 +145,18 @@ const EditMember = ({ member }) => {
     return (
         <div>
             <form onSubmit={handleEditMember} className='mx-auto space-y-4'>
-                <p className='text-2xl font-bold text-primary mx-auto'>EditMember</p>
                 <div className='flex gap-x-6 my-4'>
                     <div className='w-1/2'>
+                        <label className='text-xs'>*Member Category</label>
                         <Dropdown name='category' options={categories} value={category}
                             onChange={(e) => {
                                 handleChange(e)
                                 setCategory(e.value)
-                            }} placeholder="*Select Member Type" className='text-black w-full' required />
+                            }} placeholder="*Select Member Category" className='text-black w-full' required />
                     </div>
 
                     <div className='w-1/2'>
+                        <label className='text-xs'>*Freedom Fighter Rank</label>
                         <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
                             onChange={(e) => {
                                 // handleChange(e)
@@ -163,35 +166,36 @@ const EditMember = ({ member }) => {
                     </div>
                 </div>
                 <div className='flex w-full gap-x-6 my-4'>
-                    <div className="p-float-label w-1/2">
+                    <div className="w-1/2">
+                        <label className='text-xs'>*Full Name</label>
                         <InputText name='fullName' id='fullName'
                             onChange={handleChange}
                             className='w-full' value={member.name} disabled required />
-                        <label htmlFor="fullName" >*Full Name</label>
                     </div>
-                    <div className='p-float-label w-1/2'>
+                    <div className='w-1/2'>
+                        <label className='text-xs'>*Email</label>
                         <InputText name='email' id='email'
                             onChange={handleChange}
                             className='w-full' value={member.email} disabled required />
-                        <label htmlFor="email">*Email</label>
                     </div>
                 </div>
                 <div className='flex w-full gap-x-6 items-center my-4'>
-                    <div className='p-float-label w-1/3'>
+                    <div className='w-1/3'>
+                        <label className='text-xs'>*Contact No.</label>
                         <InputText name='mobile' id='mobile'
                             onChange={handleChange}
                             className='w-full' value={member.mobile} required />
-                        <label htmlFor="mobile">*Contact</label>
                     </div>
                     <div className='w-1/3'>
-                        <Dropdown name='country' options={countries} value={member.country || country}
+                        <label className='text-xs'>*Country</label>
+                        <Dropdown name='country' options={countries} value={member?.country}
                             onChange={(e) => {
                                 handleChange(e)
                                 setCountry(e.value)
                             }} placeholder="*Select a Country" className='text-black w-full' required />
                     </div>
-                    <div className='w-1/3 -mt-4'>
-                        <label className='mr-8 ml-2 text-gray-600 text-xs'>*Status: </label>
+                    <div className='w-1/3'>
+                        <label className='mr-8 text-gray-600 text-xs'>*Status: </label>
                         <div className='flex items-center p-2 bg-white text-gray-700 rounded-md border hover:border-primary'>
                             <div className="flex flex-wrap gap-3">
                                 <div className="flex align-items-center">
@@ -228,21 +232,24 @@ const EditMember = ({ member }) => {
                 </div>
                 <div className='flex w-full gap-x-6 my-4'>
                     <div className='w-1/3'>
-                        <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={career}
+                        <label className='text-xs'>*Career Status</label>
+                        <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={member.careerStatus || career}
                             onChange={(e) => {
                                 handleChange(e)
                                 setCareer(e.value)
                             }} placeholder="*Select Career" className='text-black w-full' required />
                     </div>
                     <div className='w-1/3'>
-                        <Dropdown name='force' options={forces} value={force}
+                        <label className='text-xs'>*Force</label>
+                        <Dropdown name='force' options={forces} value={member?.force || force}
                             onChange={(e) => {
                                 // handleChange(e)
                                 setForce(e.value)
                             }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                     </div>
                     <div className='w-1/3'>
-                        <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
+                        <label className='text-xs'>*Official Rank</label>
+                        <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={member?.officialRank?.rank || rank} onChange={(e) => {
                             // handleChange(e)
                             setRank(e.value)
                         }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
@@ -250,19 +257,19 @@ const EditMember = ({ member }) => {
                 </div>
                 <div className='flex gap-x-6'>
                     <div className="relative w-1/2">
-                        <div className="p-float-label w-full">
+                        <div className="w-full">
+                            <label className='text-xs'>*Address</label>
                             <InputTextarea name='address' id='address'
                                 onChange={handleChange}
-                                className=" w-full" required />
-                            <label htmlFor="address">*Address</label>
+                                className=" w-full" placeholder={member?.address} required />
                         </div>
                     </div>
                     <div className="relative w-1/2">
-                        <div className="p-float-label w-full">
+                        <div className="w-full">
+                            <label className='text-xs'>Description</label>
                             <InputTextarea name='description' id='description'
                                 onChange={handleChange}
-                                className=" w-full" />
-                            <label htmlFor="description">Description</label>
+                                className=" w-full" placeholder={member?.description} />
                         </div>
                     </div>
                 </div>
@@ -276,8 +283,8 @@ const EditMember = ({ member }) => {
                 <div className='text-end'>
                     <Button type='submit' label="Submit" className='p-button-info' />
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     );
 };
 
