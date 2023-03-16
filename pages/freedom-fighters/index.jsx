@@ -14,6 +14,7 @@ import { Column } from 'primereact/column';
 import Image from 'next/image';
 import defaultUserPhoto from '../../Images/photo.png'
 import { useRouter } from 'next/router';
+import EditMember from '../../components/EditMember/EditMember';
 
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false)
     const [members, setMembers] = useState([]);
     const [member, setMember] = useState(null);
+    const [editMemberDialogue, setEditMemberDialogue] = useState(false)
     const [deleteMemberDialogue, setDeleteMemberDialogue] = useState(false);
     const [totalData, setTotalData] = useState(0);
     const [currentPage, setCurrentPage] = useState(0)
@@ -75,7 +77,8 @@ const Home = () => {
         getAllMembers()
     }, [])
 
-    //delete a freedom fighter
+
+    //delete a Member
     const handleDeleteMember = (id) => {
         // console.log(id);
         fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`, {
@@ -147,11 +150,12 @@ const Home = () => {
     const actionBodyTemplate = (rowData) => {
         return (
             <div>
-                < Button onClick={() => {
+                <Button onClick={() => {
                     router.push(`/freedom-fighters/${rowData._id}/details`)
                 }} icon="pi pi-info" rounded outlined className="mr-2 p-button-sm p-button-info" />
                 <Button onClick={() => {
                     setMember(rowData);
+                    setEditMemberDialogue(true)
                 }} icon="pi pi-user-edit" rounded outlined className='p-button-sm p-button-success mr-2' />
                 <Button onClick={() => {
                     setMember(rowData)
@@ -163,19 +167,136 @@ const Home = () => {
 
     return (
         <div>
-
-            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
-                <DataTable value={members} header={header} paginator rows={8} rowsPerPageOptions={[10, 25, 50]}
+            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[98vh]'>
+                <DataTable value={members} header={header} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'force', 'officialRank.rank', 'mobile', 'address']} emptyMessage="No Members found."
-                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="77vh" loading={loading} stripedRows removableSort >
+                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="80vh" loading={loading} stripedRows removableSort >
                     <Column header='Name' field='name' sortable></Column>
                     <Column header='Category' field='category'></Column>
-                    <Column header='Type' body={typeBodyTemplate}></Column>
+                    <Column header='Force' body={typeBodyTemplate}></Column>
                     <Column header='Contact' field='mobile'></Column>
                     <Column header='Address' field='address'></Column>
                     <Column header='Action' body={actionBodyTemplate}></Column>
                 </DataTable>
             </div>
+
+            {/* edit member dialog box  */}
+            <Dialog header="Edit Member" visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '80vw' }} >
+                <div className='mx-auto max-w-7xl  pb-4'>
+                    <EditMember member={member} />
+
+                    {/* action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data'*/}
+                    {/* <form onSubmit={handleEditMember} className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
+                        <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
+                        <div>
+                            <Dropdown name='memberType' options={memberTypes} value={memberType}
+                                onChange={(e) => {
+                                    handleChange(e)
+                                    setMemberType(e.value)
+                                }} placeholder="*Select Member Type" className='text-black w-full' required />
+                        </div>
+                        <div className='flex w-full gap-x-12'>
+                            <div className="p-float-label w-1/2">
+                                <InputText name='fullName' id='fullName'
+                                    onChange={handleChange}
+                                    className='w-full' required />
+                                <label htmlFor="fullName" >*Full Name</label>
+                            </div>
+                            <div className='p-float-label w-1/2'>
+                                <InputText name='email' id='email'
+                                    onChange={handleChange}
+                                    className='w-full' required />
+                                <label htmlFor="email">*Email</label>
+                            </div>
+                        </div>
+                        <div className='flex w-full gap-x-12 items-center'>
+                            <div className='p-float-label w-1/3'>
+                                <InputText name='mobile' id='mobile'
+                                    onChange={handleChange}
+                                    className='w-full' required />
+                                <label htmlFor="mobile">*Contact</label>
+                            </div>
+                            <div className='w-1/3'>
+                                <Dropdown name='country' options={countries} value={country}
+                                    onChange={(e) => {
+                                        handleChange(e)
+                                        setCountry(e.value)
+                                    }} placeholder="*Select a Country" className='text-black w-full' required />
+                            </div>
+                            <div className='w-1/3 flex items-center py-1 bg-white rounded-md border-2'>
+                                <label className='mr-8 ml-2'>*Status: </label>
+                                <div className='flex gap-x-4'>
+                                    <div className="form-control">
+                                        <label className="label cursor-pointer space-x-2">
+                                            <input name='status' value='Alive' type="radio" className="radio checked:bg-blue-500 border border-primary" required />
+                                            <span className="label-text text-gray-500">Alive</span>
+                                        </label>
+                                    </div>
+                                    <div className="form-control">
+                                        <label className="label cursor-pointer space-x-2">
+                                            <input name='status' value='Dead' type="radio" className="radio checked:bg-red-500 border border-primary" required />
+                                            <span className="label-text text-gray-500">Dead</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex w-full gap-x-12'>
+
+                            <div className='w-1/3'>
+                                <Dropdown name='force' options={forces} value={force}
+                                    onChange={(e) => {
+                                        handleChange(e)
+                                        setForce(e.value)
+                                    }} placeholder="*Select a Force" className='text-black w-full' required />
+                            </div>
+                            <div className='w-1/3'>
+                                <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
+                                    handleChange(e)
+                                    setRank(e.value)
+                                }} placeholder="*Official Rank" className='text-black w-full' required />
+                            </div>
+                            <div className='w-1/3'>
+                                <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
+                                    onChange={(e) => {
+                                        handleChange(e)
+                                        console.log(e.value);
+                                        setFighterRank(e.value)
+                                    }} placeholder="*Freedom Fighter Rank" className='text-black w-full' required />
+
+                            </div>
+                        </div>
+                        <div className='flex gap-x-12'>
+                            <div className="relative w-1/2">
+                                <div className="p-float-label w-full">
+                                    <InputTextarea name='address' id='address'
+                                        onChange={handleChange}
+                                        className=" w-full" required />
+                                    <label htmlFor="address">*Address</label>
+                                </div>
+                            </div>
+                            <div className="relative w-1/2">
+                                <div className="p-float-label w-full">
+                                    <InputTextarea name='description' id='description'
+                                        onChange={handleChange}
+                                        className=" w-full" />
+                                    <label htmlFor="description">Description</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='relative'>
+                            <label className='text-gray-400 ml-1'>Photo</label>
+                            <input name='file' type="file"
+                                onChange={handleFileChange}
+                                className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
+                        </div>
+
+                        <div className='text-center pt-20'>
+                            <Button type='submit' label="Submit" icon="pi pi-check" className='p-button-info p-button-sm' />
+                        </div>
+                    </form> */}
+                </div>
+            </Dialog >
 
             {/* dialogue delete member from primary selected  */}
             <Dialog visible={deleteMemberDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Confirm" modal onHide={() => setDeleteMemberDialogue(false)}>

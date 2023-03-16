@@ -181,11 +181,13 @@ const AddNew = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data.status == 'success') {
+                    console.log(data);
+                }
             })
         // console.log(userDataWithPhoto.get('freedomFighterRank'))
         // console.log(await response.json());
-
+        event.target.reset()
     };
 
     // countries?.map(country => console.log(country?.name?.common))
@@ -363,9 +365,9 @@ const AddNew = () => {
 
 
                 {/* action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data'*/}
-                <form onSubmit={handleInsertNewMember} className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
-                    <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
-                    <div className='flex gap-x-12'>
+                <form onSubmit={handleInsertNewMember} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
+                    <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
+                    <div className='flex gap-x-6 my-4'>
                         <div className='w-1/2'>
                             <Dropdown name='category' options={categories} value={category}
                                 onChange={(e) => {
@@ -383,12 +385,12 @@ const AddNew = () => {
                                 }} placeholder="*Freedom Fighter Rank" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
                         </div>
                     </div>
-                    <div className='flex w-full gap-x-12'>
+                    <div className='flex w-full gap-x-6 my-4'>
                         <div className="p-float-label w-1/2">
-                            <InputText name='name' id='name'
+                            <InputText name='fullName' id='fullName'
                                 onChange={handleChange}
                                 className='w-full' required />
-                            <label htmlFor="name" >*Full Name</label>
+                            <label htmlFor="fullName" >*Full Name</label>
                         </div>
                         <div className='p-float-label w-1/2'>
                             <InputText name='email' id='email'
@@ -397,7 +399,7 @@ const AddNew = () => {
                             <label htmlFor="email">*Email</label>
                         </div>
                     </div>
-                    <div className='flex w-full gap-x-12 items-center'>
+                    <div className='flex w-full gap-x-6 items-center my-4'>
                         <div className='p-float-label w-1/3'>
                             <InputText name='mobile' id='mobile'
                                 onChange={handleChange}
@@ -411,22 +413,24 @@ const AddNew = () => {
                                     setCountry(e.value)
                                 }} placeholder="*Select a Country" className='text-black w-full' required />
                         </div>
-                        <div className='w-1/3 flex items-center py-2 bg-white text-gray-700 rounded-md border hover:border-primary'>
-                            <label className='mr-8 ml-2'>*Status: </label>
-                            <div className="flex flex-wrap gap-3">
-                                <div className="flex align-items-center">
-                                    <RadioButton inputId="status1" name="status" value="Alive" onChange={(e) => {
-                                        handleChange(e)
-                                        setIngredient(e.value)
-                                    }} checked={ingredient === 'Alive'} />
-                                    <label htmlFor="status1" className="ml-2">Alive</label>
-                                </div>
-                                <div className="flex align-items-center">
-                                    <RadioButton inputId="status2" name="status" value="Dead" onChange={(e) => {
-                                        handleChange(e)
-                                        setIngredient(e.value)
-                                    }} checked={ingredient === 'Dead'} />
-                                    <label htmlFor="status2" className="ml-2">Dead</label>
+                        <div className='w-1/3 -mt-4'>
+                            <label className='mr-8 ml-2 text-gray-600 text-xs'>*Status: </label>
+                            <div className='flex items-center p-2 bg-white text-gray-700 rounded-md border hover:border-primary'>
+                                <div className="flex flex-wrap gap-3">
+                                    <div className="flex align-items-center">
+                                        <RadioButton inputId="status1" name="status" value="Alive" onChange={(e) => {
+                                            handleChange(e)
+                                            setIngredient(e.value)
+                                        }} checked={ingredient === 'Alive'} />
+                                        <label htmlFor="status1" className="ml-2">Alive</label>
+                                    </div>
+                                    <div className="flex align-items-center">
+                                        <RadioButton inputId="status2" name="status" value="Dead" onChange={(e) => {
+                                            handleChange(e)
+                                            setIngredient(e.value)
+                                        }} checked={ingredient === 'Dead'} />
+                                        <label htmlFor="status2" className="ml-2">Dead</label>
+                                    </div>
                                 </div>
                             </div>
                             {/* <div className='flex gap-x-4'>
@@ -445,8 +449,7 @@ const AddNew = () => {
                             </div> */}
                         </div>
                     </div>
-                    <div className='flex w-full gap-x-12'>
-
+                    <div className='flex w-full gap-x-6 my-4'>
                         <div className='w-1/3'>
                             <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={career}
                                 onChange={(e) => {
@@ -468,7 +471,7 @@ const AddNew = () => {
                             }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
                     </div>
-                    <div className='flex gap-x-12'>
+                    <div className='flex gap-x-6'>
                         <div className="relative w-1/2">
                             <div className="p-float-label w-full">
                                 <InputTextarea name='address' id='address'
@@ -507,7 +510,7 @@ const AddNew = () => {
                 <div className='mx-auto max-w-7xl  pb-4'>
                     <form action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data' className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
                         <p className='text-2xl font-bold text-primary mx-auto'>Please fill the information</p>
-                        <div className='flex w-full gap-x-12'>
+                        <div className='flex w-full gap-x-6'>
                             <div className="relative w-1/2">
                                 <input name='fullName' type="text" id="floating_outlined" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                                 <label for="floating_outlined" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/3 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">*Full Name</label>
