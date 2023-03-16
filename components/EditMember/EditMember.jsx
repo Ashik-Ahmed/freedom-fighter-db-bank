@@ -202,14 +202,14 @@ const EditMember = ({ member }) => {
                                     <RadioButton inputId="status1" name="status" value="Alive" onChange={(e) => {
                                         handleChange(e)
                                         setIngredient(e.value)
-                                    }} checked={ingredient === 'Alive'} />
+                                    }} checked={ingredient === 'Alive' || member.status == 'Alive'} />
                                     <label htmlFor="status1" className="ml-2">Alive</label>
                                 </div>
                                 <div className="flex align-items-center">
                                     <RadioButton inputId="status2" name="status" value="Dead" onChange={(e) => {
                                         handleChange(e)
                                         setIngredient(e.value)
-                                    }} checked={ingredient === 'Dead'} />
+                                    }} checked={ingredient === 'Dead' || member.status == 'Dead'} />
                                     <label htmlFor="status2" className="ml-2">Dead</label>
                                 </div>
                             </div>
