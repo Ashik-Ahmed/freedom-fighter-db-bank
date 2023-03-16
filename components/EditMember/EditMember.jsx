@@ -144,8 +144,8 @@ const EditMember = ({ member }) => {
 
     return (
         <div>
-            <form onSubmit={handleEditMember} className='mx-auto space-y-4'>
-                <div className='flex gap-x-6 my-4'>
+            <form onSubmit={handleEditMember} className='mx-auto'>
+                <div className='flex gap-x-6 mb-4'>
                     <div className='w-1/2'>
                         <label className='text-xs'>*Member Category</label>
                         <Dropdown name='category' options={categories} value={category}

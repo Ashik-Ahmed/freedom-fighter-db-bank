@@ -181,8 +181,8 @@ const Home = () => {
             </div>
 
             {/* edit member dialog box  */}
-            <Dialog header="Edit Member" visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '80vw' }} >
-                <div className='mx-auto max-w-7xl  pb-4'>
+            <Dialog header="Edit Member" visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '70vw' }} >
+                <div className='mx-auto max-w-7xl'>
                     <EditMember member={member} />
 
                     {/* action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data'*/}

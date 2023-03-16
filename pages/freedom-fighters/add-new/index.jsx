@@ -190,173 +190,6 @@ const AddNew = () => {
         event.target.reset()
     };
 
-    // countries?.map(country => console.log(country?.name?.common))
-
-    // const armyRank = [
-    //     'General',
-    //     'Lieutenant general',
-    //     'Major general',
-    //     'Brigadier general',
-    //     'Colonel',
-    //     'Lieutenant colonel',
-    //     'Major',
-    //     'Captain',
-    //     'Lieutenant',
-    //     'Second lieutenant',
-    //     'Officer cadet',
-    //     'Master warrant officer',
-    //     'Senior warrant officer',
-    //     'Warrant officer',
-    //     'Regiment Sergeant Major',
-    //     'Quarter Master Sergeant',
-    //     'Sergeant Major',
-    //     'Master Sergeant',
-    //     'Sergeant',
-    //     'Corporal',
-    //     'Lance corporal',
-    //     'Sainik'
-    // ]
-    // const navyRank = [
-    //     'Admiral',
-    //     'Vice admiral',
-    //     'Rear admiral',
-    //     'Commodore',
-    //     'Captain',
-    //     'Commander',
-    //     'Lieutenant commander',
-    //     'Lieutenant',
-    //     'Sub-lieutenant',
-    //     'Acting sub-lieutenant',
-    //     'Midshipman',
-    //     'Officer cadet',
-    //     'Master chief petty officer',
-    //     'Senior chief petty officer',
-    //     'Chief petty officer',
-    //     'Leading seaman',
-    //     'Able seaman',
-    //     'Ordinary seaman'
-    // ]
-    // const airForceRank = [
-    //     'Air Chief Marshal',
-    //     'Air Marshal',
-    //     'Air Vice-Marshal',
-    //     'Air Commodore',
-    //     'Group Captain',
-    //     'Wing Commander',
-    //     'Squadron Leader',
-    //     'Flight Lieutenant',
-    //     'Flight Sergeant',
-    //     'Flying Officer',
-    //     'Pilot Officer',
-    //     'Officer cadet',
-    //     'Master warrant officer',
-    //     'Senior warrant officer',
-    //     'Warrant officer',
-    //     'Sergeant',
-    //     'Corporal',
-    //     'Leading aircraftman',
-    //     'Aircraftman 1',
-    //     'Aircraftman 2'
-    // ]
-
-    // const handleSelectForce = (e) => {
-    //     const force = e.target.value;
-    //     if (force == 'Army') {
-    //         setRanks(armyRank);
-    //     }
-    //     if (force == 'Navy') {
-    //         setRanks(navyRank)
-    //     }
-    //     if (force == 'Air Force') {
-    //         setRanks(airForceRank);
-    //     }
-    // }
-
-
-    // const handleFileInput = (e) => {
-    //     e.preventDefault()
-    //     const formData = new FormData();
-    //     formData.append('photo', e.target.files[0])
-    //     // console.log(e.target.files[0])
-    //     // const originalFileName = e.target.files[0].name;
-    //     // const fileName = originalFileName.toLowerCase().replace(/\s+/g, '');
-    //     // console.log(e.target.files[0]);
-
-    //     fetch('http://localhost:5000/api/v1/freedomFighters/profilePhotoUpload', {
-    //         method: 'POST',
-    //         body: formData
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data)
-    //         })
-
-    // }
-
-    // const handleInsertFreedomFighter = async (e) => {
-    //     e.preventDefault();
-    //     const data = new FormData(e.target);
-    //     const fullName = data.get('fullName');
-    //     const email = data.get('email');
-    //     const contact = data.get('contact');
-    //     // const photo = data.files[0];
-    //     const photo = e.target.file;
-    //     const status = data.get('status');
-    //     const country = data.get('country');
-    //     const force = data.get('force');
-    //     const officialRank = data.get('officialRank');
-    //     const freedomFighterRank = data.get('freedomFighterRank');
-    //     const address = data.get('address');
-    //     const description = data.get('description');
-
-    //     // console.log(photo.toLowerCase().replace(/\s+/g, ''));
-
-    //     // await fetch('http://localhost:5000/api/v1/freedomFighters/profilePhotoUpload', {
-    //     //     method: 'POST',
-    //     //     headers: {
-    //     //         'encType': 'multipart/form-data'
-    //     //     }
-    //     // })
-    //     //     .then(res => res.json())
-    //     //     .then(data => { console.log(data) })
-
-    //     const fighter = {
-    //         name: fullName,
-    //         email,
-    //         photo,
-    //         mobile: contact,
-    //         country,
-    //         status,
-    //         force,
-    //         officialRank: {
-    //             rank: officialRank,
-    //             point: 20
-    //         },
-    //         freedomFighterRank: {
-    //             rank: freedomFighterRank,
-    //             point: 15
-    //         },
-    //         address,
-    //         description
-    //     }
-    //     // console.log(fighter)
-
-
-    //     fetch('http://localhost:5000/api/v1/freedomFighters', {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json',
-    //         },
-    //         body: JSON.stringify(fighter),
-    //     })
-    //     // .then(res => res.json()).then(data => {
-    //     //     console.log(data)
-    //     //     if (data.status == 'success') {
-    //     //         e.target.reset();
-    //     //     }
-    //     // })
-    // }
-
     return (
         <div>
 
@@ -433,20 +266,6 @@ const AddNew = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className='flex gap-x-4'>
-                                <div className="form-control">
-                                    <label className="label cursor-pointer space-x-2">
-                                        <input name='status' value='Alive' type="radio" className="radio checked:bg-blue-500 border border-primary" required />
-                                        <span className="label-text text-gray-500">Alive</span>
-                                    </label>
-                                </div>
-                                <div className="form-control">
-                                    <label className="label cursor-pointer space-x-2">
-                                        <input name='status' value='Dead' type="radio" className="radio checked:bg-red-500 border border-primary" required />
-                                        <span className="label-text text-gray-500">Dead</span>
-                                    </label>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                     <div className='flex w-full gap-x-6 my-4'>
@@ -460,13 +279,13 @@ const AddNew = () => {
                         <div className='w-1/3'>
                             <Dropdown name='force' options={forces} value={force}
                                 onChange={(e) => {
-                                    // handleChange(e)
+                                    handleChange(e)
                                     setForce(e.value)
                                 }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
-                                // handleChange(e)
+                                handleChange(e)
                                 setRank(e.value)
                             }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
