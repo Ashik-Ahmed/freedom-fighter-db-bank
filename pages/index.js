@@ -377,7 +377,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
+      {/* <div>
         <div className='flex flex-wrap md:flex-nowrap justify-center max-w-7xl mx-auto py-2 gap-4'>
           <div className='w-full'>
             <div className=" shadow-xl bg-white/70 text-gray-800 rounded-md border-primary border-l-8">
@@ -413,7 +413,72 @@ export default function Home() {
           </div>
 
         </div>
+      </div> */}
+
+
+      <div className="grid mt-2">
+        <div className="col-12 md:col-6 lg:col-3">
+          <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+            <div className="flex justify-content-between mb-3">
+              <div>
+                <span className="block text-500 font-medium mb-3">Total Members</span>
+                <div className="text-900 font-medium text-xl">680</div>
+              </div>
+              <div className="flex align-items-center justify-content-center bg-blue-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
+                <i className="pi pi-shopping-cart text-blue-500 text-xl"></i>
+              </div>
+            </div>
+            <span className="text-green-500 font-medium">62 new </span>
+            <span className="text-500">joined since last year</span>
+          </div>
+        </div>
+        <div className="col-12 md:col-6 lg:col-3">
+          <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+            <div className="flex justify-content-between mb-3">
+              <div>
+                <span className="block text-500 font-medium mb-3">Freedom Fighter</span>
+                <div className="text-900 font-medium text-xl">180</div>
+              </div>
+              <div className="flex align-items-center justify-content-center bg-orange-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
+                <i className="pi pi-map-marker text-orange-500 text-xl"></i>
+              </div>
+            </div>
+            <span className="text-green-500 font-medium">All </span>
+            <span className="text-500">are permanent member</span>
+          </div>
+        </div>
+        <div className="col-12 md:col-6 lg:col-3">
+          <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+            <div className="flex justify-content-between mb-3">
+              <div>
+                <span className="block text-500 font-medium mb-3">General</span>
+                <div className="text-900 font-medium text-xl">300</div>
+              </div>
+              <div className="flex align-items-center justify-content-center bg-cyan-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
+                <i className="pi pi-inbox text-cyan-500 text-xl"></i>
+              </div>
+            </div>
+            <span className="text-green-500 font-medium">16  </span>
+            <span className="text-500">newly joined</span>
+          </div>
+        </div>
+        <div className="col-12 md:col-6 lg:col-3">
+          <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+            <div className="flex justify-content-between mb-3">
+              <div>
+                <span className="block text-500 font-medium mb-3">Retired Officers</span>
+                <div className="text-900 font-medium text-xl">152</div>
+              </div>
+              <div className="flex align-items-center justify-content-center bg-purple-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
+                <i className="pi pi-comment text-purple-500 text-xl"></i>
+              </div>
+            </div>
+            <span className="text-green-500 font-medium">12 </span>
+            <span className="text-500">newly joined</span>
+          </div>
+        </div>
       </div>
+
 
       <div className="overflow-x-auto">
         <div className='max-w-7xl mx-auto'>

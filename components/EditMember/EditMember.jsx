@@ -157,7 +157,7 @@ const EditMember = ({ member }) => {
 
                     <div className='w-1/2'>
                         <label className='text-xs'>*Freedom Fighter Rank</label>
-                        <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
+                        <Dropdown name='freedomFighterRank' options={fighterRanks} value={member?.freedomFighterRank?.rank || fighterRank}
                             onChange={(e) => {
                                 // handleChange(e)
                                 console.log(e.value);

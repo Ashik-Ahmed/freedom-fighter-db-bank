@@ -5,6 +5,8 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useEffect, useState } from 'react';
 import { RadioButton } from "primereact/radiobutton";
 import countryList from 'react-select-country-list'
+import { Controller, useForm } from 'react-hook-form';
+import { classNames } from 'primereact/utils';
 
 const AddNew = () => {
 
@@ -190,16 +192,27 @@ const AddNew = () => {
         event.target.reset()
     };
 
+
+    const { control, register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+
+    const getFormErrorMessage = (name) => {
+        return errors[name] ? <small className="p-error">{errors[name].message}</small> : <small className="p-error">&nbsp;</small>;
+    };
+
+    const addNew = (data) => {
+        console.log(data);
+    }
+
+
     return (
         <div>
 
             {/* add new member form  */}
             <div className='mx-auto max-w-7xl'>
 
-
-                {/* action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data'*/}
-                <form onSubmit={handleInsertNewMember} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
-                    <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
+                {/* <form onSubmit={handleInsertNewMember} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'> */}
+                <form onSubmit={handleSubmit(addNew)} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
+                    {/* <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
                     <div className='flex gap-x-6 my-4'>
                         <div className='w-1/2'>
                             <Dropdown name='category' options={categories} value={category}
@@ -313,8 +326,24 @@ const AddNew = () => {
                         <input name='file' type="file"
                             onChange={handleFileChange}
                             className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
-                    </div>
-
+                    </div> */}
+                    <Controller
+                        name="category"
+                        control={control}
+                        rules={{ required: 'Category is required.' }}
+                        render={({ field, fieldState }) => (
+                            <Dropdown
+                                value={field.value}
+                                placeholder="Member Category"
+                                name="city"
+                                options={categories}
+                                control={control}
+                                onChange={(e) => field.onChange(e.value)}
+                                className={classNames({ 'p-invalid': fieldState.error })}
+                            />
+                        )}
+                    />
+                    {getFormErrorMessage('category')}
                     <div className='text-end'>
                         <Button type='submit' label="Submit" className='p-button-info' />
                     </div>
