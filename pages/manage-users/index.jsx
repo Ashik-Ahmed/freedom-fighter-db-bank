@@ -83,8 +83,57 @@ const ManageUsers = () => {
         setUserRole(null);
     }
 
-    const pageCount = Math.ceil(users?.length / 10);
+    // change user role 
+    const toggleUserRole = (id, role) => {
+        console.log(id, role)
 
+        const info = {
+            role
+        }
+
+        fetch(`http://localhost:5000/api/v1/users/updateRole/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookie.get('TOKEN')}`
+            },
+            body: JSON.stringify(info)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data?.data?.modifiedCount) {
+                    console.log('Successfully Updated');
+                    fetchUsers();
+                }
+                else {
+                    console.log(data.error)
+                }
+            })
+
+
+        setUserRoleDialogue(false)
+    }
+
+    // delete a user 
+    const deleteUser = async (id) => {
+        await fetch(`http://localhost:5000/api/v1/users/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${cookie.get('TOKEN')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.data.deletedCount > 0) {
+                    console.log('Succefully Deleted User')
+                    fetchUsers();
+                }
+                if (data.error) {
+                    console.log(data.error);
+                }
+            })
+        setUserDeleteDialogue(false)
+    }
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
@@ -210,7 +259,7 @@ const ManageUsers = () => {
 
                         <div className='flex gap-x-2 mt-4 justify-end'>
                             <Button onClick={() => { setUserDeleteDialogue(false) }} label="No" icon="pi pi-times" outlined />
-                            <Button onClick={() => deleteUser(_id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                            <Button onClick={() => deleteUser(user?._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
                         </div>
                     </div>
                 </Dialog>
@@ -225,7 +274,7 @@ const ManageUsers = () => {
 
                     <div className='flex justify-center mt-12 gap-x-2'>
                         <Button label="No" icon="pi pi-times" onClick={() => setUserRoleDialogue(null)} className="p-button-danger p-button-sm btn normal-case" />
-                        <Button label="Yes" icon="pi pi-check" onClick={() => toggleUserRole(_id, role == 'admin' ? 'user' : 'admin')} className='p-button-sm p-button-info btn normal-case' />
+                        <Button label="Yes" icon="pi pi-check" onClick={() => toggleUserRole(user?._id, user?.role == 'admin' ? 'user' : 'admin')} className='p-button-sm p-button-info btn normal-case' />
                     </div>
                 </Dialog>
 
