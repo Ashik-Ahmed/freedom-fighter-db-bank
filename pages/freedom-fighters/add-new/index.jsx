@@ -212,7 +212,7 @@ const AddNew = () => {
 
                 {/* <form onSubmit={handleInsertNewMember} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'> */}
                 <form onSubmit={handleSubmit(addNew)} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
-                    {/* <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
+                    <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
                     <div className='flex gap-x-6 my-4'>
                         <div className='w-1/2'>
                             <Dropdown name='category' options={categories} value={category}
@@ -326,24 +326,66 @@ const AddNew = () => {
                         <input name='file' type="file"
                             onChange={handleFileChange}
                             className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
-                    </div> */}
-                    <Controller
-                        name="category"
-                        control={control}
-                        rules={{ required: 'Category is required.' }}
-                        render={({ field, fieldState }) => (
-                            <Dropdown
-                                value={field.value}
-                                placeholder="Member Category"
-                                name="city"
-                                options={categories}
+                    </div>
+                    {/* <div className='flex gap-x-6'>
+                        <div>
+                            <Controller
+                                name="category"
                                 control={control}
-                                onChange={(e) => field.onChange(e.value)}
-                                className={classNames({ 'p-invalid': fieldState.error })}
+                                rules={{ required: 'Category is required.' }}
+                                render={({ field, fieldState }) => (
+                                    <>
+                                        <Dropdown
+                                            value={field.value}
+                                            placeholder="Member Category"
+                                            name="category"
+                                            options={categories}
+                                            control={control}
+                                            onChange={(e) => field.onChange(e.value)}
+                                            className={classNames({ 'p-invalid': fieldState.error })}
+                                        />
+                                        <p>{getFormErrorMessage(field.name)}</p>
+                                    </>
+                                )}
                             />
-                        )}
-                    />
-                    {getFormErrorMessage('category')}
+                        </div>
+                        <div>
+                            <Controller
+                                name="freedomFighterRank"
+                                control={control}
+                                rules={{ required: 'Freedom Fighter Rank is required.' }}
+                                render={({ field, fieldState }) => (
+                                    <>
+                                        <Dropdown
+                                            value={field.value}
+                                            // disabled={field.value !== 'Freedom Fighter'}
+                                            placeholder="Freedom Fighter Rank"
+                                            name="freedomFighterRank"
+                                            options={fighterRanks}
+                                            control={control}
+                                            onChange={(e) => field.onChange(e.value)}
+                                            className={classNames({ 'p-invalid': fieldState.error })}
+                                        />
+                                        <p>{getFormErrorMessage(field.name)}</p>
+                                    </>
+                                )}
+                            />
+                        </div>
+
+                    </div>
+                    <div>
+                        <Controller
+                            name="name"
+                            control={control}
+                            rules={{ required: 'Name is required.' }}
+                            render={({ field, fieldState }) => (
+                                <>
+                                    <InputText id={field.name} value={field.value} className={classNames({ 'p-invalid': fieldState.error })} onChange={(e) => field.onChange(e.target.value)} />
+                                    <p>{getFormErrorMessage(field.name)}</p>
+                                </>
+                            )}
+                        />
+                    </div> */}
                     <div className='text-end'>
                         <Button type='submit' label="Submit" className='p-button-info' />
                     </div>
