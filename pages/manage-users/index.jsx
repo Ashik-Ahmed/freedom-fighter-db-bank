@@ -8,6 +8,9 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
 
 
 const ManageUsers = () => {
@@ -15,10 +18,19 @@ const ManageUsers = () => {
 
     const [addUserModal, setAddUserModal] = useState(null)
     const [users, setUsers] = useState();
-    const [totalData, setTotalData] = useState(10);
-    const [currentPage, setCurrentPage] = useState(0)
-    const [searchValue, setSearchValue] = useState('');
+    const [user, setUser] = useState(null)
     const [userRole, setUserRole] = useState(null);
+    const [userDetailsDialogue, setUserDetailsDialogue] = useState(false);
+    const [userRoleDialogue, setUserRoleDialogue] = useState(false);
+    const [userDeleteDialogue, setUserDeleteDialogue] = useState(false)
+
+    const [loading, setLoading] = useState(false)
+    const [globalFilterValue, setGlobalFilterValue] = useState('');
+    const [filters, setFilters] = useState({
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        email: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+    });
 
     const cookie = new Cookies();
 
@@ -73,6 +85,46 @@ const ManageUsers = () => {
 
     const pageCount = Math.ceil(users?.length / 10);
 
+
+    const onGlobalFilterChange = (e) => {
+        const value = e.target.value;
+        let _filters = { ...filters };
+
+        _filters['global'].value = value;
+
+        setFilters(_filters);
+        setGlobalFilterValue(value);
+    };
+
+    const header = (
+        <div className="flex flex-wrap gap-2 justify-content-between align-items-center">
+            <h4 className="m-0 text-lg">Member List</h4>
+            <span className="p-input-icon-left">
+                <i className="pi pi-search" />
+                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+            </span>
+        </div>
+    );
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <div>
+                <Button onClick={() => {
+                    setUser(rowData)
+                    setUserDetailsDialogue(true)
+                }} icon="pi pi-info" rounded outlined className="mr-2 p-button-sm p-button-info" />
+                <Button onClick={() => {
+                    setUser(rowData);
+                    setUserRoleDialogue(true)
+                }} icon="pi pi-user" rounded outlined className={`${rowData.role == 'admin' && 'grayscale'} mr-2 p-button p-button-sm p-button-success`} />
+                <Button onClick={() => {
+                    setUser(rowData)
+                    setUserDeleteDialogue(true)
+                }} icon="pi pi-trash" rounded outlined severity="danger" className='p-button-sm p-button-danger' />
+            </div >
+        )
+    }
+
     return (
         <div className='mx-auto'>
             <div className='flex justify-between my-2'>
@@ -111,40 +163,73 @@ const ManageUsers = () => {
                             <Button label="Cancel" icon="pi pi-times" onClick={() => {
                                 setAddUserModal(false);
                                 setUserRole(null)
-                            }} />
+                            }} className='p-button-danger' />
                             <Button type='submit' label="Submit" icon="pi pi-check" />
                         </div>
                     </form>
                 </Dialog>
+            </div>
+            <div className='p-2 bg-white border-2 shadow-md rounded-md'>
 
-                {/* <Button onClick={() => setAddMemberModal(true)} icon='pi pi-user-plus' label='Add User' className='flex items-center gap-x-2'></Button> */}
-                {/* {
-                    addMemberModal &&
+                <DataTable value={users} header={header} paginator rows={7} rowsPerPageOptions={[10, 25, 50]}
+                    filters={filters} filterDisplay="menu" globalFilterFields={['name', 'email']} emptyMessage="No Members found."
+                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="80vh" loading={loading} stripedRows removableSort >
+                    <Column header='Name' field='name' sortable></Column>
+                    <Column header='Email' field='email'></Column>
+                    <Column header='Role' field='role'></Column>
+                    <Column header='Action' body={actionBodyTemplate}></Column>
+                </DataTable>
 
-                    // Add Member Modal
-                    <div class="bg-slate-600 bg-opacity-40 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
-                        <div class="bg-white px-2 py-2 rounded-md text-center">
-                            <button onClick={() => setAddMemberModal(null)} className='text-black font-bold float-right bg-gray-300 px-3 py-1 rounded-full relative'>X</button>
-                            <div className='m-10'>
-                                <h1 class="text-2xl mb-4 font-bold text-primary underline">Add New User</h1>
-                                <form onSubmit={addUser} className='flex flex-col gap-4'>
-                                    <input type="text" name='fullName' placeholder='Full Name' className='input bg-gray-200 text-gray-700' required />
-                                    <input type="email" name='email' placeholder='Email' className='input bg-gray-200 text-gray-700' required />
-                                    <select name='role' className="p-2 rounded-md bg-gray-200 mb-2 text-gray-400" required>
-                                        <option value='' disabled selected>Role</option>
-                                        <option value='admin'>Admin</option>
-                                        <option value='user'>User</option>
-                                    </select>
-                                    <button type='submit' class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold cursor-pointer" >Submit</button>
-                                </form>
-                            </div>
+                {/* user details view dialog box  */}
+                <Dialog header="User Details" visible={userDetailsDialogue} onHide={() => { setUserDetailsDialogue(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className='text-center'>
+                        <i className='pi pi-user text-primary' style={{ 'fontSize': '2em' }}></i>
+                        <div className='my-6 text-left'>
+                            <p className='text-lg text-slate-500'>Name: {user?.name}</p>
+                            <p className='text-lg text-slate-500'>Email: {user?.email}</p>
+                            <p className='text-lg text-slate-500'>Role: {user?.role}</p>
                         </div>
                     </div>
-                } */}
 
-            </div>
-            <div className='p-1 bg-white border-2 shadow-md rounded-md'>
-                <div className='flex justify-between items-center mb-1'>
+                    <div className='flex justify-end mt-12 gap-x-2'>
+                        <Button label="Close" icon="pi pi-times" onClick={() => { setUserDetailsDialogue(false) }} className="p-button-danger" />
+                    </div>
+                </Dialog>
+
+                {/* user delete dialog box  */}
+                <Dialog header="Delete User" visible={userDeleteDialogue} onHide={() => { setUserDeleteDialogue(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className="confirmation-content">
+                        <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
+                        {user?.name && (
+                            <span>
+                                Delete <b>{user?.name}</b>?
+                            </span>
+                        )}
+
+                        <div className='flex gap-x-2 mt-4 justify-end'>
+                            <Button onClick={() => { setUserDeleteDialogue(false) }} label="No" icon="pi pi-times" outlined />
+                            <Button onClick={() => deleteUser(_id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                        </div>
+                    </div>
+                </Dialog>
+
+                {/* Change role dialog box */}
+                <Dialog header="Change Role" visible={userRoleDialogue} onHide={() => { setUserRoleDialogue(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className='text-center mt-2'>
+                        <i className='pi pi-arrow-right-arrow-left'></i>
+                        <h1 class="text-xl mb-4 font-bold text-slate-500">Change role to {user?.role == 'admin' ? 'User' : 'Admin'}</h1>
+                    </div>
+
+                    <div className='flex justify-center mt-12 gap-x-2'>
+                        <Button label="No" icon="pi pi-times" onClick={() => setUserRoleDialogue(null)} className="p-button-danger p-button-sm btn normal-case" />
+                        <Button label="Yes" icon="pi pi-check" onClick={() => toggleUserRole(_id, role == 'admin' ? 'user' : 'admin')} className='p-button-sm p-button-info btn normal-case' />
+                    </div>
+                </Dialog>
+
+                {/* <div className='flex justify-between items-center mb-1'>
                     <div className='text-gray-800 text-xl font-bold'>
                         <p>Manage Users</p>
                     </div>
@@ -178,11 +263,8 @@ const ManageUsers = () => {
                         }
                     </tbody>
                 </table>
-                {/* <div className='flex w-full justify-between text-primary p-2 bg-gray-100 rounded-b-md'> */}
                 <div className='w-full text-gray-600 p-1 bg-white rounded-b-md'>
-                    {/* <div>
-                    <p>Showing {users?.length > 10 ? '10' : users?.length} of {users?.length} data</p>
-                </div> */}
+                   
                     <ReactPaginate
                         breakLabel="..."
                         nextLabel="next >"
@@ -194,7 +276,7 @@ const ManageUsers = () => {
                         className='flex gap-x-4 justify-center items-center'
                         activeClassName='bg-primary/30 text-gray-900 px-2 py-1 rounded-full font-semibold btn btn-circle btn-info'
                     />
-                </div>
+                </div> */}
             </div>
         </div >
     );
