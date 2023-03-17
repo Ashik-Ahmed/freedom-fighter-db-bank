@@ -59,9 +59,9 @@ const Sidebar = ({ user, setUser }) => {
         //     </span>
         // </div >
 
-        <section className={`flex gap-6 bg-primary/70 scrollbar-thin ${open && 'px-4'}`}>
+        <section className={`flex gap-6 bg-primary/70 overflow-scroll scrollbar-none ${open && 'px-2'}`}>
             <div
-                className={` ${open ? "w-[20vw]" : "w-20"
+                className={` ${open ? "w-[24vw]" : "w-20"
                     } duration-700 text-gray-100 px-2`}
             >
                 <div className="py-3 flex justify-between items-center">

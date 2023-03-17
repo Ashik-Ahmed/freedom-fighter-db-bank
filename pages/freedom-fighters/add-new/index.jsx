@@ -179,7 +179,7 @@ const AddNew = () => {
                 'encType': 'multipart/form-data'
             },
             // do not stringify. if you do, backend will not get the data
-            body: userDataWithPhoto
+            body: JSON.stringify(userDataWithPhoto)
         })
             .then(res => res.json())
             .then(data => {
@@ -210,8 +210,8 @@ const AddNew = () => {
             {/* add new member form  */}
             <div className='mx-auto max-w-7xl'>
 
-                {/* <form onSubmit={handleInsertNewMember} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'> */}
-                <form onSubmit={handleSubmit(addNew)} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
+                <form onSubmit={handleInsertNewMember} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
+                    {/* <form onSubmit={handleSubmit(addNew)} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'> */}
                     <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
                     <div className='flex gap-x-6 my-4'>
                         <div className='w-1/2'>

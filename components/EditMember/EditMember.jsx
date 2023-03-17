@@ -4,20 +4,21 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
 import React, { useState } from 'react';
+import countryList from 'react-select-country-list';
 
-const EditMember = ({ member }) => {
+const EditMember = ({ member, getAllMembers, setEditMemberDialogue }) => {
 
     console.log(member);
 
-    const [rank, setRank] = useState()
     const [fighterRank, setFighterRank] = useState('');
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState();
     const [category, setCategory] = useState()
-    const [force, setForce] = useState()
-    const [file, setFile] = useState(null);
     const [career, setCareer] = useState('')
-    const [ingredient, setIngredient] = useState('');
+    const [force, setForce] = useState()
+    const [rank, setRank] = useState()
+    const [file, setFile] = useState(null);
+    const [ingredient, setIngredient] = useState(member.status);
     const [formData, setFormData] = useState({});
 
     const categories = [
@@ -140,6 +141,39 @@ const EditMember = ({ member }) => {
         e.preventDefault();
 
         console.log('Editing Member');
+        console.log(formData);
+
+        const updatedMemberData = new FormData();
+        Object.keys(formData).forEach((key) => {
+            // updatedMemberData.append(key, formData[key]);
+            // console.log(typeof formData[key]);
+            if (typeof formData[key] == 'object') {
+                updatedMemberData.append(key, JSON.parse(formData[key]));
+                // console.log(userDataWithPhoto.get(key));
+            }
+
+            else {
+                updatedMemberData.append(key, formData[key]);
+            }
+        });
+
+        const url = `http://localhost:5000/api/v1/freedomFighters/${member._id}`;
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status == 'Success') {
+                    getAllMembers()
+                    setEditMemberDialogue(false)
+                }
+                console.log(data)
+            })
     }
 
     return (
@@ -152,12 +186,12 @@ const EditMember = ({ member }) => {
                             onChange={(e) => {
                                 handleChange(e)
                                 setCategory(e.value)
-                            }} placeholder="*Select Member Category" className='text-black w-full' required />
+                            }} placeholder="*Select Member Category" className='text-black w-full' />
                     </div>
 
                     <div className='w-1/2'>
                         <label className='text-xs'>*Freedom Fighter Rank</label>
-                        <Dropdown name='freedomFighterRank' options={fighterRanks} value={member?.freedomFighterRank?.rank || fighterRank}
+                        <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
                             onChange={(e) => {
                                 // handleChange(e)
                                 console.log(e.value);
@@ -170,13 +204,13 @@ const EditMember = ({ member }) => {
                         <label className='text-xs'>*Full Name</label>
                         <InputText name='fullName' id='fullName'
                             onChange={handleChange}
-                            className='w-full' value={member.name} disabled required />
+                            className='w-full' placeholder={member.name} disabled />
                     </div>
                     <div className='w-1/2'>
                         <label className='text-xs'>*Email</label>
                         <InputText name='email' id='email'
                             onChange={handleChange}
-                            className='w-full' value={member.email} disabled required />
+                            className='w-full' placeholder={member.email} disabled />
                     </div>
                 </div>
                 <div className='flex w-full gap-x-6 items-center my-4'>
@@ -184,15 +218,15 @@ const EditMember = ({ member }) => {
                         <label className='text-xs'>*Contact No.</label>
                         <InputText name='mobile' id='mobile'
                             onChange={handleChange}
-                            className='w-full' value={member.mobile} required />
+                            className='w-full' placeholder={member.mobile} />
                     </div>
                     <div className='w-1/3'>
                         <label className='text-xs'>*Country</label>
-                        <Dropdown name='country' options={countries} value={member?.country}
+                        <Dropdown name='country' options={countryList().getLabels()} value={country}
                             onChange={(e) => {
                                 handleChange(e)
                                 setCountry(e.value)
-                            }} placeholder="*Select a Country" className='text-black w-full' required />
+                            }} placeholder="*Select a Country" className='text-black w-full' />
                     </div>
                     <div className='w-1/3'>
                         <label className='mr-8 text-gray-600 text-xs'>*Status: </label>
@@ -202,14 +236,14 @@ const EditMember = ({ member }) => {
                                     <RadioButton inputId="status1" name="status" value="Alive" onChange={(e) => {
                                         handleChange(e)
                                         setIngredient(e.value)
-                                    }} checked={ingredient === 'Alive' || member.status == 'Alive'} />
+                                    }} checked={ingredient === 'Alive'} />
                                     <label htmlFor="status1" className="ml-2">Alive</label>
                                 </div>
                                 <div className="flex align-items-center">
                                     <RadioButton inputId="status2" name="status" value="Dead" onChange={(e) => {
                                         handleChange(e)
                                         setIngredient(e.value)
-                                    }} checked={ingredient === 'Dead' || member.status == 'Dead'} />
+                                    }} checked={ingredient === 'Dead'} />
                                     <label htmlFor="status2" className="ml-2">Dead</label>
                                 </div>
                             </div>
@@ -233,24 +267,24 @@ const EditMember = ({ member }) => {
                 <div className='flex w-full gap-x-6 my-4'>
                     <div className='w-1/3'>
                         <label className='text-xs'>*Career Status</label>
-                        <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={member.careerStatus || career}
+                        <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={career}
                             onChange={(e) => {
                                 handleChange(e)
                                 setCareer(e.value)
-                            }} placeholder="*Select Career" className='text-black w-full' required />
+                            }} placeholder="*Select Career" className='text-black w-full' />
                     </div>
                     <div className='w-1/3'>
                         <label className='text-xs'>*Force</label>
-                        <Dropdown name='force' options={forces} value={member?.force || force}
+                        <Dropdown name='force' options={forces} value={force}
                             onChange={(e) => {
-                                // handleChange(e)
+                                handleChange(e)
                                 setForce(e.value)
                             }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                     </div>
                     <div className='w-1/3'>
                         <label className='text-xs'>*Official Rank</label>
-                        <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={member?.officialRank?.rank || rank} onChange={(e) => {
-                            // handleChange(e)
+                        <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
+                            handleChange(e)
                             setRank(e.value)
                         }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                     </div>
@@ -261,7 +295,7 @@ const EditMember = ({ member }) => {
                             <label className='text-xs'>*Address</label>
                             <InputTextarea name='address' id='address'
                                 onChange={handleChange}
-                                className=" w-full" placeholder={member?.address} required />
+                                className=" w-full" placeholder={member?.address} />
                         </div>
                     </div>
                     <div className="relative w-1/2">
@@ -273,12 +307,12 @@ const EditMember = ({ member }) => {
                         </div>
                     </div>
                 </div>
-                <div className='relative'>
+                {/* <div className='relative'>
                     <label className='text-gray-400 ml-1'>Photo</label>
                     <input name='file' type="file"
                         onChange={handleFileChange}
                         className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
-                </div>
+                </div> */}
 
                 <div className='text-end'>
                     <Button type='submit' label="Submit" className='p-button-info' />

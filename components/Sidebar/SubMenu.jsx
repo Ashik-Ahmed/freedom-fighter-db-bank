@@ -5,7 +5,7 @@ const SubMenu = ({ menuItem, open }) => {
     return (
         <Link
             href={menuItem?.link}
-            className={` ${menuItem?.margin && "mt-4"} ${open && 'py-2'} group flex items-center text-sm  gap-3 font-medium  px-2 hover:bg-primary rounded-md ml-3`}>
+            className={` ${menuItem?.margin && "mt-4"} ${open && 'py-2'} group flex items-center text-sm  gap-3 font-medium  px-2 hover:bg-primary rounded-md ml-3 transition-all ease-in duration-200`}>
             <div className=''>{React.createElement(menuItem?.icon, { size: "20" })}</div>
             <h2>
                 {menuItem?.name}

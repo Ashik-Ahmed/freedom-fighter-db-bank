@@ -156,7 +156,7 @@ const Home = () => {
                 <Button onClick={() => {
                     setMember(rowData);
                     setEditMemberDialogue(true)
-                }} icon="pi pi-user-edit" rounded outlined className='p-button-sm p-button-success mr-2' />
+                }} icon="pi pi-user-edit" rounded outlined className='p-button p-button-sm p-button-success mr-2' />
                 <Button onClick={() => {
                     setMember(rowData)
                     setDeleteMemberDialogue(true)
@@ -181,9 +181,9 @@ const Home = () => {
             </div>
 
             {/* edit member dialog box  */}
-            <Dialog header="Edit Member" visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '70vw' }} >
+            <Dialog header={`Edit Member: ${member?.name}`} visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '70vw' }} >
                 <div className='mx-auto max-w-7xl'>
-                    <EditMember member={member} />
+                    <EditMember member={member} getAllMembers={getAllMembers} setEditMemberDialogue={setEditMemberDialogue} />
 
                     {/* action='http://localhost:5000/api/v1/freedomFighters' method='POST' encType='multipart/form-data'*/}
                     {/* <form onSubmit={handleEditMember} className='space-y-4 bg-gray-100 bg-opacity-90 p-4 shadow-xl rounded-md'>
@@ -299,7 +299,7 @@ const Home = () => {
             </Dialog >
 
             {/* dialogue delete member from primary selected  */}
-            <Dialog visible={deleteMemberDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Confirm" modal onHide={() => setDeleteMemberDialogue(false)}>
+            < Dialog visible={deleteMemberDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Confirm" modal onHide={() => setDeleteMemberDialogue(false)}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
                     {member && (
@@ -313,7 +313,7 @@ const Home = () => {
                         <Button label="Yes" icon="pi pi-check" severity="danger" onClick={() => handleDeleteMember(member._id)} className='p-button-danger' />
                     </div>
                 </div>
-            </Dialog>
+            </Dialog >
 
             {/* <div className="overflow-x-auto">
                 <div className='max-w-6xl mx-auto'>
