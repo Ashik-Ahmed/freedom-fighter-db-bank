@@ -4,6 +4,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useEffect, useState } from 'react';
+import { Accordion, AccordionTab } from 'primereact/accordion';
 import FreedomFighter from '..';
 import { getSingleFreedomFighter } from '../../../../controllers/freedomFighter.controller';
 
@@ -12,11 +13,27 @@ const ComplaintHistory = () => {
     const router = useRouter();
     const { id } = router.query;
     const [freedomFighter, setFreedomFighter] = useState()
+    // const [complaints, setComplaints] = useState(null)
     const [addComplaintDialog, setAddComplaintDialog] = useState(false)
+
+
+    // get all complaints 
+    // const getAllComplaints = () => {
+
+    //     const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
+
+    //     fetch(url)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             setComplaints(data.data)
+    //         })
+    // }
 
     useEffect(() => {
         getSingleFreedomFighter(id)
             .then(data => setFreedomFighter(data))
+        // getAllComplaints()
     }, [id])
 
     // add new complaint 
@@ -49,8 +66,14 @@ const ComplaintHistory = () => {
             })
     }
 
-    // get all complaints 
-    // const getAllComplaints
+    const accordionHeader = (complaint) => {
+        return (
+            <div>
+                <p>{complaint.issue}</p>
+                <p>{complaint.status}</p>
+            </div>
+        )
+    }
 
     return (
         <FreedomFighter>
@@ -62,10 +85,32 @@ const ComplaintHistory = () => {
                     <Button onClick={() => setAddComplaintDialog(true)} icon='pi pi-plus' label='Register new Complain' className='p-button-sm'></Button>
                 </div>
                 {
-                    !freedomFighter?.complaint &&
-                    <div className='text-center my-auto border-2 h-full'>
-                        <p>No Complaints Yet..</p>
-                    </div>
+                    freedomFighter?.complaints ?
+                        <div>
+                            {
+                                freedomFighter.complaints.map((complaint, index) => {
+                                    return (
+                                        <div key={index} className='mt-1'>
+                                            <Accordion>
+                                                <AccordionTab header={() => accordionHeader(complaint)}>
+                                                    <p className="m-0">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                    </p>
+                                                </AccordionTab>
+                                            </Accordion>
+                                        </div>
+
+                                    )
+                                })
+                            }
+                        </div>
+                        :
+                        <div className='text-center my-auto border-2 h-full'>
+                            <p>No Complaints Yet..</p>
+                        </div>
 
                 }
 
@@ -78,8 +123,8 @@ const ComplaintHistory = () => {
                     </form>
                 </Dialog>
 
-            </div>
-        </FreedomFighter>
+            </div >
+        </FreedomFighter >
     );
 };
 
