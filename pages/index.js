@@ -733,7 +733,6 @@ export default function Home() {
                   <Column field="name" header="Name" sortable style={{ width: '35%' }} />
                   <Column field="category" header="Category" sortable style={{ width: '35%' }} />
                   <Column field="mobile" header="Contact" sortable style={{ width: '35%' }} />
-
                 </DataTable>
               </div>
             </div>

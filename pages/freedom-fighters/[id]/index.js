@@ -55,29 +55,28 @@ const FreedomFighter = ({ query, children }) => {
     }
 
     return (
-        <div className='text-primary'>
-            <div className='max-w-7xl mx-auto m-12 bg-white rounded-md'>
-                <div className='flex p-4 gap-x-12'>
-                    <div className='flex flex-col justify-between bg-secondary bg-opacity-40 p-4 w-1/3 min-h-96'>
-                        <div className="flex justify-between items-center w-full mb-8">
-                            <div className=''>
-                                <p> <span className='text-xl font-bold'>{freedomFighter?.name}</span> <span className='italic'>({freedomFighter?.force})</span></p>
-                                <p> <span className='font-semibold'>ID No.</span> {freedomFighter?.id || 'N/A'} </p>
-                                <p><span className='font-semibold'>Designation:</span> {freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
-                            </div>
-                            <div className="avatar">
-                                <div className="w-28">
-                                    <Image
-                                        priority
-                                        // src={freedomFighter.photo ? `/profilePhotos/${freedomFighter.photo}` : photo} alt='freedomFighterPhoto'
-                                        src={freedomFighter.profilePhoto ? `data:image/png;base64, ${profileImg}` : photo} alt='freedomFighterPhoto'
-                                        width='112'
-                                        height='100'
-                                        className='border border-primary' />
-                                </div>
+        <div className='max-w-7xl mx-auto rounded-md'>
+            <div className='flex gap-x-12'>
+                <div className='flex flex-col justify-between  bg-white p-4 w-1/3 min-h-screen'>
+                    <div>
+                        <div className="avatar">
+                            <div className="w-28">
+                                <Image
+                                    priority
+                                    // src={freedomFighter.photo ? `/profilePhotos/${freedomFighter.photo}` : photo} alt='freedomFighterPhoto'
+                                    src={freedomFighter.profilePhoto ? `data:image/png;base64, ${profileImg}` : photo} alt='freedomFighterPhoto'
+                                    width='112'
+                                    height='100'
+                                    className='border border-primary' />
                             </div>
                         </div>
-                        {/* <p>Contact: {freedomFighter?.mobile}</p>
+                        <div className='text-gray-700 mt-4'>
+                            <p> <span className='text-xl font-bold'>{freedomFighter?.name}</span> <span className='italic'>({freedomFighter?.force})</span></p>
+                            <p> <span className='font-semibold'>ID No.</span> {freedomFighter?.id || 'N/A'} </p>
+                            <p><span className='font-semibold'>Designation:</span> {freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
+                        </div>
+                    </div>
+                    {/* <p>Contact: {freedomFighter?.mobile}</p>
                         <p>Email: {freedomFighter?.email}</p>
                         <p>Address: {freedomFighter?.address}</p>
                         <p>Status: {freedomFighter?.status}</p>
@@ -87,22 +86,21 @@ const FreedomFighter = ({ query, children }) => {
                         <p>Freedom Fighter Rank: {freedomFighter?.freedomFighterRank.rank}</p>
                         <p>Invited Year: {freedomFighter?.invited?.map((year, index) => <span key={index}>{year}, </span>)}</p> */}
 
-                        <div className='flex flex-col gap-y-2 mb-0'>
-                            <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'> <span >Details</span></Link>
-                            {
-                                freedomFighter?.successor.length > 0 ?
-                                    <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Successor Info</span></Link>
-                                    :
-                                    <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Add Successor</span></Link>
-                            }
-                            <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Complaint History</span></Link>
-                        </div>
-                    </div>
-                    <div className='w-2/3'>
-                        {children}
+                    <div className='flex flex-col gap-y-2 mb-0'>
+                        <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='p-button'> <span >Details</span></Link>
+                        {
+                            freedomFighter?.successor.length > 0 ?
+                                <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='p-button'><span >Successor Info</span></Link>
+                                :
+                                <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='p-button'><span >Add Successor</span></Link>
+                        }
+                        <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='p-button'><span >Complaint History</span></Link>
                     </div>
                 </div>
-            </div>
+                <div className='w-2/3'>
+                    {children}
+                </div>
+            </div >
         </div >
     );
 };
