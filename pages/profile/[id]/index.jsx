@@ -93,16 +93,18 @@ const MyProfile = () => {
             updatedInfo.append(key, formData[key]);
         });
 
-        console.log(updatedInfo);
+        console.log(formData);
 
         fetch(`http://localhost:5000/api/v1/users/updateUserProfile/${user._id}`, {
             method: 'PATCH',
             headers: {
-                'encType': 'multipart/form-data',
+                // 'encType': 'multipart/form-data',
+                'content-type': 'application/json',
                 authorization: `Bearer ${cookie.get('TOKEN')}`
             },
             // body: JSON.stringify(updatedProfile)
-            body: updatedInfo
+            // body: updatedInfo
+            body: JSON.stringify(formData)
         })
             .then(res => res.json())
             .then(data => {
@@ -194,7 +196,7 @@ const MyProfile = () => {
                         </div>
                         <div className='flex items-baseline justify-between mt-1'>
                             <p className='font-bold w-1/3'>Birthday</p>
-                            <span className='w-2/3'>: {user?.birthday || 'N/A'}</span>
+                            <span className='w-2/3'>: {user?.birthday?.slice(0, 10) || 'N/A'}</span>
                         </div>
                         <div className='flex items-baseline justify-between mt-1'>
                             <p className='font-bold w-1/3'>Phone</p>
@@ -340,7 +342,10 @@ const MyProfile = () => {
                                     </label>
                                     {/* <InputText name='birthday' type="date" placeholder="Type here" className="w-full max-w-xs bg-gray-200 text-gray-700" /> */}
 
-                                    <Calendar dateFormat="dd-mm-yy" name='birthday' placeholder={user?.birthday} onChange={handleChange} maxDate={new Date()} showIcon></Calendar>
+                                    <Calendar dateFormat="yy-mm-dd" name='birthday' placeholder={user?.birthday?.slice(0, 10)} onChange={(e) => {
+                                        console.log(e.value);
+                                        handleChange(e)
+                                    }} maxDate={new Date()} showIcon></Calendar>
 
                                 </div>
                             </div>

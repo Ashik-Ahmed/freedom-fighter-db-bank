@@ -12,6 +12,8 @@ import { getFreedomFighters } from '../controllers/freedomFighter.controller';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Skeleton } from 'primereact/skeleton';
+import Link from 'next/link';
+import { Chart } from 'primereact/chart';
 
 
 export default function Home() {
@@ -369,6 +371,28 @@ export default function Home() {
 
   };
 
+  const lineData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'First Dataset',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        backgroundColor: '#2f4860',
+        borderColor: '#2f4860',
+        tension: 0.4
+      },
+      {
+        label: 'Second Dataset',
+        data: [28, 48, 40, 19, 86, 27, 90],
+        fill: false,
+        backgroundColor: '#00bb7e',
+        borderColor: '#00bb7e',
+        tension: 0.4
+      }
+    ]
+  };
+
   return (
     <div>
       <Head>
@@ -416,7 +440,7 @@ export default function Home() {
       </div> */}
 
 
-      <div className="grid mt-2">
+      <div className="grid mt-1">
         <div className="col-12 md:col-6 lg:col-3">
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
@@ -609,7 +633,7 @@ export default function Home() {
               </form>
             </div>
           </Dialog >
-          <div className='p-2 border-2 shadow-md bg-white rounded-md mb-4'>
+          {/* <div className='p-2 border-2 shadow-md bg-white rounded-md mb-4'>
             <div className='flex justify-between items-center mb-2'>
               <div className='text-gray-800 text-xl font-bold'>
                 <p>Member List</p>
@@ -663,21 +687,6 @@ export default function Home() {
             </table>
 
 
-            {/* <div className="card">
-              <DataTable value={freedomFightersData} lazy stripedRows removableSort responsiveLayout="scroll" dataKey="name"
-                paginator first={lazyParams.first} rows={10} totalRecords={totalData} onPage={onPage} filters={filters}
-                loading={loading} globalFilter={globalFilter}>
-                <Column sortable field="name" header="Name"></Column>
-                <Column field="force" header="Force" ></Column>
-                <Column field="officialRank.rank" header="Official Rank"></Column>
-                <Column field="freedomFighterRank.rank" header="Freedom Fighter Rank"></Column>
-                <Column field="status" header="Status" ></Column>
-                <Column field="invited" header="Attended"></Column>
-                <Column field="color" header="Action"></Column>
-              </DataTable>
-            </div> */}
-
-
             <div className='w-full text-gray-600 p-2 bg-white rounded-b-md'>
               <ReactPaginate
                 breakLabel="..."
@@ -692,6 +701,38 @@ export default function Home() {
                 activeClassName='bg-primary/30 text-gray-900 px-4 py-2 rounded-full font-semibold btn btn-circle btn-info'
               />
             </div>
+          </div> */}
+          <div className="flex ">
+            <div className="flex flex-col gap-4 col-12 xl:col-6">
+              <div className=''>
+                <div className=" p-4 bg-white shadow-lg">
+                  <h5 className='text-gray-700'>Sales Overview</h5>
+                  <Chart type="bar" data={lineData} />
+                </div>
+              </div>
+              <div className=''>
+                <div className=" p-4 bg-white shadow-lg">
+                  <h5 className='text-gray-700'>Sales Overview</h5>
+                  <Chart type="line" data={lineData} />
+                </div>
+              </div>
+            </div>
+            <div className="col-12 xl:col-6">
+              <div className=" p-4 bg-white shadow-lg">
+                <div className="flex justify-between text-gray-700 mb-1">
+                  <h5 className='text-gray-700'>New Members</h5>
+                  <Link href='/freedom-fighters' className='hover:bg-primary rounded px-1 transition-all ease-in duration-200'>Browse All</Link>
+                </div>
+                <DataTable value={freedomFightersData} rows={5} responsiveLayout="scroll" scrollHeight="60vh">
+                  {/* <Column header="Image" body={(data) => <img className="shadow-2" src={`${contextPath}/demo/images/product/${data.image}`} alt={data.image} width="50" />} /> */}
+                  <Column field="name" header="Name" sortable style={{ width: '35%' }} />
+                  <Column field="category" header="Category" sortable style={{ width: '35%' }} />
+                  <Column field="mobile" header="Name" sortable style={{ width: '35%' }} />
+
+                </DataTable>
+              </div>
+            </div>
+
           </div>
         </div >
       </div >
