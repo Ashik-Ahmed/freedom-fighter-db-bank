@@ -19,6 +19,7 @@ const ComplaintHistory = () => {
             .then(data => setFreedomFighter(data))
     }, [id])
 
+    // add new complaint 
     const handleAddComplaint = (e) => {
         e.preventDefault()
         const complaint = {
@@ -26,7 +27,30 @@ const ComplaintHistory = () => {
             details: e.target.details.value
         }
         console.log(complaint);
+
+        const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(complaint)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status == 'Success') {
+                    console.log(data.message);
+                    setAddComplaintDialog(false)
+                }
+                else {
+                    console.log(data.error);
+                }
+            })
     }
+
+    // get all complaints 
+    // const getAllComplaints
 
     return (
         <FreedomFighter>
