@@ -95,7 +95,7 @@ const FreedomFighter = ({ query, children }) => {
                                     :
                                     <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Add Successor</span></Link>
                             }
-                            <p className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Complaint History</span></p>
+                            <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='bg-primary bg-opacity-80 p-2 text-white hover:bg-secondary'><span >Complaint History</span></Link>
                         </div>
                     </div>
                     <div className='w-2/3'>

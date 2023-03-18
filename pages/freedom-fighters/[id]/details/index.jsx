@@ -21,7 +21,7 @@ const Details = () => {
         <FreedomFighter>
             <div>
                 <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
-                    <h3>Freedom Fighter Details</h3>
+                    <h3>Member Details</h3>
                 </div>
                 <div className='p-4 space-y-4'>
                     <div className='border border-fray-100 shadow-md rounded-md p-2'>
