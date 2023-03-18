@@ -14,6 +14,11 @@ import { Column } from 'primereact/column';
 import { Skeleton } from 'primereact/skeleton';
 import Link from 'next/link';
 import { Chart } from 'primereact/chart';
+import fighterLogo from '../Images/freedom-fighter-logo.png'
+import generalMember from '../Images/general-member-icon.png'
+import retiredOfficers from '../Images/retired-officers-icon.png'
+
+import Image from 'next/image';
 
 
 export default function Home() {
@@ -449,7 +454,7 @@ export default function Home() {
                 <div className="text-900 font-medium text-xl">680</div>
               </div>
               <div className="flex align-items-center justify-content-center bg-blue-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
-                <i className="pi pi-shopping-cart text-blue-500 text-xl"></i>
+                <i className="pi pi-users text-blue-500 text-xl"></i>
               </div>
             </div>
             <span className="text-green-500 font-medium">62 new </span>
@@ -464,7 +469,7 @@ export default function Home() {
                 <div className="text-900 font-medium text-xl">180</div>
               </div>
               <div className="flex align-items-center justify-content-center bg-orange-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
-                <i className="pi pi-map-marker text-orange-500 text-xl"></i>
+                <i className="text-orange-500 text-xl"> <Image src={fighterLogo} alt='Freedom Fighter Icon' height={25} width={25}></Image></i>
               </div>
             </div>
             <span className="text-green-500 font-medium">All </span>
@@ -479,7 +484,7 @@ export default function Home() {
                 <div className="text-900 font-medium text-xl">300</div>
               </div>
               <div className="flex align-items-center justify-content-center bg-cyan-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
-                <i className="pi pi-inbox text-cyan-500 text-xl"></i>
+                <i className=" text-cyan-500 text-xl"><Image src={generalMember} alt='Freedom Fighter Icon' height={30} width={30}></Image></i>
               </div>
             </div>
             <span className="text-green-500 font-medium">16  </span>
@@ -494,7 +499,7 @@ export default function Home() {
                 <div className="text-900 font-medium text-xl">152</div>
               </div>
               <div className="flex align-items-center justify-content-center bg-purple-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
-                <i className="pi pi-comment text-purple-500 text-xl"></i>
+                <i className=" text-purple-500 text-xl"><Image src={retiredOfficers} alt='Freedom Fighter Icon' height={22} width={22}></Image></i>
               </div>
             </div>
             <span className="text-green-500 font-medium">12 </span>
@@ -703,14 +708,14 @@ export default function Home() {
             </div>
           </div> */}
           <div className="flex ">
-            <div className="flex flex-col gap-4 col-12 xl:col-6">
-              <div className=''>
+            <div className="flex flex-col col-12 xl:col-6">
+              <div className='col-12'>
                 <div className=" p-4 bg-white shadow-lg">
                   <h5 className='text-gray-700'>Sales Overview</h5>
                   <Chart type="bar" data={lineData} />
                 </div>
               </div>
-              <div className=''>
+              <div className='col-12'>
                 <div className=" p-4 bg-white shadow-lg">
                   <h5 className='text-gray-700'>Sales Overview</h5>
                   <Chart type="line" data={lineData} />
@@ -723,11 +728,11 @@ export default function Home() {
                   <h5 className='text-gray-700'>New Members</h5>
                   <Link href='/freedom-fighters' className='hover:bg-primary rounded px-1 transition-all ease-in duration-200'>Browse All</Link>
                 </div>
-                <DataTable value={freedomFightersData} rows={5} responsiveLayout="scroll" scrollHeight="60vh">
+                <DataTable value={freedomFightersData} removableSort rows={5} responsiveLayout="scroll" scrollHeight="86vh">
                   {/* <Column header="Image" body={(data) => <img className="shadow-2" src={`${contextPath}/demo/images/product/${data.image}`} alt={data.image} width="50" />} /> */}
                   <Column field="name" header="Name" sortable style={{ width: '35%' }} />
                   <Column field="category" header="Category" sortable style={{ width: '35%' }} />
-                  <Column field="mobile" header="Name" sortable style={{ width: '35%' }} />
+                  <Column field="mobile" header="Contact" sortable style={{ width: '35%' }} />
 
                 </DataTable>
               </div>
