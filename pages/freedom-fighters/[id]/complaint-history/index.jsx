@@ -68,9 +68,9 @@ const ComplaintHistory = () => {
 
     const accordionHeader = (complaint) => {
         return (
-            <div>
-                <p>{complaint.issue}</p>
-                <p>{complaint.status}</p>
+            <div className='flex justify-between items-center border-2 w-full'>
+                <p>{complaint?.issue}</p>
+                <p className={`${complaint?.status == 'Processing' ? 'bg-yellow-400' : 'bg-green-500'} p-1 text-xs text-white rounded ml-4`}>{complaint?.status}</p>
             </div>
         )
     }
@@ -92,13 +92,19 @@ const ComplaintHistory = () => {
                                     return (
                                         <div key={index} className='mt-1'>
                                             <Accordion>
-                                                <AccordionTab header={() => accordionHeader(complaint)}>
-                                                    <p className="m-0">
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                                    </p>
+                                                <AccordionTab header={accordionHeader(complaint)}>
+                                                    <div className=' border-b-2 border-secondary'>
+                                                        <p>{complaint.details}</p>
+                                                    </div>
+                                                    {
+                                                        complaint.feedback.map((feedback, index) => {
+                                                            return (
+                                                                <div key={index}>
+                                                                    <p>{feedback}</p>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
                                                 </AccordionTab>
                                             </Accordion>
                                         </div>
