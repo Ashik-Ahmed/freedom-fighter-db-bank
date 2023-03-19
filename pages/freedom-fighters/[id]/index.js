@@ -57,7 +57,7 @@ const FreedomFighter = ({ query, children }) => {
     return (
         <div className='max-w-7xl mx-auto rounded-md'>
             <div className='flex gap-x-12'>
-                <div className='flex flex-col justify-between  bg-white p-4 w-1/3 min-h-screen'>
+                <div className='flex flex-col  bg-white p-4 w-1/3 min-h-screen'>
                     <div>
                         <div className="avatar">
                             <div className="w-28">
@@ -71,8 +71,8 @@ const FreedomFighter = ({ query, children }) => {
                             </div>
                         </div>
                         <div className='text-gray-700 mt-4'>
-                            <p> <span className='text-xl font-bold'>{freedomFighter?.name}</span> <span className='italic'>({freedomFighter?.force})</span></p>
-                            <p> <span className='font-semibold'>ID No.</span> {freedomFighter?.id || 'N/A'} </p>
+                            <p className='text-xl font-bold'>{freedomFighter?.name}</p>
+                            <span className='italic'>({freedomFighter?.category})</span>
                             <p><span className='font-semibold'>Designation:</span> {freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
                         </div>
                     </div>
@@ -86,7 +86,7 @@ const FreedomFighter = ({ query, children }) => {
                         <p>Freedom Fighter Rank: {freedomFighter?.freedomFighterRank.rank}</p>
                         <p>Invited Year: {freedomFighter?.invited?.map((year, index) => <span key={index}>{year}, </span>)}</p> */}
 
-                    <div className='flex flex-col gap-y-2 mb-0'>
+                    <div className='flex flex-col gap-y-2 mt-4'>
                         <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='p-button'> <span >Details</span></Link>
                         {
                             freedomFighter?.successor.length > 0 ?

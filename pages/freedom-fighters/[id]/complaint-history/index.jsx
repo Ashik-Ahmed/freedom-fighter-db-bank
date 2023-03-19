@@ -82,7 +82,7 @@ const ComplaintHistory = () => {
                     <h3>Complaint History</h3>
                 </div>
                 <div className='text-end items-center mt-1'>
-                    <Button onClick={() => setAddComplaintDialog(true)} icon='pi pi-plus' label='Register new Complain' className='p-button-sm'></Button>
+                    <Button onClick={() => setAddComplaintDialog(true)} icon='pi pi-plus' label='Register new Complain' className='p-button-sm p-button-help'></Button>
                 </div>
                 {
                     freedomFighter?.complaints ?
