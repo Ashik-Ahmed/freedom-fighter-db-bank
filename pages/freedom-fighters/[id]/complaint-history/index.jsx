@@ -13,27 +13,27 @@ const ComplaintHistory = () => {
     const router = useRouter();
     const { id } = router.query;
     const [freedomFighter, setFreedomFighter] = useState()
-    // const [complaints, setComplaints] = useState(null)
+    const [complaints, setComplaints] = useState(null)
     const [addComplaintDialog, setAddComplaintDialog] = useState(false)
 
 
     // get all complaints 
-    // const getAllComplaints = () => {
+    const getAllComplaints = () => {
 
-    //     const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
+        const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
 
-    //     fetch(url)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             setComplaints(data.data)
-    //         })
-    // }
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setComplaints(data.data)
+            })
+    }
 
     useEffect(() => {
         getSingleFreedomFighter(id)
             .then(data => setFreedomFighter(data))
-        // getAllComplaints()
+        getAllComplaints()
     }, [id])
 
     // add new complaint 
@@ -59,6 +59,7 @@ const ComplaintHistory = () => {
             .then(data => {
                 if (data.status == 'Success') {
                     console.log(data.message);
+                    getAllComplaints()
                     setAddComplaintDialog(false)
                 }
                 else {
@@ -86,10 +87,10 @@ const ComplaintHistory = () => {
                     <Button onClick={() => setAddComplaintDialog(true)} icon='pi pi-plus' label='Register new Complain' className='p-button-sm p-button-help'></Button>
                 </div>
                 {
-                    freedomFighter?.complaints ?
+                    complaints ?
                         <div>
                             {
-                                freedomFighter.complaints.map((complaint, index) => {
+                                complaints.map((complaint, index) => {
                                     return (
                                         <div key={index} className='mt-1'>
                                             <Accordion>
