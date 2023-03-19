@@ -41,7 +41,8 @@ const ComplaintHistory = () => {
         e.preventDefault()
         const complaint = {
             issue: e.target.issue.value,
-            details: e.target.details.value
+            details: e.target.details.value,
+            status: 'Processing'
         }
         console.log(complaint);
 
