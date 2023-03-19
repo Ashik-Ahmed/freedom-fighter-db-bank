@@ -107,6 +107,13 @@ const ComplaintHistory = () => {
                                                             )
                                                         })
                                                     }
+                                                    {
+                                                        complaint.status == 'Processing' &&
+                                                        <form className='mt-2'>
+                                                            <InputTextarea placeholder='Type here..' className='w-full'></InputTextarea>
+                                                            <Button type='submit' label='Submit'></Button>
+                                                        </form>
+                                                    }
                                                 </AccordionTab>
                                             </Accordion>
                                         </div>
