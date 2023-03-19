@@ -74,7 +74,7 @@ function MyApp({ Component, pageProps }) {
         {/* <Navbar user={user} setUser={setUser} /> */}
         <div className='min-h-[100vh] flex flex-row justify-start'>
           <Sidebar user={user} setUser={setUser} />
-          <div className='w-full m-2'>
+          <div className='overflow-scroll w-full m-2'>
             <Component {...pageProps} />
           </div>
         </div>
