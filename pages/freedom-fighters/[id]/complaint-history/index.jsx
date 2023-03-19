@@ -68,6 +68,11 @@ const ComplaintHistory = () => {
             })
     }
 
+    const handleUpdateComplaintFeedback = (e) => {
+        e.preventDefault()
+        console.log('update form');
+    }
+
     const accordionHeader = (complaint) => {
         return (
             <div className='flex justify-between items-center border-2 w-full'>
@@ -109,7 +114,7 @@ const ComplaintHistory = () => {
                                                     }
                                                     {
                                                         complaint.status == 'Processing' &&
-                                                        <form className='mt-2'>
+                                                        <form onSubmit={handleUpdateComplaintFeedback} className='mt-2'>
                                                             <InputTextarea placeholder='Type here..' className='w-full'></InputTextarea>
                                                             <div className='text-end'>
                                                                 <Button type='submit' label='Submit' className=''></Button>
