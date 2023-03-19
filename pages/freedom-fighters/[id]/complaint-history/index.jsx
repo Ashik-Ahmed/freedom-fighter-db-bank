@@ -70,7 +70,7 @@ const ComplaintHistory = () => {
 
     const handleUpdateComplaintFeedback = (e) => {
         e.preventDefault()
-        console.log('update form');
+        console.log(e.target.feedback.value);
     }
 
     const accordionHeader = (complaint) => {
@@ -115,7 +115,7 @@ const ComplaintHistory = () => {
                                                     {
                                                         complaint.status == 'Processing' &&
                                                         <form onSubmit={handleUpdateComplaintFeedback} className='mt-2'>
-                                                            <InputTextarea placeholder='Type here..' className='w-full'></InputTextarea>
+                                                            <InputTextarea name='feedback' placeholder='Type here..' className='w-full'></InputTextarea>
                                                             <div className='text-end'>
                                                                 <Button type='submit' label='Submit' className=''></Button>
                                                             </div>
