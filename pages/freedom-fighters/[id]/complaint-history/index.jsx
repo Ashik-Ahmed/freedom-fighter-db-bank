@@ -92,7 +92,8 @@ const ComplaintHistory = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.data.modifiedCount) {
-                    getAllComplaints()
+                    getAllComplaints();
+                    e.target.reset();
                     console.log(data);
                 }
                 else {
@@ -119,25 +120,25 @@ const ComplaintHistory = () => {
                 <div className='text-end items-center mt-1'>
                     <Button onClick={() => setAddComplaintDialog(true)} icon='pi pi-plus' label='Register new Complain' className='p-button-sm p-button-help'></Button>
                 </div>
-                <div className='h-[83vh] overflow-scroll scrollbar-thin scrollbar-thumb-primary'>
+                <div className='h-[83vh] mt-1 overflow-scroll scrollbar-thin scrollbar-thumb-primary'>
                     {
                         complaints ?
                             <div>
                                 {
                                     complaints.map((complaint, index) => {
                                         return (
-                                            <div key={index} className='mt-1'>
+                                            <div key={index}>
                                                 <Accordion>
                                                     <AccordionTab header={accordionHeader(complaint)}>
-                                                        <div className=' border-b-2 border-secondary'>
+                                                        <div className='border-b-2 border-primary'>
                                                             <p>{complaint.details}</p>
                                                         </div>
                                                         {
                                                             complaint?.feedbacks?.map((feedback, index) => {
                                                                 return (
-                                                                    <div key={index} className='flex justify-between p-2 border border-b-1 border-gray-800'>
-                                                                        <p>{feedback.feedback}</p>
-                                                                        <p className='text-gray-400 text-sm'>{feedback.dateTime}</p>
+                                                                    <div key={index} className='flex items-start gap-x-2 w-full mt-2 p-2 bg-gray-100/90 shadow-md border-b border-gray-400 transition-all ease-in-out duration-500'>
+                                                                        <p className='text-gray-500 text-xs italic w-1/5 py-1'>{feedback.dateTime}</p>
+                                                                        <p className='w-4/5'>{feedback.feedback}</p>
                                                                     </div>
                                                                 )
                                                             })
@@ -147,7 +148,7 @@ const ComplaintHistory = () => {
                                                             <form onSubmit={(e) => handleUpdateComplaintFeedback(complaint._id, e)} className='mt-2'>
                                                                 <InputTextarea name='feedback' placeholder='Type here..' className='w-full'></InputTextarea>
                                                                 <div className='text-end'>
-                                                                    <Button type='submit' label='Submit' className=''></Button>
+                                                                    <Button type='submit' label='Submit' className='p-button-sm'></Button>
                                                                 </div>
                                                             </form>
                                                         }
