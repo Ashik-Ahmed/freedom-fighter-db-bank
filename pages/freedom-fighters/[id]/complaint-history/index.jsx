@@ -42,7 +42,8 @@ const ComplaintHistory = () => {
         const complaint = {
             issue: e.target.issue.value,
             details: e.target.details.value,
-            status: 'Processing'
+            status: 'Processing',
+            created: new Date().toLocaleString("en-GB") // "en-GB" is used to format date to "d/mm/yyyy hh:mm:ss"
         }
         console.log(complaint);
 
@@ -76,7 +77,7 @@ const ComplaintHistory = () => {
             complaintId,
             feedback: {
                 feedback: e.target.feedback.value,
-                dateTime: new Date().toLocaleString()
+                dateTime: new Date().toLocaleString("en-GB") // "en-GB" is used to format date to "d/mm/yyyy hh:mm:ss"
             }
         }
 
@@ -127,25 +128,28 @@ const ComplaintHistory = () => {
                                 {
                                     complaints.map((complaint, index) => {
                                         return (
-                                            <div key={index}>
+                                            <div key={index} className='mb-1'>
                                                 <Accordion>
                                                     <AccordionTab header={accordionHeader(complaint)}>
-                                                        <div className='border-b-2 border-primary'>
-                                                            <p>{complaint.details}</p>
+                                                        <div className='flex justify-between border-b-2 border-primary'>
+                                                            <p className='w-10/12'>{complaint.details}</p>
+                                                            <p className='w-2/12 text-xs text-gray-500 italic py-1 pl-2 border-l'>{complaint.created}</p>
+                                                        </div>
+                                                        <div className='bg-gray-100 p-2 shadow-md'>
+                                                            {
+                                                                complaint?.feedbacks?.map((feedback, index) => {
+                                                                    return (
+                                                                        <div key={index} className='flex items-start gap-x-2 w-full mt-2 p-2 bg-white shadow-md border-b border-gray-400 transition-all ease-in-out duration-500'>
+                                                                            <p className='text-gray-500 text-xs italic w-2/12 py-1 border-r'>{feedback.dateTime}</p>
+                                                                            <p className='w-10/12'>{feedback.feedback}</p>
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
                                                         </div>
                                                         {
-                                                            complaint?.feedbacks?.map((feedback, index) => {
-                                                                return (
-                                                                    <div key={index} className='flex items-start gap-x-2 w-full mt-2 p-2 bg-gray-100/90 shadow-md border-b border-gray-400 transition-all ease-in-out duration-500'>
-                                                                        <p className='text-gray-500 text-xs italic w-1/5 py-1'>{feedback.dateTime}</p>
-                                                                        <p className='w-4/5'>{feedback.feedback}</p>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
-                                                        {
                                                             complaint.status == 'Processing' &&
-                                                            <form onSubmit={(e) => handleUpdateComplaintFeedback(complaint._id, e)} className='mt-2'>
+                                                            <form onSubmit={(e) => handleUpdateComplaintFeedback(complaint._id, e)} className='mt-4'>
                                                                 <InputTextarea name='feedback' placeholder='Type here..' className='w-full'></InputTextarea>
                                                                 <div className='text-end'>
                                                                     <Button type='submit' label='Submit' className='p-button-sm'></Button>
