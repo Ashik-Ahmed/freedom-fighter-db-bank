@@ -52,7 +52,7 @@ const AddSuccessor = () => {
     return (
         <FreedomFighter>
             <div>
-                <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
+                <div className='bg-primary text-xl text-center text-gray-100 font-semibold'>
                     <p>Please Add a Successsor</p>
                 </div>
 

@@ -84,7 +84,7 @@ const ComplaintHistory = () => {
 
     return (
         <FreedomFighter>
-            <div>
+            <div className=''>
                 <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
                     <h3>Complaint History</h3>
                 </div>
@@ -93,7 +93,7 @@ const ComplaintHistory = () => {
                 </div>
                 {
                     complaints ?
-                        <div>
+                        <div className=' border-primary border-2'>
                             {
                                 complaints.map((complaint, index) => {
                                     return (
