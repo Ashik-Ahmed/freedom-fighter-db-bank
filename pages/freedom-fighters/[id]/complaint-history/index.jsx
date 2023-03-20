@@ -71,6 +71,25 @@ const ComplaintHistory = () => {
     const handleUpdateComplaintFeedback = (e) => {
         e.preventDefault()
         console.log(e.target.feedback.value);
+
+        const feedback = {
+            feedback: e.target.feedback.value,
+            date: new Date().toLocaleString()
+        }
+
+        const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(feedback)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     }
 
     const accordionHeader = (complaint) => {
