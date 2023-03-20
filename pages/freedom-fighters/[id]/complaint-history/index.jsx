@@ -68,13 +68,16 @@ const ComplaintHistory = () => {
             })
     }
 
-    const handleUpdateComplaintFeedback = (e) => {
+    const handleUpdateComplaintFeedback = (complaintId, e) => {
         e.preventDefault()
         console.log(e.target.feedback.value);
 
         const feedback = {
-            feedback: e.target.feedback.value,
-            date: new Date().toLocaleString()
+            complaintId,
+            feedback: {
+                feedback: e.target.feedback.value,
+                dateTime: new Date().toLocaleString()
+            }
         }
 
         const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
@@ -134,7 +137,7 @@ const ComplaintHistory = () => {
                                                         }
                                                         {
                                                             complaint.status == 'Processing' &&
-                                                            <form onSubmit={handleUpdateComplaintFeedback} className='mt-2'>
+                                                            <form onSubmit={(e) => handleUpdateComplaintFeedback(complaint._id, e)} className='mt-2'>
                                                                 <InputTextarea name='feedback' placeholder='Type here..' className='w-full'></InputTextarea>
                                                                 <div className='text-end'>
                                                                     <Button type='submit' label='Submit' className=''></Button>
