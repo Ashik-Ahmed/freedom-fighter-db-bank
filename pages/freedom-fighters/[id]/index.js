@@ -57,7 +57,7 @@ const FreedomFighter = ({ query, children }) => {
     return (
         <div className='mx-auto rounded-md'>
             <div className='flex gap-x-12'>
-                <div className='flex flex-col bg-white p-4 w-1/3 min-h-screen'>
+                <div className='flex flex-col bg-white p-4 w-[350px] h-[97vh]'>
                     <div>
                         <div className="avatar">
                             <div className="w-28">

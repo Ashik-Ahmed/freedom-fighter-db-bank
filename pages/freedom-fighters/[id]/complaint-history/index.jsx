@@ -75,7 +75,7 @@ const ComplaintHistory = () => {
 
     const accordionHeader = (complaint) => {
         return (
-            <div className='flex justify-between items-center border-2 w-full'>
+            <div className='flex justify-between items-center w-full'>
                 <p>{complaint?.issue}</p>
                 <p className={`${complaint?.status == 'Processing' ? 'bg-yellow-400' : 'bg-green-500'} p-1 text-xs text-white rounded ml-4`}>{complaint?.status}</p>
             </div>
@@ -91,50 +91,53 @@ const ComplaintHistory = () => {
                 <div className='text-end items-center mt-1'>
                     <Button onClick={() => setAddComplaintDialog(true)} icon='pi pi-plus' label='Register new Complain' className='p-button-sm p-button-help'></Button>
                 </div>
-                {
-                    complaints ?
-                        <div className=' border-primary border-2'>
-                            {
-                                complaints.map((complaint, index) => {
-                                    return (
-                                        <div key={index} className='mt-1'>
-                                            <Accordion>
-                                                <AccordionTab header={accordionHeader(complaint)}>
-                                                    <div className=' border-b-2 border-secondary'>
-                                                        <p>{complaint.details}</p>
-                                                    </div>
-                                                    {
-                                                        complaint.feedback.map((feedback, index) => {
-                                                            return (
-                                                                <div key={index}>
-                                                                    <p>{feedback}</p>
+                <div className='h-[83vh] overflow-scroll scrollbar-thin scrollbar-thumb-primary'>
+                    {
+                        complaints ?
+                            <div>
+                                {
+                                    complaints.map((complaint, index) => {
+                                        return (
+                                            <div key={index} className='mt-1'>
+                                                <Accordion>
+                                                    <AccordionTab header={accordionHeader(complaint)}>
+                                                        <div className=' border-b-2 border-secondary'>
+                                                            <p>{complaint.details}</p>
+                                                        </div>
+                                                        {
+                                                            complaint.feedback.map((feedback, index) => {
+                                                                return (
+                                                                    <div key={index}>
+                                                                        <p>{feedback}</p>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                        {
+                                                            complaint.status == 'Processing' &&
+                                                            <form onSubmit={handleUpdateComplaintFeedback} className='mt-2'>
+                                                                <InputTextarea name='feedback' placeholder='Type here..' className='w-full'></InputTextarea>
+                                                                <div className='text-end'>
+                                                                    <Button type='submit' label='Submit' className=''></Button>
                                                                 </div>
-                                                            )
-                                                        })
-                                                    }
-                                                    {
-                                                        complaint.status == 'Processing' &&
-                                                        <form onSubmit={handleUpdateComplaintFeedback} className='mt-2'>
-                                                            <InputTextarea name='feedback' placeholder='Type here..' className='w-full'></InputTextarea>
-                                                            <div className='text-end'>
-                                                                <Button type='submit' label='Submit' className=''></Button>
-                                                            </div>
-                                                        </form>
-                                                    }
-                                                </AccordionTab>
-                                            </Accordion>
-                                        </div>
+                                                            </form>
+                                                        }
+                                                    </AccordionTab>
+                                                </Accordion>
+                                            </div>
 
-                                    )
-                                })
-                            }
-                        </div>
-                        :
-                        <div className='text-center my-auto border-2 h-full'>
-                            <p>No Complaints Yet..</p>
-                        </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            :
+                            <div className='text-center my-auto border-2 h-full'>
+                                <p>No Complaints Yet..</p>
+                            </div>
 
-                }
+                    }
+
+                </div>
 
                 <Dialog header="Add New Complaint" visible={addComplaintDialog} onHide={() => setAddComplaintDialog(false)}
                     style={{ width: '50vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}>

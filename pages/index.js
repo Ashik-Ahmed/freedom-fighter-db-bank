@@ -152,7 +152,8 @@ export default function Home() {
           <div className=" p-2 bg-white shadow-lg">
             <div className="flex justify-between text-gray-700 mb-1">
               <h5 className='text-gray-700'>New Members</h5>
-              <Link href='/freedom-fighters' className='hover:bg-primary rounded px-1 transition-all ease-in duration-200'>Browse All</Link>
+              <Link href='/freedom-fighters' className='hover:bg-primary bg-secondary text-white rounded px-1 transition-all ease-in duration-200'>Browse All<i className="pi pi-arrow-right text-xs ml-1"></i>
+              </Link>
             </div>
             <DataTable value={freedomFightersData} removableSort rows={5} responsiveLayout="scroll" scrollHeight='520px'>
               {/* <Column header="Image" body={(data) => <img className="shadow-2" src={`${ contextPath } /demo/images / product / ${ data.image } `} alt={data.image} width="50" />} /> */}
