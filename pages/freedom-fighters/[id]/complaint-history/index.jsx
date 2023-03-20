@@ -91,7 +91,13 @@ const ComplaintHistory = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data.data.modifiedCount) {
+                    getAllComplaints()
+                    console.log(data);
+                }
+                else {
+                    console.log(data.error);
+                }
             })
     }
 
@@ -127,10 +133,11 @@ const ComplaintHistory = () => {
                                                             <p>{complaint.details}</p>
                                                         </div>
                                                         {
-                                                            complaint.feedback.map((feedback, index) => {
+                                                            complaint?.feedbacks?.map((feedback, index) => {
                                                                 return (
-                                                                    <div key={index}>
-                                                                        <p>{feedback}</p>
+                                                                    <div key={index} className='flex justify-between p-2 border border-b-1 border-gray-800'>
+                                                                        <p>{feedback.feedback}</p>
+                                                                        <p className='text-gray-400 text-sm'>{feedback.dateTime}</p>
                                                                     </div>
                                                                 )
                                                             })
