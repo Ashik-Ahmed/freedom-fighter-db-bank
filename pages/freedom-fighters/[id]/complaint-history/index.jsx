@@ -105,9 +105,9 @@ const ComplaintHistory = () => {
 
     const accordionHeader = (complaint) => {
         return (
-            <div className='flex justify-between items-center w-full'>
-                <p>{complaint?.issue}</p>
-                <p className={`${complaint?.status == 'Processing' ? 'bg-yellow-400' : 'bg-green-500'} p-1 text-xs text-white rounded ml-4`}>{complaint?.status}</p>
+            <div className='flex justify-between items-center mr-16'>
+                <p className='text-secondary'>{complaint?.issue}</p>
+                <p className={`${complaint?.status == 'Processing' ? 'bg-yellow-400' : 'bg-green-500'} absolute right-2 p-1 text-xs text-white rounded ml-4`}>{complaint?.status}</p>
             </div>
         )
     }
@@ -121,7 +121,7 @@ const ComplaintHistory = () => {
                 <div className='text-end items-center mt-1'>
                     <Button onClick={() => setAddComplaintDialog(true)} icon='pi pi-plus' label='Register new Complain' className='p-button-sm p-button-help'></Button>
                 </div>
-                <div className='h-[83vh] mt-1 overflow-scroll scrollbar-thin scrollbar-thumb-primary'>
+                <div className='h-[83vh] mt-1 overflow-scroll scrollbar-thin scrollbar-thumb-primary relative'>
                     {
                         complaints ?
                             <div>
@@ -135,22 +135,24 @@ const ComplaintHistory = () => {
                                                             <p className='w-10/12'>{complaint.details}</p>
                                                             <p className='w-2/12 text-xs text-gray-500 italic py-1 pl-2 border-l'>{complaint.created}</p>
                                                         </div>
-                                                        <div className='bg-gray-100 p-2 shadow-md'>
+                                                        <div className='bg-gray-100 p-2 shadow-md mt-2'>
                                                             {
                                                                 complaint?.feedbacks?.map((feedback, index) => {
                                                                     return (
-                                                                        <div key={index} className='flex items-start gap-x-2 w-full mt-2 p-2 bg-white shadow-md border-b border-gray-400 transition-all ease-in-out duration-500'>
-                                                                            <p className='text-gray-500 text-xs italic w-2/12 py-1 border-r'>{feedback.dateTime}</p>
-                                                                            <p className='w-10/12'>{feedback.feedback}</p>
+                                                                        <div key={index} className='relative flex items-center gap-x-2 w-full mt-2 bg-white shadow-md rounded-md border-b border-gray-400 transition-all ease-in-out duration-500'>
+                                                                            <div className='absolute h-full rounded-md'>
+                                                                                <p className='bg-secondary rounded-l-md  text-white text-xs italic w-24 h-full p-1'>{feedback.dateTime}</p>
+                                                                            </div>
+                                                                            <p className='w-full p-2 ml-28'>{feedback.feedback}</p>
                                                                         </div>
                                                                     )
                                                                 })
                                                             }
                                                         </div>
                                                         {
-                                                            complaint.status == 'Processing' &&
+                                                            complaint.status != 'Resolved' &&
                                                             <form onSubmit={(e) => handleUpdateComplaintFeedback(complaint._id, e)} className='mt-4'>
-                                                                <InputTextarea name='feedback' placeholder='Type here..' className='w-full'></InputTextarea>
+                                                                <InputTextarea name='feedback' placeholder='Type here..' className='w-full' required></InputTextarea>
                                                                 <div className='text-end'>
                                                                     <Button type='submit' label='Submit' className='p-button-sm'></Button>
                                                                 </div>
