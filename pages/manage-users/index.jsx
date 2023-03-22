@@ -176,7 +176,7 @@ const ManageUsers = () => {
 
     return (
         <div className='mx-auto'>
-            <div className='flex justify-between my-2'>
+            <div className='flex justify-between'>
                 <Button label="Add User" icon="pi pi-plus" onClick={() => setAddUserModal(true)} />
                 <Dialog header="Add New User" visible={addUserModal} onHide={() => {
                     setAddUserModal(false);
