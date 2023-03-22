@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
 import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useState } from 'react';
 
@@ -9,6 +10,7 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
     const router = useRouter();
     const { id } = router.query;
     const [editable, setEditable] = useState(false)
+    const [resolveDialog, setResolveDialog] = useState(false)
 
     const handleUpdateComplaintFeedback = (complaintId, e) => {
         e.preventDefault()
@@ -43,6 +45,11 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                     console.log(data.error);
                 }
             })
+    }
+
+
+    const handleResolveComplaint = (complaintId) => {
+        console.log(complaintId);
     }
 
 
@@ -91,7 +98,7 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                                     </form>
                                     :
                                     <div className='flex gap-2 mt-2'>
-                                        <Button label='Resolve' className='p-button-sm'></Button>
+                                        <Button onClick={() => setResolveDialog(true)} label='Resolve' className='p-button-sm'></Button>
                                         <Button onClick={() => setEditable(true)} label='Edit' className='p-button-sm p-button-success'></Button>
                                     </div>
                             }
@@ -99,6 +106,19 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                     }
                 </AccordionTab>
             </Accordion>
+            {/* Change role dialog box */}
+            <Dialog header="Status" visible={resolveDialog} onHide={() => { setResolveDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                <div className='text-center mt-2'>
+                    <i className='pi pi-check rounded-full border-2 text-5xl p-2 text-primary font-bold shadow-lg mb-2'></i>
+                    <h1 class="text-xl mb-4 font-bold text-slate-500">Complaint Resolved?</h1>
+                </div>
+
+                <div className='flex justify-center mt-12 gap-x-2'>
+                    <Button label="No" icon="pi pi-times" onClick={() => setResolveDialog(null)} className="p-button-danger p-button-sm" />
+                    <Button label="Yes" icon="pi pi-check" onClick={() => handleResolveComplaint(complaint._id)} className='p-button-sm' />
+                </div>
+            </Dialog>
         </div>
     );
 };
