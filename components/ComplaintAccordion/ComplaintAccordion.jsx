@@ -1,12 +1,50 @@
+import { useRouter } from 'next/router';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useState } from 'react';
 
-const ComplaintAccordion = ({ complaint }) => {
+const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
 
-
+    const router = useRouter();
+    const { id } = router.query;
     const [editable, setEditable] = useState(false)
+
+    const handleUpdateComplaintFeedback = (complaintId, e) => {
+        e.preventDefault()
+        console.log(e.target.feedback.value);
+
+        const feedback = {
+            complaintId,
+            feedback: {
+                feedback: e.target.feedback.value,
+                dateTime: new Date().toLocaleString("en-GB") // "en-GB" is used to format date to "d/mm/yyyy hh:mm:ss"
+            }
+        }
+
+        const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(feedback)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.data.modifiedCount) {
+                    getAllComplaints();
+                    e.target.reset();
+                    console.log(data);
+                    setEditable(false)
+                }
+                else {
+                    console.log(data.error);
+                }
+            })
+    }
+
 
     const accordionHeader = (complaint) => {
         return (

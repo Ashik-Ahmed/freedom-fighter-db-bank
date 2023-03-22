@@ -70,39 +70,6 @@ const ComplaintHistory = () => {
             })
     }
 
-    const handleUpdateComplaintFeedback = (complaintId, e) => {
-        e.preventDefault()
-        console.log(e.target.feedback.value);
-
-        const feedback = {
-            complaintId,
-            feedback: {
-                feedback: e.target.feedback.value,
-                dateTime: new Date().toLocaleString("en-GB") // "en-GB" is used to format date to "d/mm/yyyy hh:mm:ss"
-            }
-        }
-
-        const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
-
-        fetch(url, {
-            method: 'PATCH',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(feedback)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.data.modifiedCount) {
-                    getAllComplaints();
-                    e.target.reset();
-                    console.log(data);
-                }
-                else {
-                    console.log(data.error);
-                }
-            })
-    }
 
     return (
         <FreedomFighter>
@@ -120,7 +87,7 @@ const ComplaintHistory = () => {
                                 {
                                     complaints.map((complaint, index) => {
                                         return (
-                                            <ComplaintAccordion key={index} complaint={complaint} />
+                                            <ComplaintAccordion key={index} complaint={complaint} getAllComplaints={getAllComplaints} />
 
                                         )
                                     })
