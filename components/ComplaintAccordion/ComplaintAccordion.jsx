@@ -50,6 +50,33 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
 
     const handleResolveComplaint = (complaintId) => {
         console.log(complaintId);
+
+        const status = {
+            complaintId,
+            status: 'Resolved'
+        }
+
+        const url = `http://localhost:5000/api/v1/freedomFighters/${id}/comlaint`;
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(status)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.data.modifiedCount) {
+                    getAllComplaints();
+                    console.log(data);
+                    setResolveDialog(false)
+                }
+                else {
+                    console.log(data.error);
+                }
+            })
     }
 
 
@@ -65,11 +92,11 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
 
     return (
         <div className='mb-1'>
-            <Accordion activeIndex={0}>
+            <Accordion>
                 <AccordionTab header={accordionHeader(complaint)}>
                     <div className='flex justify-between shadow-md border-b-2 border-primary rounded-lg'>
-                        <p className='w-10/12 rounded-l-lg p-2'>{complaint.details}</p>
-                        <p className='w-2/12 text-xs text-gray-400 font-bold italic p-2 border-l rounded-r-lg'>{complaint.created}</p>
+                        <p className='w-full rounded-l-lg p-2'>{complaint.details}</p>
+                        <p className='w-24 text-xs text-gray-400 font-bold italic p-2 border-l rounded-r-lg'>{complaint.created}</p>
                     </div>
                     <div className='bg-gray-300 p-2 shadow-md mt-2'>
                         {
