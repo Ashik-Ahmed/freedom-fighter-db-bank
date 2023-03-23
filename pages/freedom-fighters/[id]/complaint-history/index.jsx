@@ -27,7 +27,7 @@ const ComplaintHistory = () => {
             .then(data => {
                 console.log(data);
                 setComplaints(data.data)
-                const unresolved = data.data.filter(complaint => complaint.status !== 'Resolved')
+                const unresolved = data?.data?.filter(complaint => complaint.status !== 'Resolved')
                 // setUnresolvedComplaint(unresolved)
             })
     }

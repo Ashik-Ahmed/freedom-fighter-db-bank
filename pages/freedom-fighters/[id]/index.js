@@ -95,7 +95,7 @@ const FreedomFighter = ({ query, children }) => {
                         <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='p-button flex justify-between items-center'>
                             <span >Complaint History</span>
                             {
-                                unresolvedComplaint &&
+                                unresolvedComplaint > 0 &&
                                 <span className='bg-yellow-400 text-white w-[26px] rounded-full'>{unresolvedComplaint}</span>
                             }
                         </Link>
