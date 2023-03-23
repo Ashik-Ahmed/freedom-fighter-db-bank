@@ -11,14 +11,16 @@ const FreedomFighter = ({ query, children }) => {
     const { id } = router.query;
     const [freedomFighter, setFreedomFighter] = useState()
     const [profileImg, setProfileImg] = useState()
-    const [processingComplaint, setProcessingComplaint] = useState(null)
+    const [unresolvedComplaint, setUnresolvedComplaint] = useState(null)
 
-
-    useEffect(() => {
+    const getFreedomFighter = () => {
 
         getSingleFreedomFighter(id)
             .then(data => {
                 setFreedomFighter(data);
+
+                const unresolvedComplaint = data.complaints.filter(complaint => complaint.status !== 'Resolved')
+                setUnresolvedComplaint(unresolvedComplaint.length)
 
                 // convert image binary/Buffer data to base64 string
                 // setProfileImg(btoa(
@@ -35,13 +37,17 @@ const FreedomFighter = ({ query, children }) => {
 
                 setProfileImg(base64);
             })
+    }
 
+    useEffect(() => {
+
+        getFreedomFighter()
 
 
         // const unresolved = freedomFighter?.comlpaints?.filter(complaint => complaint.status != 'Resolved')
         // console.log(unresolved);
 
-    }, [id, freedomFighter])
+    }, [id])
 
 
     // console.log(processingComplaint);
@@ -103,7 +109,13 @@ const FreedomFighter = ({ query, children }) => {
                                 :
                                 <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='p-button'><span >Add Successor</span></Link>
                         }
-                        <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='p-button'><span >Complaint History</span></Link>
+                        <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='p-button flex justify-between items-center'>
+                            <span >Complaint History</span>
+                            {
+                                unresolvedComplaint &&
+                                <span className='bg-yellow-400 w-[26px] rounded-full'>{unresolvedComplaint}</span>
+                            }
+                        </Link>
                     </div>
                 </div>
                 <div className='w-2/3'>

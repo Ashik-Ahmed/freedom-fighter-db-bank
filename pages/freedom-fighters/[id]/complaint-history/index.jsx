@@ -32,8 +32,6 @@ const ComplaintHistory = () => {
     }
 
     useEffect(() => {
-        getSingleFreedomFighter(id)
-            .then(data => setFreedomFighter(data))
         getAllComplaints()
     }, [id])
 
@@ -87,7 +85,7 @@ const ComplaintHistory = () => {
                                 {
                                     complaints.map((complaint, index) => {
                                         return (
-                                            <ComplaintAccordion key={index} complaint={complaint} getAllComplaints={getAllComplaints} />
+                                            <ComplaintAccordion key={index} getFreedomFighter={getFreedomFighter} complaint={complaint} getAllComplaints={getAllComplaints} />
 
                                         )
                                     })
