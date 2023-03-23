@@ -324,7 +324,8 @@ const MyProfile = () => {
                                     {/* <InputText name='birthday' type="date" placeholder="Type here" className="w-full max-w-xs bg-gray-200 text-gray-700" /> */}
 
                                     <Calendar dateFormat="yy-mm-dd" name='birthday' placeholder={user?.birthday?.slice(0, 10)} onChange={(e) => {
-                                        console.log(e.value);
+                                        e.target.value = e.target.value.toLocaleString("en-GB")
+                                        console.log(e);
                                         handleChange(e)
                                     }} maxDate={new Date()} showIcon></Calendar>
 
