@@ -13,7 +13,6 @@ const ComplaintHistory = () => {
 
     const router = useRouter();
     const { id } = router.query;
-    const [freedomFighter, setFreedomFighter] = useState()
     const [complaints, setComplaints] = useState(null)
     const [addComplaintDialog, setAddComplaintDialog] = useState(false)
 
@@ -28,6 +27,8 @@ const ComplaintHistory = () => {
             .then(data => {
                 console.log(data);
                 setComplaints(data.data)
+                const unresolved = data.data.filter(complaint => complaint.status !== 'Resolved')
+                // setUnresolvedComplaint(unresolved)
             })
     }
 
@@ -85,7 +86,7 @@ const ComplaintHistory = () => {
                                 {
                                     complaints.map((complaint, index) => {
                                         return (
-                                            <ComplaintAccordion key={index} getFreedomFighter={getFreedomFighter} complaint={complaint} getAllComplaints={getAllComplaints} />
+                                            <ComplaintAccordion key={index} complaint={complaint} getAllComplaints={getAllComplaints} />
 
                                         )
                                     })

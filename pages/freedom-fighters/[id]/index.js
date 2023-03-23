@@ -43,24 +43,7 @@ const FreedomFighter = ({ query, children }) => {
 
         getFreedomFighter()
 
-
-        // const unresolved = freedomFighter?.comlpaints?.filter(complaint => complaint.status != 'Resolved')
-        // console.log(unresolved);
-
     }, [id])
-
-
-    // console.log(processingComplaint);
-
-    // if (id) {
-    //     fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`)
-    //         .then((res => res.json()))
-    //         .then(data => {
-    //             setFreedomFighter(data[0])
-    //         })
-    // }
-
-    // const { name, mobile, email, description, status, address, force, officialRank, freedomFighterRank, invited } = freedomFighter;
 
 
     if (!freedomFighter) {
@@ -113,7 +96,7 @@ const FreedomFighter = ({ query, children }) => {
                             <span >Complaint History</span>
                             {
                                 unresolvedComplaint &&
-                                <span className='bg-yellow-400 w-[26px] rounded-full'>{unresolvedComplaint}</span>
+                                <span className='bg-yellow-400 text-white w-[26px] rounded-full'>{unresolvedComplaint}</span>
                             }
                         </Link>
                     </div>
