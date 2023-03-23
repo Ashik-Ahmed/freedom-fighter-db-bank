@@ -11,12 +11,13 @@ const FreedomFighter = ({ query, children }) => {
     const { id } = router.query;
     const [freedomFighter, setFreedomFighter] = useState()
     const [profileImg, setProfileImg] = useState()
+    const [processingComplaint, setProcessingComplaint] = useState(null)
 
 
     useEffect(() => {
+
         getSingleFreedomFighter(id)
             .then(data => {
-                console.log(data);
                 setFreedomFighter(data);
 
                 // convert image binary/Buffer data to base64 string
@@ -34,8 +35,16 @@ const FreedomFighter = ({ query, children }) => {
 
                 setProfileImg(base64);
             })
-    }, [id])
 
+
+
+        // const unresolved = freedomFighter?.comlpaints?.filter(complaint => complaint.status != 'Resolved')
+        // console.log(unresolved);
+
+    }, [id, freedomFighter])
+
+
+    // console.log(processingComplaint);
 
     // if (id) {
     //     fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`)

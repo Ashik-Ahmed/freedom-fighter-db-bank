@@ -69,25 +69,6 @@ const MyProfile = () => {
     const handleProfileUpdate = (e) => {
         e.preventDefault();
 
-        // const name = e.target.name.value || user?.name;
-        // const birthday = e.target.birthday.value || user?.birthday;
-        // const mobile = e.target.phone.value || user?.mobile;
-        // const sex = e.target.sex.value || user?.sex;
-        // const bio = e.target.bio.value || user?.bio;
-        // const photo = e.target.photo.value || user?.photo;
-
-        // console.log(name, birthday, mobile, sex, bio, photo);
-
-        // const updatedProfile = {
-        //     name,
-        //     birthday,
-        //     mobile,
-        //     sex,
-        //     bio,
-        //     photo
-        // }
-        // console.log(updatedProfile);
-
         const updatedInfo = new FormData();
         Object.keys(formData).forEach((key) => {
             updatedInfo.append(key, formData[key]);
@@ -354,7 +335,7 @@ const MyProfile = () => {
                                     <label class="label">
                                         <span class="label-text text-gray-700">Contact</span>
                                     </label>
-                                    <InputText name='phone' type="text" placeholder={user?.mobile || "Type here"} onChange={handleChange} classname="w-full max-w-xs bg-gray-200 text-gray-700" />
+                                    <InputText name='mobile' type="text" placeholder={user?.mobile || "Type here"} onChange={handleChange} classname="w-full max-w-xs bg-gray-200 text-gray-700" />
                                 </div>
                                 <div class="form-control w-full max-w-xs">
                                     <label class="label">
