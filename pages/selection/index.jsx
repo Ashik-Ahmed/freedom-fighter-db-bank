@@ -14,6 +14,7 @@ const Selection = () => {
 
     const [selectedFreedomFighters, setSelectedFreedomFighters] = useState()
     const [memberType, setMemberType] = useState('')
+    const [selectionCriteria, setSelectionCriteria] = useState({})
     const [firstCriteria, setFirstCriteria] = useState('')
     const [secondCriteria, setSecondCriteria] = useState('')
     const [thirdCriteria, setThirdCriteria] = useState('')
@@ -35,29 +36,21 @@ const Selection = () => {
             })
     }, [])
 
-    const years = [
-        '2010',
-        '2011',
-        '2012',
-        '2013',
-        '2014',
-        '2015',
-        '2016',
-        '2017',
-        '2018',
-        '2019',
-        '2020',
-        '2021',
-        '2022',
-        '2023',
-    ]
-
     const memberTypes = [
         'Freedom Fighter',
         'General Invitees',
         'Retired Officers',
         'Retired Others'
     ]
+
+    const onCriteriaChange = (event) => {
+        const { name, value } = event.target;
+
+        setSelectionCriteria({
+            ...selectionCriteria, [name]: value
+        });
+        console.log(selectionCriteria);
+    }
 
     const handleSelection = (e) => {
 
@@ -76,7 +69,8 @@ const Selection = () => {
         // }
 
 
-        const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
+        const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&selectionCriteria=${JSON.stringify(selectionCriteria)}&excludePreviousYear=${checked}`;
+        // const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -113,7 +107,7 @@ const Selection = () => {
         { field: 'forceRank', header: 'Official Rank' },
         { field: `fighterRank`, header: 'Fighter Rank' },
         { field: 'fighterPoint', header: 'Fighter Value' },
-        { field: 'invited_count', header: 'Invite Count', body: { invitedYear } }
+        { field: 'invitationCount', header: 'Invite Count', body: { invitedYear } }
     ];
 
     const exportColumns = cols.map(col => ({ title: col.header, dataKey: col.field }));
@@ -289,12 +283,15 @@ const Selection = () => {
                                 options={
                                     [
                                         { label: 'Name', value: 'name' },
-                                        { label: 'Invited Count', value: 'invited_count' },
+                                        { label: 'Invitation Count', value: 'invitationCount' },
                                         { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
                                         { label: 'Official Rank', value: 'officialRank.point' }
                                     ]
                                 }
-                                onChange={(e) => setFirstCriteria(e.value)} placeholder="*First Criteria" className='w-fit' />
+                                onChange={(e) => {
+                                    setFirstCriteria(e.value);
+                                    onCriteriaChange(e)
+                                }} placeholder="*First Criteria" className='w-fit' />
 
                             {
                                 firstCriteria &&
@@ -302,12 +299,15 @@ const Selection = () => {
                                     options={
                                         [
                                             { label: 'Name', value: 'name' },
-                                            { label: 'Invited Count', value: 'invited_count' },
+                                            { label: 'Invitation Count', value: 'invitationCount' },
                                             { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
                                             { label: 'Official Rank', value: 'officialRank.point' }
                                         ]
                                     }
-                                    onChange={(e) => setSecondCriteria(e.value)} placeholder="Second Criteria" className='w-fit' />
+                                    onChange={(e) => {
+                                        setSecondCriteria(e.value)
+                                        onCriteriaChange(e)
+                                    }} placeholder="Second Criteria" className='w-fit' />
                             }
                             {
                                 secondCriteria &&
@@ -316,12 +316,15 @@ const Selection = () => {
                                     options={
                                         [
                                             { label: 'Name', value: 'name' },
-                                            { label: 'Invited Count', value: 'invited_count' },
+                                            { label: 'Invitation Count', value: 'invitationCount' },
                                             { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
                                             { label: 'Official Rank', value: 'officialRank.point' }
                                         ]
                                     }
-                                    onChange={(e) => setThirdCriteria(e.value)} placeholder="Third Criteria" className='w-fit' />
+                                    onChange={(e) => {
+                                        setThirdCriteria(e.value)
+                                        onCriteriaChange(e)
+                                    }} placeholder="Third Criteria" className='w-fit' />
                             }
                         </div>
 

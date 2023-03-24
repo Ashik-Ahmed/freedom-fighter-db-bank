@@ -5,7 +5,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useState } from 'react';
 
-const ComplaintAccordion = ({ getFreedomFighter, getAllComplaints, complaint }) => {
+const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
 
     const router = useRouter();
     const { id } = router.query;
@@ -69,7 +69,6 @@ const ComplaintAccordion = ({ getFreedomFighter, getAllComplaints, complaint }) 
             .then(data => {
                 console.log(data);
                 if (data.data.modifiedCount) {
-                    getFreedomFighter()
                     getAllComplaints();
                     console.log(data);
                     setResolveDialog(false)
