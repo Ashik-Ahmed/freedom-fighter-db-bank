@@ -55,8 +55,8 @@ const Selection = () => {
     const memberTypes = [
         'Freedom Fighter',
         'General Invitees',
-        'Retired',
-        'Retired ORs/Others'
+        'Retired Officers',
+        'Retired Others'
     ]
 
     const handleSelection = (e) => {

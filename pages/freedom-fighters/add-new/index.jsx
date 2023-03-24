@@ -31,7 +31,7 @@ const AddNew = () => {
         'Freedom Fighter',
         'General Invitees',
         'Retired Officers',
-        'Retired ORs/Other'
+        'Retired Others'
     ]
 
     const forces = [
