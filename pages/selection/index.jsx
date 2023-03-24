@@ -25,7 +25,9 @@ const Selection = () => {
     const [events, setEvents] = useState([])
     const [event, setEvent] = useState('')
     const [year, setYear] = useState('')
+    const [minYear, setMinYear] = useState(new Date().toLocaleString("en-GB"))
     const [confirmSelectionDialogue, setConfirmSelectionDialogue] = useState(false)
+
 
     // fetch available events from db 
     useEffect(() => {
@@ -105,6 +107,7 @@ const Selection = () => {
         { field: 'name', header: 'Name' },
         { field: 'category', header: 'Member Type' },
         { field: 'forceRank', header: 'Official Rank' },
+        { field: 'officialRank.point', header: 'Official Point' },
         { field: `fighterRank`, header: 'Fighter Rank' },
         { field: 'fighterPoint', header: 'Fighter Value' },
         { field: 'invitationCount', header: 'Invite Count', body: { invitedYear } }

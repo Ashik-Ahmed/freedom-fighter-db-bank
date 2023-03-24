@@ -54,7 +54,7 @@ const FreedomFighter = ({ query, children }) => {
 
     return (
         <div className='mx-auto rounded-md'>
-            <div className='flex gap-x-12'>
+            <div className='flex gap-x-4'>
                 <div className='flex flex-col bg-white p-4 w-[350px] h-[97vh]'>
                     <div>
                         <div className="avatar">
@@ -96,7 +96,7 @@ const FreedomFighter = ({ query, children }) => {
                             <span >Complaint History</span>
                             {
                                 unresolvedComplaint > 0 &&
-                                <span className='bg-yellow-400 text-primary w-[26px] rounded-full'>{unresolvedComplaint}</span>
+                                <span className='bg-yellow-500 text-primary w-[26px] rounded-full'>{unresolvedComplaint}</span>
                             }
                         </Link>
                     </div>

@@ -50,7 +50,7 @@ const Successor = () => {
                 <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
                     <h3>Successor Information</h3>
                 </div>
-                <div className='p-2 space-y-4'>
+                <div className='p-2 space-y-4 bg-white'>
                     <div className='border border-gray-100 p-2 shadow-md rounded-md'>
                         <p> <span className='font-bold'>Name:</span> {successor?.name || 'N/A'}</p>
                         <p> <span className='font-bold'>Relation:</span> {successor?.relation || 'N/A'}</p>
@@ -62,9 +62,9 @@ const Successor = () => {
                         <p> <span className='font-bold'>Email:</span> {successor?.email || 'N/A'}</p>
                         <p> <span className='font-bold'>Address:</span> {successor?.address || 'N/A'}</p>
                     </div>
-                </div>
-                <div className='flex justify-end'>
-                    <button onClick={() => setDeleteModal(successor)} className='btn btn-sm btn-error font-bold text-white space-x-2 flex items-center'> <RiDeleteBin6Fill size='20' className='cursor-pointer' /> <span>Delete Successor</span></button>
+                    <div className='flex justify-end'>
+                        <button onClick={() => setDeleteModal(successor)} className='btn btn-sm btn-error font-bold text-white space-x-2 flex items-center'> <RiDeleteBin6Fill size='20' className='cursor-pointer' /> <span>Delete Successor</span></button>
+                    </div>
                 </div>
                 {
                     deleteModal &&
