@@ -29,7 +29,7 @@ const Details = () => {
                         <p><span className='font-bold'>Bio: </span>{freedomFighter?.description || 'N/A'}</p>
                         <p><span className='font-bold'>Force: </span>{freedomFighter?.force || 'N/A'}</p>
                         <p><span className='font-bold'>Official Rank: </span>{freedomFighter?.officialRank?.rank || 'N/A'}</p>
-                        <p><span className='font-bold'>Freedom Fighter: </span>{freedomFighter?.freedomFighterRank.rank || 'N/A'}</p>
+                        <p><span className='font-bold'>Freedom Fighter: </span>{freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
                         <p><span className='font-bold'>Status: </span>{freedomFighter?.status || 'N/A'}</p>
                         <p><span className='font-bold'>Invited Count: </span>{freedomFighter?.invited?.length || 'N/A'}</p>
                         <p><span className='font-bold'>Invited Year: </span>{freedomFighter?.invited?.map((year, index) => <span key={index}>{year}, </span>) || 'N/A'}</p>

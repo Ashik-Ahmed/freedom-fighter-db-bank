@@ -179,17 +179,20 @@ const AddNew = () => {
                 'encType': 'multipart/form-data'
             },
             // do not stringify. if you do, backend will not get the data
-            body: JSON.stringify(userDataWithPhoto)
+            body: userDataWithPhoto
         })
             .then(res => res.json())
             .then(data => {
-                if (data.status == 'success') {
+                if (data.status == 'Success') {
                     console.log(data);
+                    event.target.reset()
+                }
+                else if (data.status == 'Failed') {
+                    console.log(data.error);
                 }
             })
         // console.log(userDataWithPhoto.get('freedomFighterRank'))
         // console.log(await response.json());
-        event.target.reset()
     };
 
 
@@ -233,10 +236,10 @@ const AddNew = () => {
                     </div>
                     <div className='flex w-full gap-x-6 my-4'>
                         <div className="p-float-label w-1/2">
-                            <InputText name='fullName' id='fullName'
+                            <InputText name='name' id='name'
                                 onChange={handleChange}
                                 className='w-full' required />
-                            <label htmlFor="fullName" >*Full Name</label>
+                            <label htmlFor="name" >*Full Name</label>
                         </div>
                         <div className='p-float-label w-1/2'>
                             <InputText name='email' id='email'
