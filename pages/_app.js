@@ -11,6 +11,7 @@ import "primeflex/primeflex.css";
 import { Password } from 'primereact/password';
 import { InputText } from 'primereact/inputtext';
 import Sidebar from '../components/Sidebar/Sidebar';
+import Login from '../components/Login/Login';
 
 
 function MyApp({ Component, pageProps }) {
@@ -84,48 +85,49 @@ function MyApp({ Component, pageProps }) {
 
   else {
     return (
-      <div className="hero bg-[#EFF3F8] min-h-[100vh]">
-        <div className="hero-content flex-col">
-          <p className='text-primary underline text-2xl font-bold'>Please Login</p>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form onSubmit={handleLogin} className="card-body">
-              <div className="p-float-label p-input-icon-right mt-4">
-                {/* <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label> */}
-                {/* <input name='email' type="email" placeholder="email" className="input input-bordered" /> */}
-                <i className="pi pi-envelope" />
-                <InputText type="email" name='email' id='email' className=' bg-gray-200 text-gray-700 w-full' required />
-                <label htmlFor="email">*Email</label>
-              </div>
-              <div className="p-float-label mt-4">
-                {/* <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label> */}
-                {/* <input name='password' type="password" placeholder="password" className="input input-bordered" /> */}
-                {/* <Password name='password' id='password' onChange={(e) => setPassword(e.target.value)} toggleMask feedback={false} required className={`${passError}&& 'p-invalid'`} /> */}
-                <div className='p-float-label '>
-                  <Password onChange={(e) => setPassword(e.target.value)} toggleMask feedback={false} required className={`${passError}&& 'p-invalid'`} />
-                  <label htmlFor="password">*Password</label>
-                </div>
-                {
-                  passError && <p className='text-red-500 text-xs italic'>{passError}</p>
-                }
-              </div>
-              <div>
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                </label>
-              </div>
-              <div className="form-control mt-6">
-                <input type='submit' value='Login' className="btn btn-primary" />
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <Login handleLogin={handleLogin} />
+      // <div className="hero bg-[#EFF3F8] min-h-[100vh]">
+      //   <div className="hero-content flex-col">
+      //     <p className='text-primary underline text-2xl font-bold'>Please Login</p>
+      //     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      //       <form onSubmit={handleLogin} className="card-body">
+      //         <div className="p-float-label p-input-icon-right mt-4">
+      //           {/* <div className="form-control">
+      //           <label className="label">
+      //             <span className="label-text">Email</span>
+      //           </label> */}
+      //           {/* <input name='email' type="email" placeholder="email" className="input input-bordered" /> */}
+      //           <i className="pi pi-envelope" />
+      //           <InputText type="email" name='email' id='email' className=' bg-gray-200 text-gray-700 w-full' required />
+      //           <label htmlFor="email">*Email</label>
+      //         </div>
+      //         <div className="p-float-label mt-4">
+      //           {/* <div className="form-control">
+      //           <label className="label">
+      //             <span className="label-text">Password</span>
+      //           </label> */}
+      //           {/* <input name='password' type="password" placeholder="password" className="input input-bordered" /> */}
+      //           {/* <Password name='password' id='password' onChange={(e) => setPassword(e.target.value)} toggleMask feedback={false} required className={`${passError}&& 'p-invalid'`} /> */}
+      //           <div className='p-float-label '>
+      //             <Password onChange={(e) => setPassword(e.target.value)} toggleMask feedback={false} required className={`${passError}&& 'p-invalid'`} />
+      //             <label htmlFor="password">*Password</label>
+      //           </div>
+      //           {
+      //             passError && <p className='text-red-500 text-xs italic'>{passError}</p>
+      //           }
+      //         </div>
+      //         <div>
+      //           <label className="label">
+      //             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+      //           </label>
+      //         </div>
+      //         <div className="form-control mt-6">
+      //           <input type='submit' value='Login' className="btn btn-primary" />
+      //         </div>
+      //       </form>
+      //     </div>
+      //   </div>
+      // </div>
     )
   }
 }
