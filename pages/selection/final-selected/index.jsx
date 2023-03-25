@@ -75,11 +75,23 @@ const FinalSelected = () => {
     );
 
     const invitationStatusBodyTemplate = (rowData) => {
-        return (
-            <div>
-                <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" rounded outlined className="mr-2 p-button-sm" />
-            </div>
-        )
+
+        if (rowData?.primarySelection?.find(eventToCheck => eventToCheck.event == event.name && eventToCheck.year == year.getFullYear() && eventToCheck.invitationMail == 'Sent')) {
+            // console.log(eventToCheck);
+            return (
+                <div>
+                    Mail sent
+                </div>
+            )
+        }
+
+        else {
+            return (
+                <div>
+                    <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" rounded outlined className="mr-2 p-button-sm" />
+                </div>
+            )
+        }
     }
 
     const cols = [
