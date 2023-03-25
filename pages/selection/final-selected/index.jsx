@@ -14,8 +14,6 @@ const FinalSelected = () => {
     const [year, setYear] = useState(null)
     const [loading, setLoading] = useState(false)
     const [finalSelected, setFinalSelected] = useState()
-    const [selectedProducts, setSelectedProducts] = useState(null);
-    const [rowClick, setRowClick] = useState(true);
 
     // fetch available events from db 
     useEffect(() => {
@@ -113,8 +111,8 @@ const FinalSelected = () => {
             {
                 finalSelected &&
                 <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-4 min-h-[60vh]'>
-                    <DataTable value={finalSelected} header={header} selectionMode={rowClick ? null : 'checkbox'} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
-                        <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
+                    <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
+                        {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
                         {
                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                         }
