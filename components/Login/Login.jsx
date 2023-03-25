@@ -22,10 +22,12 @@ const Login = ({ handleLogin, passError }) => {
                     <InputText id="email" name='email' type="email" placeholder="Email address" className="w-full mb-3" />
 
                     <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
-                    <InputText id="password" name='password' type="password" placeholder="Password" className={`w-full mb-3 ${passError}&& 'p-invalid'`} />
-                    {
-                        passError && <p className='text-red-500 text-xs italic'>{passError}</p>
-                    }
+                    <div className='w-full mb-3 '>
+                        <InputText id="password" name='password' type="password" placeholder="Password" className={`w-full ${passError}&& 'p-invalid'`} />
+                        {
+                            passError && <p className='text-red-500 text-xs italic'>{passError}</p>
+                        }
+                    </div>
                     <div className="flex align-items-center justify-content-between mb-6">
                         <div className="flex align-items-center">
                             <Checkbox id="rememberme" onChange={e => setChecked(e.checked)} checked={checked} className="mr-2" />
