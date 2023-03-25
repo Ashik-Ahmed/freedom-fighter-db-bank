@@ -13,6 +13,7 @@ const FinalSelected = () => {
     const [event, setEvent] = useState('')
     const [year, setYear] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [mailSendLoading, setmailSendLoading] = useState(false)
     const [finalSelected, setFinalSelected] = useState()
 
     // fetch available events from db 
@@ -37,6 +38,7 @@ const FinalSelected = () => {
 
     const sendInvitationMail = (member) => {
 
+        setmailSendLoading(true)
         const data = {
             memberId: member._id,
             eventToBeUpdate: {
@@ -49,7 +51,7 @@ const FinalSelected = () => {
                 text: event.emailBody
             }
         }
-        console.log(data);
+        // console.log(data);
 
         const url = 'http://localhost:5000/api/v1/selection/send-invitation-mail';
         fetch(url, {
@@ -61,7 +63,15 @@ const FinalSelected = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data?.data?.modifiedCount > 0) {
+                    getFinalSelectedMembers()
+                    setmailSendLoading(false)
+                    console.log(data);
+                }
+                else {
+                    setmailSendLoading(false)
+                    console.log(data.error);
+                }
             })
     }
 
@@ -86,11 +96,22 @@ const FinalSelected = () => {
         }
 
         else {
-            return (
-                <div>
-                    <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" rounded outlined className="mr-2 p-button-sm" />
-                </div>
-            )
+            if (mailSendLoading) {
+                return (
+                    <Button classname="p-button-sm" disabled>
+                        <svg classname="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                        </svg>
+                        Sending...
+                    </Button>
+                )
+            }
+            else {
+                return (
+                    <div>
+                        <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" disabled={mailSendLoading} rounded outlined className="mr-2 p-button-sm" />
+                    </div>
+                )
+            }
         }
     }
 
