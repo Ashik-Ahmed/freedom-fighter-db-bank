@@ -39,7 +39,10 @@ const FinalSelected = () => {
 
         const data = {
             memberId: member._id,
-            eventToBeUpdate: event,
+            eventToBeUpdate: {
+                name: event.name,
+                year: year.getFullYear()
+            },
             mailData: {
                 to: member.email,
                 subject: `Invitation for ${event.name}-${year.getFullYear()}`,
