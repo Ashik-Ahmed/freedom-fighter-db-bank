@@ -3,7 +3,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
 import React, { useState } from 'react';
 
-const Login = ({ handleLogin }) => {
+const Login = ({ handleLogin, passError }) => {
 
     const [checked, setChecked] = useState(false)
 
@@ -22,8 +22,10 @@ const Login = ({ handleLogin }) => {
                     <InputText id="email" name='email' type="email" placeholder="Email address" className="w-full mb-3" />
 
                     <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
-                    <InputText id="password" name='password' type="password" placeholder="Password" className="w-full mb-3" />
-
+                    <InputText id="password" name='password' type="password" placeholder="Password" className={`w-full mb-3 ${passError}&& 'p-invalid'`} />
+                    {
+                        passError && <p className='text-red-500 text-xs italic'>{passError}</p>
+                    }
                     <div className="flex align-items-center justify-content-between mb-6">
                         <div className="flex align-items-center">
                             <Checkbox id="rememberme" onChange={e => setChecked(e.checked)} checked={checked} className="mr-2" />

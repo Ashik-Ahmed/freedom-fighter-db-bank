@@ -87,7 +87,7 @@ function MyApp({ Component, pageProps }) {
 
   else {
     return (
-      <Login handleLogin={handleLogin} />
+      <Login handleLogin={handleLogin} passError={passError} />
       // <div className="hero bg-[#EFF3F8] min-h-[100vh]">
       //   <div className="hero-content flex-col">
       //     <p className='text-primary underline text-2xl font-bold'>Please Login</p>
