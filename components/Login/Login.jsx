@@ -17,9 +17,9 @@ const Login = ({ handleLogin }) => {
                     <div className="text-900 text-3xl font-medium mb-3">Welcome Back</div>
                 </div>
 
-                <div>
+                <form onSubmit={handleLogin} >
                     <label htmlFor="email" className="block text-900 font-medium mb-2">Email</label>
-                    <InputText id="email" name='email' type="text" placeholder="Email address" className="w-full mb-3" />
+                    <InputText id="email" name='email' type="email" placeholder="Email address" className="w-full mb-3" />
 
                     <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
                     <InputText id="password" name='password' type="password" placeholder="Password" className="w-full mb-3" />
@@ -32,8 +32,8 @@ const Login = ({ handleLogin }) => {
                         <a className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot your password?</a>
                     </div>
 
-                    <Button label="Sign In" icon="pi pi-user" className="w-full" />
-                </div>
+                    <Button type='submit' label="Sign In" icon="pi pi-user" className="w-full" />
+                </form>
             </div>
         </div>
 

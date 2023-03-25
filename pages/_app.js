@@ -46,6 +46,8 @@ function MyApp({ Component, pageProps }) {
     setPassError('')
 
     const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
 
     await fetch('http://localhost:5000/api/v1/users/login', {
       method: 'POST',
