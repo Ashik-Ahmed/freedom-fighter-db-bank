@@ -136,7 +136,6 @@ const FinalSelected = () => {
                     <div>
                         <Calendar value={year} onChange={(e) => {
                             setYear(e.value)
-                            console.log(typeof e.value);
                         }} view="year" dateFormat="yy" placeholder='Year' required />
                     </div>
                     <Button onClick={getFinalSelectedMembers} label='Submit'></Button>
