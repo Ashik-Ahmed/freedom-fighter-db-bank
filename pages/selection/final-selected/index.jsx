@@ -86,19 +86,29 @@ const FinalSelected = () => {
 
     const invitationStatusBodyTemplate = (rowData) => {
 
-        if (rowData?.primarySelection?.find(eventToCheck => eventToCheck.event == event.name && eventToCheck.year == year.getFullYear() && eventToCheck.invitationMail == 'Sent')) {
-            // console.log(eventToCheck);
-            return (
-                <div>
-                    Mail sent
-                </div>
-            )
+        if (event.emailBody) {
+            if (rowData?.primarySelection?.find(eventToCheck => eventToCheck.event == event.name && eventToCheck.year == year.getFullYear() && eventToCheck.invitationMail == 'Sent')) {
+                // console.log(eventToCheck);
+                return (
+                    <div>
+                        Mail sent
+                    </div>
+                )
+            }
+
+            else {
+                return (
+                    <div>
+                        <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" disabled={mailSendLoading} rounded outlined className="mr-2 p-button-sm" />
+                    </div>
+                )
+            }
         }
 
         else {
             return (
                 <div>
-                    <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" disabled={mailSendLoading} rounded outlined className="mr-2 p-button-sm" />
+                    <p className='text-yellow-500'>PLease set Email first</p>
                 </div>
             )
         }
@@ -115,7 +125,7 @@ const FinalSelected = () => {
 
     return (
         <div>
-            <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg'>
+            <div className='bg-white p-4 w-fit mx-auto rounded-md shadow-lg'>
                 <div className='flex gap-x-4'>
                     <div>
                         <Dropdown name='event' options={events} optionLabel='name' value={event}
@@ -135,8 +145,8 @@ const FinalSelected = () => {
 
             {
                 finalSelected &&
-                <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-4 min-h-[60vh]'>
-                    <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
+                <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
+                    <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
                         {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
                         {
                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)

@@ -221,7 +221,7 @@ const PrimarySelected = () => {
 
     return (
         <div>
-            <div className='bg-white p-4 mt-2 w-fit mx-auto rounded-md shadow-lg '>
+            <div className='bg-white p-4 w-fit mx-auto rounded-md shadow-lg '>
                 <div className='flex gap-x-4'>
                     <div>
                         <Dropdown name='event' options={events} optionLabel='name' value={event}
@@ -241,7 +241,7 @@ const PrimarySelected = () => {
             {
                 primarySelected &&
                 <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
-                    <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows removableSort >
+                    <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows removableSort >
                         {
                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} sortable />)
                         }
