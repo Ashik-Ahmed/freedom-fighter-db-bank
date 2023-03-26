@@ -96,22 +96,11 @@ const FinalSelected = () => {
         }
 
         else {
-            if (mailSendLoading) {
-                return (
-                    <Button classname="p-button-sm" disabled>
-                        <svg classname="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
-                        </svg>
-                        Sending...
-                    </Button>
-                )
-            }
-            else {
-                return (
-                    <div>
-                        <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" disabled={mailSendLoading} rounded outlined className="mr-2 p-button-sm" />
-                    </div>
-                )
-            }
+            return (
+                <div>
+                    <Button onClick={() => { sendInvitationMail(rowData) }} icon="pi pi-send" disabled={mailSendLoading} rounded outlined className="mr-2 p-button-sm" />
+                </div>
+            )
         }
     }
 
