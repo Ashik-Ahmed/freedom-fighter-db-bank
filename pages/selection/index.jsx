@@ -18,7 +18,7 @@ const Selection = () => {
     const [firstCriteria, setFirstCriteria] = useState('')
     const [secondCriteria, setSecondCriteria] = useState('')
     const [thirdCriteria, setThirdCriteria] = useState('')
-    const [checked, setChecked] = useState(false);
+    const [excludePreviousYear, setExcludePreviousYear] = useState(false);
     const [reportModal, setReportModal] = useState(null);
     const [report, setReport] = useState(null);
     const [loading, setLoading] = useState(false)
@@ -70,8 +70,20 @@ const Selection = () => {
         //         .then(data => setSelectedFreedomFighters(data.data))
         // }
 
+        const data = {
+            total,
+            memberType,
+            eventDetails: {
+                event: event.name,
+                year: year.getFullYear()
+            },
+            selectionCriteria,
+            excludePreviousYear
+        }
 
-        const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&selectionCriteria=${JSON.stringify(selectionCriteria)}&excludePreviousYear=${checked}`;
+        const url = `http://localhost:5000/api/v1/selection?data=${JSON.stringify(data)}`;
+
+        // const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&selectionCriteria=${JSON.stringify(selectionCriteria)}&excludePreviousYear=${excludePreviousYear}&yearOfInvitation=${year.getFullYear()}`;
         // const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
         fetch(url)
             .then(res => res.json())
@@ -250,7 +262,7 @@ const Selection = () => {
                         </div>
                         <div className='flex flex-wrap gap-2 mb-1'>
                             <div className="relative">
-                                <InputText keyfilter="int" placeholder="*Total" name='total' className='w-full' required />
+                                <InputText keyfilter="int" placeholder="*Total" name='total' className='w-24' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div>
@@ -269,7 +281,7 @@ const Selection = () => {
                             <div>
                                 <Calendar value={year} onChange={(e) => {
                                     setYear(e.value)
-                                }} view="year" dateFormat="yy" placeholder='*Year' className='w-24' required />
+                                }} view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
                             </div>
                             {/* <div>
                                 <Dropdown name='year' options={years} value={year}
@@ -333,7 +345,7 @@ const Selection = () => {
 
                         <div className='flex justify-between'>
                             <div className='flex items-center gap-2'>
-                                <Checkbox inputId='excludePreviousYear' checked={checked} onChange={e => setChecked(e.checked)}></Checkbox>
+                                <Checkbox inputId='excludePreviousYear' checked={excludePreviousYear} onChange={e => setExcludePreviousYear(e.checked)}></Checkbox>
                                 <label htmlFor="excludePreviousYear" className='text-gray-500'>Exclude previous year invitee</label>
                             </div>
                             <div className='relative bottom-2'>
