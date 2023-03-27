@@ -244,13 +244,13 @@ const Selection = () => {
 
             <div>
                 <form onSubmit={handleSelection} className=' bg-white w-fit mx-auto rounded-md shadow-lg'>
-                    <div className='flex p-2 flex-col gap-2 mx-auto justify-center my-2'>
+                    <div className='flex p-2 flex-col gap-2 mx-auto justify-center mb-2'>
                         <div>
                             <p className='text-gray-700 font-bold'>Selection Criteria</p>
                         </div>
                         <div className='flex flex-wrap gap-2 mb-1'>
                             <div className="relative">
-                                <InputText keyfilter="int" placeholder="*Total" name='total' className='w-24' required />
+                                <InputText keyfilter="int" placeholder="*Total" name='total' className='w-full' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div>
