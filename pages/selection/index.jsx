@@ -243,14 +243,14 @@ const Selection = () => {
             </Dialog >
 
             <div>
-                <form onSubmit={handleSelection} className='px-2 bg-white mt-2 w-full max-w-9xl rounded-md shadow-lg'>
-                    <div className='flex flex-col gap-2 mx-auto justify-center my-2'>
+                <form onSubmit={handleSelection} className=' bg-white w-fit mx-auto rounded-md shadow-lg'>
+                    <div className='flex p-2 flex-col gap-2 mx-auto justify-center my-2'>
                         <div>
                             <p className='text-gray-700 font-bold'>Selection Criteria</p>
                         </div>
-                        <div className='flex gap-2 mb-1'>
+                        <div className='flex flex-wrap gap-2 mb-1'>
                             <div className="relative">
-                                <InputText keyfilter="int" placeholder="*Total" name='total' className='w-full' required />
+                                <InputText keyfilter="int" placeholder="*Total" name='total' className='w-24' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div>
@@ -269,7 +269,7 @@ const Selection = () => {
                             <div>
                                 <Calendar value={year} onChange={(e) => {
                                     setYear(e.value)
-                                }} view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
+                                }} view="year" dateFormat="yy" placeholder='*Year' className='w-24' required />
                             </div>
                             {/* <div>
                                 <Dropdown name='year' options={years} value={year}
@@ -345,7 +345,7 @@ const Selection = () => {
                 {
                     selectedFreedomFighters &&
                     <div className='w-full'>
-                        <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[69vh]'>
+                        <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[75vh]'>
                             {/* <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
@@ -373,7 +373,7 @@ const Selection = () => {
 
 
                             <div>
-                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="48vh" loading={loading} stripedRows>
+                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="55vh" loading={loading} stripedRows>
                                     {
                                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                                     }

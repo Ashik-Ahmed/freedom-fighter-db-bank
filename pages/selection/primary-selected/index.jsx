@@ -63,12 +63,14 @@ const PrimarySelected = () => {
         }
 
         //getting specific event details from DB
-        const eventToBeUpdate = member?.primarySelection.find(memberEvent => {
-            if (memberEvent.event == event.name && memberEvent.year == year.getFullYear()) {
-                setEventFromDB(memberEvent);
-                return memberEvent._id
-            }
-        })
+        // const eventToBeUpdate = member?.primarySelection.find(memberEvent => {
+        //     if (memberEvent.event == event.name && memberEvent.year == year.getFullYear()) {
+        //         setEventFromDB(memberEvent);
+        //         return memberEvent._id
+        //     }
+        // })
+
+        const eventToBeUpdate = member?.primarySelection.find(dbEvent => dbEvent.event == event.name && dbEvent.year == year.getFullYear())
 
         // console.log(member._id, verificationStatus);
         console.log(eventToBeUpdate);

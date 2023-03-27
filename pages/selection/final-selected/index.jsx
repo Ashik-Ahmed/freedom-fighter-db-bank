@@ -74,8 +74,6 @@ const FinalSelected = () => {
                 }
             })
     }
-
-
     const header = (
         <div className='flex justify-between items-center'>
             <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
@@ -122,6 +120,7 @@ const FinalSelected = () => {
         { field: 'address', header: 'Address' },
         // { header: 'Invitaion Status', body: { invitationStatusBodyTemplate } },
     ];
+
 
     return (
         <div>
