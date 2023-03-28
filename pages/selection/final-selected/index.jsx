@@ -41,6 +41,7 @@ const FinalSelected = () => {
         setmailSendLoading(true)
         const data = {
             memberId: member._id,
+            memberName: member.name,
             eventToBeUpdate: {
                 name: event.name,
                 year: year.getFullYear()
