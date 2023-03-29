@@ -10,10 +10,9 @@ const index = () => {
 
     const [loading, setLoading] = useState(false)
     const [categories, setCategories] = useState([]);
-    const [event, setEvent] = useState(null);
+    const [category, setCategory] = useState(null);
     const [addCategoryDialog, setAddCategoryDialog] = useState(false)
     const [deleteCategoryDialog, setDeleteCategoryDialog] = useState(false)
-    const [categoryDescription, setCategoryDescription] = useState(false)
 
 
     const getAllCategories = () => {
@@ -50,13 +49,39 @@ const index = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                if (data.status = 'success') {
+                if (data.status = 'Success') {
                     setAddCategoryDialog(false)
                     getAllCategories();
+                    console.log(data);
+                }
+                else {
+                    console.log(data.error);
                 }
             })
 
+    }
+
+    const handleDeleteCategory = (categoryId) => {
+        console.log(categoryId);
+
+        const url = `http://localhost:5000/api/v1/memberCategory/${categoryId}`
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.data.deletedCount > 0) {
+                    console.log(data);
+                    getAllCategories()
+                    setDeleteCategoryDialog(false)
+                }
+                else {
+                    console.log(data.error);
+                }
+            })
     }
 
     const header = (
@@ -71,15 +96,9 @@ const index = () => {
     const actionBodyTemplate = (rowData) => {
         return (
             <div className='flex space-x-2'>
-                <Button icon='pi pi-pencil' onClick={() => {
-                    setEvent(rowData)
-                    seteventDescription(rowData.description)
-                    setMailBody(rowData?.emailBody)
-                    setEditEventModal(true);
-                }}></Button>
                 <Button icon='pi pi-trash' className='p-button-danger' onClick={() => {
-                    setEvent(rowData)
-                    setDeleteEventModal(true)
+                    setCategory(rowData)
+                    setDeleteCategoryDialog(true)
                 }}></Button>
             </div>
         )
@@ -126,7 +145,7 @@ const index = () => {
                 {/* event delete dialog box  */}
                 <Dialog header="Delete Category" visible={deleteCategoryDialog} onHide={() => { setDeleteCategoryDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
 
-                    {/* <div className="confirmation-content">
+                    <div className="confirmation-content">
                         <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
                         {category && (
                             <span>
@@ -136,9 +155,9 @@ const index = () => {
 
                         <div className='flex gap-x-2 mt-4 justify-end'>
                             <Button onClick={() => { setDeleteCategoryDialog(false) }} label="No" icon="pi pi-times" outlined />
-                            <Button onClick={() => handleDeleteEvent(event?._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                            <Button onClick={() => handleDeleteCategory(category?._id)} label="Yes" icon="pi pi-trash" severity="danger" className='p-button-danger' />
                         </div>
-                    </div> */}
+                    </div>
                 </Dialog>
             </div>
         </div>
