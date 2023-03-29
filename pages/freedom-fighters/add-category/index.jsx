@@ -39,6 +39,24 @@ const index = () => {
             description: e.target.description.value
         }
         console.log(category);
+
+        fetch('http://localhost:5000/api/v1/memberCategory', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                // authorization: `Bearer ${cookie.get('TOKEN')}`
+            },
+            body: JSON.stringify(category)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.status = 'success') {
+                    setAddCategoryDialog(false)
+                    getAllCategories();
+                }
+            })
+
     }
 
     const header = (
