@@ -4,7 +4,7 @@ import { PanelMenu } from 'primereact/panelmenu';
 import Link from 'next/link';
 
 import { HiMenuAlt3, HiOutlineUserGroup } from "react-icons/hi";
-import { MdOutlineDashboard, MdFilterListAlt, MdInsertInvitation, } from "react-icons/md";
+import { MdOutlineDashboard, MdFilterListAlt, MdInsertInvitation, MdOutlineLibraryAdd } from "react-icons/md";
 import { RiSettings4Line, RiMailSettingsLine, RiFilterLine, RiUserSettingsLine, RiLogoutCircleRLine } from "react-icons/ri";
 import { TbReportAnalytics, TbList, TbListCheck } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
@@ -31,7 +31,8 @@ const Sidebar = ({ user, setUser }) => {
         {
             name: "Manage Members", icon: HiOutlineUserGroup, items: [
                 { name: "Browse Members", link: "/freedom-fighters", icon: CgUserList },
-                { name: "Add Member", link: "/freedom-fighters/add-new", icon: FiUserPlus }
+                { name: "Add Member", link: "/freedom-fighters/add-new", icon: FiUserPlus },
+                { name: "Add Category", link: "/freedom-fighters/add-category", icon: MdOutlineLibraryAdd }
             ]
         },
         { name: "Manage Events", link: "/events", icon: MdInsertInvitation, },

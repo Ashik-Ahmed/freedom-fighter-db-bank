@@ -19,8 +19,8 @@ const FreedomFighter = ({ query, children }) => {
             .then(data => {
                 setFreedomFighter(data);
 
-                const unresolvedComplaint = data.complaints.filter(complaint => complaint.status !== 'Resolved')
-                setUnresolvedComplaint(unresolvedComplaint.length)
+                const unresolvedComplaint = data?.complaints?.filter(complaint => complaint.status !== 'Resolved')
+                setUnresolvedComplaint(unresolvedComplaint?.length)
 
                 // convert image binary/Buffer data to base64 string
                 // setProfileImg(btoa(
