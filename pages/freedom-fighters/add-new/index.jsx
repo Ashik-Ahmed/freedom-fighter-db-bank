@@ -15,6 +15,7 @@ const AddNew = () => {
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState();
     const [category, setCategory] = useState()
+    // const [categories, setCategories] = useState([])
     const [force, setForce] = useState()
     const [file, setFile] = useState(null);
     const [ingredient, setIngredient] = useState('');
@@ -24,6 +25,14 @@ const AddNew = () => {
 
     useEffect(() => {
         setCountries(countryList().getLabels())
+
+        fetch('http://localhost:5000/api/v1/memberCategory')
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                const categoryNames = data.data.map(category => { return category.name })
+                // setCategories(categoryNames)
+            })
     }, [])
 
 
@@ -119,11 +128,13 @@ const AddNew = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
+        console.log(typeof value);
         // setFormData({
         //     ...formData, [name]: value
         // });
         // convert object value to string as object is not accessible from formData
         if (typeof value == 'object') {
+            console.log('object');
             // console.log(JSON.parse(JSON.stringify(value)));
             setFormData({
                 ...formData, [name]: JSON.stringify(value)
@@ -131,6 +142,7 @@ const AddNew = () => {
         }
 
         else {
+            console.log('not object');
             setFormData({
                 ...formData, [name]: value
             });
@@ -295,14 +307,14 @@ const AddNew = () => {
                         <div className='w-1/3'>
                             <Dropdown name='force' options={forces} value={force}
                                 onChange={(e) => {
-                                    handleChange(e)
                                     setForce(e.value)
+                                    // handleChange(e)
                                 }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
-                                handleChange(e)
                                 setRank(e.value)
+                                // handleChange(e)
                             }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
                         </div>
                     </div>
