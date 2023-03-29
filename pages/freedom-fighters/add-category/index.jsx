@@ -18,7 +18,7 @@ const index = () => {
 
     const getAllCategories = () => {
         setLoading(true)
-        fetch('http://localhost:5000/api/v1/event')
+        fetch('http://localhost:5000/api/v1/memberCategory')
             .then(res => res.json())
             .then(data => {
                 console.log(data);
