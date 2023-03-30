@@ -116,7 +116,7 @@ const index = () => {
                     <form onSubmit={handleAddCategory} className='flex flex-col mt-4'>
                         <div className='p-float-label'>
                             <InputText type="text" name='name' id='name' className='input text-gray-700 w-full' required />
-                            <label htmlFor="name">*Event Name</label>
+                            <label htmlFor="name">*Category Name</label>
                         </div>
                         <div className="p-float-label mt-4">
                             <InputTextarea type="text" name='description' id='description' className='w-full' rows={5} required />

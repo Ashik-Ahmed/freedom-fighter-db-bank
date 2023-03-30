@@ -218,7 +218,7 @@ const ManageUsers = () => {
                     </form>
                 </Dialog>
             </div>
-            <div className='p-2 bg-white border-2 shadow-md rounded-md'>
+            <div className='p-2 bg-white border-2 shadow-md rounded-md mt-1'>
 
                 <DataTable value={users} header={header} paginator rows={7} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'email']} emptyMessage="No Members found."
