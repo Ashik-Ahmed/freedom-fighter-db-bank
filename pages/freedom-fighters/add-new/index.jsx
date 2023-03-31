@@ -2,9 +2,10 @@ import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RadioButton } from "primereact/radiobutton";
 import countryList from 'react-select-country-list'
+import { Toast } from 'primereact/toast';
 import { Controller, useForm } from 'react-hook-form';
 import { classNames } from 'primereact/utils';
 
@@ -21,7 +22,7 @@ const AddNew = () => {
     const [ingredient, setIngredient] = useState('');
     const [career, setCareer] = useState('')
     const [formData, setFormData] = useState({});
-
+    const toast = useRef(null);
 
     useEffect(() => {
         setCountries(countryList().getLabels())
@@ -197,10 +198,13 @@ const AddNew = () => {
             .then(data => {
                 if (data.status == 'Success') {
                     console.log(data);
+                    setFile(null)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Member Added', life: 3000 });
                     event.target.reset()
                 }
                 else if (data.status == 'Failed') {
                     console.log(data.error);
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
                 }
             })
         // console.log(userDataWithPhoto.get('freedomFighterRank'))
@@ -214,9 +218,6 @@ const AddNew = () => {
         return errors[name] ? <small className="p-error">{errors[name].message}</small> : <small className="p-error">&nbsp;</small>;
     };
 
-    const addNew = (data) => {
-        console.log(data);
-    }
 
 
     return (
@@ -224,28 +225,10 @@ const AddNew = () => {
 
             {/* add new member form  */}
             <div className='mx-auto max-w-7xl'>
-
+                <Toast ref={toast} />
                 <form onSubmit={handleInsertNewMember} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
                     {/* <form onSubmit={handleSubmit(addNew)} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'> */}
                     <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
-                    <div className='flex gap-x-6 my-4'>
-                        <div className='w-1/2'>
-                            <Dropdown name='category' options={categories} value={category}
-                                onChange={(e) => {
-                                    handleChange(e)
-                                    setCategory(e.value)
-                                }} placeholder="*Select Member Type" className='text-black w-full' required />
-                        </div>
-
-                        <div className='w-1/2'>
-                            <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
-                                onChange={(e) => {
-                                    // handleChange(e)
-                                    console.log(e.value);
-                                    setFighterRank(e.value)
-                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
-                        </div>
-                    </div>
                     <div className='flex w-full gap-x-6 my-4'>
                         <div className="p-float-label w-1/2">
                             <InputText name='name' id='name'
@@ -258,6 +241,32 @@ const AddNew = () => {
                                 onChange={handleChange}
                                 className='w-full' required />
                             <label htmlFor="email">*Email</label>
+                        </div>
+                    </div>
+
+                    <div className='flex gap-x-6 my-4'>
+                        <div className='w-1/3'>
+                            <Dropdown name='category' options={categories} value={category}
+                                onChange={(e) => {
+                                    handleChange(e)
+                                    setCategory(e.value)
+                                }} placeholder="*Select Member Type" className='text-black w-full' required />
+                        </div>
+
+                        <div className='w-1/3'>
+                            <Dropdown name='freedomFighterRank' options={fighterRanks} value={fighterRank}
+                                onChange={(e) => {
+                                    // handleChange(e)
+                                    console.log(e.value);
+                                    setFighterRank(e.value)
+                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
+                        </div>
+
+                        <div className='w-1/3'>
+                            <InputText name='freedomFighterNumber'
+                                onChange={(e) => {
+                                    handleChange(e)
+                                }} placeholder="*Freedom Fighter Number" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
                         </div>
                     </div>
                     <div className='flex w-full gap-x-6 items-center my-4'>

@@ -173,10 +173,10 @@ const Home = () => {
                     dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="80vh" loading={loading} stripedRows removableSort >
                     <Column header='Name' field='name' sortable></Column>
                     <Column header='Category' field='category'></Column>
-                    <Column header='Force' body={typeBodyTemplate}></Column>
+                    {/* <Column header='Force' body={typeBodyTemplate}></Column> */}
                     <Column header='Contact' field='mobile'></Column>
                     <Column header='Address' field='address'></Column>
-                    <Column header='Action' body={actionBodyTemplate}></Column>
+                    <Column header='Action' body={actionBodyTemplate} style={{ width: '14%' }}></Column>
                 </DataTable>
             </div>
 

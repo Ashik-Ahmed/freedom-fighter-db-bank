@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import { Toast } from 'primereact/toast';
+import React, { useRef } from 'react';
 import FreedomFighter from '..';
 
 const AddSuccessor = () => {
 
+    const toast = useRef(null);
     const router = useRouter();
 
     const { id } = router.query;
@@ -44,13 +46,22 @@ const AddSuccessor = () => {
             body: JSON.stringify(successorData)
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                if (data.status == 'Success') {
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: data.message, life: 3000 });
+                    e.target.reset()
+                }
+                else {
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
+                }
+            })
 
 
     }
 
     return (
         <FreedomFighter>
+            <Toast ref={toast} />
             <div>
                 <div className='bg-primary text-xl text-center text-gray-100 font-semibold'>
                     <p>Please Add a Successsor</p>
