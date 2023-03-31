@@ -1,14 +1,21 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import FreedomFighter from '..';
 import { RiDeleteBin6Fill } from 'react-icons/ri'
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { Toast } from 'primereact/toast';
 
 const Successor = () => {
     const router = useRouter();
     const { id } = router.query;
+    const toast = useRef(null);
+
     const [successor, setSuccessor] = useState();
     const [deleteModal, setDeleteModal] = useState(null);
+    const [successorDeleteDialog, setSuccessorDeleteDialog] = useState(false)
     const currentDate = new Date().getFullYear();
+
 
     useEffect(() => {
         fetch(`http://localhost:5000/api/v1/successor/${id}`)
@@ -32,10 +39,16 @@ const Successor = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                if (data.data.deletedCount > 0) {
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Successor Deleted', life: 3000 });
+                    router.push(`/freedom-fighters/${id}/add-successor`)
+                }
+                else {
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
+                }
             })
 
-        setDeleteModal(null)
+        setSuccessorDeleteDialog(false)
     }
 
 
@@ -46,6 +59,7 @@ const Successor = () => {
 
     return (
         <FreedomFighter>
+            <Toast ref={toast} />
             <div className='w-full'>
                 <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
                     <h3>Successor Information</h3>
@@ -63,10 +77,29 @@ const Successor = () => {
                         <p> <span className='font-bold'>Address:</span> {successor?.address || 'N/A'}</p>
                     </div>
                     <div className='flex justify-end'>
-                        <button onClick={() => setDeleteModal(successor)} className='btn btn-sm btn-error font-bold text-white space-x-2 flex items-center'> <RiDeleteBin6Fill size='20' className='cursor-pointer' /> <span>Delete Successor</span></button>
+                        <button onClick={() => setSuccessorDeleteDialog(successor)} className='btn btn-sm btn-error font-bold text-white space-x-2 flex items-center'> <RiDeleteBin6Fill size='20' className='cursor-pointer' /> <span>Delete Successor</span></button>
                     </div>
                 </div>
-                {
+
+                {/* user delete dialog box  */}
+                <Dialog header="Delete Successor" visible={successorDeleteDialog} onHide={() => { setSuccessorDeleteDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                    <div className="confirmation-content">
+                        <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
+                        {successor?.name && (
+                            <span>
+                                Delete Successor <b>{successor?.name}</b>?
+                            </span>
+                        )}
+
+                        <div className='flex gap-x-2 mt-4 justify-end'>
+                            <Button onClick={() => { setSuccessorDeleteDialog(false) }} label="No" icon="pi pi-times" outlined />
+                            <Button onClick={() => deleteSuccessor(successor._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                        </div>
+                    </div>
+                </Dialog>
+
+                {/* {
                     deleteModal &&
 
                     //delete modal
@@ -78,7 +111,7 @@ const Successor = () => {
                             <button onClick={() => deleteSuccessor(successor._id)} class="bg-primary px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">Ok</button>
                         </div>
                     </div>
-                }
+                } */}
             </div>
         </FreedomFighter>
     );

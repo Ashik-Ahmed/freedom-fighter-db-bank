@@ -9,7 +9,6 @@ const AddSuccessor = () => {
     const router = useRouter();
 
     const { id } = router.query;
-    console.log(id);
 
     const addSuccessor = (e) => {
         e.preventDefault();
@@ -50,6 +49,7 @@ const AddSuccessor = () => {
                 if (data.status == 'Success') {
                     toast.current.show({ severity: 'success', summary: 'Success', detail: data.message, life: 3000 });
                     e.target.reset()
+                    router.push(`/freedom-fighters/${id}/successor`)
                 }
                 else {
                     toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
