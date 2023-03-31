@@ -167,7 +167,7 @@ const Home = () => {
 
     return (
         <div>
-            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[98vh]'>
+            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg min-h-[97vh]'>
                 <DataTable value={members} header={header} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'force', 'officialRank.rank', 'mobile', 'address']} emptyMessage="No Members found."
                     dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="80vh" loading={loading} stripedRows removableSort >

@@ -15,7 +15,7 @@ const AddNew = () => {
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState();
     const [category, setCategory] = useState()
-    // const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState([])
     const [force, setForce] = useState()
     const [file, setFile] = useState(null);
     const [ingredient, setIngredient] = useState('');
@@ -31,17 +31,17 @@ const AddNew = () => {
             .then(data => {
                 // console.log(data);
                 const categoryNames = data.data.map(category => { return category.name })
-                // setCategories(categoryNames)
+                setCategories(categoryNames)
             })
     }, [])
 
 
-    const categories = [
-        'Freedom Fighter',
-        'General Invitees',
-        'Retired Officers',
-        'Retired Others'
-    ]
+    // const categories = [
+    //     'Freedom Fighter',
+    //     'General Invitees',
+    //     'Retired Officers',
+    //     'Retired Others'
+    // ]
 
     const forces = [
         'Army',
