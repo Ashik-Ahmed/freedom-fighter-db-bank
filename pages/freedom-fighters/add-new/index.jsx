@@ -8,6 +8,7 @@ import countryList from 'react-select-country-list'
 import { Toast } from 'primereact/toast';
 import { Controller, useForm } from 'react-hook-form';
 import { classNames } from 'primereact/utils';
+import { Checkbox } from 'primereact/checkbox';
 
 const AddNew = () => {
 
@@ -22,6 +23,8 @@ const AddNew = () => {
     const [ingredient, setIngredient] = useState('');
     const [career, setCareer] = useState('')
     const [formData, setFormData] = useState({});
+    const [vipStatus, setVipStatus] = useState(false)
+
     const toast = useRef(null);
 
     useEffect(() => {
@@ -181,6 +184,9 @@ const AddNew = () => {
             userDataWithPhoto.append('force', force)
             userDataWithPhoto.append('officialRank', JSON.stringify(rank))
         }
+        if (vipStatus) {
+            userDataWithPhoto.append('vipStatus', vipStatus)
+        }
 
         // console.log(userDataWithPhoto.getAll('freedomFighterRank'));
         console.log('Form Submitted');
@@ -199,6 +205,7 @@ const AddNew = () => {
                 if (data.status == 'Success') {
                     console.log(data);
                     setFile(null)
+                    setVipStatus(false)
                     toast.current.show({ severity: 'success', summary: 'Success', detail: 'Member Added', life: 3000 });
                     event.target.reset()
                 }
@@ -230,17 +237,21 @@ const AddNew = () => {
                     {/* <form onSubmit={handleSubmit(addNew)} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'> */}
                     <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
                     <div className='flex w-full gap-x-6 my-4'>
-                        <div className="p-float-label w-1/2">
+                        <div className="p-float-label w-1/3">
                             <InputText name='name' id='name'
                                 onChange={handleChange}
                                 className='w-full' required />
                             <label htmlFor="name" >*Full Name</label>
                         </div>
-                        <div className='p-float-label w-1/2'>
+                        <div className='p-float-label w-1/3'>
                             <InputText name='email' id='email'
                                 onChange={handleChange}
                                 className='w-full' required />
                             <label htmlFor="email">*Email</label>
+                        </div>
+                        <div className='flex items-center gap-2 w-1/3'>
+                            <Checkbox inputId='vipStatus' checked={vipStatus} onChange={e => setVipStatus(e.checked)}></Checkbox>
+                            <label htmlFor="vipStatus" className='text-gray-500'>VIP Member</label>
                         </div>
                     </div>
 
