@@ -62,7 +62,7 @@ const Sidebar = ({ user, setUser }) => {
 
         <section className={`flex gap-6 h-screen bg-primary/70 ${open && 'px-2'}`}>
             <div
-                className={` ${open ? "w-[280px]" : "w-[70px]"} duration-700 text-gray-100 px-2`}
+                className={` ${open ? "w-[240px]" : "w-[70px]"} duration-700 text-gray-100 px-2`}
             >
                 <div className="py-3 flex justify-between items-center">
                     <div className='flex gap-1 items-center'>
