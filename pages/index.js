@@ -134,7 +134,7 @@ export default function Home() {
 
 
       <div className="flex h-[100vh-160px]">
-        <div className="flex flex-col col-12 xl:col-6">
+        <div className="flex flex-col col-12 xl:col-7">
           <div className='col-12'>
             <div className=" p-2 bg-white shadow-lg">
               <h5 className='text-gray-700'>Sales Overview</h5>
@@ -148,18 +148,18 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="col-12 xl:col-6">
+        <div className="col-12 xl:col-5">
           <div className=" p-2 bg-white shadow-lg">
             <div className="flex justify-between text-gray-700 mb-1">
               <h5 className='text-gray-700'>New Members</h5>
               <Link href='/freedom-fighters' className='hover:bg-primary bg-secondary text-white rounded px-1 transition-all ease-in duration-200'>Browse All<i className="pi pi-arrow-right text-xs ml-1"></i>
               </Link>
             </div>
-            <DataTable value={freedomFightersData} removableSort rows={5} responsiveLayout="scroll" scrollHeight='88vh'>
+            <DataTable value={freedomFightersData} size='small' removableSort rows={5} responsiveLayout="scroll" scrollHeight='88vh'>
               {/* <Column header="Image" body={(data) => <img className="shadow-2" src={`${ contextPath } /demo/images / product / ${ data.image } `} alt={data.image} width="50" />} /> */}
-              <Column field="name" header="Name" sortable style={{ width: '35%' }} />
-              <Column field="category" header="Category" sortable style={{ width: '35%' }} />
-              <Column field="mobile" header="Contact" sortable style={{ width: '35%' }} />
+              <Column field="name" header="Name" sortable style={{ width: '35%', fontSize: '14px' }} />
+              <Column field="category" header="Category" sortable style={{ width: '35%', fontSize: '14px' }} />
+              <Column field="mobile" header="Contact" sortable style={{ width: '35%', fontSize: '14px' }} />
             </DataTable>
           </div>
         </div>
