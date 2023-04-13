@@ -60,10 +60,8 @@ const Sidebar = ({ user, setUser }) => {
         //     </span>
         // </div >
 
-        <section className={`flex gap-6 h-screen bg-primary/70 ${open && 'px-2'}`}>
-            <div
-                className={` ${open ? "w-[240px]" : "w-[70px]"} duration-700 text-gray-100 px-2`}
-            >
+        <section className={`flex gap-6 h-screen bg-primary/70 ${open && 'px-2'} overflow-y-scroll scrollbar-none overflow-x-hidden`}>
+            <div className={` ${open ? "w-[240px]" : "w-[100px]"} duration-700 text-gray-100 px-2`}>
                 <div className="py-3 flex justify-between items-center">
                     <div className='flex gap-1 items-center'>
                         <span className='pi pi-telegram text-xl'></span>
@@ -77,7 +75,7 @@ const Sidebar = ({ user, setUser }) => {
                         }}
                     />
                 </div>
-                <div className="flex flex-col gap-1  relative">
+                <div className="flex flex-col gap-1 relative">
                     {menus?.map((menu, index) => (
                         <Menu key={index} menu={menu} open={open} setOpen={setOpen} index={index} />
                     ))}

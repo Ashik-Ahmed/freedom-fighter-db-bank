@@ -134,7 +134,7 @@ export default function Home() {
 
 
       <div className="flex h-[100vh-160px] col-12 p-0">
-        <div className="grid gap-3 col-7 xl:col-span-7 p-2 mr-2">
+        <div className="grid gap-3 col-7 p-2 mr-2">
           <div className='col-12 p-0'>
             <div className=" p-2 bg-white shadow-lg  rounded-sm">
               <h5 className='text-gray-700'>Sales Overview</h5>
@@ -148,14 +148,14 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="col-5 xl:col-5 p-0">
+        <div className=" col-5 p-0">
           <div className=" p-2 bg-white shadow-lg ">
             <div className="flex justify-between text-gray-700 mb-1 rounded-sm">
               <h5 className='text-gray-700'>New Members</h5>
               <Link href='/freedom-fighters' className='hover:bg-primary bg-secondary text-white rounded px-1 transition-all ease-in duration-200'>Browse All<i className="pi pi-arrow-right text-xs ml-1"></i>
               </Link>
             </div>
-            <DataTable value={freedomFightersData} size='small' removableSort rows={5} responsiveLayout="scroll" scrollHeight='88vh'>
+            <DataTable value={freedomFightersData} size='small' removableSort rows={5} responsiveLayout='scroll' scrollHeight='98vh'>
               {/* <Column header="Image" body={(data) => <img className="shadow-2" src={`${ contextPath } /demo/images / product / ${ data.image } `} alt={data.image} width="50" />} /> */}
               <Column field="name" header="Name" sortable style={{ width: '35%', fontSize: '14px' }} />
               <Column field="category" header="Category" sortable style={{ width: '35%', fontSize: '14px' }} />
