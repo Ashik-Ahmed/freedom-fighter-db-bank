@@ -133,24 +133,24 @@ export default function Home() {
       </div>
 
 
-      <div className="flex h-[100vh-160px]">
-        <div className="flex flex-col col-12 xl:col-7">
-          <div className='col-12'>
-            <div className=" p-2 bg-white shadow-lg">
+      <div className="flex h-[100vh-160px] col-12 p-0">
+        <div className="grid gap-3 col-7 xl:col-span-7 p-2 mr-2">
+          <div className='col-12 p-0'>
+            <div className=" p-2 bg-white shadow-lg  rounded-sm">
               <h5 className='text-gray-700'>Sales Overview</h5>
               <Chart type="bar" data={lineData} />
             </div>
           </div>
-          <div className='col-12'>
-            <div className=" p-2 bg-white shadow-lg">
+          <div className='col-12 p-0'>
+            <div className=" p-2 bg-white shadow-lg  rounded-sm">
               <h5 className='text-gray-700'>Sales Overview</h5>
               <Chart type="line" data={lineData} />
             </div>
           </div>
         </div>
-        <div className="col-12 xl:col-5">
-          <div className=" p-2 bg-white shadow-lg">
-            <div className="flex justify-between text-gray-700 mb-1">
+        <div className="col-5 xl:col-5 p-0">
+          <div className=" p-2 bg-white shadow-lg ">
+            <div className="flex justify-between text-gray-700 mb-1 rounded-sm">
               <h5 className='text-gray-700'>New Members</h5>
               <Link href='/freedom-fighters' className='hover:bg-primary bg-secondary text-white rounded px-1 transition-all ease-in duration-200'>Browse All<i className="pi pi-arrow-right text-xs ml-1"></i>
               </Link>
