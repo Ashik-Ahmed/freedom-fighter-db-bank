@@ -44,7 +44,7 @@ const Login = ({ handleLogin, passError }) => {
 
         <div className="flex flex-column align-items-center justify-content-center">
             {/* <img src="/layout/images/logo-dark.svg" alt="Sakai logo" className="mb-5 w-6rem flex-shrink-0" /> */}
-            <div style={{ borderRadius: "56px", padding: "0.3rem", background: "linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)" }}>
+            <div className=' w-[600px]' style={{ borderRadius: "56px", padding: "0.3rem", background: "linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)" }}>
                 <div className="w-full surface-card py-8 px-5 sm:px-8" style={{ borderRadius: "53px" }}>
                     <div className="text-center mb-5">
                         {/* <img src="/demo/images/login/avatar.png" alt="Image" height="50" className="mb-3" /> */}
@@ -53,7 +53,11 @@ const Login = ({ handleLogin, passError }) => {
                     </div>
                     <form onSubmit={handleLogin} >
                         <label for="email" className="block text-900 font-medium mb-2">Email</label>
-                        <InputText name='email' inputid="email" type="text" placeholder="Email address" className='w-full mb-3' />
+                        <div className="p-inputwrapper p-input-icon-right w-full">
+                            <InputText name='email' inputid="email" type="email" placeholder="Email address" className='w-full mb-3' />
+                            <i onClick={() => setPasswordVisibility(!passwordVisibility)} className='pi pi-envelope
+  -mt-3'></i>
+                        </div>
                         <div className=' mb-5'>
                             <label for="password" className="block text-900 font-medium mb-2">Password</label>
                             <div className="p-password p-component p-inputwrapper p-input-icon-right w-full">
@@ -69,7 +73,7 @@ const Login = ({ handleLogin, passError }) => {
                                 <Checkbox id="rememberme" onChange={e => setChecked(e.checked)} checked={checked} className="mr-2" />
                                 <label htmlFor="rememberme" className='text-gray-700'>Remember me</label>
                             </div>
-                            <a className="text-sm italic hover:underline ml-2 text-blue-500 text-right cursor-pointer">Forgot your password?</a>
+                            <a className="text-sm italic hover:underline ml-2 text-secondary text-right cursor-pointer">Forgot your password?</a>
                         </div>
                         <Button type='submit' label="Sign In" icon="pi pi-user" className="w-full" />
                     </form>
