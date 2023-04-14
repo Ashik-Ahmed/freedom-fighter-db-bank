@@ -54,27 +54,22 @@ const Login = ({ handleLogin, passError }) => {
                     <form onSubmit={handleLogin} >
                         <label for="email" className="block text-900 font-medium mb-2">Email</label>
                         <InputText name='email' inputid="email" type="text" placeholder="Email address" className='w-full mb-3' />
-                        <label for="password" className="block text-900 font-medium mb-2">Password</label>
-                        <div className="p-password p-component p-inputwrapper p-input-icon-right w-full mb-5">
-                            <InputText id="password" name='password' type={passwordVisibility ? 'text' : 'password'} placeholder="Password" className={`w-full ${passError}&& 'p-invalid'`} />
+                        <div className=' mb-5'>
+                            <label for="password" className="block text-900 font-medium mb-2">Password</label>
+                            <div className="p-password p-component p-inputwrapper p-input-icon-right w-full">
+                                <InputText id="password" name='password' type={passwordVisibility ? 'text' : 'password'} placeholder="Password" className={`w-full ${passError}&& 'p-invalid'`} />
+                                <i onClick={() => setPasswordVisibility(!passwordVisibility)} className={`pi ${passwordVisibility ? 'pi-eye' : 'pi-eye-slash'}`}></i>
+                            </div>
                             {
                                 passError && <p className='text-red-500 text-xs italic'>{passError}</p>
                             }
-                            <i onClick={() => setPasswordVisibility(!passwordVisibility)} className={`pi ${passwordVisibility ? 'pi-eye' : 'pi-eye-slash'}`}></i></div>
-                        <div className="flex align-items-center justify-content-between mb-5 gap-5">
+                        </div>
+                        <div className="flex align-items-center justify-content-between mb-6">
                             <div className="flex align-items-center">
-                                <div className="p-checkbox p-component mr-2" inputid="rememberme1">
-                                    <div className="p-hidden-accessible">
-                                        <input type="checkbox" />
-                                    </div>
-                                    <div className="p-checkbox-box">
-                                        <span className="p-checkbox-icon p-c">
-                                        </span>
-                                    </div>
-                                </div>
-                                <label for="rememberme1">Remember me</label>
+                                <Checkbox id="rememberme" onChange={e => setChecked(e.checked)} checked={checked} className="mr-2" />
+                                <label htmlFor="rememberme" className='text-gray-700'>Remember me</label>
                             </div>
-                            <a className="font-medium no-underline ml-2 text-right cursor-pointer" style={{ color: "var(--primary-color)" }}>Forgot password?</a>
+                            <a className="text-sm italic hover:underline ml-2 text-blue-500 text-right cursor-pointer">Forgot your password?</a>
                         </div>
                         <Button type='submit' label="Sign In" icon="pi pi-user" className="w-full" />
                     </form>
