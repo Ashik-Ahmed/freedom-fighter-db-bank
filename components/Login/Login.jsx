@@ -51,10 +51,10 @@ const Login = ({ handleLogin, passError }) => {
                         <div className="text-900 text-3xl font-medium mb-3">Welcome, Isabel!</div>
                         <span className="text-600 font-medium">Sign in to continue</span>
                     </div>
-                    <div>
-                        <label for="email1" className="block text-900 font-medium mb-2">Email</label>
-                        <InputText inputid="email1" type="text" placeholder="Email address" className='w-full mb-3' />
-                        <label for="password1" className="block text-900 font-medium mb-2">Password</label>
+                    <form onSubmit={handleLogin} >
+                        <label for="email" className="block text-900 font-medium mb-2">Email</label>
+                        <InputText name='email' inputid="email" type="text" placeholder="Email address" className='w-full mb-3' />
+                        <label for="password" className="block text-900 font-medium mb-2">Password</label>
                         <div className="p-password p-component p-inputwrapper p-input-icon-right w-full mb-5">
                             <InputText id="password" name='password' type={passwordVisibility ? 'text' : 'password'} placeholder="Password" className={`w-full ${passError}&& 'p-invalid'`} />
                             {
@@ -77,7 +77,7 @@ const Login = ({ handleLogin, passError }) => {
                             <a className="font-medium no-underline ml-2 text-right cursor-pointer" style={{ color: "var(--primary-color)" }}>Forgot password?</a>
                         </div>
                         <Button type='submit' label="Sign In" icon="pi pi-user" className="w-full" />
-                    </div>
+                    </form>
                 </div>
             </div>
         </div >
