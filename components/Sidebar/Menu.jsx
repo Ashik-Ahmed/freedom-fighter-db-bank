@@ -1,20 +1,23 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import SubMenu from './SubMenu';
 
 const Menu = ({ menu, open, index }) => {
     const [accordionOpen, setAccordionOpen] = useState(false);
+    const router = useRouter()
+    console.log(router.asPath);
+    const path = router.asPath;
     return (
         menu?.items ?
 
             <>
-                <Link
+                <div
                     onMouseEnter={() => setAccordionOpen(true)}
                     onMouseLeave={() => setAccordionOpen(false)}
-                    href='/'
+                    // href='/'
                     // href={'/'}
                     key={index}
-                    className={` ${menu?.margin && "mt-4"} group flex items-center text-md  gap-3.5 py-2 px-2 hover:bg-primary rounded-md border-b transition-all ease-in duration-200`}>
+                    className={` ${menu?.margin && "mt-4"} group flex items-center text-md  gap-3.5 py-2 px-2 hover:bg-secondary rounded-md border-b transition-all ease-in duration-200`}>
                     <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                     <div className='w-full flex justify-between items-center'>
                         <h2
@@ -30,11 +33,11 @@ const Menu = ({ menu, open, index }) => {
                     </div>
                     <h2
                         className={`${open && "hidden"} absolute left-48 bg-primary whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}>
-                        <p className='px-2 py-2 z-50 '>
+                        <p className='py-2'>
                             {
                                 menu?.items.map((item, index) => {
                                     return (
-                                        <Link href={item.link} key={index} className='block my-2'>
+                                        <Link href={item.link} key={index} className='block px-2 py-1 rounded-md hover:bg-secondary'>
                                             {item.name}
                                         </Link>
                                     )
@@ -42,7 +45,7 @@ const Menu = ({ menu, open, index }) => {
                             }
                         </p>
                     </h2>
-                </Link>
+                </div>
             </>
 
             // <div className='font-medium '>
@@ -78,7 +81,7 @@ const Menu = ({ menu, open, index }) => {
                 href={menu?.link}
                 // href={'/'}
                 key={index}
-                className={` ${menu?.margin && "mt-4"} group flex items-center text-md  gap-3.5 py-2 px-2 hover:bg-primary rounded-md border-b transition-all ease-in duration-200`}>
+                className={` ${menu?.margin && "mt-4", path == menu?.link && "border-l-8 border-l-secondary "} group flex items-center text-md  gap-3.5 py-2 px-2 hover:bg-secondary rounded-md border-b transition-all ease-in duration-200`}>
                 <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                 <h2
                     style={{
@@ -89,7 +92,7 @@ const Menu = ({ menu, open, index }) => {
                 </h2>
                 <h2
                     className={`${open && "hidden"} absolute left-48 bg-primary whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}>
-                    <p className='px-2 py-2'>
+                    <p className='px-2 py-2 bg-secondary'>
                         {menu?.name}
                     </p>
                 </h2>
