@@ -17,7 +17,7 @@ const Menu = ({ menu, open, index }) => {
                     // href='/'
                     // href={'/'}
                     key={index}
-                    className={` ${menu?.margin && "mt-4"} group flex items-center text-md  gap-3.5 py-2 px-2 hover:bg-secondary rounded-md border-b transition-all ease-in duration-200`}>
+                    className={` ${menu?.margin && "mt-4", path.includes(menu?.link) && "border-l-8 border-l-white"} group flex items-center text-md  gap-3.5 py-2 px-2 hover:bg-secondary rounded-md border-b transition-all ease-in duration-200`}>
                     <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                     <div className='w-full flex justify-between items-center'>
                         <h2
@@ -81,7 +81,7 @@ const Menu = ({ menu, open, index }) => {
                 href={menu?.link}
                 // href={'/'}
                 key={index}
-                className={` ${menu?.margin && "mt-4", path == menu?.link && "border-l-8 border-l-secondary "} group flex items-center text-md  gap-3.5 py-2 px-2 hover:bg-secondary rounded-md border-b transition-all ease-in duration-200`}>
+                className={` ${menu?.margin && "mt-4", path == menu?.link && "border-l-8 border-l-white "} group flex items-center text-md  gap-3.5 py-2 px-2 hover:bg-secondary rounded-md border-b transition-all ease-in duration-200`}>
                 <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                 <h2
                     style={{

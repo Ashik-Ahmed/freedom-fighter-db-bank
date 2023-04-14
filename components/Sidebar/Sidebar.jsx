@@ -29,7 +29,7 @@ const Sidebar = ({ user, setUser }) => {
     const menus = [
         { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
         {
-            name: "Manage Members", icon: HiOutlineUserGroup, items: [
+            name: "Manage Members", icon: HiOutlineUserGroup, link: '/freedom-fighters', items: [
                 { name: "Browse Members", link: "/freedom-fighters", icon: CgUserList },
                 { name: "Add Member", link: "/freedom-fighters/add-new", icon: FiUserPlus },
                 { name: "Add Category", link: "/freedom-fighters/add-category", icon: MdOutlineLibraryAdd }
@@ -37,15 +37,15 @@ const Sidebar = ({ user, setUser }) => {
         },
         { name: "Manage Events", link: "/events", icon: MdInsertInvitation, },
         {
-            name: "Invitation Mgt.", icon: RiMailSettingsLine, items: [
+            name: "Invitation Mgt.", icon: RiMailSettingsLine, link: '/selection', items: [
                 { name: "Filter Members", link: "/selection", icon: RiFilterLine },
                 { name: "Primary List", link: "/selection/primary-selected", icon: TbList },
                 { name: "Final List", link: "/selection/final-selected", icon: TbListCheck }
             ]
         },
         { name: "Manage Users", link: "/manage-users", icon: FaUsersCog, margin: true },
-        { name: "Analytics", link: "/", icon: TbReportAnalytics },
-        { name: "File Manager", link: "/", icon: FiFolder },
+        { name: "Analytics", link: "/analytics", icon: TbReportAnalytics },
+        { name: "File Manager", link: "/file-manager", icon: FiFolder },
         { name: `Profile (${user.name})`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },
     ];
 
