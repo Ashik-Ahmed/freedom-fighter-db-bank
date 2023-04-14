@@ -76,8 +76,10 @@ function MyApp({ Component, pageProps }) {
       <div className='bg-[#EFF3F8] min-h-[100vh]'>
         {/* <Navbar user={user} setUser={setUser} /> */}
         <div className='min-h-[100vh] flex flex-row justify-start'>
-          <Sidebar user={user} setUser={setUser} />
-          <div className='h-screen w-full p-2 text-gray-700 overflow-auto'>
+          <div className='z-50'>
+            <Sidebar user={user} setUser={setUser} />
+          </div>
+          <div className='h-screen w-full p-2 text-gray-700 overflow-auto z-20'>
             <Component {...pageProps} />
           </div>
         </div>
