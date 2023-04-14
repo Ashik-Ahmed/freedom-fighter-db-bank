@@ -60,7 +60,7 @@ const Login = ({ handleLogin, passError }) => {
                             {
                                 passError && <p className='text-red-500 text-xs italic'>{passError}</p>
                             }
-                            <i onClick={() => setPasswordVisibility(!passwordVisibility)} className="pi pi-eye"></i></div>
+                            <i onClick={() => setPasswordVisibility(!passwordVisibility)} className={`pi ${passwordVisibility ? 'pi-eye' : 'pi-eye-slash'}`}></i></div>
                         <div className="flex align-items-center justify-content-between mb-5 gap-5">
                             <div className="flex align-items-center">
                                 <div className="p-checkbox p-component mr-2" inputid="rememberme1">
@@ -76,10 +76,7 @@ const Login = ({ handleLogin, passError }) => {
                             </div>
                             <a className="font-medium no-underline ml-2 text-right cursor-pointer" style={{ color: "var(--primary-color)" }}>Forgot password?</a>
                         </div>
-                        <button aria-label="Sign In" className="p-button p-component w-full p-3 text-xl">
-                            <span className="p-button-label p-c">Sign In</span>
-                            <span role="presentation" className="p-ink" style={{ height: "420px", width: "420px" }}></span>
-                        </button>
+                        <Button type='submit' label="Sign In" icon="pi pi-user" className="w-full" />
                     </div>
                 </div>
             </div>
