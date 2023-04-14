@@ -138,7 +138,7 @@ export default function Home() {
           <div className='col-12 p-0'>
             <div className=" p-2 bg-white shadow-lg  rounded-sm">
               <h5 className='text-gray-700'>Sales Overview</h5>
-              <Chart type="bar" data={lineData} />
+              <Chart type="bar" data={lineData} className='z-0 relative' />
             </div>
           </div>
           <div className='col-12 p-0'>
