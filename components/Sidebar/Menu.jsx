@@ -32,7 +32,7 @@ const Menu = ({ menu, open, index }) => {
                         {accordionOpen ? <p className='pi pi-angle-up'></p> : <p className='pi pi-angle-down'></p>}
                     </div>
                     <h2
-                        className={`${open && "group-hover:left-[240px] left-96"} absolute left-48 bg-primary whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-16 group-hover:duration-300 group-hover:w-fit `}>
+                        className={`${open && "group-hover:left-[232px]"} absolute left-48 bg-primary whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-12 group-hover:duration-300 group-hover:w-fit `}>
                         <p className='py-2'>
                             {
                                 menu?.items.map((item, index) => {
@@ -91,7 +91,7 @@ const Menu = ({ menu, open, index }) => {
                     {menu?.name}
                 </h2>
                 <h2
-                    className={`${open && "hidden"} absolute left-48 bg-primary whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-16 group-hover:duration-300 group-hover:w-fit `}>
+                    className={`${open && "hidden"} absolute left-48 bg-primary whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-12 group-hover:duration-300 group-hover:w-fit `}>
                     <p className='px-2 py-2 bg-secondary'>
                         {menu?.name}
                     </p>
