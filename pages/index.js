@@ -17,13 +17,13 @@ import { Chart } from 'primereact/chart';
 import fighterLogo from '../Images/freedom-fighter-logo.png'
 import generalMember from '../Images/general-member-icon.png'
 import retiredOfficers from '../Images/retired-officers-icon.png'
-
 import Image from 'next/image';
 
 
 export default function Home() {
 
   const [freedomFightersData, setFreedomFightersData] = useState([]);
+
 
   //fetch members from DB
   useEffect(() => {

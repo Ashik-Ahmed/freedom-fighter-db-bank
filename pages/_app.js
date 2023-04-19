@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import Navbar from '../components/Navbar/Navbar'
+import { useEffect, useRef, useState } from 'react'
 import '../styles/globals.css'
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
@@ -8,16 +7,16 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
-import { Password } from 'primereact/password';
-import { InputText } from 'primereact/inputtext';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Login from '../components/Login/Login';
+import { Toast } from 'primereact/toast';
 
 
 function MyApp({ Component, pageProps }) {
 
   const cookie = new Cookies();
   const router = useRouter()
+  const toast = useRef(null)
 
   const [user, setUser] = useState(false)
   const [password, setPassword] = useState('');
@@ -66,6 +65,7 @@ function MyApp({ Component, pageProps }) {
         else {
           cookie.set('TOKEN', data.data.token)
           setPassError('')
+          toast.current.show({ severity: 'success', summary: 'Success', detail: 'Successfully Logged in', life: 3000 });
           router.reload();
         }
       })
@@ -90,6 +90,7 @@ function MyApp({ Component, pageProps }) {
   else {
     return (
       <div className='bg-[#EFF3F8] min-h-[100vh] flex items-center justify-center'>
+        <Toast ref={toast} />
         <Login handleLogin={handleLogin} passError={passError} />
       </div>
       // <div className="hero bg-[#EFF3F8] min-h-[100vh]">
