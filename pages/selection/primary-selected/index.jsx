@@ -3,7 +3,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Dialog } from 'primereact/dialog';
@@ -24,6 +24,8 @@ const PrimarySelected = () => {
     const [showTooltip, setShowTooltip] = useState(false)
     const [deleteMemberDialogue, setDeleteMemberDialogue] = useState(false)
 
+    const programName = useRef(null)
+
     // fetch available events from db 
     useEffect(() => {
         fetch('http://localhost:5000/api/v1/event')
@@ -35,8 +37,10 @@ const PrimarySelected = () => {
 
     const getPrimarySelectedMembers = (e) => {
         // e.preventDefault()
+        console.log(programName.current.props.value);
+        const eventName = programName.current.props.value.name
         setLoading(true)
-        const url = `http://localhost:5000/api/v1/selection/primary-selection?event=${event.name}&year=${year.getFullYear()}`
+        const url = `http://localhost:5000/api/v1/selection/primary-selection?event=${eventName}&year=${year.getFullYear()}`
 
         fetch(url)
             .then(res => res.json())
@@ -150,7 +154,7 @@ const PrimarySelected = () => {
     const actionBodyTemplate = (rowData) => {
         const eventDetails = rowData.primarySelection.find(eventDetails => {
             if (eventDetails.event == event.name && eventDetails.year == year.getFullYear()) {
-                console.log(eventDetails?.verificationStatus)
+                // console.log(eventDetails?.verificationStatus)
                 return eventDetails
             }
         })
@@ -226,9 +230,11 @@ const PrimarySelected = () => {
             <div className='bg-white p-4 w-fit mx-auto rounded-md shadow-lg '>
                 <div className='flex gap-x-4'>
                     <div>
-                        <Dropdown name='event' options={events} optionLabel='name' value={event}
+                        <Dropdown ref={programName} name='event' options={events} optionLabel='name' value={event}
                             onChange={(e) => {
                                 setEvent(e.value)
+                                // programName.current == e.value.name;
+                                // console.log(e.value.name);
                             }} placeholder="*Select Event" required />
                     </div>
                     <div>
