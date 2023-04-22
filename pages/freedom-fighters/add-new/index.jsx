@@ -21,7 +21,7 @@ const AddNew = () => {
     const [force, setForce] = useState()
     const [file, setFile] = useState(null);
     const [ingredient, setIngredient] = useState('');
-    const [career, setCareer] = useState('')
+    const [profession, setProfession] = useState('')
     const [formData, setFormData] = useState({});
     const [vipStatus, setVipStatus] = useState(false)
 
@@ -179,7 +179,7 @@ const AddNew = () => {
         if (category == 'Freedom Fighter') {
             userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
         }
-        if (career == 'Armed Forces') {
+        if (profession == 'Armed Forces') {
             // console.log(force);
             userDataWithPhoto.append('force', force)
             userDataWithPhoto.append('officialRank', JSON.stringify(rank))
@@ -251,7 +251,7 @@ const AddNew = () => {
                         </div>
                         <div className='flex items-center gap-2 w-1/3'>
                             <Checkbox inputId='vipStatus' checked={vipStatus} onChange={e => setVipStatus(e.checked)}></Checkbox>
-                            <label htmlFor="vipStatus" className='text-gray-500'>VIP Member</label>
+                            <label htmlFor="vipStatus" className='text-gray-500'>Add as VIP Member</label>
                         </div>
                     </div>
 
@@ -294,7 +294,7 @@ const AddNew = () => {
                                     setCountry(e.value)
                                 }} placeholder="*Select a Country" className='text-black w-full' required />
                         </div>
-                        <div className='w-1/3 -mt-4'>
+                        {/* <div className='w-1/3 -mt-4'>
                             <label className='mr-8 ml-2 text-gray-600 text-xs'>*Status: </label>
                             <div className='flex items-center p-2 bg-white text-gray-700 rounded-md border hover:border-primary'>
                                 <div className="flex flex-wrap gap-3">
@@ -314,28 +314,28 @@ const AddNew = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='flex w-full gap-x-6 my-4'>
                         <div className='w-1/3'>
-                            <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={career}
+                            <Dropdown name='careerStatus' options={['Civilian', 'Armed Forces']} value={profession}
                                 onChange={(e) => {
                                     handleChange(e)
-                                    setCareer(e.value)
-                                }} placeholder="*Select Career" className='text-black w-full' required />
+                                    setProfession(e.value)
+                                }} placeholder="*Select Profession" className='text-black w-full' required />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='force' options={forces} value={force}
                                 onChange={(e) => {
                                     setForce(e.value)
                                     // handleChange(e)
-                                }} placeholder="*Select a Force" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
+                                }} placeholder="*Select a Force" className='text-black w-full' disabled={profession !== 'Armed Forces'} required={profession == 'Armed Forces'} />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
                                 setRank(e.value)
                                 // handleChange(e)
-                            }} placeholder="*Official Rank" className='text-black w-full' disabled={career !== 'Armed Forces'} required={career == 'Armed Forces'} />
+                            }} placeholder="*Official Rank" className='text-black w-full' disabled={profession !== 'Armed Forces'} required={profession == 'Armed Forces'} />
                         </div>
                     </div>
                     <div className='flex gap-x-6'>
