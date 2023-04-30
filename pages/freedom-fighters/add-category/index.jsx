@@ -8,7 +8,7 @@ import { Toast } from 'primereact/toast';
 import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 
-const index = () => {
+const AddCategory = () => {
 
     const [loading, setLoading] = useState(false)
     const [categories, setCategories] = useState([]);
@@ -63,7 +63,7 @@ const index = () => {
                 }
                 else {
                     console.log(data.error);
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
 
@@ -175,4 +175,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default AddCategory;

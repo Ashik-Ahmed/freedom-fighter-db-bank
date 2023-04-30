@@ -7,10 +7,13 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { RiMailAddLine } from 'react-icons/ri'
+import { useRef } from 'react';
+import { Toast } from 'primereact/toast';
 
 const Events = () => {
 
     const cookie = new Cookies();
+    const toast = useRef()
 
     const [loading, setLoading] = useState(false)
     const [events, setEvents] = useState([]);
@@ -49,8 +52,11 @@ const Events = () => {
                     getAllEvents()
                     setAddEmailModal(false)
                     setEditEventModal(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Event Updated', life: 3000 })
                 }
-                console.log(data);
+                else {
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
+                }
             })
     }
 
@@ -98,6 +104,10 @@ const Events = () => {
                 if (data.status = 'success') {
                     setAddEventModal(false)
                     getAllEvents();
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Event Added', life: 3000 })
+                }
+                else {
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
     }
@@ -131,6 +141,7 @@ const Events = () => {
         updateEventFunction(updateEventData)
     }
 
+    // Delete Event 
     const handleDeleteEvent = (id) => {
         console.log(id);
         fetch(`http://localhost:5000/api/v1/event/${id}`, {
@@ -145,9 +156,11 @@ const Events = () => {
                 if (data.data.deletedCount) {
                     getAllEvents()
                     setDeleteEventModal(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Event Deleted', life: 3000 })
                 }
                 else {
                     console.log(data);
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
     }
@@ -186,6 +199,7 @@ const Events = () => {
 
     return (
         <div>
+            <Toast ref={toast} />
             <div className=' max-w-7xl mx-auto mt-4'>
                 <Button icon='pi pi-plus' label='Add Event' onClick={() => setAddEventModal(true)} />
 

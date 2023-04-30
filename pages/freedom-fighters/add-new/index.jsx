@@ -211,7 +211,7 @@ const AddNew = () => {
                 }
                 else if (data.status == 'Failed') {
                     console.log(data.error);
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: data.error, life: 3000 });
                 }
             })
         // console.log(userDataWithPhoto.get('freedomFighterRank'))

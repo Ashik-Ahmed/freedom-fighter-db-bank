@@ -80,7 +80,7 @@ const ManageUsers = () => {
                 }
                 else if (data.status == 'failed') {
                     console.log(data)
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
 
@@ -112,7 +112,7 @@ const ManageUsers = () => {
                 }
                 else {
                     console.log(data.error)
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
 
@@ -137,7 +137,7 @@ const ManageUsers = () => {
                 }
                 if (data.error) {
                     console.log(data.error);
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
         setUserDeleteDialogue(false)
