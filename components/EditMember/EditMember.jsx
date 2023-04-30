@@ -3,12 +3,12 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
+import { Toast } from 'primereact/toast';
 import React, { useState } from 'react';
+import { useRef } from 'react';
 import countryList from 'react-select-country-list';
 
 const EditMember = ({ member, getAllMembers, setEditMemberDialogue }) => {
-
-    console.log(member);
 
     const [fighterRank, setFighterRank] = useState('');
     const [countries, setCountries] = useState([]);
@@ -20,6 +20,9 @@ const EditMember = ({ member, getAllMembers, setEditMemberDialogue }) => {
     const [file, setFile] = useState(null);
     const [ingredient, setIngredient] = useState(member.status);
     const [formData, setFormData] = useState({});
+
+
+    const toast = useRef(null);
 
     const categories = [
         'Freedom Fighter',
@@ -140,7 +143,6 @@ const EditMember = ({ member, getAllMembers, setEditMemberDialogue }) => {
     const handleEditMember = (e) => {
         e.preventDefault();
 
-        console.log('Editing Member');
         console.log(formData);
 
         const updatedMemberData = new FormData();
@@ -171,13 +173,19 @@ const EditMember = ({ member, getAllMembers, setEditMemberDialogue }) => {
                 if (data.status == 'Success') {
                     getAllMembers()
                     setEditMemberDialogue(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Updated Successfully', life: 3000 });
+                    console.log('success update');
                 }
-                console.log(data)
+                else {
+                    console.log(data);
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
+                }
             })
     }
 
     return (
         <div>
+            <Toast ref={toast} />
             <form onSubmit={handleEditMember} className='mx-auto'>
                 <div className='flex gap-x-6 mb-4'>
                     <div className='w-1/2'>

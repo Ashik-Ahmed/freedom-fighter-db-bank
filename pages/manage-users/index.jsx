@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Cookies from 'universal-cookie';
 import UserRow from '../../components/UserRow/UserRow';
@@ -11,6 +11,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { Toast } from 'primereact/toast';
 
 
 const ManageUsers = () => {
@@ -33,6 +34,7 @@ const ManageUsers = () => {
     });
 
     const cookie = new Cookies();
+    const toast = useRef()
 
     // Get all the users
     const fetchUsers = () => {
@@ -74,9 +76,11 @@ const ManageUsers = () => {
                 if (data.status == 'success') {
                     fetchUsers();
                     setAddUserModal(null)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'User Added', life: 3000 })
                 }
                 else if (data.status == 'failed') {
                     console.log(data)
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
                 }
             })
 
@@ -104,9 +108,11 @@ const ManageUsers = () => {
                 if (data?.data?.modifiedCount) {
                     console.log('Successfully Updated');
                     fetchUsers();
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: `Successfully make ${role}`, life: 3000 })
                 }
                 else {
                     console.log(data.error)
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
                 }
             })
 
@@ -127,9 +133,11 @@ const ManageUsers = () => {
                 if (data.data.deletedCount > 0) {
                     console.log('Succefully Deleted User')
                     fetchUsers();
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'User deleted', life: 3000 })
                 }
                 if (data.error) {
                     console.log(data.error);
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
                 }
             })
         setUserDeleteDialogue(false)
@@ -176,6 +184,7 @@ const ManageUsers = () => {
 
     return (
         <div className='mx-auto'>
+            <Toast ref={toast} />
             <div className='flex justify-between'>
                 <Button label="Add User" icon="pi pi-plus" onClick={() => setAddUserModal(true)} />
                 <Dialog header="Add New User" visible={addUserModal} onHide={() => {

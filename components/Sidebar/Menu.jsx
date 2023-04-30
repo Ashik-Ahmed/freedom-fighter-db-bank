@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 const Menu = ({ menu, open, index }) => {
     const [accordionOpen, setAccordionOpen] = useState(false);
     const router = useRouter()
-    console.log(router.asPath);
+    // console.log(router.asPath);
     const path = router.asPath;
     return (
         menu?.items ?
