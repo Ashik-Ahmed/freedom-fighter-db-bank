@@ -3,14 +3,15 @@ import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
-import React from 'react';
+import { Toast } from 'primereact/toast';
+import React, { useRef } from 'react';
 import { useState } from 'react';
 
-const PrimarySelectedTable = ({ data, loading }) => {
+const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
 
     const [primarySelected, event, year] = data;
-    console.log(data);
 
+    const toast = useRef()
 
     const [eventFromDB, setEventFromDB] = useState('')
     const [member, setMember] = useState('')
@@ -147,15 +148,22 @@ const PrimarySelectedTable = ({ data, loading }) => {
         })
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
-                getPrimarySelectedMembers()
-                setMember('');
-                setVerifyStatus('')
-                setRejectionReason('')
-                setVerificationUpdateDialogue(false);
+                if (data.status == 'Success') {
+                    getPrimarySelectedMembers()
+                    setMember('');
+                    setVerifyStatus('')
+                    setRejectionReason('')
+                    setVerificationUpdateDialogue(false);
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Verification updated', life: 3000 })
+                }
+                else {
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
+                }
             })
     }
 
+
+    // Remove member from primary selection list 
     const handleDeleteMember = () => {
         console.log('Member Delete function');
 
@@ -188,9 +196,11 @@ const PrimarySelectedTable = ({ data, loading }) => {
                     getPrimarySelectedMembers()
                     setDeleteMemberDialogue(false)
                     setMember(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Removed from selection', life: 3000 })
                 }
                 else {
                     console.log(data);
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
     }
@@ -198,6 +208,7 @@ const PrimarySelectedTable = ({ data, loading }) => {
 
     return (
         <div>
+            <Toast ref={toast} />
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
                 <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows removableSort >
                     {

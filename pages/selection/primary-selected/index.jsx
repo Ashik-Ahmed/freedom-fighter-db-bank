@@ -74,7 +74,7 @@ const PrimarySelected = () => {
 
             {
                 primarySelected &&
-                <PrimarySelectedTable data={data} loading={loading} />
+                <PrimarySelectedTable data={data} getPrimarySelectedMembers={getPrimarySelectedMembers} loading={loading} />
             }
 
         </div >
