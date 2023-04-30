@@ -4,7 +4,9 @@ import { DataTable } from 'primereact/datatable';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { Toast } from 'primereact/toast';
 import React, { useEffect, useState } from 'react';
+import { useRef } from 'react';
 
 const index = () => {
 
@@ -13,6 +15,8 @@ const index = () => {
     const [category, setCategory] = useState(null);
     const [addCategoryDialog, setAddCategoryDialog] = useState(false)
     const [deleteCategoryDialog, setDeleteCategoryDialog] = useState(false)
+
+    const toast = useRef()
 
 
     const getAllCategories = () => {
@@ -30,6 +34,8 @@ const index = () => {
         getAllCategories()
     }, [])
 
+
+    //Add new category
     const handleAddCategory = (e) => {
         e.preventDefault();
 
@@ -53,9 +59,11 @@ const index = () => {
                     setAddCategoryDialog(false)
                     getAllCategories();
                     console.log(data);
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Category Added', life: 3000 })
                 }
                 else {
                     console.log(data.error);
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
                 }
             })
 
@@ -77,9 +85,11 @@ const index = () => {
                     console.log(data);
                     getAllCategories()
                     setDeleteCategoryDialog(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Category Deleted', life: 3000 })
                 }
                 else {
                     console.log(data.error);
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
                 }
             })
     }
@@ -106,6 +116,7 @@ const index = () => {
 
     return (
         <div>
+            <Toast ref={toast} />
             <div className=' max-w-7xl mx-auto mt-4'>
                 <Button icon='pi pi-plus' label='Add Member Category' onClick={() => setAddCategoryDialog(true)} />
 
