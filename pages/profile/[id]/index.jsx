@@ -10,12 +10,15 @@ import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
 import { Password } from 'primereact/password';
 import { Calendar } from 'primereact/calendar';
+import { Toast } from 'primereact/toast';
+import { useRef } from 'react';
 
 
 const MyProfile = () => {
 
     const router = useRouter();
     const cookie = new Cookies();
+    const toast = useRef()
 
     const [user, setUser] = useState();
     const [updateForm, setUpdateForm] = useState(false);
@@ -93,9 +96,11 @@ const MyProfile = () => {
                     e.target.reset();
                     setUpdateForm(false)
                     getLoggedInUser();
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Profile Updated', life: 3000 })
                 }
                 else {
                     console.log(data.error)
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
     }
@@ -139,6 +144,7 @@ const MyProfile = () => {
                     setCurrentPassView(false);
                     setNewPassView(false);
                     setConfirmPassView(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Password changed', life: 3000 })
                 }
                 else {
                     console.log(data.message)
@@ -156,6 +162,7 @@ const MyProfile = () => {
 
     return (
         <div className='max-w-7xl mx-auto md:flex text-gray-700'>
+            <Toast ref={toast} />
             <div class="indicator bg-white rounded  mt-32 w-1/3">
                 <div className='mx-auto border-4 text-center'>
                     <Image class="mask mask-hexagon indicator-item indicator-center bg-cyan-500 -mt-6 w-40 mx-auto" width='160' height='160' src={user?.photo || userPhoto} alt='User Photo' />

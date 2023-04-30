@@ -3,11 +3,15 @@ import { Calendar } from 'primereact/calendar';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Dropdown } from 'primereact/dropdown';
+import { Toast } from 'primereact/toast';
 import React from 'react';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
 const FinalSelected = () => {
+
+    const toast = useRef()
 
     const [events, setEvents] = useState([])
     const [event, setEvent] = useState('')
@@ -68,10 +72,12 @@ const FinalSelected = () => {
                     getFinalSelectedMembers()
                     setmailSendLoading(false)
                     console.log(data);
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Mail Sent', life: 3000 })
                 }
                 else {
                     setmailSendLoading(false)
                     console.log(data.error);
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
     }
@@ -125,6 +131,7 @@ const FinalSelected = () => {
 
     return (
         <div>
+            <Toast ref={toast} />
             <div className='bg-white p-4 w-fit mx-auto rounded-md shadow-lg'>
                 <div className='flex gap-x-4'>
                     <div>
