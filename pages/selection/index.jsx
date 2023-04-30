@@ -8,6 +8,8 @@ import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import { render } from 'react-dom';
 import { Calendar } from 'primereact/calendar';
+import { Toast } from 'primereact/toast';
+import { useRef } from 'react';
 
 
 const Selection = () => {
@@ -27,6 +29,8 @@ const Selection = () => {
     const [year, setYear] = useState('')
     const [minYear, setMinYear] = useState(new Date().toLocaleString("en-GB"))
     const [confirmSelectionDialogue, setConfirmSelectionDialogue] = useState(false)
+
+    const toast = useRef()
 
 
     // fetch available events from db 
@@ -185,7 +189,7 @@ const Selection = () => {
     }
 
 
-    // set temporary selection flag to members 
+    // set temporary selection flag to members in database
     const handleTemporarySelect = () => {
 
         const memberIds = selectedFreedomFighters.map(member => member._id);
@@ -197,11 +201,13 @@ const Selection = () => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({ memberIds, event: event.name, year: year.getFullYear() })
-        }).then(res => res.json())
+        })
+            .then(res => res.json())
             .then(data => {
                 console.log(data);
                 setSelectedFreedomFighters([])
                 setConfirmSelectionDialogue(false)
+                toast.current.show({ severity: 'success', summary: 'Success', detail: 'Members added to primary selection', life: 3000 })
             })
     }
 
@@ -221,6 +227,7 @@ const Selection = () => {
 
     return (
         <div className='min-h-[90vh]'>
+            <Toast ref={toast} />
             {/* <div className='text-center mt-8'>
                 <h2 className='text-4xl text-secondary font-bold'>Primary Selection</h2>
             </div> */}
@@ -405,7 +412,7 @@ const Selection = () => {
                     </div>
                 }
 
-                <Dialog visible={confirmSelectionDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Verification Status" modal onHide={() => setConfirmSelectionDialogue(false)}>
+                <Dialog visible={confirmSelectionDialogue} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Make Selection" modal onHide={() => setConfirmSelectionDialogue(false)}>
                     <div className="confirmation-content">
                         <div>
                             <p className='font-semibold'>Are you sure?</p>
