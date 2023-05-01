@@ -3,10 +3,12 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputTextarea } from 'primereact/inputtextarea';
-import React, { useState } from 'react';
+import { Toast } from 'primereact/toast';
+import React, { useRef, useState } from 'react';
 
 const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
 
+    const toast = useRef()
     const router = useRouter();
     const { id } = router.query;
     const [editable, setEditable] = useState(false)
@@ -40,9 +42,11 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                     e.target.reset();
                     console.log(data);
                     setEditable(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Complain Updated', life: 3000 })
                 }
                 else {
                     console.log(data.error);
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
     }
@@ -72,9 +76,11 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                     getAllComplaints();
                     console.log(data);
                     setResolveDialog(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Complain resolved', life: 3000 })
                 }
                 else {
                     console.log(data.error);
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
     }
@@ -92,6 +98,7 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
 
     return (
         <div className='mb-1'>
+            <Toast ref={toast} />
             <Accordion>
                 <AccordionTab header={accordionHeader(complaint)}>
                     <div className='flex justify-between shadow-md border-b-2 border-primary rounded-lg'>

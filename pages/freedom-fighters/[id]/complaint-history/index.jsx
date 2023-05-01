@@ -8,9 +8,12 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import FreedomFighter from '..';
 import { getSingleFreedomFighter } from '../../../../controllers/freedomFighter.controller';
 import ComplaintAccordion from '../../../../components/ComplaintAccordion/ComplaintAccordion';
+import { Toast } from 'primereact/toast';
+import { useRef } from 'react';
 
 const ComplaintHistory = () => {
 
+    const toast = useRef()
     const router = useRouter();
     const { id } = router.query;
     const [complaints, setComplaints] = useState(null)
@@ -62,9 +65,11 @@ const ComplaintHistory = () => {
                     console.log(data.message);
                     getAllComplaints()
                     setAddComplaintDialog(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Complain added', life: 3000 })
                 }
                 else {
                     console.log(data.error);
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
     }
@@ -73,6 +78,7 @@ const ComplaintHistory = () => {
     return (
         <FreedomFighter>
             <div className=''>
+                <Toast ref={toast} />
                 <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
                     <h3>Complaint History</h3>
                 </div>
