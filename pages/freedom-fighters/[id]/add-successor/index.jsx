@@ -52,7 +52,7 @@ const AddSuccessor = () => {
                     toast.current.show({ severity: 'success', summary: 'Success', detail: 'Successor Added', life: 3000 })
                 }
                 else {
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
 

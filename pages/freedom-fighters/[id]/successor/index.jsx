@@ -44,7 +44,7 @@ const Successor = () => {
                     router.push(`/freedom-fighters/${id}/add-successor`)
                 }
                 else {
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
 
