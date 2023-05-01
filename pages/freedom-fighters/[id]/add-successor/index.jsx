@@ -47,9 +47,9 @@ const AddSuccessor = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.status == 'Success') {
-                    toast.current.show({ severity: 'success', summary: 'Success', detail: data.message, life: 3000 });
                     e.target.reset()
                     router.push(`/freedom-fighters/${id}/successor`)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Successor Added', life: 3000 })
                 }
                 else {
                     toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
