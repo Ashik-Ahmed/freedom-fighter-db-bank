@@ -35,7 +35,7 @@ export default function Home() {
       .then(res => res.json())
       .then(data => {
         console.log(data.freedomFighters);
-        setFreedomFightersData(data.freedomFighters.slice(0, 7));
+        setFreedomFightersData(data.freedomFighters.reverse().slice(0, 7));
       })
   }, [])
 
