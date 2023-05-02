@@ -133,7 +133,7 @@ export default function Home() {
       </div>
 
 
-      <div className="flex h-[100vh-160px] col-12 p-0">
+      <div className="flex h-[100vh-160px] col-12 p-0 mt-4">
         <div className="grid gap-3 col-7 p-2 mr-2">
           <div className='col-12 p-0'>
             <div className=" p-2 bg-white shadow-lg  rounded-sm">
