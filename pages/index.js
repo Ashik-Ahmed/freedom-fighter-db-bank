@@ -23,13 +23,33 @@ import Image from 'next/image';
 export default function Home({ user }) {
 
   const [freedomFightersData, setFreedomFightersData] = useState([]);
+  const [events, setEvents] = useState([])
 
 
   //fetch members from DB
   useEffect(() => {
 
-    var url = `http://localhost:5000/api/v1/freedomFighters?page=${1})
-} `
+    getAllEvents();
+    getMembers();
+
+  }, [])
+
+
+  // get all events 
+  const getAllEvents = () => {
+    // setLoading(true)
+    fetch('http://localhost:5000/api/v1/event')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setEvents(data.data)
+        // setLoading(false)
+      })
+  }
+
+  // get members 
+  const getMembers = () => {
+    var url = `http://localhost:5000/api/v1/freedomFighters?page=${1})}`
 
     fetch(url)
       .then(res => res.json())
@@ -37,14 +57,13 @@ export default function Home({ user }) {
         console.log(data.freedomFighters);
         setFreedomFightersData(data.freedomFighters.reverse().slice(0, 7));
       })
-  }, [])
-
+  }
 
   const lineData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: events.map(event => event.name),
     datasets: [
       {
-        label: 'First Dataset',
+        label: 'Invitation Count',
         data: [65, 59, 80, 81, 56, 55, 40],
         fill: false,
         backgroundColor: '#2f4860',
@@ -52,7 +71,7 @@ export default function Home({ user }) {
         tension: 0.4
       },
       {
-        label: 'Second Dataset',
+        label: 'Attendees Count',
         data: [28, 48, 40, 19, 86, 27, 90],
         fill: false,
         backgroundColor: '#00bb7e',
