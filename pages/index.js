@@ -35,7 +35,7 @@ export default function Home() {
       .then(res => res.json())
       .then(data => {
         console.log(data.freedomFighters);
-        setFreedomFightersData(data.freedomFighters);
+        setFreedomFightersData(data.freedomFighters.slice(0, 7));
       })
   }, [])
 
@@ -141,12 +141,12 @@ export default function Home() {
               <Chart type="bar" data={lineData} className='z-0 relative' />
             </div>
           </div>
-          <div className='col-12 p-0'>
+          {/* <div className='col-12 p-0'>
             <div className=" p-2 bg-white shadow-lg  rounded-sm">
               <h5 className='text-gray-700'>Sales Overview</h5>
               <Chart type="line" data={lineData} />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className=" col-5 p-0">
           <div className=" p-2 bg-white shadow-lg ">

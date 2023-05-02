@@ -58,48 +58,49 @@ const Successor = () => {
 
 
     return (
-        <FreedomFighter>
+        <div>
             <Toast ref={toast} />
-            <div className='w-full'>
-                <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
-                    <h3>Successor Information</h3>
-                </div>
-                <div className='p-2 space-y-4 bg-white'>
-                    <div className='border border-gray-100 p-2 shadow-md rounded-md'>
-                        <p> <span className='font-bold'>Name:</span> {successor?.name || 'N/A'}</p>
-                        <p> <span className='font-bold'>Relation:</span> {successor?.relation || 'N/A'}</p>
-                        <p> <span className='font-bold'>Age:</span> {currentDate - parseInt(successor?.birthday?.split('-')[0]) || 'N/A'}</p>
-                        <p> <span className='font-bold'>Occupation:</span> {successor?.occupation || 'N/A'}</p>
+            <FreedomFighter>
+                <div className='w-full'>
+                    <div className='bg-primary text-xl text-center text-gray-100 p-2 font-semibold'>
+                        <h3>Successor Information</h3>
                     </div>
-                    <div className='border border-gray-100 p-2 shadow-md rounded-md'>
-                        <p> <span className='font-bold'>Contact:</span> {successor?.mobile || 'N/A'}</p>
-                        <p> <span className='font-bold'>Email:</span> {successor?.email || 'N/A'}</p>
-                        <p> <span className='font-bold'>Address:</span> {successor?.address || 'N/A'}</p>
-                    </div>
-                    <div className='flex justify-end'>
-                        <button onClick={() => setSuccessorDeleteDialog(successor)} className='btn btn-sm btn-error font-bold text-white space-x-2 flex items-center'> <RiDeleteBin6Fill size='20' className='cursor-pointer' /> <span>Delete Successor</span></button>
-                    </div>
-                </div>
-
-                {/* user delete dialog box  */}
-                <Dialog header="Delete Successor" visible={successorDeleteDialog} onHide={() => { setSuccessorDeleteDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
-
-                    <div className="confirmation-content">
-                        <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
-                        {successor?.name && (
-                            <span>
-                                Delete Successor <b>{successor?.name}</b>?
-                            </span>
-                        )}
-
-                        <div className='flex gap-x-2 mt-4 justify-end'>
-                            <Button onClick={() => { setSuccessorDeleteDialog(false) }} label="No" icon="pi pi-times" outlined />
-                            <Button onClick={() => deleteSuccessor(successor._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                    <div className='p-2 space-y-4 bg-white'>
+                        <div className='border border-gray-100 p-2 shadow-md rounded-md'>
+                            <p> <span className='font-bold'>Name:</span> {successor?.name || 'N/A'}</p>
+                            <p> <span className='font-bold'>Relation:</span> {successor?.relation || 'N/A'}</p>
+                            <p> <span className='font-bold'>Age:</span> {currentDate - parseInt(successor?.birthday?.split('-')[0]) || 'N/A'}</p>
+                            <p> <span className='font-bold'>Occupation:</span> {successor?.occupation || 'N/A'}</p>
+                        </div>
+                        <div className='border border-gray-100 p-2 shadow-md rounded-md'>
+                            <p> <span className='font-bold'>Contact:</span> {successor?.mobile || 'N/A'}</p>
+                            <p> <span className='font-bold'>Email:</span> {successor?.email || 'N/A'}</p>
+                            <p> <span className='font-bold'>Address:</span> {successor?.address || 'N/A'}</p>
+                        </div>
+                        <div className='flex justify-end'>
+                            <button onClick={() => setSuccessorDeleteDialog(successor)} className='btn btn-sm btn-error font-bold text-white space-x-2 flex items-center'> <RiDeleteBin6Fill size='20' className='cursor-pointer' /> <span>Delete Successor</span></button>
                         </div>
                     </div>
-                </Dialog>
 
-                {/* {
+                    {/* user delete dialog box  */}
+                    <Dialog header="Delete Successor" visible={successorDeleteDialog} onHide={() => { setSuccessorDeleteDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+
+                        <div className="confirmation-content">
+                            <i className="pi pi-exclamation-triangle mr-3 text-red-500" style={{ fontSize: '2rem' }} />
+                            {successor?.name && (
+                                <span>
+                                    Delete Successor <b>{successor?.name}</b>?
+                                </span>
+                            )}
+
+                            <div className='flex gap-x-2 mt-4 justify-end'>
+                                <Button onClick={() => { setSuccessorDeleteDialog(false) }} label="No" icon="pi pi-times" outlined />
+                                <Button onClick={() => deleteSuccessor(successor._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                            </div>
+                        </div>
+                    </Dialog>
+
+                    {/* {
                     deleteModal &&
 
                     //delete modal
@@ -112,8 +113,9 @@ const Successor = () => {
                         </div>
                     </div>
                 } */}
-            </div>
-        </FreedomFighter>
+                </div>
+            </FreedomFighter>
+        </div>
     );
 };
 
