@@ -46,7 +46,7 @@ const Sidebar = ({ user, setUser }) => {
         { name: "Manage Users", link: "/manage-users", icon: FaUsersCog, margin: true },
         { name: "Analytics", link: "/analytics", icon: TbReportAnalytics },
         { name: "File Manager", link: "/file-manager", icon: FiFolder },
-        { name: `Profile (${user.name})`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },
+        { name: `Profile Settings`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },
     ];
 
 
