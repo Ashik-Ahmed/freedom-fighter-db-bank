@@ -80,10 +80,7 @@ function MyApp({ Component, pageProps }) {
             <Sidebar user={user} setUser={setUser} />
           </div>
           <div className='h-screen w-full p-2 text-gray-700 overflow-auto z-20'>
-            <div className='m-2 mb-4'>
-              <p className='text-2xl font-bold'>Hello, <span className='text-primary'>{user.name}</span></p>
-            </div>
-            <Component {...pageProps} />
+            <Component user={user} {...pageProps} />
           </div>
         </div>
       </div>
