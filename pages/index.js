@@ -113,7 +113,11 @@ export default function Home({ user }) {
             <div className="flex justify-content-between mb-3">
               <div>
                 <span className="block text-500 font-medium mb-3">Freedom Fighter</span>
-                <div className="text-900 font-medium text-xl">180</div>
+                <div className="text-900 font-medium text-xl">
+                  {
+                    members.filter(member => member.category == 'Freedom Fighter').length
+                  }
+                </div>
               </div>
               <div className="flex align-items-center justify-content-center bg-orange-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
                 <i className="text-orange-500 text-xl"> <Image src={fighterLogo} alt='Freedom Fighter Icon' height={25} width={25}></Image></i>
@@ -127,8 +131,12 @@ export default function Home({ user }) {
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
               <div>
-                <span className="block text-500 font-medium mb-3">General</span>
-                <div className="text-900 font-medium text-xl">300</div>
+                <span className="block text-500 font-medium mb-3">General Invitees</span>
+                <div className="text-900 font-medium text-xl">
+                  {
+                    members.filter(member => member.category == 'General Invitees').length
+                  }
+                </div>
               </div>
               <div className="flex align-items-center justify-content-center bg-cyan-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
                 <i className=" text-cyan-500 text-xl"><Image src={generalMember} alt='Freedom Fighter Icon' height={30} width={30}></Image></i>
@@ -142,8 +150,12 @@ export default function Home({ user }) {
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
               <div>
-                <span className="block text-500 font-medium mb-3">Retired Officers</span>
-                <div className="text-900 font-medium text-xl">152</div>
+                <span className="block text-500 font-medium mb-3">Others</span>
+                <div className="text-900 font-medium text-xl">
+                  {
+                    members.filter(member => (member.category !== ('Freedom Fighter')) && (member.category !== 'General Invitees')).length
+                  }
+                </div>
               </div>
               <div className="flex align-items-center justify-content-center bg-purple-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
                 <i className=" text-purple-500 text-xl"><Image src={retiredOfficers} alt='Freedom Fighter Icon' height={22} width={22}></Image></i>
