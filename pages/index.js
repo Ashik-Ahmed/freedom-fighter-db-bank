@@ -22,7 +22,7 @@ import Image from 'next/image';
 
 export default function Home({ user }) {
 
-  const [freedomFightersData, setFreedomFightersData] = useState([]);
+  const [members, setMembers] = useState([]);
   const [events, setEvents] = useState([])
 
 
@@ -30,7 +30,7 @@ export default function Home({ user }) {
   useEffect(() => {
 
     getAllEvents();
-    getMembers();
+    getAllMembers();
 
   }, [])
 
@@ -48,14 +48,14 @@ export default function Home({ user }) {
   }
 
   // get members 
-  const getMembers = () => {
+  const getAllMembers = () => {
     var url = `http://localhost:5000/api/v1/freedomFighters?page=${1})}`
 
     fetch(url)
       .then(res => res.json())
       .then(data => {
         console.log(data.freedomFighters);
-        setFreedomFightersData(data.freedomFighters.reverse().slice(0, 7));
+        setMembers(data.freedomFighters.reverse());
       })
   }
 
@@ -98,7 +98,7 @@ export default function Home({ user }) {
             <div className="flex justify-content-between mb-3">
               <div>
                 <span className="block text-500 font-medium mb-3">Total Members</span>
-                <div className="text-900 font-medium text-xl">680</div>
+                <div className="text-900 font-medium text-xl">{members.length}</div>
               </div>
               <div className="flex align-items-center justify-content-center bg-blue-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
                 <i className="pi pi-users text-blue-500 text-xl"></i>
@@ -178,7 +178,7 @@ export default function Home({ user }) {
               <Link href='/freedom-fighters' className='hover:bg-primary bg-secondary text-white rounded px-1 transition-all ease-in duration-200'>Browse All<i className="pi pi-arrow-right text-xs ml-1"></i>
               </Link>
             </div>
-            <DataTable value={freedomFightersData} size='small' removableSort rows={5} responsiveLayout='scroll' scrollHeight='98vh'>
+            <DataTable value={members.slice(0, 7)} size='small' removableSort rows={5} responsiveLayout='scroll' scrollHeight='98vh'>
               {/* <Column header="Image" body={(data) => <img className="shadow-2" src={`${ contextPath } /demo/images / product / ${ data.image } `} alt={data.image} width="50" />} /> */}
               <Column field="name" header="Name" sortable style={{ width: '35%', fontSize: '14px' }} />
               <Column field="category" header="Category" sortable style={{ width: '35%', fontSize: '14px' }} />
