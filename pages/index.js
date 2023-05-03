@@ -61,9 +61,10 @@ export default function Home({ user }) {
 
 
   const nationalParade = members.filter(member => {
-    // return member.primarySelection && member.primarySelection.event == 'National Parade'
+    // return member.primarySelection && member.primarySelection.event == 'Victory Day'
+    return member.primarySelection && member.primarySelection.some(selection => selection.event == 'National Parade')
     // member.primarySelection && member.primarySelection.some(selection => selection.event == 'National Parade')
-    return member.country && member.country === 'Bangladesh'
+    // return member.country && member.country === 'Bangladesh'
   }).length
 
   console.log('National Parade count: ', nationalParade);
