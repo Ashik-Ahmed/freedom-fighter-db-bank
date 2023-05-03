@@ -59,6 +59,16 @@ export default function Home({ user }) {
       })
   }
 
+
+  const nationalParade = members.filter(member => {
+    // return member.primarySelection && member.primarySelection.event == 'National Parade'
+    // member.primarySelection && member.primarySelection.some(selection => selection.event == 'National Parade')
+    return member.country && member.country === 'Bangladesh'
+  }).length
+
+  console.log('National Parade count: ', nationalParade);
+
+
   const lineData = {
     labels: events.map(event => event.name),
     datasets: [
