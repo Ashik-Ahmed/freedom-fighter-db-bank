@@ -97,7 +97,7 @@ export default function Home({ user }) {
         label: 'Invited Members',
         data: [28, 48, 40, 19, 86, 27, 90],
         fill: false,
-        backgroundColor: '#00bb7e',
+        backgroundColor: '#2196F3',
         borderColor: '#00bb7e',
         tension: 0.4
       }
