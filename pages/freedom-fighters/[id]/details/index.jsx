@@ -12,7 +12,10 @@ const Details = () => {
 
     useEffect(() => {
         getSingleFreedomFighter(id)
-            .then(data => setFreedomFighter(data))
+            .then(data => {
+                setFreedomFighter(data)
+                console.log(data);
+            })
     }, [id])
 
     // const { name, email, mobile, address, description, status, force, officialRank, freedomFighterRank, invited } = freedomFighter;
@@ -31,8 +34,8 @@ const Details = () => {
                         <p><span className='font-bold'>Official Rank: </span>{freedomFighter?.officialRank?.rank || 'N/A'}</p>
                         <p><span className='font-bold'>Freedom Fighter: </span>{freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
                         <p><span className='font-bold'>Status: </span>{freedomFighter?.status || 'N/A'}</p>
-                        <p><span className='font-bold'>Invited Count: </span>{freedomFighter?.invited?.length || 'N/A'}</p>
-                        <p><span className='font-bold'>Invited Year: </span>{freedomFighter?.invited?.map((year, index) => <span key={index}>{year}, </span>) || 'N/A'}</p>
+                        <p><span className='font-bold'>Invited Count: </span>{freedomFighter?.primarySelection?.length || 'N/A'}</p>
+                        <p><span className='font-bold'>Invited Year: </span>{freedomFighter?.primarySelection.map(selection => { return `${selection.event}: ${selection.year}` }, ' ', ',') || 'N/A'}</p>
                     </div>
                     <div className='border border-fray-100 shadow-md rounded-md p-2'>
                         <p><span className='font-bold'>Contact: </span>{freedomFighter?.mobile || 'N/A'}</p>
@@ -41,7 +44,7 @@ const Details = () => {
                     </div>
                 </div>
             </div>
-        </FreedomFighter>
+        </FreedomFighter >
     );
 };
 

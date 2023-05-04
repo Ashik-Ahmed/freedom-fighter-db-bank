@@ -61,26 +61,19 @@ export default function Home({ user }) {
 
   // add the event wise invitation count data to events 
   events.map(eventData => {
+
+    // for primary selection count 
     const primarySelected = members.filter(member => {
       return member.primarySelection && member.primarySelection.some(selection => selection.event == eventData.name)
     }).length
     eventData.primarySelected = primarySelected;
+
+    // for final invited count 
     const invited = members.filter(member => {
       return member.primarySelection && member.primarySelection.some(selection => selection.event == eventData.name && selection.verificationStatus.status == 'Success')
     }).length
     eventData.invited = invited;
   })
-
-
-  const nationalParade = members.filter(member => {
-    // return member.primarySelection && member.primarySelection.event == 'Victory Day'
-    return member.primarySelection && member.primarySelection.some(selection => selection.event == 'National Parade')
-    // member.primarySelection && member.primarySelection.some(selection => selection.event == 'National Parade')
-    // return member.country && member.country === 'Bangladesh'
-  }).length
-
-  console.log('New Events: ', events);
-
 
   const lineData = {
     labels: events.map(event => event.name),
@@ -195,7 +188,7 @@ export default function Home({ user }) {
         <div className="grid gap-3 col-7 p-2 mr-2">
           <div className='col-12 p-0'>
             <div className=" p-2 bg-white shadow-lg  rounded-sm">
-              <h5 className='text-gray-700'>Sales Overview</h5>
+              <h5 className='text-gray-700'>Invitation Summary</h5>
               <Chart type="bar" data={lineData} className='z-0 relative' />
             </div>
           </div>
