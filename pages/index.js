@@ -87,7 +87,7 @@ export default function Home({ user }) {
     datasets: [
       {
         label: 'Primary Selected',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: events.map(event => event.primarySelected),
         fill: false,
         backgroundColor: '#2f4860',
         borderColor: '#2f4860',
@@ -95,10 +95,10 @@ export default function Home({ user }) {
       },
       {
         label: 'Invited Members',
-        data: [28, 48, 40, 19, 86, 27, 90],
+        data: events.map(event => event.invited),
         fill: false,
         backgroundColor: '#2196F3',
-        borderColor: '#00bb7e',
+        borderColor: '#2196F3',
         tension: 0.4
       }
     ]
