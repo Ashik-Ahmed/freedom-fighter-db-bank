@@ -41,7 +41,7 @@ export default function Home({ user }) {
     fetch('http://localhost:5000/api/v1/event')
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data.data);
         setEvents(data.data)
         // setLoading(false)
       })
@@ -54,10 +54,18 @@ export default function Home({ user }) {
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log(data.freedomFighters);
+        // console.log(data.freedomFighters);
         setMembers(data.freedomFighters.reverse());
       })
   }
+
+  // add the event wise invitation count data to events 
+  events.map(eventData => {
+    const count = members.filter(member => {
+      return member.primarySelection && member.primarySelection.some(selection => selection.event == eventData.name && selection.verificationStatus.status == 'Success')
+    }).length
+    eventData.invited = count;
+  })
 
 
   const nationalParade = members.filter(member => {
@@ -67,7 +75,7 @@ export default function Home({ user }) {
     // return member.country && member.country === 'Bangladesh'
   }).length
 
-  console.log('National Parade count: ', nationalParade);
+  console.log('New Events: ', events);
 
 
   const lineData = {
