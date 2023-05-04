@@ -19,7 +19,6 @@ const PrimarySelected = () => {
     const [loading, setLoading] = useState(false)
     const [primarySelected, setPrimarySelected] = useState()
 
-    const programName = useRef(null)
 
     // fetch available events from db 
     useEffect(() => {
@@ -33,8 +32,6 @@ const PrimarySelected = () => {
     const getPrimarySelectedMembers = (e) => {
         // e.preventDefault()
         // console.log(programName.current.props.value);
-        console.log(event.name);
-        const eventName = programName.current.props.value.name
         setLoading(true)
         const url = `http://localhost:5000/api/v1/selection/primary-selection?event=${event.name}&year=${year.getFullYear()}`
 
@@ -56,7 +53,7 @@ const PrimarySelected = () => {
             <div className='bg-white p-4 w-fit mx-auto rounded-md shadow-lg '>
                 <div className='flex gap-x-4'>
                     <div>
-                        <Dropdown ref={programName} name='event' options={events} optionLabel='name' value={event}
+                        <Dropdown name='event' options={events} optionLabel='name' value={event}
                             onChange={(e) => {
                                 setEvent(e.value)
                                 // programName.current == e.value.name;
