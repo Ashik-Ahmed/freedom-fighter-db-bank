@@ -34,8 +34,12 @@ const Details = () => {
                         <p><span className='font-bold'>Official Rank: </span>{freedomFighter?.officialRank?.rank || 'N/A'}</p>
                         <p><span className='font-bold'>Freedom Fighter: </span>{freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
                         <p><span className='font-bold'>Status: </span>{freedomFighter?.status || 'N/A'}</p>
-                        <p><span className='font-bold'>Invited Count: </span>{freedomFighter?.primarySelection?.length || 'N/A'}</p>
-                        <p><span className='font-bold'>Invited Year: </span>{freedomFighter?.primarySelection.map(selection => { return `${selection.event}: ${selection.year}` }, ' ', ',') || 'N/A'}</p>
+                        <p><span className='font-bold'>Invited Count: </span>{freedomFighter?.primarySelection.filter(selection => selection.verificationStatus.status == 'Success').length || 'N/A'}</p>
+                        <p><span className='font-bold'>Invited Year: </span>{freedomFighter?.primarySelection.map(selection => {
+                            if (selection.verificationStatus.status == 'Success') {
+                                { return `${selection.event}: ${selection.year}, ` }
+                            }
+                        }) || 'N/A'}</p>
                     </div>
                     <div className='border border-fray-100 shadow-md rounded-md p-2'>
                         <p><span className='font-bold'>Contact: </span>{freedomFighter?.mobile || 'N/A'}</p>
