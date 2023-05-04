@@ -71,7 +71,7 @@ const FreedomFighter = ({ query, children }) => {
                         <div className='text-gray-700 mt-4'>
                             <p className='text-xl font-bold'>{freedomFighter?.name}</p>
                             <span className='italic'>({freedomFighter?.category})</span>
-                            <p><span className='font-semibold'>Designation:</span> {freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p>
+                            {/* <p><span className='font-semibold'>Designation:</span> {freedomFighter?.freedomFighterRank?.rank || 'N/A'}</p> */}
                         </div>
                     </div>
                     {/* <p>Contact: {freedomFighter?.mobile}</p>

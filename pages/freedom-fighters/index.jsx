@@ -175,7 +175,8 @@ const Home = () => {
                     <Column header='Category' field='category'></Column>
                     {/* <Column header='Force' body={typeBodyTemplate}></Column> */}
                     <Column header='Contact' field='mobile'></Column>
-                    <Column header='Address' field='address'></Column>
+                    {/* <Column header='Address' field='address'></Column> */}
+                    <Column header='Invitation Count' field='invitationCount' style={{ textAlign: 'center' }}></Column>
                     <Column header='Action' body={actionBodyTemplate} style={{ width: '14%' }}></Column>
                 </DataTable>
             </div>

@@ -37,7 +37,7 @@ const Details = () => {
                         <p><span className='font-bold'>Invited Count: </span>{freedomFighter?.primarySelection.filter(selection => selection.verificationStatus.status == 'Success').length || 'N/A'}</p>
                         <p><span className='font-bold'>Invited Year: </span>{freedomFighter?.primarySelection.map(selection => {
                             if (selection.verificationStatus.status == 'Success') {
-                                { return `${selection.event}: ${selection.year}, ` }
+                                { return `${selection.year}-${selection.event}, ` }
                             }
                         }) || 'N/A'}</p>
                     </div>
