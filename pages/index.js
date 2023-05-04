@@ -61,10 +61,14 @@ export default function Home({ user }) {
 
   // add the event wise invitation count data to events 
   events.map(eventData => {
-    const count = members.filter(member => {
+    const primarySelected = members.filter(member => {
+      return member.primarySelection && member.primarySelection.some(selection => selection.event == eventData.name)
+    }).length
+    eventData.primarySelected = primarySelected;
+    const invited = members.filter(member => {
       return member.primarySelection && member.primarySelection.some(selection => selection.event == eventData.name && selection.verificationStatus.status == 'Success')
     }).length
-    eventData.invited = count;
+    eventData.invited = invited;
   })
 
 
@@ -82,7 +86,7 @@ export default function Home({ user }) {
     labels: events.map(event => event.name),
     datasets: [
       {
-        label: 'Invitation Count',
+        label: 'Primary Selected',
         data: [65, 59, 80, 81, 56, 55, 40],
         fill: false,
         backgroundColor: '#2f4860',
@@ -90,7 +94,7 @@ export default function Home({ user }) {
         tension: 0.4
       },
       {
-        label: 'Attendees Count',
+        label: 'Invited Members',
         data: [28, 48, 40, 19, 86, 27, 90],
         fill: false,
         backgroundColor: '#00bb7e',
