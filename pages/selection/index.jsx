@@ -30,6 +30,8 @@ const Selection = () => {
     const [minYear, setMinYear] = useState(new Date().toLocaleString("en-GB"))
     const [confirmSelectionDialogue, setConfirmSelectionDialogue] = useState(false)
 
+    const [formData, setFormData] = useState({});
+
 
     const toast = useRef()
 
@@ -50,6 +52,14 @@ const Selection = () => {
         'Retired Others'
     ]
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setFormData({
+            ...formData, [name]: value
+        });
+    };
+
     const onCriteriaChange = (event) => {
         const { name, value } = event.target;
 
@@ -63,6 +73,8 @@ const Selection = () => {
 
         setLoading(true)
         e.preventDefault();
+
+        console.log(formData);
 
         // console.log(memberType, firstCriteria, secondCriteria, checked, event.name);
 
@@ -273,28 +285,33 @@ const Selection = () => {
 
                         <div className='flex flex-wrap gap-2 mb-1'>
                             <div className="relative">
-                                <InputText keyfilter="int" placeholder="*Total" name='total' required />
+                                <InputText onChange={handleChange} keyfilter="int" placeholder="*Total" name='total' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div className="relative">
-                                <InputText keyfilter="int" placeholder="*Alive Percentage" name='alive' required />
+                                <InputText onChange={handleChange} keyfilter="int" placeholder="*Alive Percentage" name='alive' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div className="relative">
-                                <InputText keyfilter="int" placeholder="*Dead Percentage" name='dead' required />
+                                <InputText onChange={handleChange} keyfilter="int" placeholder="*Dead Percentage" name='dead' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div>
                                 <Dropdown name='program' options={events} optionLabel='name' value={event}
                                     onChange={(e) => {
                                         setEvent(e.value)
-                                        console.log(e.value);
-                                    }} placeholder="*Select Program" className=' w-full' required />
+                                        // console.log(e.value);
+                                        handleChange(e)
+                                    }}
+                                    placeholder="*Select Program" className=' w-full' required />
                             </div>
                             <div>
-                                <Calendar value={year} onChange={(e) => {
-                                    setYear(e.value)
-                                }} view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
+                                <Calendar name='year' id='year' value={year}
+                                    onChange={(e) => {
+                                        setYear(e.value)
+                                        handleChange(e)
+                                    }}
+                                    view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
                             </div>
                         </div>
                         <div className='flex flex-wrap gap-2 mb-1'>
@@ -302,6 +319,7 @@ const Selection = () => {
                                 <Dropdown name='memberType' options={memberTypes} value={memberType}
                                     onChange={(e) => {
                                         setMemberType(e.value)
+                                        handleChange(e)
                                     }} placeholder="*Select Member Type" className=' w-full' required />
                             </div>
                             {/* <div>
@@ -327,6 +345,7 @@ const Selection = () => {
                                 onChange={(e) => {
                                     setFirstCriteria(e.value);
                                     onCriteriaChange(e)
+                                    handleChange(e)
                                 }} placeholder="*First Criteria" className='w-fit' />
 
                             {
@@ -343,6 +362,7 @@ const Selection = () => {
                                     onChange={(e) => {
                                         setSecondCriteria(e.value)
                                         onCriteriaChange(e)
+                                        handleChange(e)
                                     }} placeholder="Second Criteria" className='w-fit' />
                             }
                             {
@@ -360,13 +380,17 @@ const Selection = () => {
                                     onChange={(e) => {
                                         setThirdCriteria(e.value)
                                         onCriteriaChange(e)
+                                        handleChange(e)
                                     }} placeholder="Third Criteria" className='w-fit' />
                             }
                         </div>
 
                         <div className='flex justify-between'>
                             <div className='flex items-center gap-2'>
-                                <Checkbox inputId='excludePreviousYear' checked={excludePreviousYear} onChange={e => setExcludePreviousYear(e.checked)}></Checkbox>
+                                <Checkbox name='excludePreviousYear' inputId='excludePreviousYear' checked={excludePreviousYear} onChange={e => {
+                                    setExcludePreviousYear(e.checked);
+                                    handleChange(e)
+                                }}></Checkbox>
                                 <label htmlFor="excludePreviousYear" className='text-gray-500'>Exclude previous year invitee</label>
                             </div>
                             <div className='relative bottom-2'>
