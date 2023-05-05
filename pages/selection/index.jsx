@@ -270,16 +270,19 @@ const Selection = () => {
                         <div>
                             <p className='text-gray-700 font-bold'>Selection Criteria</p>
                         </div>
+
                         <div className='flex flex-wrap gap-2 mb-1'>
                             <div className="relative">
-                                <InputText keyfilter="int" placeholder="*Total" name='total' className='w-24' required />
+                                <InputText keyfilter="int" placeholder="*Total" name='total' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
-                            <div>
-                                <Dropdown name='memberType' options={memberTypes} value={memberType}
-                                    onChange={(e) => {
-                                        setMemberType(e.value)
-                                    }} placeholder="*Select Member Type" className=' w-full' required />
+                            <div className="relative">
+                                <InputText keyfilter="int" placeholder="*Alive Percentage" name='alive' required />
+                                {/* <InputText keyfilter="int" placeholder="Integers" /> */}
+                            </div>
+                            <div className="relative">
+                                <InputText keyfilter="int" placeholder="*Dead Percentage" name='dead' required />
+                                {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div>
                                 <Dropdown name='program' options={events} optionLabel='name' value={event}
@@ -292,6 +295,14 @@ const Selection = () => {
                                 <Calendar value={year} onChange={(e) => {
                                     setYear(e.value)
                                 }} view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
+                            </div>
+                        </div>
+                        <div className='flex flex-wrap gap-2 mb-1'>
+                            <div>
+                                <Dropdown name='memberType' options={memberTypes} value={memberType}
+                                    onChange={(e) => {
+                                        setMemberType(e.value)
+                                    }} placeholder="*Select Member Type" className=' w-full' required />
                             </div>
                             {/* <div>
                                 <Dropdown name='year' options={years} value={year}
