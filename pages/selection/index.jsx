@@ -290,15 +290,15 @@ const Selection = () => {
 
                         <div className='flex flex-wrap gap-2 mb-1'>
                             <div className="relative">
-                                <InputText onChange={handleChange} keyfilter="int" placeholder="*Total" name='total' required />
+                                <InputText keyfilter="int" placeholder="*Total" name='total' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div className="relative">
-                                <InputText onChange={handleChange} keyfilter="int" placeholder="*Alive Percentage" name='alive' required />
+                                <InputText keyfilter="int" placeholder="*Alive Percentage" name='alive' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div className="relative">
-                                <InputText onChange={handleChange} keyfilter="int" placeholder="*Dead Percentage" name='dead' required />
+                                <InputText keyfilter="int" placeholder="*Dead Percentage" name='dead' required />
                                 {/* <InputText keyfilter="int" placeholder="Integers" /> */}
                             </div>
                             <div>
@@ -306,7 +306,6 @@ const Selection = () => {
                                     onChange={(e) => {
                                         setEvent(e.value)
                                         // console.log(e.value);
-                                        handleChange(e)
                                     }}
                                     placeholder="*Select Program" className=' w-full' required />
                             </div>
@@ -314,7 +313,6 @@ const Selection = () => {
                                 <Calendar name='year' id='year' value={year}
                                     onChange={(e) => {
                                         setYear(e.value)
-                                        handleChange(e)
                                     }}
                                     view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
                             </div>
@@ -324,7 +322,6 @@ const Selection = () => {
                                 <Dropdown name='memberType' options={memberTypes} value={memberType}
                                     onChange={(e) => {
                                         setMemberType(e.value)
-                                        handleChange(e)
                                     }} placeholder="*Select Member Type" className=' w-full' required />
                             </div>
                             {/* <div>
@@ -350,7 +347,6 @@ const Selection = () => {
                                 onChange={(e) => {
                                     setFirstCriteria(e.value);
                                     onCriteriaChange(e)
-                                    handleChange(e)
                                 }} placeholder="*First Criteria" className='w-fit' />
 
                             {
@@ -367,7 +363,6 @@ const Selection = () => {
                                     onChange={(e) => {
                                         setSecondCriteria(e.value)
                                         onCriteriaChange(e)
-                                        handleChange(e)
                                     }} placeholder="Second Criteria" className='w-fit' />
                             }
                             {
@@ -385,7 +380,6 @@ const Selection = () => {
                                     onChange={(e) => {
                                         setThirdCriteria(e.value)
                                         onCriteriaChange(e)
-                                        handleChange(e)
                                     }} placeholder="Third Criteria" className='w-fit' />
                             }
                         </div>
@@ -394,7 +388,6 @@ const Selection = () => {
                             <div className='flex items-center gap-2'>
                                 <Checkbox name='excludePreviousYear' inputId='excludePreviousYear' checked={excludePreviousYear} onChange={e => {
                                     setExcludePreviousYear(e.checked);
-                                    handleChange(e)
                                 }}></Checkbox>
                                 <label htmlFor="excludePreviousYear" className='text-gray-500'>Exclude previous year invitee</label>
                             </div>
