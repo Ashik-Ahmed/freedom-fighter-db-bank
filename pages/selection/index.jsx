@@ -79,8 +79,11 @@ const Selection = () => {
         // console.log(memberType, firstCriteria, secondCriteria, checked, event.name);
 
         const total = e.target.total.value
-        // const alive = e.target.alive.value
-        // const dead = e.target.dead.value
+        const alivePercentage = e.target.alive.value;
+        const aliveCount = Math.round((alivePercentage / 100) * total);
+        const deadPercentage = e.target.dead.value;
+        const deadCount = Math.round((deadPercentage / 100) * total);
+
 
         //     fetch(`http://localhost:5000/api/v1/selection?total=${total}&alive=${alive}&dead=${dead}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria}`)
         //         .then(res => res.json())
@@ -89,6 +92,8 @@ const Selection = () => {
 
         const data = {
             total,
+            alive: aliveCount,
+            dead: deadCount,
             memberType,
             eventDetails: {
                 event: event.name,
