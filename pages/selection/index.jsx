@@ -140,13 +140,14 @@ const Selection = () => {
     const cols = [
         { field: 'name', header: 'Name' },
         { field: 'category', header: 'Member Type' },
+        { field: 'status', header: 'Status' },
         { field: 'forceRank', header: 'Official Rank' },
         { field: 'officialRank.point', header: 'Official Point' },
         { field: `fighterRank`, header: 'Fighter Rank' },
         { field: 'fighterPoint', header: 'Fighter Value' },
         // { field: 'invitationCount', header: 'Invite Count', body: { invitedYear } }
         { field: 'invitationCount', header: 'Invite Count' },
-        { field: 'invitedYear', header: 'Invited Year' }
+        // { field: 'invitedYear', header: 'Invited Year' }
     ];
 
     const exportColumns = cols.map(col => ({ title: col.header, dataKey: col.field }));
