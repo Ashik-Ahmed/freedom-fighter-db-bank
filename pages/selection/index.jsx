@@ -108,9 +108,14 @@ const Selection = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                setSelectedFreedomFighters(data.data)
-                console.log(data.data);
-                setLoading(false)
+                if (data.data) {
+                    setSelectedFreedomFighters(data.data)
+                    console.log(data.data);
+                    setLoading(false)
+                }
+                else {
+                    console.log(data);
+                }
             })
         console.log(url);
     }
