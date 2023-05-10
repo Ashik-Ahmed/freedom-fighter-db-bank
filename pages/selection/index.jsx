@@ -82,6 +82,8 @@ const Selection = () => {
         const alivePercentage = e.target.alive.value;
         const deadPercentage = e.target.dead.value;
 
+        console.log(alivePercentage, deadPercentage);
+
 
         //     fetch(`http://localhost:5000/api/v1/selection?total=${total}&alive=${alive}&dead=${dead}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria}`)
         //         .then(res => res.json())
@@ -115,6 +117,9 @@ const Selection = () => {
                 }
                 else {
                     console.log(data);
+                    toast.current.show({ severity: 'error', summary: 'Error!', detail: `${data.error}`, life: 3000 })
+                    setSelectedFreedomFighters([])
+                    setLoading(false)
                 }
             })
         console.log(url);
@@ -140,8 +145,12 @@ const Selection = () => {
         return <span>{rowData.length} times</span>
     }
 
+    const nameBodyTemplate = (member) => {
+        return <span>{member.name}</span>
+    }
+
     const cols = [
-        { field: 'name', header: 'Name' },
+        { field: 'name', header: 'Name', body: { nameBodyTemplate } },
         { field: 'category', header: 'Member Type' },
         { field: 'status', header: 'Status' },
         { field: 'forceRank', header: 'Official Rank' },
