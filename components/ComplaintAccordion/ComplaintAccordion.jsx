@@ -141,7 +141,7 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                 </AccordionTab>
             </Accordion>
             {/* Change role dialog box */}
-            <Dialog header="Status" visible={resolveDialog} onHide={() => { setResolveDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
+            <Dialog header="Change Status" visible={resolveDialog} onHide={() => { setResolveDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
 
                 <div className='text-center mt-2'>
                     <i className='pi pi-check rounded-full border-2 text-5xl p-2 text-primary font-bold shadow-lg mb-2'></i>
