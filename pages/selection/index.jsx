@@ -330,7 +330,7 @@ const Selection = () => {
                                     view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
                             </div>
                         </div>
-                        <div className='flex flex-wrap gap-2 mb-1'>
+                        <div className='flex flex-wrap gap-2'>
                             <div>
                                 <Dropdown name='memberType' options={memberTypes} value={memberType}
                                     onChange={(e) => {
@@ -413,7 +413,7 @@ const Selection = () => {
                 {
                     selectedFreedomFighters &&
                     <div className='w-full'>
-                        <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[70vh]'>
+                        <div className='w-full shadow-lg bg-white p-2 rounded-md h-[65vh]'>
                             {/* <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
@@ -441,12 +441,12 @@ const Selection = () => {
 
 
                             <div>
-                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="50vh" loading={loading} stripedRows>
+                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="46vh" loading={loading} stripedRows>
                                     {
                                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                                     }
                                 </DataTable>
-                                <div className='text-right my-3'>
+                                <div className='text-right mt-1'>
                                     <Button onClick={() => {
                                         setConfirmSelectionDialogue(true)
                                     }} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
