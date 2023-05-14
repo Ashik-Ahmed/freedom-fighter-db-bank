@@ -29,7 +29,7 @@ const ComplaintHistory = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                setComplaints(data.data)
+                setComplaints(data.data.reverse())
                 const unresolved = data?.data?.filter(complaint => complaint.status !== 'Resolved')
                 // setUnresolvedComplaint(unresolved)
             })
