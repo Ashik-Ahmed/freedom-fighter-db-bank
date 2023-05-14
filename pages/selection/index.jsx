@@ -413,7 +413,7 @@ const Selection = () => {
                 {
                     selectedFreedomFighters &&
                     <div className='w-full'>
-                        <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[75vh]'>
+                        <div className='w-full shadow-lg bg-white p-2 rounded-xl h-[70vh]'>
                             {/* <table className="table-auto container shadow-md">
                                         <thead className='bg-slate-200 text-gray-500'>
                                             <tr className='w-full text-left rounded-t-md'>
@@ -441,7 +441,7 @@ const Selection = () => {
 
 
                             <div>
-                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="55vh" loading={loading} stripedRows>
+                                <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="50vh" loading={loading} stripedRows>
                                     {
                                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                                     }
