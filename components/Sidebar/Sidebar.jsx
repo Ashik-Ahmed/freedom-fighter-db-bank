@@ -32,7 +32,7 @@ const Sidebar = ({ user, setUser }) => {
             name: "Manage Members", icon: HiOutlineUserGroup, link: '/freedom-fighters', items: [
                 { name: "Browse Members", link: "/freedom-fighters", icon: CgUserList },
                 { name: "Add Member", link: "/freedom-fighters/add-new", icon: FiUserPlus },
-                { name: "Add Category", link: "/freedom-fighters/add-category", icon: MdOutlineLibraryAdd }
+                // { name: "Add Category", link: "/freedom-fighters/add-category", icon: MdOutlineLibraryAdd }
             ]
         },
         { name: "Manage Events", link: "/events", icon: MdInsertInvitation, },
