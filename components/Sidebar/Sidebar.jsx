@@ -4,7 +4,7 @@ import { PanelMenu } from 'primereact/panelmenu';
 import Link from 'next/link';
 
 import { HiMenuAlt3, HiOutlineUserGroup } from "react-icons/hi";
-import { MdOutlineDashboard, MdFilterListAlt, MdInsertInvitation, MdOutlineLibraryAdd } from "react-icons/md";
+import { MdOutlineDashboard, MdFilterListAlt, MdInsertInvitation, MdOutlineLibraryAdd, MdAdminPanelSettings } from "react-icons/md";
 import { RiSettings4Line, RiMailSettingsLine, RiFilterLine, RiUserSettingsLine, RiLogoutCircleRLine } from "react-icons/ri";
 import { TbReportAnalytics, TbList, TbListCheck } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
@@ -46,6 +46,12 @@ const Sidebar = ({ user, setUser }) => {
         { name: "Manage Users", link: "/manage-users", icon: FaUsersCog, margin: true },
         { name: "Analytics", link: "/analytics", icon: TbReportAnalytics },
         { name: "File Manager", link: "/file-manager", icon: FiFolder },
+        {
+            name: "Admin", link: "/admin", icon: MdAdminPanelSettings, items: [
+                { name: "Manage Member Category", link: "/admin/manage-member-category", icon: RiFilterLine },
+                { name: "manage Criteria", link: "/admin/manage-filter-criteria", icon: TbList }
+            ]
+        },
         { name: `Profile Settings`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },
     ];
 
