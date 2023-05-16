@@ -10,13 +10,17 @@ const FilterCriteria = ({ category }) => {
     const onCriteriaChange = (e) => {
         let _criterias = [...criterias];
 
+        // console.log(e.value.value);
+
         if (e.checked)
             _criterias.push(e.value);
-        else
-            _criterias.splice(_criterias.indexOf(e.value), 1);
+        else {
+            // console.log(e.value);
+            // console.log(e.value.value, 'index: ', _criterias.findIndex(criteria => criteria.value === e.value.value));
+            _criterias.splice(_criterias.findIndex(criteria => criteria.value === e.value.value), 1);
+        }
 
         setCriterias(_criterias);
-        const crts = criterias.map(criteria => { return criteria.value })
     }
 
 
@@ -28,7 +32,7 @@ const FilterCriteria = ({ category }) => {
     ]
 
     const handleUpdateCriteria = (memberCategory) => {
-        console.log(memberCategory);
+        console.log(memberCategory, criterias);
     }
 
     return (
@@ -39,14 +43,14 @@ const FilterCriteria = ({ category }) => {
                         return (
                             <div key={index} className="flex align-items-center">
                                 <Checkbox onChange={onCriteriaChange} inputId={filterCriteria.label} name={filterCriteria.label} value={filterCriteria} checked={criterias.map(criteria => { return criteria.value }).includes(filterCriteria.value)} />
-                                <label htmlFor="ingredient1" className="ml-2">{filterCriteria.label}</label>
+                                <label htmlFor={filterCriteria.label} className="ml-2">{filterCriteria.label}</label>
                             </div>
                         )
                     })
                 }
             </div>
 
-            <Button onClick={() => handleUpdateCriteria(category.name)} disabled={criterias.length == 0} label="Submit" className='p-button-info p-button-sm mt-4' />
+            <Button onClick={() => handleUpdateCriteria(category)} disabled={criterias.length == 0} label="Submit" className='p-button-info p-button-sm mt-4' />
 
         </Card>
     );
