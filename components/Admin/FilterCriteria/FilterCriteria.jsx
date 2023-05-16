@@ -16,7 +16,7 @@ const FilterCriteria = ({ category }) => {
             _criterias.splice(_criterias.indexOf(e.value), 1);
 
         setCriterias(_criterias);
-        console.log(_criterias);
+        const crts = criterias.map(criteria => { return criteria.value })
     }
 
 
@@ -27,6 +27,10 @@ const FilterCriteria = ({ category }) => {
         { label: 'Official_Rank', value: 'officialRank.point' },
     ]
 
+    const handleUpdateCriteria = (memberCategory) => {
+        console.log(memberCategory);
+    }
+
     return (
         <Card title={category.name}>
             <div className="flex flex-wrap justify-content-start gap-3">
@@ -34,7 +38,7 @@ const FilterCriteria = ({ category }) => {
                     filterCriterias.map((filterCriteria, index) => {
                         return (
                             <div key={index} className="flex align-items-center">
-                                <Checkbox onChange={onCriteriaChange} inputId={filterCriteria.label} name={filterCriteria.label} value={filterCriteria.value} checked={criterias.includes(filterCriteria.value)} />
+                                <Checkbox onChange={onCriteriaChange} inputId={filterCriteria.label} name={filterCriteria.label} value={filterCriteria} checked={criterias.map(criteria => { return criteria.value }).includes(filterCriteria.value)} />
                                 <label htmlFor="ingredient1" className="ml-2">{filterCriteria.label}</label>
                             </div>
                         )
@@ -42,7 +46,7 @@ const FilterCriteria = ({ category }) => {
                 }
             </div>
 
-            <Button label="Submit" className='p-button-info p-button-sm mt-4' />
+            <Button onClick={() => handleUpdateCriteria(category.name)} disabled={criterias.length == 0} label="Submit" className='p-button-info p-button-sm mt-4' />
 
         </Card>
     );
