@@ -3,11 +3,13 @@ import { Card } from 'primereact/card';
 import { Checkbox } from 'primereact/checkbox';
 import React, { useState } from 'react';
 
-const FilterCriteria = ({ category }) => {
+const FilterCriteria = ({ category, toast }) => {
 
-    const [criterias, setCriterias] = useState([])
+    const [criterias, setCriterias] = useState(category.priorityCriterias)
+    const [buttonActive, setButtonActive] = useState(false)
 
     const onCriteriaChange = (e) => {
+        setButtonActive(true)
         let _criterias = [...criterias];
 
         // console.log(e.value.value);
@@ -24,7 +26,7 @@ const FilterCriteria = ({ category }) => {
     }
 
 
-    const filterCriterias = [
+    const priorityCriterias = [
         { label: 'Name', value: 'name' },
         { label: 'Invitation_Count', value: 'invitationCount' },
         { label: 'Freedom_Fighter_Rank', value: 'freedomFighterRank.point' },
@@ -33,13 +35,34 @@ const FilterCriteria = ({ category }) => {
 
     const handleUpdateCriteria = (memberCategory) => {
         console.log(memberCategory, criterias);
+        const priorityCriteria = criterias;
+
+        const url = `http://localhost:5000/api/v1/memberCategory/${memberCategory._id}`
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(priorityCriteria)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status == 'Success') {
+                    setButtonActive(false)
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Priority Criteria updated', life: 3000 })
+                }
+                else {
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
+                }
+            })
     }
 
     return (
         <Card title={category.name}>
             <div className="flex flex-wrap justify-content-start gap-3">
                 {
-                    filterCriterias.map((filterCriteria, index) => {
+                    priorityCriterias.map((filterCriteria, index) => {
                         return (
                             <div key={index} className="flex align-items-center">
                                 <Checkbox onChange={onCriteriaChange} inputId={filterCriteria.label} name={filterCriteria.label} value={filterCriteria} checked={criterias.map(criteria => { return criteria.value }).includes(filterCriteria.value)} />
@@ -50,7 +73,7 @@ const FilterCriteria = ({ category }) => {
                 }
             </div>
 
-            <Button onClick={() => handleUpdateCriteria(category)} disabled={criterias.length == 0} label="Submit" className='p-button-info p-button-sm mt-4' />
+            <Button onClick={() => handleUpdateCriteria(category)} disabled={!buttonActive} label="Submit" className='p-button-info p-button-sm mt-4' />
 
         </Card>
     );

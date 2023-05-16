@@ -5,8 +5,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Button } from 'primereact/button';
 import FilterCriteria from '../../../components/Admin/FilterCriteria/FilterCriteria';
+import { useRef } from 'react';
+import { Toast } from 'primereact/toast';
 
 const ManageFilterCriteria = () => {
+
+    const toast = useRef()
 
     const [categories, setCategories] = useState([])
 
@@ -29,8 +33,9 @@ const ManageFilterCriteria = () => {
 
     return (
         <div className='flex flex-col gap-2'>
+            <Toast ref={toast} />
             {
-                categories.map((category, index) => <FilterCriteria key={index} category={category} />)
+                categories.map((category, index) => <FilterCriteria key={index} category={category} toast={toast} />)
             }
 
         </div>
