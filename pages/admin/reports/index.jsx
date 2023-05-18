@@ -12,9 +12,13 @@ const Reports = () => {
     const [event, setEvent] = useState();
     const [year, setYear] = useState()
     const [formData, setFormData] = useState()
+    const [loading, setLoading] = useState(false)
 
     // fetch available events from db 
     useEffect(() => {
+
+        getAllMembers()
+
         fetch('http://localhost:5000/api/v1/event')
             .then(res => res.json())
             .then(data => {
@@ -31,6 +35,7 @@ const Reports = () => {
 
     // get members 
     const getAllMembers = () => {
+        setLoading(true)
         var url = `http://localhost:5000/api/v1/freedomFighters?page=${1})}`
 
         fetch(url)
@@ -38,6 +43,7 @@ const Reports = () => {
             .then(data => {
                 console.log(data.freedomFighters);
                 setMembers(data.freedomFighters);
+                setLoading(false)
             })
     }
 
@@ -46,6 +52,14 @@ const Reports = () => {
         console.log(formData.year.getFullYear());
         console.log(year);
     }
+
+    const header = (
+        <div className='flex justify-between items-center'>
+            <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
+                {members && <p>Report Generated for Event</p>}
+            </div>
+        </div>
+    );
 
     return (
         <div>
@@ -76,16 +90,16 @@ const Reports = () => {
 
 
             {
-                // generatedReport &&
-                // <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                //     <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
-                //         {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
-                //         {
-                //             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
-                //         }
-                //         <Column header='Invitaion Status' body={invitationStatusBodyTemplate} exportable={false}></Column>
-                //     </DataTable>
-                // </div>
+                members &&
+                <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
+                    <DataTable value={members} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
+                        {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
+                        {/* {
+                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
+                        } */}
+                        <Column header='Name' field='name' exportable={false}></Column>
+                    </DataTable>
+                </div>
             }
         </div >
     );
