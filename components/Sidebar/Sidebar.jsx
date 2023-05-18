@@ -43,13 +43,14 @@ const Sidebar = ({ user, setUser }) => {
                 { name: "Final List", link: "/selection/final-selected", icon: TbListCheck }
             ]
         },
-        { name: "Manage Users", link: "/manage-users", icon: FaUsersCog, margin: true },
+
         { name: "Analytics", link: "/analytics", icon: TbReportAnalytics },
         { name: "File Manager", link: "/file-manager", icon: FiFolder },
         {
-            name: "Admin", link: "/admin", icon: MdAdminPanelSettings, items: [
+            name: "Admin", link: "/admin", permission: 'admin', icon: MdAdminPanelSettings, items: [
                 { name: "Manage Member Category", link: "/admin/manage-member-category", icon: RiFilterLine },
-                { name: "manage Criteria", link: "/admin/manage-filter-criteria", icon: TbList }
+                { name: "Manage Priority Criteria", link: "/admin/manage-filter-criteria", icon: TbList },
+                { name: "Manage Users", link: "/manage-users", icon: FaUsersCog, margin: true },
             ]
         },
         { name: `Profile Settings`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },
@@ -83,7 +84,7 @@ const Sidebar = ({ user, setUser }) => {
                 </div>
                 <div className="flex flex-col gap-1 relative">
                     {menus?.map((menu, index) => (
-                        <Menu key={index} menu={menu} open={open} setOpen={setOpen} index={index} />
+                        <Menu key={index} menu={menu} open={open} setOpen={setOpen} index={index} user={user} />
                     ))}
                     <div className='my-4 text-center'>
                         <Button onClick={handleLogout} icon='pi pi-sign-out' className='p-button-danger p-button-sm'>

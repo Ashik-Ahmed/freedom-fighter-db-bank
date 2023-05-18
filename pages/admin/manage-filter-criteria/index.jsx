@@ -32,12 +32,19 @@ const ManageFilterCriteria = () => {
 
 
     return (
-        <div className='flex flex-col gap-2'>
+        <div>
             <Toast ref={toast} />
-            {
-                categories.map((category, index) => <FilterCriteria key={index} category={category} toast={toast} />)
-            }
 
+            <div className='mb-2'>
+                <p className='text-3xl font-bold text-gray-800'>Member-wise Priority Criteria</p>
+            </div>
+
+            <div className='flex flex-col gap-2'>
+                {
+                    categories.map((category, index) => <FilterCriteria key={index} category={category} toast={toast} />)
+                }
+
+            </div>
         </div>
     );
 };

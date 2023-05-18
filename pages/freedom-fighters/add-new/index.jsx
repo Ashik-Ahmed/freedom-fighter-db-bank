@@ -68,14 +68,14 @@ const AddNew = () => {
         { label: 'Master warrant officer', value: { rank: 'Master warrant officer', point: 12 } },
         { label: 'Senior warrant officer', value: { rank: 'Senior warrant officer', point: 13 } },
         { label: 'Warrant officer', value: { rank: 'Warrant officer', point: 14 } },
-        { label: 'Regiment Sergeant Major', value: { rank: 'Regiment Sergeant Major', point: 15 } },
-        { label: 'Quarter Master Sergeant', value: { rank: 'Quarter Master Sergeant', point: 16 } },
-        { label: 'Sergeant Major', value: { rank: 'Sergeant Major', point: 17 } },
-        { label: 'Master Sergeant', value: { rank: 'Master Sergeant', point: 18 } },
-        { label: 'Sergeant', value: { rank: 'Sergeant', point: 19 } },
-        { label: 'Corporal', value: { rank: 'Corporal', point: 20 } },
-        { label: 'Lance corporal', value: { rank: 'Lance corporal', point: 21 } },
-        { label: 'Sainik', value: { rank: 'Sainik', point: 22 } }
+        // { label: 'Regiment Sergeant Major', value: { rank: 'Regiment Sergeant Major', point: 15 } },
+        // { label: 'Quarter Master Sergeant', value: { rank: 'Quarter Master Sergeant', point: 16 } },
+        // { label: 'Sergeant Major', value: { rank: 'Sergeant Major', point: 17 } },
+        // { label: 'Master Sergeant', value: { rank: 'Master Sergeant', point: 18 } },
+        { label: 'Sergeant', value: { rank: 'Sergeant', point: 15 } },
+        { label: 'Corporal', value: { rank: 'Corporal', point: 16 } },
+        { label: 'Lance corporal', value: { rank: 'Lance corporal', point: 17 } },
+        { label: 'Sainik', value: { rank: 'Sainik', point: 18 } }
     ]
     const navyRank = [
         { label: 'Admiral', value: { rank: 'Admiral', point: 1 } },
@@ -106,18 +106,17 @@ const AddNew = () => {
         { label: 'Wing Commander', value: { rank: 'Wing Commander', point: 6 } },
         { label: 'Squadron Leader', value: { rank: 'Squadron Leader', point: 7 } },
         { label: 'Flight Lieutenant', value: { rank: 'Flight Lieutenant', point: 8 } },
-        { label: 'Flight Sergeant', value: { rank: 'Flight Sergeant', point: 9 } },
-        { label: 'Flying Officer', value: { rank: 'Flying Officer', point: 10 } },
-        { label: 'Pilot Officer', value: { rank: 'Pilot Officer', point: 11 } },
-        { label: 'Officer cadet', value: { rank: 'Officer cadet', point: 12 } },
-        { label: 'Master warrant officer', value: { rank: 'Master warrant officer', point: 13 } },
-        { label: 'Senior warrant officer', value: { rank: 'Senior warrant officer', point: 14 } },
-        { label: 'Warrant officer', value: { rank: 'Warrant officer', point: 15 } },
-        { label: 'Sergeant', value: { rank: 'Sergeant', point: 16 } },
-        { label: 'Corporal', value: { rank: 'Corporal', point: 17 } },
-        { label: 'Leading aircraftman', value: { rank: 'Leading aircraftman', point: 18 } },
-        { label: 'Aircraftman 1', value: { rank: 'Aircraftman 1', point: 19 } },
-        { label: 'Aircraftman 2', value: { rank: 'Aircraftman 2', point: 20 } },
+        { label: 'Flying Officer', value: { rank: 'Flying Officer', point: 9 } },
+        { label: 'Pilot Officer', value: { rank: 'Pilot Officer', point: 10 } },
+        { label: 'Officer cadet', value: { rank: 'Officer cadet', point: 11 } },
+        { label: 'Master warrant officer', value: { rank: 'Master warrant officer', point: 12 } },
+        { label: 'Senior warrant officer', value: { rank: 'Senior warrant officer', point: 13 } },
+        { label: 'Warrant officer', value: { rank: 'Warrant officer', point: 14 } },
+        { label: 'Sergeant', value: { rank: 'Sergeant', point: 15 } },
+        { label: 'Corporal', value: { rank: 'Corporal', point: 16 } },
+        { label: 'Leading aircraftman', value: { rank: 'Leading aircraftman', point: 17 } },
+        { label: 'Aircraftman 1', value: { rank: 'Aircraftman 1', point: 18 } },
+        { label: 'Aircraftman 2', value: { rank: 'Aircraftman 2', point: 19 } }
     ]
 
     const fighterRanks = [
