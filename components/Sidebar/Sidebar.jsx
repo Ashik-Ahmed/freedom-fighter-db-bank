@@ -50,7 +50,8 @@ const Sidebar = ({ user, setUser }) => {
             name: "Admin", link: "/admin", permission: 'admin', icon: MdAdminPanelSettings, items: [
                 { name: "Manage Member Category", link: "/admin/manage-member-category", icon: RiFilterLine },
                 { name: "Manage Priority Criteria", link: "/admin/manage-filter-criteria", icon: TbList },
-                { name: "Manage Users", link: "/manage-users", icon: FaUsersCog, margin: true },
+                { name: "Manage Users", link: "/admin/manage-users", icon: FaUsersCog },
+                { name: "Reports", link: "/admin/reports", icon: FaUsersCog },
             ]
         },
         { name: `Profile Settings`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },

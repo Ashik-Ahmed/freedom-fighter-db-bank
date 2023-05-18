@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Cookies from 'universal-cookie';
-import UserRow from '../../components/UserRow/UserRow';
 import { SiAddthis } from 'react-icons/si';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
