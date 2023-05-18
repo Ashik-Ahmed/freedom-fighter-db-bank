@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 
 const Reports = () => {
 
+    const [members, setMembers] = useState([])
     const [events, setEvents] = useState([]);
     const [event, setEvent] = useState();
     const [year, setYear] = useState()
@@ -26,6 +27,18 @@ const Reports = () => {
         setFormData({
             ...formData, [name]: value
         });
+    }
+
+    // get members 
+    const getAllMembers = () => {
+        var url = `http://localhost:5000/api/v1/freedomFighters?page=${1})}`
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.freedomFighters);
+                setMembers(data.freedomFighters);
+            })
     }
 
     const handleGenerateReport = (e) => {
@@ -63,16 +76,16 @@ const Reports = () => {
 
 
             {
-                generatedReport &&
-                <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                    <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
-                        {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
-                        {
-                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
-                        }
-                        <Column header='Invitaion Status' body={invitationStatusBodyTemplate} exportable={false}></Column>
-                    </DataTable>
-                </div>
+                // generatedReport &&
+                // <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
+                //     <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
+                //         {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
+                //         {
+                //             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
+                //         }
+                //         <Column header='Invitaion Status' body={invitationStatusBodyTemplate} exportable={false}></Column>
+                //     </DataTable>
+                // </div>
             }
         </div >
     );
