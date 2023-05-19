@@ -83,6 +83,25 @@ const Reports = () => {
         );
     }
 
+    const sentBodyTemplate = (rowData) => {
+        return (
+            <div>
+                <p>Alive Officer</p>
+                <p>Alive JCO/OR</p>
+                <p>Martyred/Dead Officer</p>
+                <p>Dead JCO/OR</p>
+            </div>
+        )
+    }
+
+    const totalSentBodyTemplate = (rowData) => {
+        return (
+            <div>
+                <p>30</p>
+            </div>
+        )
+    }
+
     return (
         <div>
             <p className='text-xl font-bold mb-2'>Generate Report</p>
@@ -122,6 +141,8 @@ const Reports = () => {
                         {/* <Column header='Name' field='name' exportable={false}></Column> */}
                         {/* <Column header="#" body={(data, options) => options.rowIndex + 1} style={{ minWidth: '200px' }}></Column> */}
                         <Column field="force" header="Force" body={memberBodyTemplate} style={{ minWidth: '200px' }}></Column>
+                        <Column field="force" header="Sent" body={sentBodyTemplate} style={{ minWidth: '200px' }}></Column>
+                        <Column field="force" header="Total Sent" body={totalSentBodyTemplate} style={{ minWidth: '200px' }}></Column>
                     </DataTable>
                 </div>
             }
