@@ -47,6 +47,18 @@ const Reports = () => {
             })
     }
 
+    // group members by their force
+    const groupedMembers = members.reduce((acc, curr) => {
+        if (!acc[curr.force]) {
+            acc[curr.force] = [];
+        }
+
+        acc[curr.force].push(curr);
+
+        return acc;
+    }, {});
+    console.log(groupedMembers);
+
     const handleGenerateReport = (e) => {
         e.preventDefault()
         console.log(formData.year.getFullYear());
@@ -60,6 +72,14 @@ const Reports = () => {
             </div>
         </div>
     );
+
+    const memberBodyTemplate = (rowData) => {
+        return (
+            <div className="flex align-items-center gap-2">
+                <span className="font-bold">{rowData.force}</span>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -90,14 +110,16 @@ const Reports = () => {
 
 
             {
-                members &&
+                groupedMembers &&
                 <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                    <DataTable value={members} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
+                    <DataTable value={members} header={header} rowGroupMode="rowspan" groupRowsBy="force" sortMode="single" sortField="force" sortOrder={1} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
                         {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
                         {/* {
                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                         } */}
-                        <Column header='Name' field='name' exportable={false}></Column>
+                        {/* <Column header='Name' field='name' exportable={false}></Column> */}
+                        <Column header="#" body={(data, options) => options.rowIndex + 1} style={{ minWidth: '200px' }}></Column>
+                        <Column field="force" header="Force" body={memberBodyTemplate} style={{ minWidth: '200px' }}></Column>
                     </DataTable>
                 </div>
             }
