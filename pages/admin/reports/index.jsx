@@ -138,6 +138,17 @@ const Reports = () => {
         )
     }
 
+    const previousYearSelectionBodyTemplate = (rowData) => {
+        return (
+            <div className='border-r'>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p>30</p>
+            </div>
+        )
+    }
+
     return (
         <div>
             <p className='text-xl font-bold mb-2'>Generate Report</p>
@@ -182,6 +193,7 @@ const Reports = () => {
                         <Column field="force" header="Accepted" body={acceptedBodyTemplate}></Column>
                         <Column field="force" header="Dead" body={deadBodyTemplate}></Column>
                         <Column field="force" header="Invitation Proposal" body={invitationProposedBodyTemplate}></Column>
+                        <Column field="force" header="Selected in previous year" body={previousYearSelectionBodyTemplate}></Column>
                     </DataTable>
                 </div>
             }
