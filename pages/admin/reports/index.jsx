@@ -127,6 +127,17 @@ const Reports = () => {
         )
     }
 
+    const invitationProposedBodyTemplate = (rowData) => {
+        return (
+            <div className='border-r'>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p>30</p>
+            </div>
+        )
+    }
+
     return (
         <div>
             <p className='text-xl font-bold mb-2'>Generate Report</p>
@@ -166,10 +177,11 @@ const Reports = () => {
                         {/* <Column header='Name' field='name' exportable={false}></Column> */}
                         {/* <Column header="#" body={(data, options) => options.rowIndex + 1} style={{ minWidth: '200px' }}></Column> */}
                         <Column field="force" header="Force" body={memberBodyTemplate} style={{ minWidth: '200px' }}></Column>
-                        <Column field="force" header="Sent" body={sentBodyTemplate} style={{ minWidth: '200px' }}></Column>
-                        <Column field="force" header="Total Sent" body={totalSentBodyTemplate} style={{ minWidth: '200px' }}></Column>
-                        <Column field="force" header="Accepted" body={acceptedBodyTemplate} style={{ minWidth: '200px' }}></Column>
-                        <Column field="force" header="Dead" body={deadBodyTemplate} style={{ minWidth: '200px' }}></Column>
+                        <Column field="force" header="Sent" body={sentBodyTemplate}></Column>
+                        <Column field="force" header="Total Sent" body={totalSentBodyTemplate}></Column>
+                        <Column field="force" header="Accepted" body={acceptedBodyTemplate}></Column>
+                        <Column field="force" header="Dead" body={deadBodyTemplate}></Column>
+                        <Column field="force" header="Invitation Proposal" body={invitationProposedBodyTemplate}></Column>
                     </DataTable>
                 </div>
             }
