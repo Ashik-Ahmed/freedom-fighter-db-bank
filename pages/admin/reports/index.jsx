@@ -85,10 +85,10 @@ const Reports = () => {
 
     const sentBodyTemplate = (rowData) => {
         return (
-            <div>
-                <p>Alive Officer</p>
-                <p>Alive JCO/OR</p>
-                <p>Martyred/Dead Officer</p>
+            <div className='border-r'>
+                <p className='border-b'>Alive Officer</p>
+                <p className='border-b'>Alive JCO/OR</p>
+                <p className='border-b'>Martyred/Dead Officer</p>
                 <p>Dead JCO/OR</p>
             </div>
         )
@@ -96,7 +96,21 @@ const Reports = () => {
 
     const totalSentBodyTemplate = (rowData) => {
         return (
-            <div>
+            <div className='border-r'>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p>30</p>
+            </div>
+        )
+    }
+
+    const acceptedBodyTemplate = (rowData) => {
+        return (
+            <div className='border-r'>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
                 <p>30</p>
             </div>
         )
@@ -143,6 +157,7 @@ const Reports = () => {
                         <Column field="force" header="Force" body={memberBodyTemplate} style={{ minWidth: '200px' }}></Column>
                         <Column field="force" header="Sent" body={sentBodyTemplate} style={{ minWidth: '200px' }}></Column>
                         <Column field="force" header="Total Sent" body={totalSentBodyTemplate} style={{ minWidth: '200px' }}></Column>
+                        <Column field="force" header="Accepted" body={acceptedBodyTemplate} style={{ minWidth: '200px' }}></Column>
                     </DataTable>
                 </div>
             }
