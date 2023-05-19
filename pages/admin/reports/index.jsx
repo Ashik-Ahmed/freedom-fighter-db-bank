@@ -85,7 +85,7 @@ const Reports = () => {
 
     const sentBodyTemplate = (rowData) => {
         return (
-            <div className='border-r'>
+            <div>
                 <p className='border-b'>Alive Officer</p>
                 <p className='border-b'>Alive JCO/OR</p>
                 <p className='border-b'>Martyred/Dead Officer</p>
@@ -96,7 +96,7 @@ const Reports = () => {
 
     const totalSentBodyTemplate = (rowData) => {
         return (
-            <div className='border-r'>
+            <div>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
@@ -107,7 +107,7 @@ const Reports = () => {
 
     const acceptedBodyTemplate = (rowData) => {
         return (
-            <div className='border-r'>
+            <div>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
@@ -118,7 +118,7 @@ const Reports = () => {
 
     const deadBodyTemplate = (rowData) => {
         return (
-            <div className='border-r'>
+            <div>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
@@ -129,7 +129,7 @@ const Reports = () => {
 
     const invitationProposedBodyTemplate = (rowData) => {
         return (
-            <div className='border-r'>
+            <div>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
@@ -140,7 +140,18 @@ const Reports = () => {
 
     const previousYearSelectionBodyTemplate = (rowData) => {
         return (
-            <div className='border-r'>
+            <div>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p>30</p>
+            </div>
+        )
+    }
+
+    const finalProposalBodyTemplate = (rowData) => {
+        return (
+            <div>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
                 <p className='border-b'>30</p>
@@ -180,7 +191,7 @@ const Reports = () => {
             {
                 groupedMembers &&
                 <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                    <DataTable value={members} header={header} rowGroupMode="rowspan" groupRowsBy='force' sortMode="single" sortField="force" sortOrder={1} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
+                    <DataTable value={members} header={header} rowGroupMode="rowspan" groupRowsBy='force' sortMode="single" sortField="force" sortOrder={1} dataKey="id" size='small' showGridlines responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
                         {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
                         {/* {
                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
@@ -188,12 +199,13 @@ const Reports = () => {
                         {/* <Column header='Name' field='name' exportable={false}></Column> */}
                         {/* <Column header="#" body={(data, options) => options.rowIndex + 1} style={{ minWidth: '200px' }}></Column> */}
                         <Column field="force" header="Force" body={memberBodyTemplate} style={{ minWidth: '200px' }}></Column>
-                        <Column field="force" header="Sent" body={sentBodyTemplate}></Column>
+                        <Column field="force" header="Sent" body={sentBodyTemplate} style={{ minWidth: '200px' }}></Column>
                         <Column field="force" header="Total Sent" body={totalSentBodyTemplate}></Column>
                         <Column field="force" header="Accepted" body={acceptedBodyTemplate}></Column>
                         <Column field="force" header="Dead" body={deadBodyTemplate}></Column>
                         <Column field="force" header="Invitation Proposal" body={invitationProposedBodyTemplate}></Column>
                         <Column field="force" header="Selected in previous year" body={previousYearSelectionBodyTemplate}></Column>
+                        <Column field="force" header="Final Proposal" body={finalProposalBodyTemplate}></Column>
                     </DataTable>
                 </div>
             }
