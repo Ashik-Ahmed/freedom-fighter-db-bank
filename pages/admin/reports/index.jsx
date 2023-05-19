@@ -116,6 +116,17 @@ const Reports = () => {
         )
     }
 
+    const deadBodyTemplate = (rowData) => {
+        return (
+            <div className='border-r'>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p className='border-b'>30</p>
+                <p>30</p>
+            </div>
+        )
+    }
+
     return (
         <div>
             <p className='text-xl font-bold mb-2'>Generate Report</p>
@@ -158,6 +169,7 @@ const Reports = () => {
                         <Column field="force" header="Sent" body={sentBodyTemplate} style={{ minWidth: '200px' }}></Column>
                         <Column field="force" header="Total Sent" body={totalSentBodyTemplate} style={{ minWidth: '200px' }}></Column>
                         <Column field="force" header="Accepted" body={acceptedBodyTemplate} style={{ minWidth: '200px' }}></Column>
+                        <Column field="force" header="Dead" body={deadBodyTemplate} style={{ minWidth: '200px' }}></Column>
                     </DataTable>
                 </div>
             }
