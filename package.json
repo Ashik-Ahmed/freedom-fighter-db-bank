@@ -9,28 +9,30 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "chart.js": "4.2.1",
     "daisyui": "^2.39.1",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",
+    "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
     "next": "13.0.3",
+    "pdfmake": "^0.2.7",
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primereact": "^8.7.3",
-    "react-transition-group": "^4.4.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.5",
     "react-icons": "^4.6.0",
     "react-paginate": "^8.1.4",
     "react-select-country-list": "^2.2.3",
+    "react-transition-group": "^4.4.5",
     "tailwind-scrollbar": "^2.1.0",
     "universal-cookie": "^4.0.4",
-    "xlsx": "^0.18.5",
-    "chart.js": "4.2.1"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

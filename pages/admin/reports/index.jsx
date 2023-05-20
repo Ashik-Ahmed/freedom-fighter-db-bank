@@ -4,6 +4,9 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Dropdown } from 'primereact/dropdown';
 import React, { useEffect, useState } from 'react';
+import html2canvas from "html2canvas";
+import pdfMake from "pdfmake";
+import jsPDF from 'jspdf';
 
 const Reports = () => {
 
@@ -66,14 +69,6 @@ const Reports = () => {
         console.log(formData.year.getFullYear());
         console.log(year);
     }
-
-    const header = (
-        <div className='flex justify-between items-center'>
-            <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
-                {members && <p>Report Generated for Event</p>}
-            </div>
-        </div>
-    );
 
     const memberBodyTemplate = (rowData) => {
         return (
@@ -160,6 +155,71 @@ const Reports = () => {
         )
     }
 
+    const cols = [
+        { field: 'force', header: 'Force', body: { memberBodyTemplate } },
+        { header: "Sent", body: { sentBodyTemplate } },
+        { header: "Total Sent", body: { totalSentBodyTemplate } },
+        { header: "Accepted", body: { acceptedBodyTemplate } },
+        { header: "Dead", body: { deadBodyTemplate } },
+        { header: "Invitation Proposal", body: { invitationProposedBodyTemplate } },
+        { header: "Selected in previous year", body: { previousYearSelectionBodyTemplate } },
+        { header: "Final Proposal", body: { finalProposalBodyTemplate } }
+    ];
+
+    const exportColumns = cols.map((col) => ({ title: col.header, dataKey: col.field }));
+
+
+
+    const exportPdf = () => {
+        import('jspdf').then((jsPDF) => {
+            import('jspdf-autotable').then(() => {
+                const doc = new jsPDF.default(0, 0);
+
+                doc.autoTable(exportColumns, members);
+                doc.save('products.pdf');
+            });
+        });
+    };
+
+
+    const exportToPDF = () => {
+        const doc = new jsPDF();
+
+        // Get the element you want to export
+        const element = document.getElementById('element-to-export');
+
+        // Calculate the height and width of the element
+        const width = element.offsetWidth;
+        const height = element.offsetHeight;
+
+        // Create a canvas element to convert the HTML to an image
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        // Convert the HTML element to an image
+        html2canvas(element).then(canvas => {
+            const imageData = canvas.toDataURL('image/png');
+
+            // Add the image to the PDF document
+            doc.addImage(imageData, 'PNG', 0, 0, width, height);
+
+            // Save the PDF
+            doc.save('export.pdf');
+        });
+    };
+
+
+
+    const header = (
+        <div className='flex justify-between items-center'>
+            <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
+                {members && <p>Report Generated for Event</p>}
+            </div>
+            <Button type="button" icon="pi pi-file-pdf" severity="warning" rounded onClick={exportToPDF} data-pr-tooltip="PDF" />
+        </div>
+    );
+
     return (
         <div>
             <p className='text-xl font-bold mb-2'>Generate Report</p>
@@ -191,7 +251,7 @@ const Reports = () => {
             {
                 groupedMembers &&
                 <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                    <DataTable value={members} header={header} rowGroupMode="rowspan" groupRowsBy='force' sortMode="single" sortField="force" sortOrder={1} dataKey="id" size='small' showGridlines responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
+                    <DataTable id='element-to-export' value={members} header={header} rowGroupMode="rowspan" groupRowsBy='force' sortMode="single" sortField="force" sortOrder={1} dataKey="id" size='small' showGridlines responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
                         {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
                         {/* {
                             cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
