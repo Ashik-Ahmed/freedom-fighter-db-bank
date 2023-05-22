@@ -95,9 +95,19 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
         );
     };
 
+    const forceBodyTemplate = (rowData) => {
+        return (
+            <div className='flex gap-1'>
+                <p>{rowData.force} </p>
+                <span className='text-xs mt-auto italic'>({rowData.officialRank.point > 12 ? 'Officer' : 'JCO/OR'})</span>
+            </div>
+        )
+    }
+
     const cols = [
         { field: 'name', header: 'Name' },
         { field: 'category', header: 'Member Type' },
+        { field: 'force', header: 'Force' },
         { field: `mobile`, header: 'Contact no.' },
         { field: 'email', header: 'Email' },
         { field: 'address', header: 'Address' },
@@ -211,9 +221,14 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
             <Toast ref={toast} />
             <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
                 <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows removableSort >
-                    {
+                    {/* {
                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} sortable />)
-                    }
+                    } */}
+                    <Column header='Name' field='name'></Column>
+                    <Column header='Category' field='category'></Column>
+                    <Column header='Force' field='force' body={forceBodyTemplate}></Column>
+                    <Column header='Mobile' field='mobile'></Column>
+                    <Column header='Address' field='address'></Column>
                     <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column>
                 </DataTable>
             </div>
