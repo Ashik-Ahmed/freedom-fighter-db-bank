@@ -329,7 +329,7 @@ const Reports = () => {
                                             <tr>
                                                 <td rowspan="4" className='border text-center'>{rowData.force}</td>
                                                 <td className='border'>Alive Officer</td>
-                                                <td className='border text-center'>Cell 3</td>
+                                                <td className='border text-center'>{rowData.totalAliveOfficer}</td>
                                                 <td className='border text-center'>Cell 4</td>
                                                 <td className='border text-center'>Cell 5</td>
                                                 <td className='border text-center'>Cell 6</td>
@@ -338,7 +338,7 @@ const Reports = () => {
                                             </tr>
                                             <tr>
                                                 <td className='border'>Alive JCO/OR</td>
-                                                <td className='border text-center'>Cell 10</td>
+                                                <td className='border text-center'>{rowData.totalAliveOR}</td>
                                                 <td className='border text-center'>Cell 11</td>
                                                 <td className='border text-center'>Cell 12</td>
                                                 <td className='border text-center'>Cell 13</td>
@@ -347,7 +347,7 @@ const Reports = () => {
                                             </tr>
                                             <tr>
                                                 <td className='border'>Martyred/Dead Officer</td>
-                                                <td className='border text-center'>Cell 18</td>
+                                                <td className='border text-center'>{rowData.totalDeadOfficer}</td>
                                                 <td className='border text-center'>Cell 19</td>
                                                 <td className='border text-center'>Cell 20</td>
                                                 <td className='border text-center'>Cell 21</td>
@@ -356,7 +356,7 @@ const Reports = () => {
                                             </tr>
                                             <tr>
                                                 <td className='border'>Martyred/Dead JCO/OR</td>
-                                                <td className='border text-center'>Cell 26</td>
+                                                <td className='border text-center'>{rowData.totalDeadOR}</td>
                                                 <td className='border text-center'>Cell 27</td>
                                                 <td className='border text-center'>Cell 28</td>
                                                 <td className='border text-center'>Cell 29</td>
