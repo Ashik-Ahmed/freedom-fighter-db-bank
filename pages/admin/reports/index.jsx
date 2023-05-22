@@ -55,7 +55,7 @@ const Reports = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data.data)
-                setReport(data.data)
+                setReport(data.data.currentReport)
             })
     }
 
@@ -94,24 +94,6 @@ const Reports = () => {
             {
                 report &&
                 <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                    {/* <DataTable id='element-to-export' value={report} header={header} sortMode="single" sortField="force" sortOrder={1} dataKey="id" size='small' showGridlines responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
-                        <Column key='force' field="force" header="Force" style={{ minWidth: '200px' }}></Column>
-                        <Column field='totalAliveOfficer' header="Sent" body={sentBodyTemplate} style={{ minWidth: '200px' }}></Column>
-                        <Column field="force" header="Total Sent" body={totalSentBodyTemplate}></Column>
-                        <Column field="force" header="Accepted" ></Column>
-                        <Column field="force" header="Dead" ></Column>
-                        <Column field="force" header="Invitation Proposal"></Column>
-                        <Column field="force" header="Selected in previous year" ></Column>
-                        <Column field="force" header="Final Proposal"></Column>
-                    </DataTable> */}
-                    {/* <DataTable value={report} rowGroupMode="subheader" groupRowsBy="force" sortMode="single" sortField="force"
-                        sortOrder={1} scrollable scrollHeight="400px" rowGroupHeaderTemplate={headerTemplate} rowGroupFooterTemplate={footerTemplate} tableStyle={{ minWidth: '50rem' }}>
-                        <Column field="fields" header="Name" style={{ minWidth: '200px' }}></Column>
-                        <Column field="totalAliveOfficer" header="Country" style={{ minWidth: '200px' }}></Column>
-                        <Column field="company" header="Company" style={{ minWidth: '200px' }}></Column>
-                        <Column field="status" header="Status" style={{ minWidth: '200px' }}></Column>
-                        <Column field="date" header="Date" style={{ minWidth: '200px' }}></Column>
-                    </DataTable> */}
                     <Button label='Export PDF' onClick={generatePDF} />
                     <div ref={componentPDF}>
                         <table className='w-full table-auto table-bordered '>
@@ -177,22 +159,7 @@ const Reports = () => {
                                         )
                                     })
                                 }
-                                {/* {
-                                report?.map((data, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td rowspan="4">First Cell</td>
-                                            <td>Column 1</td>
-                                            <td>Column 2</td>
-                                            <td>Column 3</td>
-                                            <td>Column 4</td>
-                                            <td>Column 5</td>
-                                            <td>Column 6</td>
-                                            <td>Column 7</td>
-                                        </tr>
-                                    )
-                                })
-                            } */}
+
                             </tbody>
                         </table>
                     </div>
