@@ -61,8 +61,7 @@ const Reports = () => {
 
     const generatePDF = useReactToPrint({
         content: () => componentPDF.current,
-        documentTitle: "ReportData",
-        onAfterPrint: () => alert('Data Saved in PDF')
+        documentTitle: "ReportData"
     })
 
     return (
@@ -115,8 +114,11 @@ const Reports = () => {
                     </DataTable> */}
                     <Button label='Export PDF' onClick={generatePDF} />
                     <div ref={componentPDF}>
-                        <table border='2' className='w-full'>
-                            <thead>
+                        <table className='w-full table-auto table-bordered '>
+                            <caption className="caption-top">
+                                <p className='text-lg font-bold text-black'>Security Clearance Report</p>
+                            </caption>
+                            <thead className='text-black'>
                                 <tr>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Force</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Category</th>
@@ -128,7 +130,7 @@ const Reports = () => {
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Proposed for {year.getFullYear()}</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className='text-black'>
                                 {
                                     report?.map((rowData, index) => {
                                         return (
@@ -137,7 +139,7 @@ const Reports = () => {
                                                     <td rowspan="4" className='border text-center'>{rowData.force}</td>
                                                     <td className='border'>Alive Officer</td>
                                                     <td className='border text-center'>{rowData.totalAliveOfficer}</td>
-                                                    <td className='border text-center'>Cell 4</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficerApproved}</td>
                                                     <td className='border text-center'>Cell 5</td>
                                                     <td className='border text-center'>Cell 6</td>
                                                     <td className='border text-center'>Cell 7</td>
@@ -146,7 +148,7 @@ const Reports = () => {
                                                 <tr>
                                                     <td className='border'>Alive JCO/OR</td>
                                                     <td className='border text-center'>{rowData.totalAliveOR}</td>
-                                                    <td className='border text-center'>Cell 11</td>
+                                                    <td className='border text-center'>{rowData.aliveORApproved}</td>
                                                     <td className='border text-center'>Cell 12</td>
                                                     <td className='border text-center'>Cell 13</td>
                                                     <td className='border text-center'>Cell 14</td>
@@ -155,7 +157,7 @@ const Reports = () => {
                                                 <tr>
                                                     <td className='border'>Martyred/Dead Officer</td>
                                                     <td className='border text-center'>{rowData.totalDeadOfficer}</td>
-                                                    <td className='border text-center'>Cell 19</td>
+                                                    <td className='border text-center'>{rowData.deadOfficerApproved}</td>
                                                     <td className='border text-center'>Cell 20</td>
                                                     <td className='border text-center'>Cell 21</td>
                                                     <td className='border text-center'>Cell 22</td>
@@ -164,7 +166,8 @@ const Reports = () => {
                                                 <tr>
                                                     <td className='border'>Martyred/Dead JCO/OR</td>
                                                     <td className='border text-center'>{rowData.totalDeadOR}</td>
-                                                    <td className='border text-center'>Cell 27</td>
+                                                    <td className='border text-center'>{rowData.deadORApproved
+                                                    }</td>
                                                     <td className='border text-center'>Cell 28</td>
                                                     <td className='border text-center'>Cell 29</td>
                                                     <td className='border text-center'>Cell 30</td>
