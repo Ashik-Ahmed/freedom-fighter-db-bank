@@ -55,7 +55,7 @@ const Reports = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data.data)
-                setReport(data.data.currentReport)
+                setReport(data.data)
             })
     }
 
@@ -121,7 +121,7 @@ const Reports = () => {
                                                 <tr>
                                                     <td rowspan="4" className='border text-center'>{rowData.force}</td>
                                                     <td className='border'>Alive Officer</td>
-                                                    <td className='border text-center'>{rowData.totalAliveOfficer}</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficer}</td>
                                                     <td className='border text-center'>{rowData.aliveOfficerApproved}</td>
                                                     <td className='border text-center'>Cell 5</td>
                                                     <td className='border text-center'>Cell 6</td>
@@ -130,7 +130,7 @@ const Reports = () => {
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Alive JCO/OR</td>
-                                                    <td className='border text-center'>{rowData.totalAliveOR}</td>
+                                                    <td className='border text-center'>{rowData.aliveJCO}</td>
                                                     <td className='border text-center'>{rowData.aliveORApproved}</td>
                                                     <td className='border text-center'>Cell 12</td>
                                                     <td className='border text-center'>Cell 13</td>
@@ -139,7 +139,7 @@ const Reports = () => {
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Martyred/Dead Officer</td>
-                                                    <td className='border text-center'>{rowData.totalDeadOfficer}</td>
+                                                    <td className='border text-center'>{rowData.deadOfficer}</td>
                                                     <td className='border text-center'>{rowData.deadOfficerApproved}</td>
                                                     <td className='border text-center'>Cell 20</td>
                                                     <td className='border text-center'>Cell 21</td>
@@ -148,7 +148,7 @@ const Reports = () => {
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Martyred/Dead JCO/OR</td>
-                                                    <td className='border text-center'>{rowData.totalDeadOR}</td>
+                                                    <td className='border text-center'>{rowData.deadJCO >= 0 ? rowData.deadJCO : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.deadORApproved
                                                     }</td>
                                                     <td className='border text-center'>Cell 28</td>
