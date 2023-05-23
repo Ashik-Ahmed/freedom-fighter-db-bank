@@ -64,6 +64,7 @@ const Reports = () => {
         documentTitle: "ReportData"
     })
 
+    const forces = ['Army', 'Navy', 'Air Force', 'Civil'];
     return (
         <div>
             <p className='text-xl font-bold mb-2'>Generate Report</p>
@@ -93,7 +94,7 @@ const Reports = () => {
 
             {
                 report &&
-                <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
+                <div className='bg-white p-2 max-w-[85vw] mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
                     <Button label='Export PDF' onClick={generatePDF} />
                     <div ref={componentPDF}>
                         <table className='w-full table-auto table-bordered '>
