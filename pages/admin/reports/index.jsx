@@ -121,29 +121,29 @@ const Reports = () => {
                                                 <tr>
                                                     <td rowspan="4" className='border text-center'>{rowData.force}</td>
                                                     <td className='border'>Alive Officer</td>
-                                                    <td className='border text-center'>{rowData.aliveOfficer}</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficer >= 0 ? rowData.aliveOfficer : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.aliveOfficerApproved}</td>
                                                     <td className='border text-center'>Cell 5</td>
                                                     <td className='border text-center'>Cell 6</td>
-                                                    <td className='border text-center'>Cell 7</td>
+                                                    <td className='border text-center'>{rowData.previousAliveOfficer >= 0 ? rowData.previousAliveOfficer : 'xx'}</td>
                                                     <td className='border text-center'>Cell 8</td>
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Alive JCO/OR</td>
-                                                    <td className='border text-center'>{rowData.aliveJCO}</td>
+                                                    <td className='border text-center'>{rowData.aliveJCO >= 0 ? rowData.aliveJCO : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.aliveORApproved}</td>
                                                     <td className='border text-center'>Cell 12</td>
                                                     <td className='border text-center'>Cell 13</td>
-                                                    <td className='border text-center'>Cell 14</td>
+                                                    <td className='border text-center'>{rowData.previousAliveJCO >= 0 ? rowData.previousAliveJCO : 'xx'}</td>
                                                     <td className='border text-center'>Cell 15</td>
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Martyred/Dead Officer</td>
-                                                    <td className='border text-center'>{rowData.deadOfficer}</td>
+                                                    <td className='border text-center'>{rowData.deadOfficer >= 0 ? rowData.deadOfficer : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.deadOfficerApproved}</td>
                                                     <td className='border text-center'>Cell 20</td>
                                                     <td className='border text-center'>Cell 21</td>
-                                                    <td className='border text-center'>Cell 22</td>
+                                                    <td className='border text-center'>{rowData.previousDeadOfficer >= 0 ? rowData.previousDeadOfficer : 'xx'}</td>
                                                     <td className='border text-center'>Cell 23</td>
                                                 </tr>
                                                 <tr>
@@ -153,7 +153,7 @@ const Reports = () => {
                                                     }</td>
                                                     <td className='border text-center'>Cell 28</td>
                                                     <td className='border text-center'>Cell 29</td>
-                                                    <td className='border text-center'>Cell 30</td>
+                                                    <td className='border text-center'>{rowData.previousDeadJCO >= 0 ? rowData.previousDeadJCO : 'xx'}</td>
                                                     <td className='border text-center'>Cell 31</td>
                                                 </tr>
                                             </>
