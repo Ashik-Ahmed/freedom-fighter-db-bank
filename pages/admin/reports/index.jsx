@@ -158,7 +158,18 @@ const Reports = () => {
                                             </>
                                         )
                                     })
+
                                 }
+                                <tr className='font-semibold'>
+                                    <td colSpan='2' className='border text-center'>Total</td>
+                                    <td className='border text-center'>xx</td>
+                                    <td className='border text-center'>yy</td>
+                                    <td className='border text-center'>zz</td>
+                                    {/* <td className='border text-center'>Cell 29</td> */}
+                                    <td className='border text-center'>11</td>
+                                    <td className='border text-center'>22</td>
+                                    <td className='border text-center'>33</td>
+                                </tr>
 
                             </tbody>
                         </table>
