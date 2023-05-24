@@ -124,36 +124,36 @@ const Reports = () => {
                                                     <td className='border text-center'>{rowData.aliveOfficer >= 0 ? rowData.aliveOfficer : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.aliveOfficerApproved >= 0 ? rowData.aliveOfficerApproved : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.aliveOfficerRejected >= 0 ? rowData.aliveOfficerRejected : 'xx'}</td>
-                                                    <td className='border text-center'>Cell 6</td>
+                                                    <td rowSpan='2' className='border text-center'>{rowData.totalAliveProposed >= 0 ? rowData.totalAliveProposed : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.previousAliveOfficer >= 0 ? rowData.previousAliveOfficer : 'xx'}</td>
-                                                    <td className='border text-center'>Cell 8</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficerApproved >= 0 ? rowData.aliveOfficerApproved : 'xx'}</td>
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Alive JCO/OR</td>
                                                     <td className='border text-center'>{rowData.aliveJCO >= 0 ? rowData.aliveJCO : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.aliveJCOApproved >= 0 ? rowData.aliveJCOApproved : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.aliveJCORejected >= 0 ? rowData.aliveJCORejected : 'xx'}</td>
-                                                    <td className='border text-center'>Cell 13</td>
+                                                    {/* <td className='border text-center'>Cell 13</td> */}
                                                     <td className='border text-center'>{rowData.previousAliveJCO >= 0 ? rowData.previousAliveJCO : 'xx'}</td>
-                                                    <td className='border text-center'>Cell 15</td>
+                                                    <td className='border text-center'>{rowData.aliveJCOApproved >= 0 ? rowData.aliveJCOApproved : 'xx'}</td>
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Martyred/Dead Officer</td>
                                                     <td className='border text-center'>{rowData.deadOfficer >= 0 ? rowData.deadOfficer : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.deadOfficerApproved >= 0 ? rowData.deadOfficerApproved : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.deadOfficerRejected >= 0 ? rowData.deadOfficerRejected : 'xx'}</td>
-                                                    <td className='border text-center'>Cell 21</td>
+                                                    <td rowSpan='2' className='border text-center'>{rowData.totalDeadProposed >= 0 ? rowData.totalDeadProposed : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.previousDeadOfficer >= 0 ? rowData.previousDeadOfficer : 'xx'}</td>
-                                                    <td className='border text-center'>Cell 23</td>
+                                                    <td className='border text-center'>{rowData.deadOfficerApproved >= 0 ? rowData.deadOfficerApproved : 'xx'}</td>
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Martyred/Dead JCO/OR</td>
                                                     <td className='border text-center'>{rowData.deadJCO >= 0 ? rowData.deadJCO : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.deadJCOApproved >= 0 ? rowData.deadJCOApproved : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.deadJCORejected >= 0 ? rowData.deadJCORejected : 'xx'}</td>
-                                                    <td className='border text-center'>Cell 29</td>
+                                                    {/* <td className='border text-center'>Cell 29</td> */}
                                                     <td className='border text-center'>{rowData.previousDeadJCO >= 0 ? rowData.previousDeadJCO : 'xx'}</td>
-                                                    <td className='border text-center'>Cell 31</td>
+                                                    <td className='border text-center'>{rowData.deadJCOApproved >= 0 ? rowData.deadJCOApproved : 'xx'}</td>
                                                 </tr>
                                             </>
                                         )
