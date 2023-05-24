@@ -107,7 +107,7 @@ const Reports = () => {
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Category</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Total Sent</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Approved</th>
-                                    <th className='bg-blue-100 border text-left px-3 py-1'>Dead</th>
+                                    <th className='bg-blue-100 border text-left px-3 py-1'>Rejected</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Proposed</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Invited {year.getFullYear() - 1}</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Proposed for {year.getFullYear()}</th>
@@ -123,7 +123,7 @@ const Reports = () => {
                                                     <td className='border'>Alive Officer</td>
                                                     <td className='border text-center'>{rowData.aliveOfficer >= 0 ? rowData.aliveOfficer : 'xx'}</td>
                                                     <td className='border text-center'>{rowData.aliveOfficerApproved >= 0 ? rowData.aliveOfficerApproved : 'xx'}</td>
-                                                    <td className='border text-center'>cell 7</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficerRejected >= 0 ? rowData.aliveOfficerRejected : 'xx'}</td>
                                                     <td className='border text-center'>Cell 6</td>
                                                     <td className='border text-center'>{rowData.previousAliveOfficer >= 0 ? rowData.previousAliveOfficer : 'xx'}</td>
                                                     <td className='border text-center'>Cell 8</td>
