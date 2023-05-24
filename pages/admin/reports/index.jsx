@@ -140,7 +140,7 @@ const Reports = () => {
                                                 <tr>
                                                     <td className='border'>Martyred/Dead Officer</td>
                                                     <td className='border text-center'>{rowData.deadOfficer >= 0 ? rowData.deadOfficer : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.deadOfficerApproved}</td>
+                                                    <td className='border text-center'>{rowData.deadOfficerApproved >= 0 ? rowData.deadOfficerApproved : 'xx'}</td>
                                                     <td className='border text-center'>Cell 20</td>
                                                     <td className='border text-center'>Cell 21</td>
                                                     <td className='border text-center'>{rowData.previousDeadOfficer >= 0 ? rowData.previousDeadOfficer : 'xx'}</td>
@@ -149,7 +149,7 @@ const Reports = () => {
                                                 <tr>
                                                     <td className='border'>Martyred/Dead JCO/OR</td>
                                                     <td className='border text-center'>{rowData.deadJCO >= 0 ? rowData.deadJCO : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.deadORApproved
+                                                    <td className='border text-center'>{rowData.deadJCOApproved >= 0 ? rowData.deadJCOApproved : 'xx'
                                                     }</td>
                                                     <td className='border text-center'>Cell 28</td>
                                                     <td className='border text-center'>Cell 29</td>
