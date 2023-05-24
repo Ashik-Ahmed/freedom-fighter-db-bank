@@ -108,6 +108,7 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
         { field: 'name', header: 'Name' },
         { field: 'category', header: 'Member Type' },
         { field: 'force', header: 'Force' },
+        // { field: 'status', header: 'Status' },
         { field: `mobile`, header: 'Contact no.' },
         { field: 'email', header: 'Email' },
         { field: 'address', header: 'Address' },
@@ -227,6 +228,7 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
                     <Column header='Name' field='name'></Column>
                     <Column header='Category' field='category'></Column>
                     <Column header='Force' field='force' body={forceBodyTemplate}></Column>
+                    <Column header='Status' field='status'></Column>
                     <Column header='Mobile' field='mobile'></Column>
                     <Column header='Address' field='address'></Column>
                     <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column>

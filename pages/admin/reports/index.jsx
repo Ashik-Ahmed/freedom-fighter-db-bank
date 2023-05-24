@@ -122,8 +122,8 @@ const Reports = () => {
                                                     <td rowspan="4" className='border text-center'>{rowData.force}</td>
                                                     <td className='border'>Alive Officer</td>
                                                     <td className='border text-center'>{rowData.aliveOfficer >= 0 ? rowData.aliveOfficer : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.aliveOfficerApproved}</td>
-                                                    <td className='border text-center'>Cell 5</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficerApproved >= 0 ? rowData.aliveOfficerApproved : 'xx'}</td>
+                                                    <td className='border text-center'>cell 7</td>
                                                     <td className='border text-center'>Cell 6</td>
                                                     <td className='border text-center'>{rowData.previousAliveOfficer >= 0 ? rowData.previousAliveOfficer : 'xx'}</td>
                                                     <td className='border text-center'>Cell 8</td>
@@ -131,8 +131,8 @@ const Reports = () => {
                                                 <tr>
                                                     <td className='border'>Alive JCO/OR</td>
                                                     <td className='border text-center'>{rowData.aliveJCO >= 0 ? rowData.aliveJCO : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.aliveORApproved}</td>
-                                                    <td className='border text-center'>Cell 12</td>
+                                                    <td className='border text-center'>{rowData.aliveJCOApproved >= 0 ? rowData.aliveJCOApproved : 'xx'}</td>
+                                                    <td className='border text-center'></td>
                                                     <td className='border text-center'>Cell 13</td>
                                                     <td className='border text-center'>{rowData.previousAliveJCO >= 0 ? rowData.previousAliveJCO : 'xx'}</td>
                                                     <td className='border text-center'>Cell 15</td>
