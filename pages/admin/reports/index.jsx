@@ -47,8 +47,8 @@ const Reports = () => {
 
     const handleGenerateReport = (e) => {
         e.preventDefault()
+        setLoading(true)
         const { program, year } = formData
-        console.log(program.name, year.getFullYear());
 
         const url = `http://localhost:5000/api/v1/reports?event=${program.name}&year=${year.getFullYear()}`
         fetch(url)
@@ -56,6 +56,7 @@ const Reports = () => {
             .then(data => {
                 console.log(data.data)
                 setReport(data.data)
+                setLoading(false)
             })
     }
 
@@ -67,9 +68,8 @@ const Reports = () => {
     const forces = ['Army', 'Navy', 'Air Force', 'Civil'];
     return (
         <div>
-            <p className='text-xl font-bold mb-2'>Generate Report</p>
-            <div className='bg-white p-4 w-fit mx-auto rounded-md shadow-lg'>
-
+            <div className='bg-white p-2 w-fit mx-auto rounded-md shadow-lg'>
+                <p className='text-lg font-semibold mb-2'>Generate Report</p>
                 <form onSubmit={handleGenerateReport} className='flex gap-x-4'>
                     <div>
                         <Dropdown name='program' options={events} optionLabel='name' value={event}
@@ -95,16 +95,16 @@ const Reports = () => {
             {
                 report &&
                 <div className='bg-white p-2 max-w-[85vw] mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                    <Button label='Print' onClick={generatePDF} icon='pi pi-print' className='btn btn-sm' />
-                    <div ref={componentPDF}>
+                    <Button label='Print' onClick={generatePDF} icon='pi pi-print' className='btn btn-sm normal-case' />
+                    <div ref={componentPDF} className='m-4'>
                         <table className='w-full table-auto table-bordered '>
                             <caption className="caption-top">
-                                <p className='text-lg font-bold text-black mb-2'>Security Clearance Report for  <span className='text-secondary'>{formData.program.name} - {formData.year.getFullYear()}</span></p>
+                                <p className='text-lg font-bold text-gray-900 mb-2'>Security Clearance Report for  <span className='text-secondary'>{formData.program.name} - {formData.year.getFullYear()}</span></p>
                             </caption>
-                            <thead className='text-black'>
+                            <thead className='text-gray-900 text-sm'>
                                 <tr>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Force</th>
-                                    <th className='bg-blue-100 border text-left px-3 py-1'>Category</th>
+                                    <th className='bg-blue-100 border text-left px-3 py-1' style={{ minWidth: '30px' }}>Category</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Total Sent</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Approved</th>
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Rejected</th>
@@ -113,7 +113,7 @@ const Reports = () => {
                                     <th className='bg-blue-100 border text-left px-3 py-1'>Proposed for {year.getFullYear()}</th>
                                 </tr>
                             </thead>
-                            <tbody className='text-black'>
+                            <tbody className='text-gray-900 text-sm'>
                                 {
                                     report?.map((rowData, index) => {
                                         return (
@@ -121,55 +121,54 @@ const Reports = () => {
                                                 <tr>
                                                     <td rowspan="4" className='border text-center'>{rowData.force}</td>
                                                     <td className='border'>Alive Officer</td>
-                                                    <td className='border text-center'>{rowData.aliveOfficer >= 0 ? rowData.aliveOfficer : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.aliveOfficerApproved >= 0 ? rowData.aliveOfficerApproved : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.aliveOfficerRejected >= 0 ? rowData.aliveOfficerRejected : 'xx'}</td>
-                                                    <td rowSpan='2' className='border text-center'>{rowData.totalAliveProposed >= 0 ? rowData.totalAliveProposed : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.previousAliveOfficer >= 0 ? rowData.previousAliveOfficer : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.aliveOfficerApproved >= 0 ? rowData.aliveOfficerApproved : 'xx'}</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficer >= 0 ? rowData.aliveOfficer : '-'}</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficerApproved >= 0 ? rowData.aliveOfficerApproved : '-'}</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficerRejected >= 0 ? rowData.aliveOfficerRejected : '-'}</td>
+                                                    <td rowSpan='2' className='border text-center'>{rowData.totalAliveProposed >= 0 ? rowData.totalAliveProposed : '-'}</td>
+                                                    <td className='border text-center'>{rowData.previousAliveOfficer >= 0 ? rowData.previousAliveOfficer : '-'}</td>
+                                                    <td className='border text-center'>{rowData.aliveOfficerApproved >= 0 ? rowData.aliveOfficerApproved : '-'}</td>
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Alive JCO/OR</td>
-                                                    <td className='border text-center'>{rowData.aliveJCO >= 0 ? rowData.aliveJCO : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.aliveJCOApproved >= 0 ? rowData.aliveJCOApproved : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.aliveJCORejected >= 0 ? rowData.aliveJCORejected : 'xx'}</td>
+                                                    <td className='border text-center'>{rowData.aliveJCO >= 0 ? rowData.aliveJCO : '-'}</td>
+                                                    <td className='border text-center'>{rowData.aliveJCOApproved >= 0 ? rowData.aliveJCOApproved : '-'}</td>
+                                                    <td className='border text-center'>{rowData.aliveJCORejected >= 0 ? rowData.aliveJCORejected : '-'}</td>
                                                     {/* <td className='border text-center'>Cell 13</td> */}
-                                                    <td className='border text-center'>{rowData.previousAliveJCO >= 0 ? rowData.previousAliveJCO : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.aliveJCOApproved >= 0 ? rowData.aliveJCOApproved : 'xx'}</td>
+                                                    <td className='border text-center'>{rowData.previousAliveJCO >= 0 ? rowData.previousAliveJCO : '-'}</td>
+                                                    <td className='border text-center'>{rowData.aliveJCOApproved >= 0 ? rowData.aliveJCOApproved : '-'}</td>
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Martyred/Dead Officer</td>
-                                                    <td className='border text-center'>{rowData.deadOfficer >= 0 ? rowData.deadOfficer : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.deadOfficerApproved >= 0 ? rowData.deadOfficerApproved : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.deadOfficerRejected >= 0 ? rowData.deadOfficerRejected : 'xx'}</td>
-                                                    <td rowSpan='2' className='border text-center'>{rowData.totalDeadProposed >= 0 ? rowData.totalDeadProposed : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.previousDeadOfficer >= 0 ? rowData.previousDeadOfficer : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.deadOfficerApproved >= 0 ? rowData.deadOfficerApproved : 'xx'}</td>
+                                                    <td className='border text-center'>{rowData.deadOfficer >= 0 ? rowData.deadOfficer : '-'}</td>
+                                                    <td className='border text-center'>{rowData.deadOfficerApproved >= 0 ? rowData.deadOfficerApproved : '-'}</td>
+                                                    <td className='border text-center'>{rowData.deadOfficerRejected >= 0 ? rowData.deadOfficerRejected : '-'}</td>
+                                                    <td rowSpan='2' className='border text-center'>{rowData.totalDeadProposed >= 0 ? rowData.totalDeadProposed : '-'}</td>
+                                                    <td className='border text-center'>{rowData.previousDeadOfficer >= 0 ? rowData.previousDeadOfficer : '-'}</td>
+                                                    <td className='border text-center'>{rowData.deadOfficerApproved >= 0 ? rowData.deadOfficerApproved : '-'}</td>
                                                 </tr>
                                                 <tr>
                                                     <td className='border'>Martyred/Dead JCO/OR</td>
-                                                    <td className='border text-center'>{rowData.deadJCO >= 0 ? rowData.deadJCO : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.deadJCOApproved >= 0 ? rowData.deadJCOApproved : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.deadJCORejected >= 0 ? rowData.deadJCORejected : 'xx'}</td>
+                                                    <td className='border text-center'>{rowData.deadJCO >= 0 ? rowData.deadJCO : '-'}</td>
+                                                    <td className='border text-center'>{rowData.deadJCOApproved >= 0 ? rowData.deadJCOApproved : '-'}</td>
+                                                    <td className='border text-center'>{rowData.deadJCORejected >= 0 ? rowData.deadJCORejected : '-'}</td>
                                                     {/* <td className='border text-center'>Cell 29</td> */}
-                                                    <td className='border text-center'>{rowData.previousDeadJCO >= 0 ? rowData.previousDeadJCO : 'xx'}</td>
-                                                    <td className='border text-center'>{rowData.deadJCOApproved >= 0 ? rowData.deadJCOApproved : 'xx'}</td>
+                                                    <td className='border text-center'>{rowData.previousDeadJCO >= 0 ? rowData.previousDeadJCO : '-'}</td>
+                                                    <td className='border text-center'>{rowData.deadJCOApproved >= 0 ? rowData.deadJCOApproved : '-'}</td>
                                                 </tr>
                                             </>
                                         )
                                     })
 
                                 }
-                                <tr className='font-semibold'>
+                                {/* <tr className='font-semibold'>
                                     <td colSpan='2' className='border text-center'>Total</td>
                                     <td className='border text-center'>xx</td>
                                     <td className='border text-center'>yy</td>
                                     <td className='border text-center'>zz</td>
-                                    {/* <td className='border text-center'>Cell 29</td> */}
                                     <td className='border text-center'>11</td>
                                     <td className='border text-center'>22</td>
                                     <td className='border text-center'>33</td>
-                                </tr>
+                                </tr> */}
 
                             </tbody>
                         </table>
