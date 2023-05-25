@@ -13,17 +13,21 @@ import { CgUserList, CgBrowse } from "react-icons/cg"
 import { FaUsersCog } from "react-icons/fa"
 import Cookies from 'universal-cookie';
 import Menu from './Menu';
+import { useRouter } from 'next/router';
 
 
 const Sidebar = ({ user, setUser }) => {
 
     const [open, setOpen] = useState(true);
+    console.log(user.role);
 
     const cookie = new Cookies()
+    const router = useRouter()
 
     const handleLogout = () => {
         cookie.remove('TOKEN')
-        setUser(false)
+        setUser(null)
+        router.push('/')
     }
 
     const menus = [
@@ -47,7 +51,7 @@ const Sidebar = ({ user, setUser }) => {
         { name: "Analytics", link: "/analytics", icon: TbReportAnalytics },
         { name: "File Manager", link: "/file-manager", icon: FiFolder },
         {
-            name: "Admin", link: "/admin", permission: 'admin', icon: MdAdminPanelSettings, items: [
+            name: "Admin", link: "/admin", protected: true, icon: MdAdminPanelSettings, items: [
                 { name: "Manage Member Category", link: "/admin/manage-member-category", icon: RiFilterLine },
                 { name: "Manage Priority Criteria", link: "/admin/manage-filter-criteria", icon: TbList },
                 { name: "Manage Users", link: "/admin/manage-users", icon: FaUsersCog },
@@ -85,7 +89,9 @@ const Sidebar = ({ user, setUser }) => {
                 </div>
                 <div className="flex flex-col gap-1 relative">
                     {menus?.map((menu, index) => (
-                        <Menu key={index} menu={menu} open={open} setOpen={setOpen} index={index} user={user} />
+                        <div key={index} className={`${(menu?.protected && (user?.role == 'user' && 'hidden'))} ${menu.margin && 'mt-4'}`}>
+                            <Menu key={index} menu={menu} open={open} setOpen={setOpen} index={index} user={user} />
+                        </div>
                     ))}
                     <div className='my-4 text-center'>
                         <Button onClick={handleLogout} icon='pi pi-sign-out' className='p-button-danger p-button-sm'>
