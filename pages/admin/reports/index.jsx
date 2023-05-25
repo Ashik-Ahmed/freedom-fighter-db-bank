@@ -95,11 +95,11 @@ const Reports = () => {
             {
                 report &&
                 <div className='bg-white p-2 max-w-[85vw] mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                    <Button label='Export PDF' onClick={generatePDF} />
+                    <Button label='Print' onClick={generatePDF} icon='pi pi-print' className='btn btn-sm' />
                     <div ref={componentPDF}>
                         <table className='w-full table-auto table-bordered '>
                             <caption className="caption-top">
-                                <p className='text-lg font-bold text-black'>Security Clearance Report</p>
+                                <p className='text-lg font-bold text-black mb-2'>Security Clearance Report for  <span className='text-secondary'>{formData.program.name} - {formData.year.getFullYear()}</span></p>
                             </caption>
                             <thead className='text-black'>
                                 <tr>
