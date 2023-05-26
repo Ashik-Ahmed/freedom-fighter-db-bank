@@ -159,9 +159,6 @@ const Selection = () => {
     const nameBodyTemplate = (member) => {
         return <span>{member.name}</span>
     }
-    const indexBodyTemplate = (rowData) => {
-        return <span></span>
-    }
 
     const cols = [
         { field: 'name', header: 'Name', body: { nameBodyTemplate } },
