@@ -105,7 +105,7 @@ const Selection = () => {
             total,
             alivePercentage,
             deadPercentage,
-            memberType,
+            memberType: memberType.name,
             eventDetails: {
                 event: event.name,
                 year: year.getFullYear()
@@ -158,6 +158,9 @@ const Selection = () => {
 
     const nameBodyTemplate = (member) => {
         return <span>{member.name}</span>
+    }
+    const indexBodyTemplate = (rowData) => {
+        return <span></span>
     }
 
     const cols = [
@@ -346,6 +349,7 @@ const Selection = () => {
                                 <Dropdown name='memberType' options={memberCategories} optionLabel='name' value={memberType}
                                     onChange={(e) => {
                                         setMemberType(e.value)
+                                        console.log(e.value);
                                     }} placeholder="*Select Member Type" className=' w-full' required />
                             </div>
                             {/* <div>
@@ -359,15 +363,15 @@ const Selection = () => {
                         <hr className='mb-1' />
 
                         <div className='flex gap-2'> */}
-                            <Dropdown name='firstCriteria' value={firstCriteria} disabled={!memberType}
-                                options={
-                                    [
-                                        { label: 'Name', value: 'name' },
-                                        { label: 'Invitation Count', value: 'invitationCount' },
-                                        { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
-                                        { label: 'Official Rank', value: 'officialRank.point' }
-                                    ]
-                                }
+                            <Dropdown name='firstCriteria' options={memberType.priorityCriterias} optionLabel='label' value={firstCriteria} disabled={!memberType}
+                                // options={
+                                //     [
+                                //         { label: 'Name', value: 'name' },
+                                //         { label: 'Invitation Count', value: 'invitationCount' },
+                                //         { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
+                                //         { label: 'Official Rank', value: 'officialRank.point' }
+                                //     ]
+                                // }
                                 onChange={(e) => {
                                     setFirstCriteria(e.value);
                                     onCriteriaChange(e)
@@ -375,15 +379,7 @@ const Selection = () => {
 
                             {
                                 firstCriteria &&
-                                <Dropdown name='secondCriteria' value={secondCriteria}
-                                    options={
-                                        [
-                                            { label: 'Name', value: 'name' },
-                                            { label: 'Invitation Count', value: 'invitationCount' },
-                                            { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
-                                            { label: 'Official Rank', value: 'officialRank.point' }
-                                        ]
-                                    }
+                                <Dropdown name='secondCriteria' options={memberType.priorityCriterias} optionLabel='label' value={secondCriteria}
                                     onChange={(e) => {
                                         setSecondCriteria(e.value)
                                         onCriteriaChange(e)
@@ -392,15 +388,7 @@ const Selection = () => {
                             {
                                 secondCriteria &&
 
-                                <Dropdown name='thirdCriteria' value={thirdCriteria}
-                                    options={
-                                        [
-                                            { label: 'Name', value: 'name' },
-                                            { label: 'Invitation Count', value: 'invitationCount' },
-                                            { label: 'Freedom Fighter Rank', value: 'freedomFighterRank.point' },
-                                            { label: 'Official Rank', value: 'officialRank.point' }
-                                        ]
-                                    }
+                                <Dropdown name='thirdCriteria' options={memberType.priorityCriterias} optionLabel='label' value={thirdCriteria}
                                     onChange={(e) => {
                                         setThirdCriteria(e.value)
                                         onCriteriaChange(e)
@@ -453,6 +441,8 @@ const Selection = () => {
 
                             <div>
                                 <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="46vh" loading={loading} stripedRows>
+
+                                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1}></Column>
                                     {
                                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                                     }
