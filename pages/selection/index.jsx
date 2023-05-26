@@ -15,6 +15,7 @@ import { useRef } from 'react';
 const Selection = () => {
 
     const [selectedFreedomFighters, setSelectedFreedomFighters] = useState()
+    const [memberCategories, setMemberCategories] = useState()
     const [memberType, setMemberType] = useState('')
     const [selectionCriteria, setSelectionCriteria] = useState({})
     const [firstCriteria, setFirstCriteria] = useState('')
@@ -44,13 +45,23 @@ const Selection = () => {
                 setEvents(data.data)
             })
     }, [])
+    // fetch member type wise criteria from db 
+    useEffect(() => {
+        fetch('http://localhost:5000/api/v1/event')
+            .then(res => res.json())
+            .then(data => {
+                setEvents(data.data)
+            })
 
-    const memberTypes = [
-        'Freedom Fighter',
-        'General Invitees',
-        'Retired Officers',
-        'Retired Others'
-    ]
+        fetch('http://localhost:5000/api/v1/memberCategory')
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                const categoryNames = data.data
+                setMemberCategories(categoryNames)
+            })
+    }, [])
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -332,7 +343,7 @@ const Selection = () => {
                         </div>
                         <div className='flex flex-wrap gap-2'>
                             <div>
-                                <Dropdown name='memberType' options={memberTypes} value={memberType}
+                                <Dropdown name='memberType' options={memberCategories} optionLabel='name' value={memberType}
                                     onChange={(e) => {
                                         setMemberType(e.value)
                                     }} placeholder="*Select Member Type" className=' w-full' required />
@@ -348,7 +359,7 @@ const Selection = () => {
                         <hr className='mb-1' />
 
                         <div className='flex gap-2'> */}
-                            <Dropdown name='firstCriteria' value={firstCriteria}
+                            <Dropdown name='firstCriteria' value={firstCriteria} disabled={!memberType}
                                 options={
                                     [
                                         { label: 'Name', value: 'name' },
