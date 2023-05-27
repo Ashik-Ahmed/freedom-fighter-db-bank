@@ -39,7 +39,6 @@ const Sidebar = ({ user, setUser }) => {
                 // { name: "Add Category", link: "/freedom-fighters/add-category", icon: MdOutlineLibraryAdd }
             ]
         },
-        { name: "Manage Events", link: "/events", icon: MdInsertInvitation, },
         {
             name: "Invitation Mgt.", icon: RiMailSettingsLine, link: '/selection', items: [
                 { name: "Filter Members", link: "/selection", icon: RiFilterLine },
@@ -48,14 +47,18 @@ const Sidebar = ({ user, setUser }) => {
             ]
         },
 
-        { name: "Analytics", link: "/analytics", icon: TbReportAnalytics },
+        {
+            name: "Analytics", link: "/analytics", icon: TbReportAnalytics, items: [
+                { name: "Security Clearance Report", link: "/analytics/security-clearance-report", icon: FaUsersCog },
+            ]
+        },
         { name: "File Manager", link: "/file-manager", icon: FiFolder },
         {
             name: "Admin", link: "/admin", protected: true, icon: MdAdminPanelSettings, items: [
                 { name: "Manage Member Category", link: "/admin/manage-member-category", icon: RiFilterLine },
                 { name: "Manage Priority Criteria", link: "/admin/manage-filter-criteria", icon: TbList },
+                { name: "Manage Events", link: "/admin/events", icon: MdInsertInvitation, },
                 { name: "Manage Users", link: "/admin/manage-users", icon: FaUsersCog },
-                { name: "Reports", link: "/admin/reports", icon: FaUsersCog },
             ]
         },
         { name: `Profile Settings`, link: `/profile/${user._id}`, icon: RiUserSettingsLine, margin: true },
