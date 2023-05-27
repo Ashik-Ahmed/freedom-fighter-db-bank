@@ -202,7 +202,7 @@ const MyProfile = () => {
                         </div>
                     </div>
                     <div className='text-center my-2'>
-                        <Button label='Edit Profile' icon='pi pi-user-edit' onClick={() => setUpdateForm(true)} className='p-button-info btn normal-case' />
+                        <Button label='Edit Profile' icon='pi pi-user-edit' onClick={() => setUpdateForm(true)} className='p-button-info p-btn-sm normal-case' />
                     </div>
                 </div>
             </div>
@@ -258,7 +258,7 @@ const MyProfile = () => {
                         }
                     </div>
                     <div className='mt-4'>
-                        <Button type='submit' label='Submit' icon="pi pi-check" className="p-button-info normal-case" />
+                        <Button type='submit' label='Submit' className="p-button-info p-button-sm normal-case" />
                     </div>
                 </form>
             </Dialog>
@@ -381,11 +381,11 @@ const MyProfile = () => {
                         </div>
                         <div className='flex justify-end mt-4 gap-x-2'>
                             {/* <button type='submit' className='btn btn-sm bg-primary hover:bg-secondary border-0 my-4'>Update</button> */}
-                            <Button label="Cancel" icon="pi pi-times" onClick={() => {
+                            <Button label="Cancel" onClick={() => {
                                 setUpdateForm(false);
                                 setSex(false)
-                            }} className="p-button-danger normal-case" />
-                            <Button type='submit' label="Submit" icon="pi pi-check" className=' p-button-info btn btn-primary normal-case' />
+                            }} className="p-button-danger p-button-sm normal-case" />
+                            <Button type='submit' label="Submit" className=' p-button-info p-button-sm btn-primary normal-case' />
                         </div>
                     </form>
                 </div>
