@@ -357,7 +357,7 @@ const AddNew = () => {
                         <label className='text-gray-400 ml-1'>Photo</label>
                         <input name='file' type="file"
                             onChange={handleFileChange}
-                            className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
+                            className="file-input file-input-info input-bordered file-input-sm w-full bg-white text-gray-400" />
                     </div>
                     {/* <div className='flex gap-x-6'>
                         <div>
