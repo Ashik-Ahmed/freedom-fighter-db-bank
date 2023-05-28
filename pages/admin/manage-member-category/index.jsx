@@ -164,8 +164,8 @@ const ManageMemberCategory = () => {
                         )}
 
                         <div className='flex gap-x-2 mt-4 justify-end'>
-                            <Button onClick={() => { setDeleteCategoryDialog(false) }} label="No" icon="pi pi-times" outlined />
-                            <Button onClick={() => handleDeleteCategory(category?._id)} label="Yes" icon="pi pi-trash" severity="danger" className='p-button-danger' />
+                            <Button onClick={() => { setDeleteCategoryDialog(false) }} label="No" icon="pi pi-times" outlined className='p-button-sm' />
+                            <Button onClick={() => handleDeleteCategory(category?._id)} label="Yes" icon="pi pi-trash" severity="danger" className='p-button-danger p-button-sm' />
                         </div>
                     </div>
                 </Dialog>
