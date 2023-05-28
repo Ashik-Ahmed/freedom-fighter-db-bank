@@ -185,7 +185,7 @@ const ManageUsers = () => {
         <div className='mx-auto'>
             <Toast ref={toast} />
             <div className='flex justify-between'>
-                <Button label="Add User" icon="pi pi-plus" onClick={() => setAddUserModal(true)} />
+                <Button label="Add User" icon="pi pi-plus" className='p-button-sm' onClick={() => setAddUserModal(true)} />
                 <Dialog header="Add New User" visible={addUserModal} onHide={() => {
                     setAddUserModal(false);
                     setUserRole(null);
@@ -220,8 +220,8 @@ const ManageUsers = () => {
                             <Button label="Cancel" icon="pi pi-times" onClick={() => {
                                 setAddUserModal(false);
                                 setUserRole(null)
-                            }} className='p-button-danger' />
-                            <Button type='submit' label="Submit" icon="pi pi-check" />
+                            }} className='p-button-danger p-button-sm' />
+                            <Button type='submit' label="Submit" icon="pi pi-check" className='p-button-sm' />
                         </div>
                     </form>
                 </Dialog>
@@ -250,7 +250,7 @@ const ManageUsers = () => {
                     </div>
 
                     <div className='flex justify-end mt-12 gap-x-2'>
-                        <Button label="Close" icon="pi pi-times" onClick={() => { setUserDetailsDialogue(false) }} className="p-button-danger" />
+                        <Button label="Close" icon="pi pi-times" onClick={() => { setUserDetailsDialogue(false) }} className="p-button-danger p-button-sm" />
                     </div>
                 </Dialog>
 
@@ -266,8 +266,8 @@ const ManageUsers = () => {
                         )}
 
                         <div className='flex gap-x-2 mt-4 justify-end'>
-                            <Button onClick={() => { setUserDeleteDialogue(false) }} label="No" icon="pi pi-times" outlined />
-                            <Button onClick={() => deleteUser(user?._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                            <Button onClick={() => { setUserDeleteDialogue(false) }} label="No" icon="pi pi-times" outlined className='p-button-sm' />
+                            <Button onClick={() => deleteUser(user?._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger p-button-sm' />
                         </div>
                     </div>
                 </Dialog>
@@ -281,8 +281,8 @@ const ManageUsers = () => {
                     </div>
 
                     <div className='flex justify-center mt-12 gap-x-2'>
-                        <Button label="No" icon="pi pi-times" onClick={() => setUserRoleDialogue(null)} className="p-button-danger p-button-sm btn normal-case" />
-                        <Button label="Yes" icon="pi pi-check" onClick={() => toggleUserRole(user?._id, user?.role == 'admin' ? 'user' : 'admin')} className='p-button-sm p-button-info btn normal-case' />
+                        <Button label="No" icon="pi pi-times" onClick={() => setUserRoleDialogue(null)} className="p-button-danger p-button-sm normal-case" />
+                        <Button label="Yes" icon="pi pi-check" onClick={() => toggleUserRole(user?._id, user?.role == 'admin' ? 'user' : 'admin')} className='p-button-sm p-button-info normal-case' />
                     </div>
                 </Dialog>
 
