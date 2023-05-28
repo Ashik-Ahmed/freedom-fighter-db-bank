@@ -182,13 +182,13 @@ const Events = () => {
     const actionBodyTemplate = (rowData) => {
         return (
             <div className='flex space-x-2'>
-                <Button icon='pi pi-pencil' onClick={() => {
+                <Button icon='pi pi-pencil' className='p-button-sm' onClick={() => {
                     setEvent(rowData)
                     seteventDescription(rowData.description)
                     setMailBody(rowData?.emailBody)
                     setEditEventModal(true);
                 }}></Button>
-                <Button icon='pi pi-trash' className='p-button-danger' onClick={() => {
+                <Button icon='pi pi-trash' className='p-button-danger p-button-sm' onClick={() => {
                     setEvent(rowData)
                     setDeleteEventModal(true)
                 }}></Button>
@@ -201,7 +201,7 @@ const Events = () => {
         <div>
             <Toast ref={toast} />
             <div className=' max-w-7xl mx-auto mt-4'>
-                <Button icon='pi pi-plus' label='Add Event' onClick={() => setAddEventModal(true)} />
+                <Button icon='pi pi-plus' label='Add Event' className='p-button-sm' onClick={() => setAddEventModal(true)} />
 
                 {/* add event dialogue  */}
                 <Dialog header="Add New Event" visible={addEventModal} onHide={() => {
@@ -291,8 +291,8 @@ const Events = () => {
                         )}
 
                         <div className='flex gap-x-2 mt-4 justify-end'>
-                            <Button onClick={() => { setDeleteEventModal(false) }} label="No" icon="pi pi-times" outlined />
-                            <Button onClick={() => handleDeleteEvent(event?._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                            <Button onClick={() => { setDeleteEventModal(false) }} label="No" icon="pi pi-times" outlined className='p-button-sm' />
+                            <Button onClick={() => handleDeleteEvent(event?._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger p-button-sm' />
                         </div>
                     </div>
                 </Dialog>

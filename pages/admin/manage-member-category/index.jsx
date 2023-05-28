@@ -105,7 +105,7 @@ const ManageMemberCategory = () => {
     const actionBodyTemplate = (rowData) => {
         return (
             <div className='flex space-x-2'>
-                <Button icon='pi pi-trash' className='p-button-danger' onClick={() => {
+                <Button icon='pi pi-trash' className='p-button-danger p-button-sm' onClick={() => {
                     setCategory(rowData)
                     setDeleteCategoryDialog(true)
                 }}></Button>
