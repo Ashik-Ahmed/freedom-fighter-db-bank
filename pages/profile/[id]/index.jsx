@@ -202,7 +202,7 @@ const MyProfile = () => {
                         </div>
                     </div>
                     <div className='text-center my-2'>
-                        <Button label='Edit Profile' icon='pi pi-user-edit' onClick={() => setUpdateForm(true)} className='p-button-info p-btn-sm normal-case' />
+                        <Button label='Edit Profile' icon='pi pi-user-edit' onClick={() => setUpdateForm(true)} className='p-button-info p-button-sm normal-case' />
                     </div>
                 </div>
             </div>
