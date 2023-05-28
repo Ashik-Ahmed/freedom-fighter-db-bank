@@ -134,12 +134,12 @@ const Home = () => {
         }
     }
 
-    const typeBodyTemplate = (rowData) => {
+    const forceBodyTemplate = (rowData) => {
         return (
             <div>
                 {
                     rowData?.force ?
-                        <div>{rowData.force} <span className='text-xs italic'>({rowData.officialRank.rank})</span> </div>
+                        <div>{rowData.force} <span className='text-xs italic'>({rowData?.officialRank?.point > 13 ? 'Officer' : 'JCO/OR'})</span> </div>
                         :
                         <div>Civilian</div>
                 }
@@ -173,7 +173,7 @@ const Home = () => {
                     dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="84vh" loading={loading} stripedRows removableSort >
                     <Column header='Name' field='name' sortable></Column>
                     <Column header='Category' field='category'></Column>
-                    <Column header='Category' field='force'></Column>
+                    <Column header='Force' body={forceBodyTemplate}></Column>
                     {/* <Column header='Force' body={typeBodyTemplate}></Column> */}
                     <Column header='Contact' field='mobile'></Column>
                     {/* <Column header='Address' field='address'></Column> */}
