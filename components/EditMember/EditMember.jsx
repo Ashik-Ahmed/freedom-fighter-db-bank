@@ -323,7 +323,7 @@ const EditMember = ({ member, getAllMembers, setEditMemberDialogue }) => {
                 </div> */}
 
                 <div className='text-end'>
-                    <Button type='submit' label="Submit" className='p-button-info' />
+                    <Button type='submit' label="Submit" className='p-button-info p-button-sm' />
                 </div>
             </form >
         </div >

@@ -311,8 +311,8 @@ const Home = () => {
                     )}
 
                     <div className='flex gap-x-2 mt-4 justify-end'>
-                        <Button label="No" icon="pi pi-times" outlined onClick={() => setDeleteMemberDialogue(false)} />
-                        <Button label="Yes" icon="pi pi-check" severity="danger" onClick={() => handleDeleteMember(member._id)} className='p-button-danger' />
+                        <Button label="No" icon="pi pi-times" className='p-button-sm' outlined onClick={() => setDeleteMemberDialogue(false)} />
+                        <Button label="Yes" icon="pi pi-check" className='p-button-danger p-button-sm' severity="danger" onClick={() => handleDeleteMember(member._id)} />
                     </div>
                 </div>
             </Dialog >

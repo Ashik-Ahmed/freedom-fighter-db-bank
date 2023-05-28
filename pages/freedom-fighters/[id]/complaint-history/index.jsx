@@ -112,7 +112,9 @@ const ComplaintHistory = () => {
                     <form onSubmit={handleAddComplaint} className='m-0 flex flex-col gap-2'>
                         <InputText name='issue' placeholder='Complaint header' className='w-full'></InputText>
                         <InputTextarea name='details' placeholder='Complaint Details' className='w-full'></InputTextarea>
-                        <Button type='submit' label='Submit'></Button>
+                        <div className='text-right mt-2'>
+                            <Button type='submit' label='Submit' className='p-button-sm'></Button>
+                        </div>
                     </form>
                 </Dialog>
 

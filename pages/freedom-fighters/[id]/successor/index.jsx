@@ -94,8 +94,8 @@ const Successor = () => {
                             )}
 
                             <div className='flex gap-x-2 mt-4 justify-end'>
-                                <Button onClick={() => { setSuccessorDeleteDialog(false) }} label="No" icon="pi pi-times" outlined />
-                                <Button onClick={() => deleteSuccessor(successor._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger' />
+                                <Button onClick={() => { setSuccessorDeleteDialog(false) }} label="No" icon="pi pi-times" outlined className='p-button-sm' />
+                                <Button onClick={() => deleteSuccessor(successor._id)} label="Yes" icon="pi pi-check" severity="danger" className='p-button-danger p-button-sm' />
                             </div>
                         </div>
                     </Dialog>
