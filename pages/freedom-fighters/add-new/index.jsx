@@ -337,20 +337,22 @@ const AddNew = () => {
                             }} placeholder="*Official Rank" className='text-black w-full' disabled={profession !== 'Armed Forces'} required={profession == 'Armed Forces'} />
                         </div>
                     </div>
-                    <div className="relative w-1/2">
-                        <div className="p-float-label w-full">
-                            <InputTextarea name='address' id='address'
-                                onChange={handleChange}
-                                className=" w-full" required />
-                            <label htmlFor="address">*Address</label>
+                    <div className='flex gap-x-6'>
+                        <div className="relative w-1/2">
+                            <div className="p-float-label w-full">
+                                <InputTextarea name='address' id='address'
+                                    onChange={handleChange}
+                                    className=" w-full" required />
+                                <label htmlFor="address">*Address</label>
+                            </div>
                         </div>
-                    </div>
-                    <div className="relative w-full">
-                        <div className="p-float-label w-full">
-                            <InputTextarea name='description' id='description'
-                                onChange={handleChange}
-                                className=" w-full" />
-                            <label htmlFor="description">Description</label>
+                        <div className="relative w-1/2">
+                            <div className="p-float-label w-full">
+                                <InputTextarea name='description' id='description'
+                                    onChange={handleChange}
+                                    className=" w-full" />
+                                <label htmlFor="description">Description</label>
+                            </div>
                         </div>
                     </div>
                     <div className='relative'>
@@ -419,7 +421,7 @@ const AddNew = () => {
                         />
                     </div> */}
                     <div className='text-end'>
-                        <Button type='submit' label="Submit" className='p-button-info' />
+                        <Button type='submit' label="Submit" className='p-button-info p-button-sm' />
                     </div>
                 </form>
             </div>
