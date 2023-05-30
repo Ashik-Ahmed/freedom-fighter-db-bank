@@ -19,7 +19,7 @@ const AddNew = () => {
     const [category, setCategory] = useState()
     const [categories, setCategories] = useState([])
     const [force, setForce] = useState()
-    const [file, setFile] = useState(null);
+    const [image, setImage] = useState(null);
     const [ingredient, setIngredient] = useState('');
     const [profession, setProfession] = useState('')
     const [formData, setFormData] = useState({});
@@ -152,14 +152,15 @@ const AddNew = () => {
         }
     };
 
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
+    const handlePhotoChange = (event) => {
+        setImage(event.target.files[0]);
     };
 
     const handleInsertNewMember = async (event) => {
         event.preventDefault();
 
         const userDataWithPhoto = new FormData();
+        const userPhoto = new FormData()
         Object.keys(formData).forEach((key) => {
             // userDataWithPhoto.append(key, formData[key]);
             // console.log(typeof formData[key]);
@@ -173,7 +174,7 @@ const AddNew = () => {
             }
         });
         // console.log(fighterRank);
-        userDataWithPhoto.append("file", file);
+        userPhoto.append("image", image);
         // userDataWithPhoto.append("freedomFighterRank", JSON.stringify(fighterRank));
         if (category == 'Freedom Fighter') {
             userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
@@ -188,31 +189,49 @@ const AddNew = () => {
         }
 
         // console.log(userDataWithPhoto.getAll('freedomFighterRank'));
-        console.log('Form Submitted');
+        console.log(userPhoto.get('image'));
 
-
-        fetch("http://localhost:5000/api/v1/freedomFighters", {
-            method: "POST",
-            headers: {
-                'encType': 'multipart/form-data'
-            },
-            // do not stringify. if you do, backend will not get the data
-            body: userDataWithPhoto
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status == 'Success') {
-                    console.log(data);
-                    setFile(null)
-                    setVipStatus(false)
-                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Member Added', life: 3000 });
-                    event.target.reset()
-                }
-                else if (data.status == 'Failed') {
-                    console.log(data.error);
-                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: data.error, life: 3000 });
-                }
+        try {
+            await fetch('https://api.imgbb.com/1/upload?key=a0bd0c6e9b17f5f8fa7f35d20163bdf3', {
+                method: 'POST',
+                body: userPhoto
             })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.data.url) {
+                        userDataWithPhoto.append('photo', data.data.url)
+                    }
+                    else {
+                        console.log('Failed Image Upload');
+                    }
+                })
+        } catch (error) {
+            console.error('Error occurred during image upload:', error);
+        }
+        console.log(userDataWithPhoto.get('photo'));
+
+        // await fetch("http://localhost:5000/api/v1/freedomFighters", {
+        //     method: "POST",
+        //     headers: {
+        //         'encType': 'multipart/form-data'
+        //     },
+        //     // do not stringify. if you do, backend will not get the data
+        //     body: userDataWithPhoto
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data.status == 'Success') {
+        //             console.log(data);
+        //             setFile(null)
+        //             setVipStatus(false)
+        //             toast.current.show({ severity: 'success', summary: 'Success', detail: 'Member Added', life: 3000 });
+        //             event.target.reset()
+        //         }
+        //         else if (data.status == 'Failed') {
+        //             console.log(data.error);
+        //             toast.current.show({ severity: 'error', summary: 'Failed!', detail: data.error, life: 3000 });
+        //         }
+        //     })
         // console.log(userDataWithPhoto.get('freedomFighterRank'))
         // console.log(await response.json());
     };
@@ -358,7 +377,7 @@ const AddNew = () => {
                     <div className='relative'>
                         <label className='text-gray-400 ml-1'>Photo</label>
                         <input name='file' type="file"
-                            onChange={handleFileChange}
+                            onChange={handlePhotoChange}
                             className="file-input file-input-info input-bordered file-input-sm w-full bg-white text-gray-400" />
                     </div>
                     {/* <div className='flex gap-x-6'>
