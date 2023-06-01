@@ -19,8 +19,10 @@ const FreedomFighter = ({ query, children }) => {
             .then(data => {
                 setFreedomFighter(data);
 
-                const unresolvedComplaint = data?.complaints?.filter(complaint => complaint.status !== 'Resolved')
-                setUnresolvedComplaint(unresolvedComplaint?.length)
+                if (data?.complaints) {
+                    const unresolvedComplaint = data?.complaints?.filter(complaint => complaint.status !== 'Resolved')
+                    setUnresolvedComplaint(unresolvedComplaint?.length || 0)
+                }
 
                 // convert image binary/Buffer data to base64 string
                 // setProfileImg(btoa(
@@ -28,14 +30,14 @@ const FreedomFighter = ({ query, children }) => {
                 // ))
 
                 // convert image binary/Buffer data to base64 string
-                const base64 = btoa(new Uint8Array(data?.profilePhoto?.data).reduce(
-                    function (data, byte) {
-                        return data + String.fromCharCode(byte);
-                    },
-                    ''
-                ));
+                // const base64 = btoa(new Uint8Array(data?.profilePhoto?.data).reduce(
+                //     function (data, byte) {
+                //         return data + String.fromCharCode(byte);
+                //     },
+                //     ''
+                // ));
 
-                setProfileImg(base64);
+                // setProfileImg(base64);
             })
     }
 
@@ -62,7 +64,8 @@ const FreedomFighter = ({ query, children }) => {
                                 <Image
                                     priority
                                     // src={freedomFighter.photo ? `/profilePhotos/${freedomFighter.photo}` : photo} alt='freedomFighterPhoto'
-                                    src={freedomFighter.profilePhoto ? `data:image/png;base64, ${profileImg}` : photo} alt='freedomFighterPhoto'
+                                    // src={freedomFighter.profilePhoto ? `data:image/png;base64, ${profileImg}` : photo} alt='freedomFighterPhoto'
+                                    src={freedomFighter.photo} alt='freedomFighterPhoto'
                                     width='112'
                                     height='100'
                                     className='border border-primary' />
