@@ -160,7 +160,6 @@ const AddNew = () => {
         event.preventDefault();
 
         const userDataWithPhoto = new FormData();
-        const userPhoto = new FormData()
         // Object.keys(formData).forEach((key) => {
         //     // userDataWithPhoto.append(key, formData[key]);
         //     // console.log(typeof formData[key]);
@@ -176,7 +175,7 @@ const AddNew = () => {
 
         if (category == 'Freedom Fighter') {
             // userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
-            formData.category = fighterRank
+            formData.freedomFighterRank = fighterRank
         }
         if (profession == 'Armed Forces') {
             // console.log(force);

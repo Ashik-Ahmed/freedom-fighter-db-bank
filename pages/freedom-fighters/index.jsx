@@ -24,19 +24,19 @@ const Home = () => {
     const [member, setMember] = useState(null);
     const [editMemberDialogue, setEditMemberDialogue] = useState(false)
     const [deleteMemberDialogue, setDeleteMemberDialogue] = useState(false);
-    const [totalData, setTotalData] = useState(0);
     const [currentPage, setCurrentPage] = useState(0)
     const [filter, setFilter] = useState('')
-    const [searchValue, setSearchValue] = useState('');
-    const [addMemberDialog, setAddMemberDialog] = useState(false);
-    const [memberType, setMemberType] = useState('')
-
-    const [ranks, setRanks] = useState([]);
     const [countries, setCountries] = useState([]);
-    const [country, setCountry] = useState();
-    const [force, setForce] = useState('');
-    const [rank, setRank] = useState('');
-    const [fighterRank, setFighterRank] = useState('');
+    const [totalData, setTotalData] = useState(0);
+    // const [searchValue, setSearchValue] = useState('');
+    // const [addMemberDialog, setAddMemberDialog] = useState(false);
+    // const [memberType, setMemberType] = useState('')
+
+    // const [ranks, setRanks] = useState([]);
+    // const [country, setCountry] = useState();
+    // const [force, setForce] = useState('');
+    // const [rank, setRank] = useState('');
+    // const [fighterRank, setFighterRank] = useState('');
     const [globalFilterValue, setGlobalFilterValue] = useState('');
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -112,27 +112,6 @@ const Home = () => {
         </div>
     );
 
-    const memberNameBodyTemplate = async (rowData) => {
-
-        if (!rowData.profilePhoto) {
-            return <p className='bg-red-500'>Image available</p>
-        }
-        else {
-            // convert image binary/Buffer data to base64 string
-            const base64 = await btoa(new Uint8Array(rowData?.profilePhoto?.data).reduce(
-                function (data, byte) {
-                    return data + String.fromCharCode(byte);
-                },
-                ''
-            ));
-            return (
-                <div className="flex align-items-center gap-2">
-                    <Image alt={rowData.name} src={base64 || defaultUserPhoto} priority='high' width="8" height="8" className='rounded-full' />
-                    <span>{rowData.name}</span>
-                </div>
-            )
-        }
-    }
 
     const forceBodyTemplate = (rowData) => {
         return (
@@ -183,7 +162,7 @@ const Home = () => {
             </div>
 
             {/* edit member dialog box  */}
-            <Dialog header={`Edit Member: ${member?.name}`} visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '70vw' }} >
+            <Dialog header={`Edit Member`} visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '70vw' }} >
                 <div className='mx-auto max-w-7xl'>
                     <EditMember member={member} getAllMembers={getAllMembers} setEditMemberDialogue={setEditMemberDialogue} />
 
