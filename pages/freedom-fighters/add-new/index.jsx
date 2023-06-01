@@ -159,6 +159,9 @@ const AddNew = () => {
     const handleInsertNewMember = async (event) => {
         event.preventDefault();
 
+        const userPhoto = new FormData()
+        userPhoto.append('image', image)
+
         const userDataWithPhoto = new FormData();
         // Object.keys(formData).forEach((key) => {
         //     // userDataWithPhoto.append(key, formData[key]);
@@ -192,50 +195,52 @@ const AddNew = () => {
         }
 
         // console.log(userDataWithPhoto.getAll('freedomFighterRank'));
-        console.log('photo: ', userDataWithPhoto.get('image'));
 
-        // try {
-        //     await fetch('https://api.imgbb.com/1/upload?key=a0bd0c6e9b17f5f8fa7f35d20163bdf3', {
-        //         method: 'POST',
-        //         body: userPhoto
-        //     })
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             if (data.data.url) {
-        //                 userDataWithPhoto.append('photo', data.data.url)
-        //             }
-        //             else {
-        //                 console.log('Failed Image Upload');
-        //             }
-        //         })
-        // } catch (error) {
-        //     console.error('Error occurred during image upload:', error);
-        // }
+        try {
+            await fetch('https://api.imgbb.com/1/upload?key=a0bd0c6e9b17f5f8fa7f35d20163bdf3', {
+                method: 'POST',
+                body: userPhoto
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.data.url) {
+                        formData.photo = data.data.url;
+
+                        //insert member to database
+                        fetch("http://localhost:5000/api/v1/freedomFighters", {
+                            method: "POST",
+                            headers: {
+                                // 'encType': 'multipart/form-data',
+                                'content-type': 'application/json'
+                            },
+                            // do not stringify. if you do, backend will not get the data
+                            body: JSON.stringify(formData)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.status == 'Success') {
+                                    console.log(data);
+                                    setImage(null)
+                                    setVipStatus(false)
+                                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Member Added', life: 3000 });
+                                    event.target.reset()
+                                }
+                                else if (data.status == 'Failed') {
+                                    console.log(data.error);
+                                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: data.error, life: 3000 });
+                                }
+                            })
+                    }
+                    else {
+                        console.log('Failed Image Upload');
+                    }
+                })
+        } catch (error) {
+            console.error('Error occurred during image upload:', error);
+        }
         console.log(formData);
 
-        fetch("http://localhost:5000/api/v1/freedomFighters", {
-            method: "POST",
-            headers: {
-                // 'encType': 'multipart/form-data',
-                'content-type': 'application/json'
-            },
-            // do not stringify. if you do, backend will not get the data
-            body: JSON.stringify(formData)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status == 'Success') {
-                    console.log(data);
-                    setImage(null)
-                    setVipStatus(false)
-                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Member Added', life: 3000 });
-                    event.target.reset()
-                }
-                else if (data.status == 'Failed') {
-                    console.log(data.error);
-                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: data.error, life: 3000 });
-                }
-            })
+
         // console.log(userDataWithPhoto.get('freedomFighterRank'))
         // console.log(await response.json());
     };
