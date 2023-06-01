@@ -161,35 +161,39 @@ const AddNew = () => {
 
         const userDataWithPhoto = new FormData();
         const userPhoto = new FormData()
-        Object.keys(formData).forEach((key) => {
-            // userDataWithPhoto.append(key, formData[key]);
-            // console.log(typeof formData[key]);
-            if (typeof formData[key] == 'object') {
-                userDataWithPhoto.append(key, JSON.parse(formData[key]));
-                // console.log(userDataWithPhoto.get(key));
-            }
+        // Object.keys(formData).forEach((key) => {
+        //     // userDataWithPhoto.append(key, formData[key]);
+        //     // console.log(typeof formData[key]);
+        //     if (typeof formData[key] == 'object') {
+        //         userDataWithPhoto.append(key, JSON.parse(formData[key]));
+        //         // console.log(userDataWithPhoto.get(key));
+        //     }
 
-            else {
-                userDataWithPhoto.append(key, formData[key]);
-            }
-        });
-        // console.log(fighterRank);
-        userPhoto.append("image", image);
-        // userDataWithPhoto.append("freedomFighterRank", JSON.stringify(fighterRank));
+        //     else {
+        //         userDataWithPhoto.append(key, formData[key]);
+        //     }
+        // });
+
         if (category == 'Freedom Fighter') {
-            userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
+            // userDataWithPhoto.append('freedomFighterRank', JSON.stringify(fighterRank))
+            formData.category = fighterRank
         }
         if (profession == 'Armed Forces') {
             // console.log(force);
-            userDataWithPhoto.append('force', force)
-            userDataWithPhoto.append('officialRank', JSON.stringify(rank))
+            // userDataWithPhoto.append('force', force)
+            // formData.append('force', force)
+            formData.force = force;
+            // userDataWithPhoto.append('officialRank', JSON.stringify(rank))
+            // formData.append('officialRank', JSON.stringify(rank))
+            formData.officialRank = rank;
         }
         if (vipStatus) {
-            userDataWithPhoto.append('vipStatus', vipStatus)
+            // userDataWithPhoto.append('vipStatus', vipStatus)
+            formData.append('vipStatus', vipStatus)
         }
 
         // console.log(userDataWithPhoto.getAll('freedomFighterRank'));
-        console.log(userPhoto.get('image'));
+        console.log('photo: ', userDataWithPhoto.get('image'));
 
         // try {
         //     await fetch('https://api.imgbb.com/1/upload?key=a0bd0c6e9b17f5f8fa7f35d20163bdf3', {
@@ -208,22 +212,22 @@ const AddNew = () => {
         // } catch (error) {
         //     console.error('Error occurred during image upload:', error);
         // }
-        console.log(userDataWithPhoto);
+        console.log(formData);
 
-        await fetch("http://localhost:5000/api/v1/freedomFighters", {
+        fetch("http://localhost:5000/api/v1/freedomFighters", {
             method: "POST",
             headers: {
-                'encType': 'multipart/form-data'
-                // 'content-type': 'application/json'
+                // 'encType': 'multipart/form-data',
+                'content-type': 'application/json'
             },
             // do not stringify. if you do, backend will not get the data
-            body: userDataWithPhoto
+            body: JSON.stringify(formData)
         })
             .then(res => res.json())
             .then(data => {
                 if (data.status == 'Success') {
                     console.log(data);
-                    setFile(null)
+                    setImage(null)
                     setVipStatus(false)
                     toast.current.show({ severity: 'success', summary: 'Success', detail: 'Member Added', life: 3000 });
                     event.target.reset()

@@ -77,6 +77,7 @@ const MyProfile = () => {
         });
 
         console.log(formData);
+        console.log(updatedInfo);
 
         fetch(`http://localhost:5000/api/v1/users/updateUserProfile/${user._id}`, {
             method: 'PATCH',
