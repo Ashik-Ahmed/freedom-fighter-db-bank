@@ -252,9 +252,9 @@ const AddNew = () => {
             {/* add new member form  */}
             <div className='mx-auto max-w-7xl'>
                 <Toast ref={toast} />
-                <form onSubmit={handleInsertNewMember} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
+                <form onSubmit={handleInsertNewMember} className='w-full mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'>
                     {/* <form onSubmit={handleSubmit(addNew)} className='w-4/5 mx-auto space-y-4 bg-white p-4 shadow-xl rounded-md'> */}
-                    <p className='text-2xl font-bold text-primary mx-auto'>Add New Member</p>
+                    <p className='text-lg font-semibold mx-auto'>Add New Member</p>
                     <div className='flex w-full gap-x-6 my-4'>
                         <div className="p-float-label w-1/3">
                             <InputText name='name' id='name'
@@ -299,7 +299,7 @@ const AddNew = () => {
                                 }} placeholder="*Freedom Fighter Number" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
                         </div>
                     </div>
-                    <div className='flex w-full gap-x-6 items-center my-4'>
+                    <div className='flex w-full gap-x-6 my-4'>
                         <div className='p-float-label w-1/3'>
                             <InputText name='mobile' id='mobile'
                                 onChange={handleChange}
