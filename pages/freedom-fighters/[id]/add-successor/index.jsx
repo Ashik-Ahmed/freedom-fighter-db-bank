@@ -117,8 +117,8 @@ const AddSuccessor = () => {
                             <input name='profilePhoto' type="file" className="file-input file-input-primary input-bordered file-input-sm w-full bg-white text-gray-400" />
                         </div> */}
 
-                            <div className='text-center pt-4'>
-                                <Button type='subumit' label='Submit' />
+                            <div className='text-right pt-4'>
+                                <Button type='subumit' label='Submit' className='btn-info btn-sm' />
                             </div>
                         </form>
                     </div>
