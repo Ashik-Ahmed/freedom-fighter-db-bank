@@ -65,10 +65,9 @@ const FreedomFighter = ({ query, children }) => {
                                     priority
                                     // src={freedomFighter.photo ? `/profilePhotos/${freedomFighter.photo}` : photo} alt='freedomFighterPhoto'
                                     // src={freedomFighter.profilePhoto ? `data:image/png;base64, ${profileImg}` : photo} alt='freedomFighterPhoto'
-                                    src={freedomFighter.photo} alt='freedomFighterPhoto'
-                                    width='112'
-                                    height='100'
-                                    className='border border-primary' />
+                                    src={freedomFighter.photo || photo} alt='freedomFighterPhoto'
+                                    fill
+                                    className='shadow-2xl hover:scale-125 duration-200 border border-primary' />
                             </div>
                         </div>
                         <div className='text-gray-700 mt-4'>
