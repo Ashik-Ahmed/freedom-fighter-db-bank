@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { Toast } from 'primereact/toast';
 import React, { useRef } from 'react';
 import FreedomFighter from '..';
+import { Button } from 'primereact/button';
 
 const AddSuccessor = () => {
 
@@ -117,7 +118,7 @@ const AddSuccessor = () => {
                         </div> */}
 
                             <div className='text-center pt-4'>
-                                <input type="submit" value='Submit' className='btn btn-primary hover:bg-secondary border-0 w-1/4' />
+                                <Button type='subumit' label='Submit' />
                             </div>
                         </form>
                     </div>
