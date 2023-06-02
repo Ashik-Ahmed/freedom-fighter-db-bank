@@ -87,14 +87,14 @@ const FreedomFighter = ({ query, children }) => {
                         <p>Invited Year: {freedomFighter?.invited?.map((year, index) => <span key={index}>{year}, </span>)}</p> */}
 
                     <div className='flex flex-col gap-y-2 mt-4'>
-                        <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='p-button p-button'> <span >Details</span></Link>
+                        <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='p-button p-button hover:bg-secondary'> <span >Details</span></Link>
                         {
                             freedomFighter?.successor.length > 0 ?
-                                <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='p-button p-button'><span >Successor Info</span></Link>
+                                <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='p-button p-button hover:bg-secondary'><span >Successor Info</span></Link>
                                 :
-                                <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='p-button p-button'><span >Add Successor</span></Link>
+                                <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='p-button p-button hover:bg-secondary'><span >Add Successor</span></Link>
                         }
-                        <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='p-button p-button flex justify-between items-center'>
+                        <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='p-button p-button hover:bg-secondary flex justify-between items-center'>
                             <span >Complaint History</span>
                             {
                                 unresolvedComplaint > 0 &&
