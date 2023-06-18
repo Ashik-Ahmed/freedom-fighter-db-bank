@@ -59,14 +59,14 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
                                         <div
                                             className={`${showTooltip ? 'opacity-100' : 'opacity-0'
                                                 } absolute bottom-5 left-1/2 transform -translate-x-1/2 mb-2 bg-red-500/90 text-white text-xs rounded-md py-1 px-2 pointer-events-none transition-opacity duration-300`}>
-                                            {eventDetails.verificationStatus.reason}
+                                            {eventDetails?.verificationStatus?.reason}
                                         </div>
                                     </div >
                                     :
                                     <div>
                                         <span
                                             className="inline-block bg-primary text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                            {eventDetails.verificationStatus.status}
+                                            {eventDetails?.verificationStatus?.status}
                                         </span>
                                     </div>
                             }
@@ -99,7 +99,7 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
         return (
             <div className='flex gap-1'>
                 <p>{rowData.force} </p>
-                <span className='text-xs mt-auto italic'>({rowData.officialRank.point > 12 ? 'Officer' : 'JCO/OR'})</span>
+                <span className='text-xs mt-auto italic'>({rowData?.officialRank?.point > 12 ? 'Officer' : 'JCO/OR'})</span>
             </div>
         )
     }
@@ -232,7 +232,7 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
                     <Column header='Status' field='status'></Column>
                     <Column header='Mobile' field='mobile'></Column>
                     <Column header='Address' field='address'></Column>
-                    <Column header='Verification Status' body={actionBodyTemplate} exportable={false}></Column>
+                    <Column header='Verification Status' body={actionBodyTemplate} exportable={false} style={{ width: '150px' }}></Column>
                 </DataTable>
             </div>
 
