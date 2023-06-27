@@ -87,18 +87,18 @@ const FreedomFighter = ({ query, children }) => {
                         <p>Invited Year: {freedomFighter?.invited?.map((year, index) => <span key={index}>{year}, </span>)}</p> */}
 
                     <div className='flex flex-col gap-y-2 mt-4'>
-                        <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='p-button p-button hover:bg-secondary'> <span >Details</span></Link>
+                        <Link href={`/freedom-fighters/${freedomFighter?._id}/details`} className='p-button p-button-sm hover:bg-secondary'> <span >Details</span></Link>
                         {
                             freedomFighter?.successor.length > 0 ?
-                                <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='p-button p-button hover:bg-secondary'><span >Successor Info</span></Link>
+                                <Link href={`/freedom-fighters/${freedomFighter?._id}/successor`} className='p-button p-button-sm hover:bg-secondary'><span >Successor Info</span></Link>
                                 :
-                                <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='p-button p-button hover:bg-secondary'><span >Add Successor</span></Link>
+                                <Link href={`/freedom-fighters/${freedomFighter?._id}/add-successor`} className='p-button p-button-sm hover:bg-secondary'><span >Add Successor</span></Link>
                         }
-                        <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='p-button p-button hover:bg-secondary flex justify-between items-center'>
+                        <Link href={`/freedom-fighters/${freedomFighter?._id}/complaint-history`} className='p-button p-button-sm hover:bg-secondary flex justify-between items-center'>
                             <span >Complaint History</span>
                             {
                                 unresolvedComplaint > 0 &&
-                                <span className='bg-yellow-500 text-primary w-[26px] rounded-full'>{unresolvedComplaint}</span>
+                                <span className='bg-yellow-500 text-primary w-[22px] rounded-full'>{unresolvedComplaint}</span>
                             }
                         </Link>
                     </div>
