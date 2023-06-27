@@ -307,14 +307,14 @@ const AddNew = () => {
                                 }} placeholder="*Freedom Fighter Number" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
                         </div>
                     </div>
-                    <div className='flex w-full gap-x-6 my-4'>
-                        <div className='p-float-label w-1/3'>
+                    <div className='flex w-2/3 gap-x-6 my-4'>
+                        <div className='p-float-label w-1/2'>
                             <InputText name='mobile' id='mobile'
                                 onChange={handleChange}
                                 className='w-full' required />
                             <label htmlFor="mobile">*Contact</label>
                         </div>
-                        <div className='w-1/3'>
+                        <div className='w-1/2'>
                             <Dropdown name='country' options={countries} value={country}
                                 onChange={(e) => {
                                     handleChange(e)
