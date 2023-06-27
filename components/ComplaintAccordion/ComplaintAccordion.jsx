@@ -157,7 +157,9 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                                     </form>
                                     :
                                     <div className='flex gap-2 mt-2'>
-                                        <Button onClick={() => setResolveDialog(true)} label='Resolve' className='p-button-sm'></Button>
+                                        {
+                                            user?.role == 'admin' && <Button onClick={() => setResolveDialog(true)} label='Resolve' className='p-button-sm'></Button>
+                                        }
                                         <Button onClick={() => setEditable(true)} label='Edit' className='p-button-sm p-button-success'></Button>
                                     </div>
                             }
