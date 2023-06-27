@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import EditMember from '../../components/EditMember/EditMember';
 
 
-const Home = ({ user }) => {
+const Home = () => {
 
     const [loading, setLoading] = useState(false)
     const [members, setMembers] = useState([]);
@@ -159,11 +159,11 @@ const Home = ({ user }) => {
                     {/* <Column header='Address' field='address'></Column> */}
                     <Column header='Invitation Count' field='invitationCount' style={{ textAlign: 'center' }}></Column>
                     <Column header='Action' body={actionBodyTemplate} ></Column>
-                </DataTable>
-            </div>
+                </DataTable >
+            </div >
 
             {/* edit member dialog box  */}
-            <Dialog header={`Edit Member`} visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '70vw' }} >
+            < Dialog header={`Edit Member`} visible={editMemberDialogue} onHide={() => setEditMemberDialogue(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '70vw' }} >
                 <div className='mx-auto max-w-7xl'>
                     <EditMember member={member} getAllMembers={getAllMembers} setEditMemberDialogue={setEditMemberDialogue} />
 

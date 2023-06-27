@@ -38,7 +38,6 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
     }, [])
 
 
-    // update complaint
     const handleUpdateComplaintFeedback = (complaintId, e) => {
         e.preventDefault()
         console.log(e.target.feedback.value);
@@ -166,7 +165,6 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                     }
                 </AccordionTab>
             </Accordion>
-
             {/* Change role dialog box */}
             <Dialog header="Change Status" visible={resolveDialog} onHide={() => { setResolveDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
 
@@ -180,7 +178,7 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                     <Button label="Yes" icon="pi pi-check" onClick={() => handleResolveComplaint(complaint._id)} className='p-button-sm' />
                 </div>
             </Dialog>
-        </div>
+        </div >
     );
 };
 

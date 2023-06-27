@@ -120,8 +120,8 @@ export default function Home({ user }) {
                 <i className="pi pi-users text-blue-500 text-xl"></i>
               </div>
             </div>
-          </div>
-        </div>
+          </div >
+        </div >
         <div className="col-12 md:col-6 lg:col-3">
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
@@ -137,8 +137,8 @@ export default function Home({ user }) {
                 <i className="text-orange-500 text-xl"> <Image src={fighterLogo} alt='Freedom Fighter Icon' height={25} width={25}></Image></i>
               </div>
             </div>
-          </div>
-        </div>
+          </div >
+        </div >
         <div className="col-12 md:col-6 lg:col-3">
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
@@ -171,9 +171,9 @@ export default function Home({ user }) {
                 <i className=" text-purple-500 text-xl"><Image src={retiredOfficers} alt='Freedom Fighter Icon' height={22} width={22}></Image></i>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div >
+        </div >
+      </div >
 
 
       <div className="flex h-[100vh-160px] col-12 p-0 mt-4">
