@@ -154,11 +154,11 @@ const FinalSelected = () => {
                 <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
                     <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
                         {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
-                        <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1}></Column>
+                        <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
                         {
-                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
+                            cols.map((col, index) => <Column key={index} field={col.field} header={col.header} className='text-sm' />)
                         }
-                        <Column header='Invitaion Status' body={invitationStatusBodyTemplate} exportable={false}></Column>
+                        <Column header='Invitaion Status' body={invitationStatusBodyTemplate} exportable={false} className='text-sm'></Column>
                     </DataTable>
                 </div>
             }

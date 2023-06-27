@@ -439,7 +439,7 @@ const Selection = () => {
                             <div>
                                 <DataTable value={selectedFreedomFighters} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="46vh" loading={loading} stripedRows>
 
-                                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1}></Column>
+                                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
                                     {
                                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} className='text-sm' />)
                                     }

@@ -225,14 +225,14 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
                     {/* {
                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} sortable />)
                     } */}
-                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1}></Column>
-                    <Column header='Name' field='name'></Column>
-                    <Column header='Category' field='category'></Column>
-                    <Column header='Force' field='force' body={forceBodyTemplate}></Column>
-                    <Column header='Status' field='status'></Column>
-                    <Column header='Mobile' field='mobile'></Column>
-                    <Column header='Address' field='address'></Column>
-                    <Column header='Verification Status' body={actionBodyTemplate} exportable={false} style={{ width: '150px' }}></Column>
+                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
+                    <Column header='Name' field='name' className='text-sm'></Column>
+                    <Column header='Category' field='category' className='text-sm'></Column>
+                    <Column header='Force' field='force' body={forceBodyTemplate} className='text-sm'></Column>
+                    <Column header='Status' field='status' className='text-sm'></Column>
+                    <Column header='Mobile' field='mobile' className='text-sm'></Column>
+                    <Column header='Address' field='address' className='text-sm'></Column>
+                    <Column header='Verification Status' body={actionBodyTemplate} exportable={false} className='text-sm'></Column>
                 </DataTable>
             </div>
 
