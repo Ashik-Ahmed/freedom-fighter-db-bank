@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import EditMember from '../../components/EditMember/EditMember';
 
 
-const Home = () => {
+const Home = ({ user }) => {
 
     const [loading, setLoading] = useState(false)
     const [members, setMembers] = useState([]);

@@ -1,15 +1,13 @@
 import { Button } from 'primereact/button';
 import React, { useState } from 'react';
-import { PanelMenu } from 'primereact/panelmenu';
 import Link from 'next/link';
 
 import { HiMenuAlt3, HiOutlineUserGroup } from "react-icons/hi";
-import { MdOutlineDashboard, MdFilterListAlt, MdInsertInvitation, MdOutlineLibraryAdd, MdAdminPanelSettings } from "react-icons/md";
-import { RiSettings4Line, RiMailSettingsLine, RiFilterLine, RiUserSettingsLine, RiLogoutCircleRLine } from "react-icons/ri";
+import { MdOutlineDashboard, MdInsertInvitation, MdAdminPanelSettings } from "react-icons/md";
+import { RiMailSettingsLine, RiFilterLine, RiUserSettingsLine } from "react-icons/ri";
 import { TbReportAnalytics, TbList, TbListCheck } from "react-icons/tb";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
-import { FiMessageSquare, FiFolder, FiShoppingCart, FiUserPlus } from "react-icons/fi";
-import { CgUserList, CgBrowse } from "react-icons/cg"
+import { FiFolder, FiUserPlus } from "react-icons/fi";
+import { CgUserList } from "react-icons/cg"
 import { FaUsersCog } from "react-icons/fa"
 import Cookies from 'universal-cookie';
 import Menu from './Menu';

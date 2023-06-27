@@ -4,16 +4,41 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Toast } from 'primereact/toast';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Cookies from 'universal-cookie';
 
 const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
 
     const toast = useRef()
     const router = useRouter();
     const { id } = router.query;
+    const [user, setUser] = useState(null)
     const [editable, setEditable] = useState(false)
     const [resolveDialog, setResolveDialog] = useState(false)
 
+
+    const cookie = new Cookies();
+
+    useEffect(() => {
+        if (cookie.get('TOKEN')) {
+            fetch('http://localhost:5000/api/v1/users/getLoggedInUser', {
+                method: 'GET',
+                headers: {
+                    authorization: `Bearer ${cookie.get('TOKEN')}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.user) {
+                        setUser(data.user)
+                        console.log('user from accordion', data.user);
+                    }
+                })
+        }
+    }, [])
+
+
+    // update complaint
     const handleUpdateComplaintFeedback = (complaintId, e) => {
         e.preventDefault()
         console.log(e.target.feedback.value);
@@ -52,6 +77,7 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
     }
 
 
+    // Resolve complaint 
     const handleResolveComplaint = (complaintId) => {
         console.log(complaintId);
 
@@ -140,6 +166,7 @@ const ComplaintAccordion = ({ getAllComplaints, complaint }) => {
                     }
                 </AccordionTab>
             </Accordion>
+
             {/* Change role dialog box */}
             <Dialog header="Change Status" visible={resolveDialog} onHide={() => { setResolveDialog(false) }} breakpoints={{ '960px': '75vw' }} style={{ width: '25vw' }} >
 
