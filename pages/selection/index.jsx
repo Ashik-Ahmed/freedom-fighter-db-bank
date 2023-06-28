@@ -304,7 +304,7 @@ const Selection = () => {
 
             <div>
                 <form onSubmit={handleSelection} className=' bg-white w-full mx-auto rounded-md shadow-lg'>
-                    <div className='flex p-2 flex-col gap-2 mx-auto justify-center mb-2'>
+                    <div className='flex p-2 flex-col gap-2 mx-auto justify-center mb-1'>
                         <div>
                             <p className='text-gray-700 font-bold'>Selection Criteria</p>
                         </div>
