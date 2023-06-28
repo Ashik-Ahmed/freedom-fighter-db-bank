@@ -129,7 +129,7 @@ const Selection = () => {
                 else {
                     console.log(data);
                     toast.current.show({ severity: 'error', summary: 'Error!', detail: `${data.error}`, life: 3000 })
-                    setSelectedFreedomFighters([])
+                    setSelectedFreedomFighters(null)
                     setLoading(false)
                 }
             })
@@ -152,9 +152,6 @@ const Selection = () => {
 
     }
 
-    const invitedYear = (rowData) => {
-        return <span>{rowData.length} times</span>
-    }
 
     const nameBodyTemplate = (member) => {
         return <span>{member.name}</span>
@@ -445,9 +442,7 @@ const Selection = () => {
                                     }
                                 </DataTable>
                                 <div className='text-right mt-1'>
-                                    <Button onClick={() => {
-                                        setConfirmSelectionDialogue(true)
-                                    }} type='submit' label="Confirm" icon="pi pi-check" className='p-button-info p-button-sm' />
+                                    <Button onClick={() => setConfirmSelectionDialogue(true)} type='submit' label="Confirm" icon="pi pi-check" disabled={!selectedFreedomFighters} className='p-button-info p-button-sm' />
                                 </div>
                             </div>
 
