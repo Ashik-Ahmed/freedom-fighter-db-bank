@@ -159,7 +159,7 @@ const ManageUsers = () => {
             <h4 className="m-0 text-lg">Member List</h4>
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
-                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" className='p-inputtext-sm' />
             </span>
         </div>
     );
@@ -241,7 +241,7 @@ const ManageUsers = () => {
 
                 <DataTable value={users} header={header}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'email']} emptyMessage="No Members found." dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="79vh" loading={loading} stripedRows removableSort >
-                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
+                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1}></Column>
                     <Column header='Name' body={userNameBodyTemplate}></Column>
                     <Column header='Email' field='email'></Column>
                     <Column header='Role' field='role'></Column>

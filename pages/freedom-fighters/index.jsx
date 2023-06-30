@@ -107,7 +107,7 @@ const Home = () => {
             <h4 className="m-0 text-lg">Member List</h4>
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
-                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" className='p-inputtext-sm' />
             </span>
         </div>
     );
@@ -150,15 +150,15 @@ const Home = () => {
                 <DataTable value={members} header={header} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'force', 'officialRank.rank', 'mobile', 'address']} emptyMessage="No Members found."
                     dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="84vh" loading={loading} stripedRows removableSort >
-                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1}></Column>
-                    <Column header='Name' field='name' sortable ></Column>
-                    <Column header='Category' field='category'></Column>
-                    <Column header='Force' body={forceBodyTemplate}></Column>
+                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
+                    <Column header='Name' field='name' sortable className='text-sm'></Column>
+                    <Column header='Category' field='category' className='text-sm'></Column>
+                    <Column header='Force' body={forceBodyTemplate} className='text-sm'></Column>
                     {/* <Column header='Force' body={typeBodyTemplate}></Column> */}
-                    <Column header='Contact' field='mobile'></Column>
+                    <Column header='Contact' field='mobile' className='text-sm'></Column>
                     {/* <Column header='Address' field='address'></Column> */}
-                    <Column header='Invitation Count' field='invitationCount' style={{ textAlign: 'center' }}></Column>
-                    <Column header='Action' body={actionBodyTemplate} ></Column>
+                    <Column header='Invitation Count' field='invitationCount' style={{ textAlign: 'center' }} className='text-sm'></Column>
+                    <Column header='Action' body={actionBodyTemplate} className='text-sm'></Column>
                 </DataTable >
             </div >
 
