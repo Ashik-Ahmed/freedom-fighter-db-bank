@@ -158,6 +158,7 @@ const Selection = () => {
     }
 
     const cols = [
+        // { header: "#", field: 'index', body: (data, options) => options.rowIndex + 1 },
         { field: 'name', header: 'Name', body: { nameBodyTemplate } },
         { field: 'category', header: 'Member Type' },
         { field: 'status', header: 'Status' },
@@ -438,10 +439,10 @@ const Selection = () => {
 
                                     <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
                                     {
-                                        cols.map((col, index) => <Column key={index} field={col.field} header={col.header} className='text-sm' />)
+                                        cols.map((col, index) => <Column key={index} field={col.field || col.body} header={col.header} className='text-sm' />)
                                     }
                                 </DataTable>
-                                <div className='text-right mt-1'>
+                                <div className='text-right mt-1 mr-1'>
                                     <Button onClick={() => setConfirmSelectionDialogue(true)} type='submit' label="Confirm" icon="pi pi-check" disabled={!selectedFreedomFighters} className='p-button-info p-button-sm' />
                                 </div>
                             </div>

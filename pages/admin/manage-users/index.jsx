@@ -11,6 +11,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { Toast } from 'primereact/toast';
+import Image from 'next/image';
+import userPhoto from '../../../Images/photo.png'
 
 
 const ManageUsers = () => {
@@ -162,6 +164,15 @@ const ManageUsers = () => {
         </div>
     );
 
+    const userNameBodyTemplate = (rowData) => {
+        return (
+            <div className='flex gap-2 items-center'>
+                <Image src={rowData.userPhoto || userPhoto} height={30} width={30} alt='user photo' className='rounded-full'></Image>
+                <p>{rowData.name}</p>
+            </div>
+        )
+    }
+
     const actionBodyTemplate = (rowData) => {
         return (
             <div>
@@ -229,9 +240,9 @@ const ManageUsers = () => {
             <div className=' bg-white border-2 shadow-md rounded-md mt-1'>
 
                 <DataTable value={users} header={header}
-                    filters={filters} filterDisplay="menu" globalFilterFields={['name', 'email']} emptyMessage="No Members found."
-                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="79vh" loading={loading} stripedRows removableSort >
-                    <Column header='Name' field='name' sortable></Column>
+                    filters={filters} filterDisplay="menu" globalFilterFields={['name', 'email']} emptyMessage="No Members found." dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="79vh" loading={loading} stripedRows removableSort >
+                    <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
+                    <Column header='Name' body={userNameBodyTemplate}></Column>
                     <Column header='Email' field='email'></Column>
                     <Column header='Role' field='role'></Column>
                     <Column header='Action' body={actionBodyTemplate}></Column>
@@ -285,55 +296,6 @@ const ManageUsers = () => {
                         <Button label="Yes" icon="pi pi-check" onClick={() => toggleUserRole(user?._id, user?.role == 'admin' ? 'user' : 'admin')} className='p-button-sm p-button-info normal-case' />
                     </div>
                 </Dialog>
-
-                {/* <div className='flex justify-between items-center mb-1'>
-                    <div className='text-gray-800 text-xl font-bold'>
-                        <p>Manage Users</p>
-                    </div>
-                    <div className='rlative '>
-                        <span className="p-input-icon-left relative">
-                            <i className="pi pi-search" />
-                            <InputText type="search" onInput={(e) => setSearchValue(e.target.value)} placeholder="Search..." className='p-input-sm input' />
-                        </span>
-                    </div>
-                </div>
-                <table className="table-auto container w-full mx-auto shadow-md ">
-                    <thead className='bg-slate-200 text-gray-700'>
-                        <tr className='w-full text-left rounded-t-md'>
-                            <th className='p-2 rounded-tl-md'>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th className='rounded-tr-md'>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody className='border bg-white'>
-                        {
-                            users && users?.filter(user => {
-                                if (searchValue == '') {
-                                    return user;
-                                }
-                                else if (user.name.toLowerCase().includes(searchValue.toLowerCase())) {
-                                    return user;
-                                }
-                            }).splice(currentPage * 10, 10)?.map(user =>
-                                <UserRow key={user._id} user={user} fetchUsers={fetchUsers}></UserRow>)
-                        }
-                    </tbody>
-                </table>
-                <div className='w-full text-gray-600 p-1 bg-white rounded-b-md'>
-                   
-                    <ReactPaginate
-                        breakLabel="..."
-                        nextLabel="next >"
-                        onPageChange={(e) => setCurrentPage(e.selected)}
-                        pageRangeDisplayed={3}
-                        pageCount={pageCount}
-                        previousLabel="< prev"
-                        renderOnZeroPageCount={null}
-                        className='flex gap-x-4 justify-center items-center'
-                        activeClassName='bg-primary/30 text-gray-900 px-2 py-1 rounded-full font-semibold btn btn-circle btn-info'
-                    />
-                </div> */}
             </div>
         </div >
     );
