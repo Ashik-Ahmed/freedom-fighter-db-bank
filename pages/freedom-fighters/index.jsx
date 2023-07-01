@@ -146,10 +146,10 @@ const Home = () => {
 
     return (
         <div>
-            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg min-h-[97vh]'>
+            <div className='bg-white max-w-7xl mx-auto rounded-md shadow-lg min-h-[97vh]'>
                 <DataTable value={members} header={header} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'force', 'officialRank.rank', 'mobile', 'address']} emptyMessage="No Members found."
-                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="84vh" loading={loading} stripedRows removableSort >
+                    dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="87vh" loading={loading} stripedRows removableSort >
                     <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
                     <Column header='Name' field='name' sortable className='text-sm'></Column>
                     <Column header='Category' field='category' className='text-sm'></Column>
