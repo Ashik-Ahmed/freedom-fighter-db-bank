@@ -105,10 +105,10 @@ export default function Home({ user }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className='m-2 mb-4'>
+      <div className='m-2 mb-2'>
         <p className='text-2xl font-bold'>Hello, <span className='text-primary'>{user.name}</span></p>
       </div>
-      <div className="grid h-[160px]">
+      <div className="grid h-[140px]">
         <div className="col-12 md:col-6 lg:col-3">
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
@@ -176,10 +176,10 @@ export default function Home({ user }) {
       </div >
 
 
-      <div className="flex h-[100vh-160px] col-12 p-0 mt-4">
+      <div className="flex h-[100vh-160px] p-0">
         <div className="grid gap-3 col-7 p-2 mr-2">
           <div className='col-12 p-0'>
-            <div className=" p-2 bg-white shadow-lg  rounded-sm">
+            <div className="p-2 bg-white shadow-lg  rounded-sm">
               <h5 className='text-gray-700'>Invitation Summary</h5>
               <Chart type="bar" data={lineData} className='z-0 relative' />
             </div>
