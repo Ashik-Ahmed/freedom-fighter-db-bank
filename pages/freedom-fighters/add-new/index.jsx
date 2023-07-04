@@ -267,17 +267,17 @@ const AddNew = () => {
                         <div className="p-float-label w-1/3">
                             <InputText name='name' id='name'
                                 onChange={handleChange}
-                                className='w-full' required />
+                                className='w-full p-inputtext-sm' required />
                             <label htmlFor="name" >*Full Name</label>
                         </div>
                         <div className='p-float-label w-1/3'>
                             <InputText name='email' id='email'
                                 onChange={handleChange}
-                                className='w-full' required />
+                                className='w-full p-inputtext-sm' required />
                             <label htmlFor="email">*Email</label>
                         </div>
                         <div className='flex items-center gap-2 w-1/3'>
-                            <Checkbox inputId='vipStatus' checked={vipStatus} onChange={e => setVipStatus(e.checked)}></Checkbox>
+                            <Checkbox inputId='vipStatus' checked={vipStatus} onChange={e => setVipStatus(e.checked)} className='p-checkbox-sm'></Checkbox>
                             <label htmlFor="vipStatus" className='text-gray-500'>Add as VIP Member</label>
                         </div>
                     </div>
@@ -288,7 +288,7 @@ const AddNew = () => {
                                 onChange={(e) => {
                                     handleChange(e)
                                     setCategory(e.value)
-                                }} placeholder="*Select Member Type" className='text-black w-full' required />
+                                }} placeholder="*Select Member Type" className='text-black w-full h-[36px]' required />
                         </div>
 
                         <div className='w-1/3'>
@@ -297,21 +297,21 @@ const AddNew = () => {
                                     // handleChange(e)
                                     console.log(e.value);
                                     setFighterRank(e.value)
-                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
+                                }} placeholder="*Freedom Fighter Rank" className='text-black w-full h-[36px]' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
                         </div>
 
                         <div className='w-1/3'>
                             <InputText name='freedomFighterNumber'
                                 onChange={(e) => {
                                     handleChange(e)
-                                }} placeholder="*Freedom Fighter Number" className='text-black w-full' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
+                                }} placeholder="*Freedom Fighter Number" className='text-black w-full h-[36px]' disabled={category !== 'Freedom Fighter'} required={category == 'Freedom Fighter'} />
                         </div>
                     </div>
                     <div className='flex w-2/3 gap-x-6 my-4'>
                         <div className='p-float-label w-1/2'>
                             <InputText name='mobile' id='mobile'
                                 onChange={handleChange}
-                                className='w-full' required />
+                                className='w-full p-inputtext-sm' required />
                             <label htmlFor="mobile">*Contact</label>
                         </div>
                         <div className='w-1/2'>
@@ -319,7 +319,7 @@ const AddNew = () => {
                                 onChange={(e) => {
                                     handleChange(e)
                                     setCountry(e.value)
-                                }} placeholder="*Select a Country" className='text-black w-full' required />
+                                }} placeholder="*Select a Country" className='text-black w-full h-[36px]' required />
                         </div>
                         {/* <div className='w-1/3 -mt-4'>
                             <label className='mr-8 ml-2 text-gray-600 text-xs'>*Status: </label>
@@ -349,20 +349,20 @@ const AddNew = () => {
                                 onChange={(e) => {
                                     handleChange(e)
                                     setProfession(e.value)
-                                }} placeholder="*Select Profession" className='text-black w-full' required />
+                                }} placeholder="*Select Profession" className='text-black w-full h-[36px]' required />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='force' options={forces} value={force}
                                 onChange={(e) => {
                                     setForce(e.value)
                                     // handleChange(e)
-                                }} placeholder="*Select a Force" className='text-black w-full' disabled={profession !== 'Armed Forces'} required={profession == 'Armed Forces'} />
+                                }} placeholder="*Select a Force" className='text-black w-full h-[36px]' disabled={profession !== 'Armed Forces'} required={profession == 'Armed Forces'} />
                         </div>
                         <div className='w-1/3'>
                             <Dropdown name='officialRank' options={force && (force == 'Army' ? armyRank : (force == 'Navy' ? navyRank : airForceRank))} value={rank} onChange={(e) => {
                                 setRank(e.value)
                                 // handleChange(e)
-                            }} placeholder="*Official Rank" className='text-black w-full' disabled={profession !== 'Armed Forces'} required={profession == 'Armed Forces'} />
+                            }} placeholder="*Official Rank" className='text-black w-full h-[36px]' disabled={profession !== 'Armed Forces'} required={profession == 'Armed Forces'} />
                         </div>
                     </div>
                     <div className='flex gap-x-6'>
