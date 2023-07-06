@@ -180,7 +180,7 @@ export default function Home({ user }) {
         <div className="grid gap-3 col-7 p-2 mr-2 rounded-md">
           <div className='col-12 p-0'>
             <div className="p-2 bg-white shadow-lg  rounded-md">
-              <h5 className='text-gray-700'>Invitation Summary</h5>
+              <h5 className='text-gray-500 font-semibold'>Invitation Summary</h5>
               <Chart type="bar" data={lineData} className='z-0 relative' />
             </div>
           </div>
@@ -194,7 +194,7 @@ export default function Home({ user }) {
         <div className="col-5 p-0">
           <div className="p-2 bg-white shadow-lg rounded-md">
             <div className="flex justify-between text-gray-700 mb-1 rounded-md">
-              <h5 className='text-gray-700'>New Members</h5>
+              <h5 className='text-gray-500 font-semibold'>New Members</h5>
               <Link href='/freedom-fighters' className='hover:bg-primary bg-secondary text-white rounded px-1 transition-all ease-in duration-200'>Browse All<i className="pi pi-arrow-right text-xs ml-1"></i>
               </Link>
             </div>
