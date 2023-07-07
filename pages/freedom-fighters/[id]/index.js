@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { getSingleFreedomFighter } from '../../../controllers/freedomFighter.controller';
 import photo from '../../../Images/photo.png'
+import Loading from '../../../components/Loading/Loading';
 
 const FreedomFighter = ({ query, children }) => {
 
@@ -49,9 +50,7 @@ const FreedomFighter = ({ query, children }) => {
 
 
     if (!freedomFighter) {
-        return <div className='w-full h-screen flex justify-center items-center'>
-            <p className='text-3xl text-primary'>Loading....</p>
-        </div>
+        return <Loading />
     }
 
     return (
