@@ -78,7 +78,8 @@ const Successor = () => {
                             <p> <span className='font-bold'>Address:</span> {successor?.address || 'N/A'}</p>
                         </div>
                         <div className='flex justify-end'>
-                            <button onClick={() => setSuccessorDeleteDialog(successor)} className='btn btn-sm btn-error font-bold text-white space-x-2 flex items-center'> <RiDeleteBin6Fill size='20' className='cursor-pointer' /> <span>Delete Successor</span></button>
+                            {/* <Button onClick={() => setSuccessorDeleteDialog(successor)} className='btn btn-sm btn-error font-bold text-white space-x-2 flex items-center'> <RiDeleteBin6Fill size='20' className='cursor-pointer' /> */}
+                            <Button onClick={() => setSuccessorDeleteDialog(successor)} icon="pi pi-trash" rounded outlined severity="danger" label='Delete' className='p-button-sm p-button-danger' />
                         </div>
                     </div>
 
