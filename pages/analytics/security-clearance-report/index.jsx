@@ -69,7 +69,7 @@ const Reports = () => {
     return (
         <div>
             <div className='bg-white p-2 w-fit mx-auto rounded-md shadow-lg'>
-                <p className='text-lg font-semibold mb-2'>Generate Report</p>
+                {/* <p className='text-lg font-semibold mb-2'>Generate Report</p> */}
                 <form onSubmit={handleGenerateReport} className='flex gap-x-4'>
                     <div>
                         <Dropdown name='program' options={events} optionLabel='name' value={event}
@@ -77,7 +77,7 @@ const Reports = () => {
                                 setEvent(e.value)
                                 handleChange(e)
                             }}
-                            placeholder="*Select Program" className=' w-full' required />
+                            placeholder="*Select Program" className=' w-full' required style={{ 'height': '37px' }} />
                     </div>
                     <div>
                         <Calendar name='year' id='year' value={year}
@@ -85,7 +85,7 @@ const Reports = () => {
                                 setYear(e.value)
                                 handleChange(e)
                             }}
-                            view="year" dateFormat="yy" placeholder='*Year' className='w-full' required />
+                            view="year" dateFormat="yy" placeholder='*Year' required className='w-full p-inputtext-sm' />
                     </div>
 
                     <Button label='Submit' className='p-button-info p-button-sm  normal-case' type="submit" />
