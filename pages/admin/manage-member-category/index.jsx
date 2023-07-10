@@ -95,7 +95,7 @@ const ManageMemberCategory = () => {
 
     const header = (
         <div className='flex justify-between items-center'>
-            <div className='flex  items-center gap-x-2 text-gray-800 text-xl font-bold'>
+            <div className='flex items-center gap-x-2 text-gray-600 text-lg'>
                 <p>Member Category List</p>
             </div>
         </div>
@@ -117,7 +117,7 @@ const ManageMemberCategory = () => {
         <div>
             <Toast ref={toast} />
             <div className=' max-w-7xl mx-auto mt-4'>
-                <Button icon='pi pi-plus' label='Add Member Category' onClick={() => setAddCategoryDialog(true)} />
+                <Button icon='pi pi-plus' label='Add Category' onClick={() => setAddCategoryDialog(true)} className='p-button-sm' />
 
                 {/* add event dialogue  */}
                 <Dialog header="Add New Category" visible={addCategoryDialog} onHide={() => {
@@ -141,8 +141,8 @@ const ManageMemberCategory = () => {
                     </form>
                 </Dialog>
 
-                <div className='bg-white p-2 rounded-md shadow-lg min-h-[75vh] mt-2'>
-                    <DataTable value={categories} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="65vh" loading={loading} stripedRows>
+                <div className='bg-white p-0.5 rounded-md shadow-lg min-h-[80vh] mt-2'>
+                    <DataTable value={categories} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="80vh" loading={loading} stripedRows>
                         {/* {
                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} />)
                     } */}
