@@ -50,7 +50,7 @@ const PrimarySelected = () => {
 
     return (
         <div>
-            <div className='bg-white p-4 w-fit mx-auto rounded-md shadow-lg '>
+            <div className='bg-white p-2 w-fit mx-auto rounded-md shadow-lg '>
                 <div className='flex gap-x-4'>
                     <div>
                         <Dropdown name='event' options={events} optionLabel='name' value={event}
@@ -58,14 +58,14 @@ const PrimarySelected = () => {
                                 setEvent(e.value)
                                 // programName.current == e.value.name;
                                 console.log(e.value);
-                            }} placeholder="*Select Event" required />
+                            }} placeholder="*Select Event" required style={{ 'height': '37px' }} />
                     </div>
                     <div>
                         <Calendar value={year} onChange={(e) => {
                             setYear(e.value)
-                        }} view="year" dateFormat="yy" placeholder='Year' required />
+                        }} view="year" dateFormat="yy" placeholder='Year' required className='p-inputtext-sm' />
                     </div>
-                    <Button onClick={getPrimarySelectedMembers} label='Submit'></Button>
+                    <Button onClick={getPrimarySelectedMembers} label='Submit' className='p-button-sm'></Button>
                 </div>
             </div>
 

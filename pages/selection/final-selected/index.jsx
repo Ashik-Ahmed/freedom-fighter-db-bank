@@ -132,27 +132,27 @@ const FinalSelected = () => {
     return (
         <div>
             <Toast ref={toast} />
-            <div className='bg-white p-4 w-fit mx-auto rounded-md shadow-lg'>
+            <div className='bg-white p-2 w-fit mx-auto rounded-md shadow-lg'>
                 <div className='flex gap-x-4'>
                     <div>
                         <Dropdown name='event' options={events} optionLabel='name' value={event}
                             onChange={(e) => {
                                 setEvent(e.value)
-                            }} placeholder="*Select Event" required />
+                            }} placeholder="*Select Event" required style={{ 'height': '37px' }} />
                     </div>
                     <div>
                         <Calendar value={year} onChange={(e) => {
                             setYear(e.value)
-                        }} view="year" dateFormat="yy" placeholder='Year' required />
+                        }} view="year" dateFormat="yy" placeholder='Year' required className='p-inputtext-sm' />
                     </div>
-                    <Button onClick={getFinalSelectedMembers} label='Submit'></Button>
+                    <Button onClick={getFinalSelectedMembers} label='Submit' className='p-button-sm'></Button>
                 </div>
             </div>
 
             {
                 finalSelected &&
-                <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[70vh]'>
-                    <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows>
+                <div className='bg-white p-0.5 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[78vh]'>
+                    <DataTable value={finalSelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="78vh" loading={loading} stripedRows>
                         {/* <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column> */}
                         <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1} className='text-sm'></Column>
                         {

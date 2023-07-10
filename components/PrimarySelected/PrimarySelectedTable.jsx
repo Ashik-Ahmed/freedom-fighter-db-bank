@@ -47,7 +47,7 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
                                 eventDetails?.verificationStatus?.status == 'Failed' ?
                                     <div className='relative'>
                                         <span
-                                            className="inline-block bg-yellow-500 text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"                                >
+                                            className="inline-block bg-yellow-500 text-white py-0.5 px-1 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"                                >
                                             {
                                                 eventDetails.verificationStatus?.status
                                             }
@@ -65,7 +65,7 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
                                     :
                                     <div>
                                         <span
-                                            className="inline-block bg-primary text-white py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                            className="inline-block bg-primary text-white py-0.5 px-1 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                             {eventDetails?.verificationStatus?.status}
                                         </span>
                                     </div>
@@ -220,8 +220,8 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
     return (
         <div>
             <Toast ref={toast} />
-            <div className='bg-white p-2 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[74vh]'>
-                <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="70vh" loading={loading} stripedRows removableSort >
+            <div className='bg-white p-0.5 max-w-7xl mx-auto rounded-md shadow-lg mt-2 min-h-[78vh]'>
+                <DataTable value={primarySelected} header={header} dataKey="id" size='small' responsiveLayout="scroll" scrollHeight="78vh" loading={loading} stripedRows removableSort >
                     {/* {
                         cols.map((col, index) => <Column key={index} field={col.field} header={col.header} sortable />)
                     } */}
