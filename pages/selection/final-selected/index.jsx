@@ -8,9 +8,11 @@ import React from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 const FinalSelected = () => {
 
+    const { register, control, formState: { errors }, handleSubmit, reset } = useForm();
     const toast = useRef()
 
     const [events, setEvents] = useState([])
@@ -133,20 +135,48 @@ const FinalSelected = () => {
         <div>
             <Toast ref={toast} />
             <div className='bg-white p-2 w-fit mx-auto rounded-md shadow-lg'>
-                <div className='flex gap-x-4'>
-                    <div>
-                        <Dropdown name='event' options={events} optionLabel='name' value={event}
-                            onChange={(e) => {
-                                setEvent(e.value)
-                            }} placeholder="*Select Event" required style={{ 'height': '37px' }} />
+                <form onSubmit={handleSubmit(getFinalSelectedMembers)} className='flex gap-x-4'>
+                    <div className='flex flex-col'>
+                        <Dropdown
+                            {...register("event", { required: "Event name is required" })}
+                            name='event' options={events} optionLabel='name' value={event}
+                            onChange={(e) => { setEvent(e.value) }}
+                            placeholder="*Select Event" style={{ 'height': '37px' }} />
+
+                        {errors.event?.type === 'required' && <span className='text-xs text-red-500' role="alert">{errors.event.message}</span>}
                     </div>
-                    <div>
-                        <Calendar value={year} onChange={(e) => {
-                            setYear(e.value)
-                        }} view="year" dateFormat="yy" placeholder='Year' required className='p-inputtext-sm' />
+                    <div className='flex flex-col'>
+                        {/* <Controller
+                            name="year"
+                            control={control}
+                            rules={{ required: true }}
+                            render={({ field }) => (
+                                <Calendar
+                                    // {...register("year", { required: "Year is required" })}
+                                    onChange={(e) => { setYear(e.value); console.log(e.value); }}
+                                    name="year" value={year} view="year" dateFormat="yy" inputDateFormat="yy" placeholder='Year' className='p-inputtext-sm' />
+                            )}
+                        />
+
+                        {errors.year && <span className='text-xs text-red-500' role="alert">Year required</span>} */}
+
+                        <Controller
+                            name="year"
+                            control={control}
+                            rules={{ required: true }}
+                            render={({ year }) => (
+                                <Calendar
+                                    dateFormat="yy"
+                                    inputDateFormat="yy"
+                                    value={year}
+                                    onChange={(e) => console.log(e.value.getFullYear())}
+                                />
+                            )}
+                        />
+                        {errors.year && <span>Year is required</span>}
                     </div>
-                    <Button onClick={getFinalSelectedMembers} label='Submit' className='p-button-sm'></Button>
-                </div>
+                    <Button type='submit' label='Submit' className='p-button-sm' style={{ 'height': '37px' }}></Button>
+                </form>
             </div>
 
             {

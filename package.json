@@ -25,7 +25,7 @@
     "primereact": "^8.7.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.43.5",
+    "react-hook-form": "^7.45.1",
     "react-icons": "^4.6.0",
     "react-paginate": "^8.1.4",
     "react-select-country-list": "^2.2.3",
