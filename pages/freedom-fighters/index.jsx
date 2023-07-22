@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import ReactPaginate from 'react-paginate';
 import FreedomFighterRow from '../../components/FreedomFighterRow/FreedomFighterRow';
@@ -15,9 +15,14 @@ import Image from 'next/image';
 import defaultUserPhoto from '../../Images/photo.png'
 import { useRouter } from 'next/router';
 import EditMember from '../../components/EditMember/EditMember';
+import Cookies from 'universal-cookie';
+import { Toast } from 'primereact/toast';
 
 
 const Home = () => {
+
+    const cookies = new Cookies()
+    const toast = useRef(null)
 
     const [loading, setLoading] = useState(false)
     const [members, setMembers] = useState([]);
@@ -62,7 +67,12 @@ const Home = () => {
             url = `http://localhost:5000/api/v1/freedomFighters?page=${parseInt(currentPage || 1)}&force=${filter || {}}`
         }
 
-        fetch(url)
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 console.log(data.freedomFighters);
@@ -83,11 +93,21 @@ const Home = () => {
         // console.log(id);
         fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`, {
             method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                getAllMembers()
+                if (data.status === 'Failed') {
+                    toast.current.show({ severity: 'error', summary: 'Failed', detail: data.error, life: 3000 });
+                }
+
+                else {
+                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Member deleted', life: 3000 });
+                    getAllMembers()
+                }
             })
         setDeleteMemberDialogue(null)
     }
@@ -146,6 +166,7 @@ const Home = () => {
 
     return (
         <div>
+            <Toast ref={toast} />
             <div className='bg-white max-w-7xl mx-auto rounded-md shadow-lg min-h-[97vh]'>
                 <DataTable value={members} header={header} rowsPerPageOptions={[10, 25, 50]}
                     filters={filters} filterDisplay="menu" globalFilterFields={['name', 'category', 'force', 'officialRank.rank', 'mobile', 'address']} emptyMessage="No Members found."
