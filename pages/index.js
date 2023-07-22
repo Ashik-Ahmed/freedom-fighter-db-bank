@@ -18,13 +18,15 @@ import fighterLogo from '../Images/freedom-fighter-logo.png'
 import generalMember from '../Images/general-member-icon.png'
 import retiredOfficers from '../Images/retired-officers-icon.png'
 import Image from 'next/image';
+import Cookies from 'universal-cookie';
 
 
 export default function Home({ user }) {
 
+  const cookies = new Cookies()
+
   const [members, setMembers] = useState([]);
   const [events, setEvents] = useState([])
-
 
   //fetch members from DB
   useEffect(() => {
@@ -38,7 +40,12 @@ export default function Home({ user }) {
   // get all events 
   const getAllEvents = () => {
     // setLoading(true)
-    fetch('http://localhost:5000/api/v1/event')
+    fetch('http://localhost:5000/api/v1/event', {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${cookies.get('TOKEN')}`
+      }
+    })
       .then(res => res.json())
       .then(data => {
         // console.log(data.data);
@@ -51,7 +58,12 @@ export default function Home({ user }) {
   const getAllMembers = () => {
     var url = `http://localhost:5000/api/v1/freedomFighters?page=${1})}`
 
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${cookies.get('TOKEN')}`
+      }
+    })
       .then(res => res.json())
       .then(data => {
         // console.log(data.freedomFighters);

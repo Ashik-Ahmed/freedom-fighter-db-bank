@@ -164,12 +164,12 @@ const FinalSelected = () => {
                             name="year"
                             control={control}
                             rules={{ required: true }}
-                            render={({ year }) => (
+                            render={({ field }) => (
                                 <Calendar
                                     dateFormat="yy"
                                     inputDateFormat="yy"
                                     value={year}
-                                    onChange={(e) => console.log(e.value.getFullYear())}
+                                    onChange={(e) => { setYear(e.value); field.onChange(e.value) }}
                                 />
                             )}
                         />
