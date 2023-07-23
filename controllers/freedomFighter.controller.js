@@ -1,3 +1,4 @@
+
 exports.getFreedomFighters = async (page) => {
     const url = `http://localhost:5000/api/v1/freedomFighters?page=${page}`
     const result = await fetch(url, {
@@ -14,9 +15,15 @@ exports.getFreedomFighters = async (page) => {
 
 
 // get a single freedom fighter form DB 
-exports.getSingleFreedomFighter = async (freedomFighterId) => {
+exports.getSingleFreedomFighter = async (freedomFighterId, token) => {
 
-    const result = await fetch(`http://localhost:5000/api/v1/freedomFighters/${freedomFighterId}`)
+    console.log('api called with token:', token);
+    const result = await fetch(`http://localhost:5000/api/v1/freedomFighters/${freedomFighterId}`, {
+        method: "GET",
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
         .then(res => res.json());
 
     return result[0];

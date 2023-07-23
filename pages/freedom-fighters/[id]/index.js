@@ -5,9 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { getSingleFreedomFighter } from '../../../controllers/freedomFighter.controller';
 import photo from '../../../Images/photo.png'
 import Loading from '../../../components/Loading/Loading';
+import Cookies from 'universal-cookie';
 
 const FreedomFighter = ({ query, children }) => {
 
+    const cookies = new Cookies()
     const router = useRouter();
     const { id } = router.query;
     const [freedomFighter, setFreedomFighter] = useState()
@@ -16,8 +18,16 @@ const FreedomFighter = ({ query, children }) => {
 
     const getFreedomFighter = () => {
 
-        getSingleFreedomFighter(id)
+        const token = cookies.get("TOKEN")
+        getSingleFreedomFighter(id, token)
+            // fetch(`http://localhost:5000/api/v1/freedomFighters/${id}`, {
+            //     method: "GET",
+            //     headers: {
+            //         authorization: `Bearer ${cookies.get("TOKEN")}`
+            //     }
+            // })
             .then(data => {
+                console.log(data);
                 setFreedomFighter(data);
 
                 if (data?.complaints) {

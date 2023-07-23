@@ -9,8 +9,12 @@ import { Toast } from 'primereact/toast';
 import { Controller, useForm } from 'react-hook-form';
 import { classNames } from 'primereact/utils';
 import { Checkbox } from 'primereact/checkbox';
+import Cookies from 'universal-cookie';
 
 const AddNew = () => {
+
+    const toast = useRef(null);
+    const cookies = new Cookies()
 
     const [rank, setRank] = useState()
     const [fighterRank, setFighterRank] = useState('');
@@ -25,12 +29,16 @@ const AddNew = () => {
     const [formData, setFormData] = useState({});
     const [vipStatus, setVipStatus] = useState(false)
 
-    const toast = useRef(null);
 
     useEffect(() => {
         setCountries(countryList().getLabels())
 
-        fetch('http://localhost:5000/api/v1/memberCategory')
+        fetch('http://localhost:5000/api/v1/memberCategory', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 // console.log(data);

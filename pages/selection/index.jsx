@@ -10,9 +10,13 @@ import { render } from 'react-dom';
 import { Calendar } from 'primereact/calendar';
 import { Toast } from 'primereact/toast';
 import { useRef } from 'react';
+import Cookies from 'universal-cookie';
 
 
 const Selection = () => {
+
+    const toast = useRef()
+    const cookies = new Cookies()
 
     const [selectedFreedomFighters, setSelectedFreedomFighters] = useState()
     const [memberCategories, setMemberCategories] = useState()
@@ -34,26 +38,39 @@ const Selection = () => {
     const [formData, setFormData] = useState({});
 
 
-    const toast = useRef()
-
 
     // fetch available events from db 
-    useEffect(() => {
-        fetch('http://localhost:5000/api/v1/event')
-            .then(res => res.json())
-            .then(data => {
-                setEvents(data.data)
-            })
-    }, [])
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/api/v1/event', {
+    //         method: "GET",
+    //         headers: {
+    //             authorization: `Bearer ${cookies.get("TOKEN")}`
+    //         }
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setEvents(data.data)
+    //         })
+    // }, [])
     // fetch member type wise criteria from db 
     useEffect(() => {
-        fetch('http://localhost:5000/api/v1/event')
+        fetch('http://localhost:5000/api/v1/event', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setEvents(data.data)
             })
 
-        fetch('http://localhost:5000/api/v1/memberCategory')
+        fetch('http://localhost:5000/api/v1/memberCategory', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
