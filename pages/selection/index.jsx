@@ -135,7 +135,12 @@ const Selection = () => {
 
         // const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&selectionCriteria=${JSON.stringify(selectionCriteria)}&excludePreviousYear=${excludePreviousYear}&yearOfInvitation=${year.getFullYear()}`;
         // const url = `http://localhost:5000/api/v1/selection?total=${total}&memberType=${memberType}&firstCriteria=${firstCriteria}&secondCriteria=${secondCriteria || 'name'}&thirdCriteria=${thirdCriteria || 'name'}&excludePreviousYear=${checked}`;
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 if (data.data) {
@@ -255,7 +260,8 @@ const Selection = () => {
         fetch(url, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookies.get("TOKEN")}`
             },
             body: JSON.stringify({ memberIds, event: event.name, year: year.getFullYear() })
         })

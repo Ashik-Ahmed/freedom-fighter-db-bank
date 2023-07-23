@@ -73,17 +73,17 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
                         </div>
                         :
                         // <span className='bg-primary text-white p-1 rounded-md shadow-md'>{rowData.primarySelection.verificationStatus?.status || 'N/A'}</span>
-                        <div>
+                        <div className='flex gap-x-1'>
                             < Button onClick={() => {
                                 setMember(rowData)
                                 setVerifyStatus('Success')
                                 setVerificationUpdateDialogue(true);
-                            }} icon="pi pi-check" rounded outlined className="mr-2 p-button-sm" />
+                            }} icon="pi pi-check" rounded outlined className=" p-button-sm" />
                             <Button onClick={() => {
                                 setMember(rowData);
                                 setVerifyStatus('Failed')
                                 setVerificationUpdateDialogue(true);
-                            }} icon="pi pi-times" rounded outlined className='p-button-sm p-button-warning mr-2' />
+                            }} icon="pi pi-times" rounded outlined className='p-button-sm p-button-warning ' />
                             <Button onClick={() => {
                                 setMember(rowData);
                                 setVerifyStatus('')

@@ -10,8 +10,11 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { useMemo } from 'react';
 import PrimarySelectedTable from '../../../components/PrimarySelected/PrimarySelectedTable';
+import Cookies from 'universal-cookie';
 
 const PrimarySelected = () => {
+
+    const cookies = new Cookies()
 
     const [events, setEvents] = useState([])
     const [event, setEvent] = useState('')
@@ -22,7 +25,12 @@ const PrimarySelected = () => {
 
     // fetch available events from db 
     useEffect(() => {
-        fetch('http://localhost:5000/api/v1/event')
+        fetch('http://localhost:5000/api/v1/event', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setEvents(data.data)
@@ -35,7 +43,12 @@ const PrimarySelected = () => {
         setLoading(true)
         const url = `http://localhost:5000/api/v1/selection/primary-selection?event=${event.name}&year=${year.getFullYear()}`
 
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setPrimarySelected(data.data)
