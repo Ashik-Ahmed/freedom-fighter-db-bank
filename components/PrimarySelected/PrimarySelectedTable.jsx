@@ -6,12 +6,14 @@ import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 import React, { useRef } from 'react';
 import { useState } from 'react';
+import Cookies from 'universal-cookie';
 
 const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
 
     const [primarySelected, event, year] = data;
 
     const toast = useRef()
+    const cookies = new Cookies()
 
     const [eventFromDB, setEventFromDB] = useState('')
     const [member, setMember] = useState('')
@@ -153,12 +155,14 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
         fetch('http://localhost:5000/api/v1/selection/verification-update', {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookies.get("TOKEN")}`
             },
             body: JSON.stringify(verificationInfo)
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (data.status == 'Success') {
                     getPrimarySelectedMembers()
                     setMember('');
@@ -168,7 +172,7 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
                     toast.current.show({ severity: 'success', summary: 'Success', detail: 'Verification updated', life: 3000 })
                 }
                 else {
-                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: data.error, life: 3000 });
                 }
             })
     }
@@ -176,7 +180,6 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
 
     // Remove member from primary selection list 
     const handleDeleteMember = () => {
-        console.log('Member Delete function');
 
         //getting specific event details from DB
         const eventToBeUpdate = member?.primarySelection.find(memberEvent => {
@@ -196,14 +199,15 @@ const PrimarySelectedTable = ({ data, getPrimarySelectedMembers, loading }) => {
         fetch(url, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookies.get("TOKEN")}`
             },
             body: JSON.stringify(data)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                if (data.data.acknowledged) {
+                if (data?.data?.acknowledged) {
                     getPrimarySelectedMembers()
                     setDeleteMemberDialogue(false)
                     setMember(false)
