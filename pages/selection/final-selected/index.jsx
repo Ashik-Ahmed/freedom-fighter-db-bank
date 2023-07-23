@@ -9,11 +9,14 @@ import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import Cookies from 'universal-cookie';
 
 const FinalSelected = () => {
 
     const { register, control, formState: { errors }, handleSubmit, reset } = useForm();
+
     const toast = useRef()
+    const cookies = new Cookies()
 
     const [events, setEvents] = useState([])
     const [event, setEvent] = useState('')
@@ -24,7 +27,12 @@ const FinalSelected = () => {
 
     // fetch available events from db 
     useEffect(() => {
-        fetch('http://localhost:5000/api/v1/event')
+        fetch('http://localhost:5000/api/v1/event', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setEvents(data.data)
@@ -34,7 +42,12 @@ const FinalSelected = () => {
     const getFinalSelectedMembers = () => {
 
         const url = `http://localhost:5000/api/v1/selection/final-selection?event=${event.name}&year=${year.getFullYear()}`
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
@@ -168,8 +181,11 @@ const FinalSelected = () => {
                                 <Calendar
                                     dateFormat="yy"
                                     inputDateFormat="yy"
+                                    view='year'
                                     value={year}
                                     onChange={(e) => { setYear(e.value); field.onChange(e.value) }}
+                                    placeholder='Year'
+                                    className='p-inputtext-sm'
                                 />
                             )}
                         />
