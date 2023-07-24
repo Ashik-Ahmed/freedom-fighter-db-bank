@@ -138,7 +138,7 @@ const Home = () => {
             <div>
                 {
                     rowData?.force ?
-                        <div>{rowData.force} <span className='text-xs italic'>({rowData?.officialRank?.point > 13 ? 'Officer' : 'JCO/OR'})</span> </div>
+                        <div>{rowData.force} <span className='text-xs italic'>({rowData?.officialRank?.point < 13 ? 'Officer' : 'JCO/OR'})</span> </div>
                         :
                         <div>Civilian</div>
                 }

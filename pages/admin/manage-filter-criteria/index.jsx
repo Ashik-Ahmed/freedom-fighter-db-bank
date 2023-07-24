@@ -7,16 +7,23 @@ import { Button } from 'primereact/button';
 import FilterCriteria from '../../../components/Admin/FilterCriteria/FilterCriteria';
 import { useRef } from 'react';
 import { Toast } from 'primereact/toast';
+import Cookies from 'universal-cookie';
 
 const ManageFilterCriteria = () => {
 
     const toast = useRef()
+    const cookies = new Cookies()
 
     const [categories, setCategories] = useState([])
 
     const getAllCategories = () => {
         // setLoading(true)
-        fetch('http://localhost:5000/api/v1/memberCategory')
+        fetch('http://localhost:5000/api/v1/memberCategory', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 console.log(data.data);

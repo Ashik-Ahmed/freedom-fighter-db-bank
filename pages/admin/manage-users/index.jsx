@@ -34,14 +34,14 @@ const ManageUsers = () => {
         email: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
     });
 
-    const cookie = new Cookies();
+    const cookies = new Cookies();
     const toast = useRef()
 
     // Get all the users
     const fetchUsers = () => {
         fetch('http://localhost:5000/api/v1/users', {
             headers: {
-                authorization: `Bearer ${cookie.get('TOKEN')}`
+                authorization: `Bearer ${cookies.get('TOKEN')}`
             }
         })
             .then(res => res.json())
@@ -68,7 +68,7 @@ const ManageUsers = () => {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                authorization: `Bearer ${cookie.get('TOKEN')}`
+                authorization: `Bearer ${cookies.get('TOKEN')}`
             },
             body: JSON.stringify(userInfo)
         })
@@ -100,7 +100,7 @@ const ManageUsers = () => {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
-                authorization: `Bearer ${cookie.get('TOKEN')}`
+                authorization: `Bearer ${cookies.get('TOKEN')}`
             },
             body: JSON.stringify(info)
         })
@@ -126,7 +126,7 @@ const ManageUsers = () => {
         await fetch(`http://localhost:5000/api/v1/users/${id}`, {
             method: 'DELETE',
             headers: {
-                authorization: `Bearer ${cookie.get('TOKEN')}`
+                authorization: `Bearer ${cookies.get('TOKEN')}`
             }
         })
             .then(res => res.json())

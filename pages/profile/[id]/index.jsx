@@ -101,7 +101,7 @@ const MyProfile = () => {
                 }
                 else {
                     console.log(data.error)
-                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Failed!', detail: data.error, life: 3000 });
                 }
             })
     }

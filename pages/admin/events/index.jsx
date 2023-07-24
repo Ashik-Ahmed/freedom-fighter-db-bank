@@ -12,7 +12,7 @@ import { Toast } from 'primereact/toast';
 
 const Events = () => {
 
-    const cookie = new Cookies();
+    const cookies = new Cookies();
     const toast = useRef()
 
     const [loading, setLoading] = useState(false)
@@ -27,7 +27,12 @@ const Events = () => {
 
     const getAllEvents = () => {
         setLoading(true)
-        fetch('http://localhost:5000/api/v1/event')
+        fetch('http://localhost:5000/api/v1/event', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -42,7 +47,7 @@ const Events = () => {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
-                authorization: `Bearer ${cookie.get('TOKEN')}`
+                authorization: `Bearer ${cookies.get('TOKEN')}`
             },
             body: JSON.stringify(data)
         })
@@ -94,7 +99,7 @@ const Events = () => {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                authorization: `Bearer ${cookie.get('TOKEN')}`
+                authorization: `Bearer ${cookies.get('TOKEN')}`
             },
             body: JSON.stringify(eventData)
         })
@@ -148,7 +153,7 @@ const Events = () => {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
-                authorization: `Bearer ${cookie.get('TOKEN')}`
+                authorization: `Bearer ${cookies.get('TOKEN')}`
             }
         })
             .then(res => res.json())

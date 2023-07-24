@@ -9,10 +9,13 @@ import pdfMake from "pdfmake";
 import jsPDF from 'jspdf';
 import { PDFDocument, rgb } from 'pdf-lib';
 import { useReactToPrint } from 'react-to-print';
+import Cookies from 'universal-cookie';
 
 
 
 const Reports = () => {
+
+    const cookies = new Cookies()
 
     const [members, setMembers] = useState([])
     const [groupedData, setGroupedData] = useState({})
@@ -29,7 +32,12 @@ const Reports = () => {
     // fetch available events from db 
     useEffect(() => {
 
-        fetch('http://localhost:5000/api/v1/event')
+        fetch('http://localhost:5000/api/v1/event', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setEvents(data.data)
@@ -51,7 +59,12 @@ const Reports = () => {
         const { program, year } = formData
 
         const url = `http://localhost:5000/api/v1/reports?event=${program.name}&year=${year.getFullYear()}`
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 console.log(data.data)

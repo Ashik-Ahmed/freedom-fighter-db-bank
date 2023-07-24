@@ -7,6 +7,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Toast } from 'primereact/toast';
 import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
+import Cookies from 'universal-cookie';
 
 const ManageMemberCategory = () => {
     const [loading, setLoading] = useState(false)
@@ -16,11 +17,17 @@ const ManageMemberCategory = () => {
     const [deleteCategoryDialog, setDeleteCategoryDialog] = useState(false)
 
     const toast = useRef()
+    const cookies = new Cookies()
 
 
     const getAllCategories = () => {
         setLoading(true)
-        fetch('http://localhost:5000/api/v1/memberCategory')
+        fetch('http://localhost:5000/api/v1/memberCategory', {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookies.get("TOKEN")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -48,7 +55,7 @@ const ManageMemberCategory = () => {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                // authorization: `Bearer ${cookie.get('TOKEN')}`
+                authorization: `Bearer ${cookies.get('TOKEN')}`
             },
             body: JSON.stringify(category)
         })
@@ -75,21 +82,22 @@ const ManageMemberCategory = () => {
         fetch(url, {
             method: 'DELETE',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookies.get("TOKEN")}`
             }
         })
             .then(res => res.json())
             .then(data => {
-                if (data.data.deletedCount > 0) {
+                if (data?.data?.deletedCount > 0) {
                     console.log(data);
                     getAllCategories()
-                    setDeleteCategoryDialog(false)
                     toast.current.show({ severity: 'success', summary: 'Success', detail: 'Category Deleted', life: 3000 })
                 }
                 else {
                     console.log(data.error);
                     toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
                 }
+                setDeleteCategoryDialog(false)
             })
     }
 

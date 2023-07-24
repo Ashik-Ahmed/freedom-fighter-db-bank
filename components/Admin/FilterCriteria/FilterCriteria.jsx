@@ -2,8 +2,11 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Checkbox } from 'primereact/checkbox';
 import React, { useState } from 'react';
+import Cookies from 'universal-cookie';
 
 const FilterCriteria = ({ category, toast }) => {
+
+    const cookies = new Cookies()
 
     const [criterias, setCriterias] = useState(category.priorityCriterias)
     const [buttonActive, setButtonActive] = useState(false)
@@ -42,18 +45,19 @@ const FilterCriteria = ({ category, toast }) => {
         fetch(url, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${cookies.get("TOKEN")}`
             },
             body: JSON.stringify(priorityCriteria)
         })
             .then(res => res.json())
             .then(data => {
-                if (data.status == 'Success') {
+                if (data?.status == 'Success') {
                     setButtonActive(false)
                     toast.current.show({ severity: 'success', summary: 'Success', detail: 'Priority Criteria updated', life: 3000 })
                 }
                 else {
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed! Please try again.', life: 3000 });
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: data.error, life: 3000 });
                 }
             })
     }
