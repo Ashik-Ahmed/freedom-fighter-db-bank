@@ -50,7 +50,7 @@ const Sidebar = ({ user, setUser }) => {
                 { name: "Security Clearance Report", link: "/analytics/security-clearance-report", icon: FaUsersCog },
             ]
         },
-        { name: "File Manager", link: "/file-manager", icon: FiFolder },
+        // { name: "File Manager", link: "/file-manager", icon: FiFolder },
         {
             name: "Admin", link: "/admin", protected: true, icon: MdAdminPanelSettings, items: [
                 { name: "Manage Member Category", link: "/admin/manage-member-category", icon: RiFilterLine },

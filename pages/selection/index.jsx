@@ -176,12 +176,12 @@ const Selection = () => {
 
 
     const nameBodyTemplate = (member) => {
-        return <span>{member.name}</span>
+        return <span>{member.name} {member.vipStatus}</span>
     }
 
     const cols = [
         // { header: "#", field: 'index', body: (data, options) => options.rowIndex + 1 },
-        { field: 'name', header: 'Name', body: { nameBodyTemplate } },
+        { field: 'name', header: 'Name' },
         { field: 'category', header: 'Member Type' },
         { field: 'status', header: 'Status' },
         { field: 'forceRank', header: 'Official Rank' },
@@ -282,7 +282,7 @@ const Selection = () => {
             </div>
             <div className="flex align-items-center export-buttons gap-x-1">
                 {/* <Button type="button" icon="pi pi-file" onClick={() => exportCSV(false)} className="mr-2" data-pr-tooltip="CSV" /> */}
-                <Button type="button" icon="pi pi-file-excel" onClick={exportExcel} className="p-button-success p-2 mr-2" data-pr-tooltip="XLS" />
+                {/* <Button type="button" icon="pi pi-file-excel" onClick={exportExcel} className="p-button-success p-2 mr-2" data-pr-tooltip="XLS" /> */}
                 <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning p-2 mr-2" data-pr-tooltip="PDF" />
             </div>
         </div>

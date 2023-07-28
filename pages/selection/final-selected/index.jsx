@@ -40,7 +40,7 @@ const FinalSelected = () => {
     }, [])
 
     const getFinalSelectedMembers = () => {
-
+        setLoading(true)
         const url = `http://localhost:5000/api/v1/selection/final-selection?event=${event.name}&year=${year.getFullYear()}`
         fetch(url, {
             method: "GET",
@@ -52,6 +52,7 @@ const FinalSelected = () => {
             .then(data => {
                 // console.log(data);
                 setFinalSelected(data.data)
+                setLoading(false)
             })
     }
 

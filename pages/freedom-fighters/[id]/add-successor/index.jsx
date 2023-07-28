@@ -3,15 +3,22 @@ import { Toast } from 'primereact/toast';
 import React, { useRef } from 'react';
 import FreedomFighter from '..';
 import { Button } from 'primereact/button';
+import { useState } from 'react';
 
 const AddSuccessor = () => {
 
     const toast = useRef(null);
     const router = useRouter();
 
+    const [image, setImage] = useState()
+
     const { id } = router.query;
 
-    const addSuccessor = (e) => {
+    const handlePhotoChange = (event) => {
+        setImage(event.target.files[0])
+    }
+
+    const addSuccessor = async (e) => {
         e.preventDefault();
 
         const data = new FormData(e.target);
@@ -32,11 +39,10 @@ const AddSuccessor = () => {
             address,
             birthday,
             occupation,
-            relation
+            relation,
         }
 
         console.log(successorData)
-
 
         fetch('http://localhost:5000/api/v1/successor', {
             method: 'POST',
@@ -56,7 +62,6 @@ const AddSuccessor = () => {
                     toast.current.show({ severity: 'error', summary: 'Failed!', detail: 'Please try again.', life: 3000 });
                 }
             })
-
 
     }
 
@@ -108,7 +113,7 @@ const AddSuccessor = () => {
                                     <label for="address" className="absolute text-sm text-gray-400 dark:text-gray-400 duration-300 transform -translate-y-4  top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/3 peer-focus:top-2  peer-focus:-translate-y-4 left-1">*Address</label>
                                 </div>
                                 <div className="relative w-1/2">
-                                    <input name='description' type="file" id="floating_outlined" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-white" placeholder=" " />
+                                    <input onChange={handlePhotoChange} name='file' type="file" id="floating_outlined" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-white" placeholder=" " />
                                     <label for="fullName" className="absolute text-sm text-gray-400 dark:text-gray-400 duration-300 transform -translate-y-4  top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/3 peer-focus:top-2  peer-focus:-translate-y-4 left-1">Photo</label>
                                 </div>
                             </div>

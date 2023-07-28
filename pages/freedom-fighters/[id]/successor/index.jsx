@@ -21,6 +21,7 @@ const Successor = () => {
         fetch(`http://localhost:5000/api/v1/successor/${id}`)
             .then(res => res.json())
             .then(data => {
+                console.log(data.data[0]);
                 setSuccessor(data.data[0])
             })
     }, [id])
